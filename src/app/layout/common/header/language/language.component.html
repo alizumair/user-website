@@ -1,0 +1,29 @@
+<div class="headerrit">
+    <ul class="new-top-header-right">
+        <!-- <i class="fa fa-language" aria-hidden="true"
+            [style.color]="style?.topHeaderTextColor || style?.headerTextColor"></i> -->
+        <li class="nav-item dropdown language-dropdown">
+            <a class="nav-link dropdown-toggle" style="cursor: pointer;"
+                [style.backgroundColor]="style.footerSecColor || style.topHeaderBackgroundColor || style.headerBackgroundColor"
+                data-toggle="dropdown" id="navbarDropdown"
+                [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+                <!-- <img *ngIf="!!selectedLang?.country_code"
+            [src]="'https://www.countryflags.io/' + selectedLang?.country_code + '/flat/16.png'"> -->
+                {{selectedLang?.language_code}}
+                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu drop-menu">
+                <span *ngFor="let lang of langData">
+                    <a class="dropdown-item pd pointer" (click)="languageSelect(lang)"
+                        [style.backgroundColor]="style.footerSecColor || style.topHeaderBackgroundColor || style.headerBackgroundColor"
+                        [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+                        <!-- <img *ngIf="!!selectedLang?.country_code"
+                [src]="'https://www.countryflags.io/' + lang?.country_code + '/flat/16.png'"> -->
+                        {{lang?.language_name}}
+                    </a>
+                </span>
+            </div>
+        </li>
+    </ul>
+</div>
+  

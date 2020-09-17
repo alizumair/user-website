@@ -1,0 +1,152 @@
+<!--================ Start Page Breadcrumb Page ================-->
+<div class="page_breadcrumb">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <ul>
+          <li [style.color]="style.secondaryColor"><b>{{categoryName}}</b>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!--================ End Page Breadcrumb Page ================-->
+<section class="mt-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+
+        <div class="row">
+          <div class="col-md-12">
+            <h3 [style.color]="style?.baseColor">Select Date, Time & Address</h3>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="calender">
+              <p-calendar [(ngModel)]="date" [inline]="true" [minDate]="minDate" [style]="{'width': '100%'}">
+              </p-calendar>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="time">
+                  <h4 [style.color]="style?.defaultColor">Select Time</h4>
+                  <hr>
+                  <h4 [style.color]="style?.defaultColor">{{date | date}}</h4>
+                  <label [style.color]="style?.secondaryColor">Time</label><br>
+                  <!-- <p-calendar [(ngModel)]="time" [style]="{'width': '100%'}" [readonlyInput]="true" [stepHour]="stepHour" [stepMinute]="timeInterval" hourFormat="12" [timeOnly]="true">
+                  </p-calendar> -->
+
+                  <div class="input-group mb-3">
+                    <p class="form-control time-input">{{time | date: 'shortTime'}}</p>
+                    <div class="input-group-append">
+                      <div class="btn-group-vertical">
+                        <button type="button" class="btn btn-primary up" (click)="changeTime('+')"
+                          [ngStyle]="{'color': '#ffffff', 'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor}"><i
+                            class="fa fa-chevron-up"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary down" (click)="changeTime('-')"
+                          [ngStyle]="{'color': '#ffffff', 'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor}"><i
+                            class="fa fa-chevron-down"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="location">
+                  <h4 [style.color]="style?.defaultColor" class="float-left">Select Address</h4>
+                  <!-- <p *ngIf="loggedIn" [style.color]="style?.secondaryColor" class="float-right uk-text-bold">Your
+                    Default Address</p> -->
+                  <br>
+                  <hr>
+                  <div class="selected-address">
+                    <div *ngIf="!addressDetail?.length || !loggedIn">
+                      <h6 class="logo-outter mt-2 mb-4">{{'No Address Found' | translate}}</h6>
+                      <p *ngIf="!loggedIn" [style.color]="style.secondaryColor" class="text-center">Please Login To
+                        Select Address</p>
+                    </div>
+                    <div *ngIf="addressDetail?.length && loggedIn">
+                      <address>{{addressDetail[selectedAreaIndex]?.name}}<br>
+                        {{addressDetail[selectedAreaIndex]?.pincode}}<br>
+                        {{addressDetail[selectedAreaIndex]?.address_line_1}}<br>
+                        {{addressDetail[selectedAreaIndex]?.landmark}}<br>
+                        {{addressDetail[selectedAreaIndex]?.address_line_2}}
+                        {{addressDetail[selectedAreaIndex]?.phone_number}}
+                      </address>
+                    </div>
+                    <a *ngIf="loggedIn" [style.color]="style.primaryColor">
+                      <span *ngIf="!addressDetail?.length" routerLink="/account/address">Add Address</span>
+                      <span *ngIf="addressDetail?.length" data-toggle="modal" data-target="#myModal">Change</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn submit" [disabled]="!loggedIn || !this.addressDetail.length"
+                  [ngClass]="!loggedIn && !this.addressDetail.length ? 'disabled' : ''" (click)="supplierList()"
+                  [ngStyle]="{'color': '#ffffff', 'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor}">Select
+                  {{'supplier' | localization}}</button>
+                <p *ngIf="!loggedIn" class="login-first" [style.color]="style.primaryColor">Please Login To Continue</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-1"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" #closeAddressModal></button>
+        <h4 class="modal-title" [style.color]="style.defaultColor">{{'Address' | translate}}</h4>
+        <p [style.color]="style.primaryColor" routerLink="/account/address">{{'Manage Address' | translate}}</p>
+      </div>
+      <div class="modal-body">
+        <div class="Address_outter">
+          <div class="default_address cursor" (click)="selectedAreaIndex = i"
+            *ngFor="let data of addressDetail;let i = index"
+            [style.borderColor]="i == selectedAreaIndex ? style.primaryColor : ''"
+            [ngClass]="i == selectedAreaIndex ? 'active' : ''">
+            <div class="ddress-inner" [style.color]="style.defaultColor">
+              <h2>{{data?.name}}</h2>
+              <address>
+                {{data?.address_line_1}} <br>
+                {{data?.address_line_2}}, {{data?.pincode}}
+              </address>
+            </div>
+          </div>
+          <div *ngIf="!addressDetail?.length" class="no-data">
+            <h1>{{'No Address Found' | translate}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

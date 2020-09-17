@@ -1,0 +1,75 @@
+<section class="loyalty">
+    <div class="container">
+
+        <div class="loyalty_heading">
+            <h1>{{'Loyalty Points' | translate}}</h1>
+        </div>
+
+        <div class="loyalty-inner">
+            <div *ngIf="loyaltyData?.totalEarningPoint >= loyaltyData?.total_loyality_points; else noLoyalty">
+                <h4 class="name">{{loyaltyData?.name}}</h4>
+                <h6 class="description mb-4">{{loyaltyData?.description}}</h6>
+
+                <div class="loyalty-image">
+                    <img appImage [url]="loyaltyData?.image" [size]="'400x400'" [src]="loyaltyData?.image"
+                        onError="src = './assets/images/placeholder_image.svg';">
+                </div>
+            </div>
+
+            <ng-template #noLoyalty>
+                <div class="no-loyalty">
+                    <h6>You Have Not Yet Earned A Loyalty Card.</h6>
+                    <p>Place More {{'orders' | localization}} And Keep Earning Points To Avail Amazing Discounts</p>
+                </div>
+            </ng-template>
+
+            <div class="points-outer">
+                <h3 class="points">{{loyaltyData?.totalEarningPoint || 0}}</h3>
+                <p>Total Loyalty Points Earned</p>
+            </div>
+
+            <div class="points-outer">
+                <div class="row">
+                    <div class="col-md-6" style="padding-left: 100px;">
+                        <h3 class="points">{{currency}}{{(loyaltyData?.totalPointAmountEarned || 0)?.toFixed(2)}}</h3>
+                        <p>Total Amount Earned</p>
+                    </div>
+                    <div class="col-md-6" style="padding-right: 100px;">
+                        <h3 class="points">{{currency}}{{(loyaltyData?.leftPointAmount || 0)?.toFixed(2)}}</h3>
+                        <p>Remaining Amount</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loyalty-middle" *ngIf="nextLoyaltyLevel.length">
+            <!-- <button type="button" class="invite-btn btn">Invite Friends</button> -->
+            <h5 style="margin-bottom: 25px;">Your Upcoming Loyalty Levels</h5>
+            <div class="row">
+                <div class="col-md-3" *ngFor="let loyalty of nextLoyaltyLevel">
+                    <div class="next">
+                        <img class="nxt-img" appImage [url]="loyalty?.image" [size]="'300x300'" [src]="loyalty?.image"
+                            onError="src = './assets/images/placeholder_image.svg';">
+                        <h5>{{loyalty?.name}}</h5>
+                        <h6>Points : {{loyalty?.total_loyality_points}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loyalty-bottom" *ngIf="activity.length">
+            <h3>Recent Activity</h3>
+            <ul class="loyalty-list">
+                <li *ngFor="let loyalty of activity">
+                    <h6 *ngIf="loyalty?.used_loyality_point_amount <= 0">You Earned 1 point</h6>
+                    <h6 *ngIf="loyalty?.used_loyality_point_amount > 0">Amount Spent :
+                        {{currency}}{{(loyalty?.used_loyality_point_amount).toFixed(2)}}</h6>
+                    <p style="margin-bottom: 0px;" *ngIf="loyalty?.used_loyality_point_amount <= 0">Amount Earned :
+                        {{currency}}{{(loyalty?.earned_amount).toFixed(2)}}</p>
+                    <p>{{'order' | localization}} no. : {{loyalty?.order_id}}</p>
+                    <!-- <p *ngIf="loyalty?.used_loyality_point_amount > 0">Amount Spent : {{currency}}{{(loyalty?.used_loyality_point_amount).toFixed(2)}}</p> -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>

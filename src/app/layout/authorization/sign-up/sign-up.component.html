@@ -1,0 +1,382 @@
+<app-processing-indicator *ngIf="showLoader"></app-processing-indicator>
+
+<div class="login-title" [ngClass]="settings?.logo_background_color == 1 ? 'img-bck-auth' : ''">
+  <div *ngIf="step1 || step2 || otpView">
+    <!-- <img [src]="image_paths"> -->
+    <app-logo [width]="'auto'" [height]="100" [logoColor]="style.primaryColor" [logoPadding]="24" [logoRadius]="10">
+    </app-logo>
+
+
+  </div>
+  <h2 [attr.title]="siteName" [style.color]="style?.defaultColor" *ngIf="step1 || step2 || otpView">{{siteName}}</h2>
+  <!-- <h5 [style.color]="style?.defaultColor" *ngIf="step1">{{'Get the unique products with the best deals' | translate}}   </h5>-->
+  <h5 [style.color]="style?.defaultColor" *ngIf="step2">{{'Please enter your mobile number below' | translate}}</h5>
+  <h5 [style.color]="style?.defaultColor" *ngIf="otpView">{{'Please enter the OTP sent on phone number' | translate}}
+    {{phoneNumber}}</h5>
+</div>
+
+<div class="login_feilds" *ngIf="step1">
+
+  <ng-container *ngIf="settings?.phone_registration_flag == 1">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmitOtpSignupForm()" autocomplete="off">
+
+      <div [style.color]="style?.defaultColor">
+
+        <input formControlName="name" type="text" (keydown.space)="!userForm.name.value ? $event.preventDefault() : ''"
+          placeholder="{{'First Name' | translate}}" (focus)="infoSubmitted = false"
+          [ngClass]="{ 'is-invalid': infoSubmitted && userForm.name.errors }">
+        <div *ngIf="submitted && userForm.name.errors" class="log-error">
+          <div *ngIf="userForm.name.errors">{{'Please enter first name.' | translate}}</div>
+        </div>
+      </div>
+
+      <div class="row" style="margin: 0px;">
+        <div class="mb-2 signup-phone">
+          <ngx-intl-tel-input [selectedCountryISO]="countryISO" [preferredCountries]="preferredCountries"
+            (focus)="submitted= false" [searchCountryFlag]="true" placeholder="Phone Number"
+            [enableAutoCountrySelect]="false" [enablePlaceholder]="true" name="phone" [separateDialCode]="true"
+            [phoneValidation]="true" formControlName="mobileNumber" [searchCountryPlaceholder]="'Search Country'">
+          </ngx-intl-tel-input>
+        </div>
+        <div *ngIf="submitted && userForm.mobileNumber.errors" class="log-error">
+          <div *ngIf="userForm.mobileNumber.errors.required">{{'Please enter Phone Number.' | translate}}</div>
+          <div *ngIf="!userForm.mobileNumber.errors.required && userForm.mobileNumber.invalid">
+            {{'Please Enter a Valid Phone Number.' | translate}}</div>
+        </div>
+      </div>
+
+      <div class="login-submit">
+        <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Continue' | translate}}</button>
+      </div>
+
+    </form>
+  </ng-container>
+
+  <ng-container *ngIf="settings?.phone_registration_flag == 0">
+    <ng-container *ngIf="settings.user_register_flow == 1">
+
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" autocomplete="off">
+
+        <div [style.color]="style?.defaultColor">
+
+          <input formControlName="first_name" type="text"
+            (keydown.space)="!userForm.first_name.value ? $event.preventDefault() : ''"
+            placeholder="{{'First Name' | translate}}" (focus)="infoSubmitted = false"
+            [ngClass]="{ 'is-invalid': infoSubmitted && userForm.first_name.errors }">
+          <div *ngIf="submitted && userForm.first_name.errors" class="log-error">
+            <div *ngIf="userForm.first_name.errors">{{'Please enter first name.' | translate}}</div>
+          </div>
+        </div>
+
+        <div [style.color]="style?.defaultColor">
+
+          <input formControlName="last_name" type="text"
+            (keydown.space)="!userForm.last_name.value ? $event.preventDefault() : ''"
+            placeholder="{{'Last Name' | translate}}" (focus)="infoSubmitted = false"
+            [ngClass]="{ 'is-invalid': infoSubmitted && userForm.last_name.errors }">
+          <div *ngIf="submitted && userForm.last_name.errors" class="log-error">
+            <div *ngIf="userForm.last_name.errors">{{'Please enter last name.' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="row" style="margin: 0px;">
+          <div class="mb-2 signup-phone">
+            <ngx-intl-tel-input [selectedCountryISO]="countryISO" [preferredCountries]="preferredCountries"
+              (focus)="submitted= false" [searchCountryFlag]="true" placeholder="Phone Number"
+              [enableAutoCountrySelect]="false" [enablePlaceholder]="true" name="phone" [separateDialCode]="true"
+              [phoneValidation]="true" formControlName="mobileNumber" [searchCountryPlaceholder]="'Search Country'">
+            </ngx-intl-tel-input>
+          </div>
+          <div *ngIf="submitted && userForm.mobileNumber.errors" class="log-error">
+            <div *ngIf="userForm.mobileNumber.errors.required">{{'Please enter Phone Number.' | translate}}</div>
+            <div *ngIf="!userForm.mobileNumber.errors.required && userForm.mobileNumber.invalid">
+              {{'Please Enter a Valid Phone Number.' | translate}}</div>
+          </div>
+        </div>
+
+        <div [style.color]="style?.defaultColor">
+          <input (keydown.space)="$event.preventDefault()" type="email" placeholder="{{'Email' | translate}}"
+            (focus)="submitted = false" formControlName="email"
+            [ngClass]="{ 'is-invalid': submitted && userForm.email.errors }">
+          <div *ngIf="submitted && userForm.email.errors" class="log-error">
+            <div *ngIf="userForm.email.errors.required">{{'Please enter email.' | translate}}</div>
+            <div *ngIf="submitted && userForm.email.errors.pattern">{{'Please enter a valid email.' | translate}}</div>
+          </div>
+        </div>
+
+        <div formGroupName="passwordField" class="password-field">
+          <div class="field_group">
+            <input [type]="showPassword ? 'text' : 'password'" placeholder="{{'Password' | translate}}"
+              autocomplete="off" (focus)="submitted = false" formControlName="password">
+            <a href="javascript:void(0)" (click)="showPassword = !showPassword">
+              <i class="fa" [ngClass]="showPassword ? 'fa-eye':'fa-eye-slash'" aria-hidden="true"></i>
+            </a>
+            <div *ngIf="submitted && password.controls.password.errors" class="log-error" translate>
+              Please enter password
+            </div>
+            <div *ngIf="password.controls.password?.errors?.minlength">
+              {{'Password length must be between 6-20 characters.' | translate}}</div>
+            <div *ngIf="password.controls.password?.errors?.maxlength">
+              {{'Password length must be between 6-20 characters.' | translate}}</div>
+          </div>
+          <div class="field_group">
+            <input type="password" placeholder="{{'Confirm New Password' | translate}}" autocomplete="off"
+              (focus)="submitted = false" formControlName="confirmPassword">
+
+            <div *ngIf="submitted && password.controls.confirmPassword.errors?.required" class="log-error" translate>
+              Please enter confirm password
+            </div>
+            <div
+              *ngIf="submitted && password.errors?.notSame && !password.controls.confirmPassword.errors && !password.controls.password.errors"
+              class="log-error" translate>
+              Both passowds are not same
+            </div>
+          </div>
+        </div>
+
+        <div class="referral" *ngIf="settings?.referral_feature == 1">
+          <input class="mr-2" type="checkbox" [id]="'reff'" [checked]="is_referral" (change)="changeReferralView(true)"
+            name="reff">
+          <label [for]="'reff'"
+            [style.color]="style.baseColor">{{'I have a referral registration code' | translate}}</label>
+
+          <div [style.color]="style?.defaultColor" *ngIf="is_referral" class="mt-2">
+            <input (keydown.space)="$event.preventDefault()" type="text" placeholder="{{'Referral Code' | translate}}"
+              (focus)="submitted = false" formControlName="referralCode"
+              [ngClass]="{ 'is-invalid': submitted && userForm.referralCode.errors }">
+          </div>
+          <div *ngIf="submitted && userForm.referralCode.errors" class="log-error">
+            <div *ngIf="userForm.referralCode.errors.required">{{'Please enter referral code.' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="login-submit">
+          <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Continue' | translate}}</button>
+        </div>
+
+      </form>
+    </ng-container>
+
+    <ng-container *ngIf="settings.user_register_flow == 0">
+      <app-social-login *ngIf="!onlyEmailView" [isSignUp]="true" (closeModal)="closeModal.emit(true)" (onSocialLogin)="onSocialLogin($event)" (enterEmail)="initEmailForm($event)"></app-social-login>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="!onlyEmailView">
+        <div [style.color]="style?.defaultColor">
+          <input (keydown.space)="$event.preventDefault()" type="email" placeholder="{{'Email' | translate}}"
+            (focus)="submitted = false" formControlName="email"
+            [ngClass]="{ 'is-invalid': submitted && userForm.email.errors }">
+          <div *ngIf="submitted && userForm.email.errors" class="log-error">
+            <div *ngIf="userForm.email.errors.required">{{'Please enter email.' | translate}}</div>
+            <div *ngIf="submitted && userForm.email.errors.pattern">{{'Please enter a valid email.' | translate}}</div>
+          </div>
+        </div>
+
+        <div [style.color]="style?.defaultColor">
+          <input (keydown.space)="$event.preventDefault()" type="password" placeholder="{{'Password' | translate}}"
+            (focus)="submitted = false" formControlName="password"
+            [ngClass]="{ 'is-invalid': submitted && userForm.password.errors && !userForm.email.errors }">
+          <div *ngIf="submitted && userForm.password.errors && !userForm.email.errors" class="log-error">
+            <div *ngIf="userForm.password.errors.required">{{'Please enter password.' | translate}}</div>
+            <div *ngIf="userForm.password.errors.minlength">
+              {{'Password length must be between 6-20 characters.' | translate}}</div>
+            <div *ngIf="userForm.password.errors.maxlength">
+              {{'Password length must be between 6-20 characters.' | translate}}</div>
+          </div>
+        </div>
+
+        <div class="login-submit">
+          <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Continue' | translate}}</button>
+        </div>
+      </form>
+
+      <form [formGroup]="emailForm" (ngSubmit)="onEmailSubmit()" autocomplete="off" *ngIf="onlyEmailView">
+        <div [style.color]="style?.defaultColor">
+          <input (keydown.space)="$event.preventDefault()" type="email" placeholder="{{'Email' | translate}}"
+            (focus)="submitted = false" formControlName="email"
+            [ngClass]="{ 'is-invalid': submitted && emailForm.controls.email.errors }">
+          <div *ngIf="submitted && emailForm.controls.email.errors" class="log-error">
+            <div *ngIf="emailForm.controls.email.errors.required">{{'Please enter email.' | translate}}</div>
+            <div *ngIf="submitted && emailForm.controls.email.errors.email">{{'Please enter a valid email.' | translate}}</div>
+          </div>
+        </div>
+        <div class="login-submit">
+          <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Continue' | translate}}</button>
+        </div>
+      </form>
+    </ng-container>
+  </ng-container>
+
+</div>
+
+<div *ngIf="step2" class="login_feilds phone">
+  <form [formGroup]="phoneForm" (ngSubmit)="sendOTP()" autocomplete="off">
+    <div class="row signup-form">
+      <!-- <div class="col-md-3 col-3 pd">
+        <input type="text" formControlName="countryCode" disabled>
+      </div> -->
+      <!-- <div class="col-md-9 col-9 pd">
+        <input type="text" formControlName="mobileNumber" placeholder="{{'Phone Number' | translate}}" numbersOnly (focus)="phoneSubmitted = false"
+          [ngClass]="{ 'is-invalid': phoneSubmitted && phone.mobileNumber.errors }">
+        <div *ngIf="phoneSubmitted && phone.mobileNumber.errors" class="log-error">
+          <div *ngIf="phone.mobileNumber.errors.required">{{'Please enter Phone Number.' | translate}}</div>
+          <div *ngIf="phone.mobileNumber.errors.minlength"> {{'Please Enter a Valid Phone Number.' | translate}}</div>
+          <div *ngIf="phone.mobileNumber.errors.maxlength">{{'Please Enter a Valid Phone Number.' | translate}}</div>
+        </div>
+      </div> -->
+      <div class="mb-2 signup-phone">
+        <ngx-intl-tel-input [selectedCountryISO]="countryISO" [preferredCountries]="preferredCountries"
+          (focus)="phoneSubmitted = false" [searchCountryFlag]="true" placeholder="Phone Number"
+          [enableAutoCountrySelect]="false" [enablePlaceholder]="true" name="phone" [separateDialCode]="true"
+          [phoneValidation]="true" formControlName="mobileNumber"
+          [searchCountryPlaceholder]="'Search Country' | translate">
+        </ngx-intl-tel-input>
+      </div>
+      <div *ngIf="phoneSubmitted && phone.mobileNumber.errors" class="log-error">
+        <div *ngIf="phone.mobileNumber.errors.required">{{'Please enter Phone Number.' | translate}}</div>
+        <div *ngIf="!phone.mobileNumber.errors.required && phone.mobileNumber.invalid">
+          {{'Please Enter a Valid Phone Number.' | translate}}</div>
+      </div>
+    </div>
+    <div>
+      <p [style.color]="style?.secondaryColor">
+        {{'We will be sending you an OTP(One Time Password) on your mobile number. Click the button below after correctly typing your phone number.' | translate}}
+      </p>
+    </div>
+
+    <div class="referral" *ngIf="settings?.referral_feature == 1">
+      <input class="mr-2" type="checkbox" [id]="'ref'" [checked]="is_referral" (change)="changeReferralView()"
+        name="ref">
+      <label [for]="'ref'" [style.color]="style.baseColor">I have a referral registration code</label>
+
+      <div [style.color]="style?.defaultColor" *ngIf="is_referral" class="mt-2">
+        <input type="text" formControlName="referralCode" placeholder="Referral Code" (focus)="phoneSubmitted = false"
+          [ngClass]="{ 'is-invalid': phoneSubmitted && phone.referralCode.errors }">
+      </div>
+      <div *ngIf="phoneSubmitted && phone.referralCode.errors" class="log-error">
+        <div *ngIf="phone.referralCode.errors.required">Please enter referral code.</div>
+      </div>
+    </div>
+
+    <div class="login-submit">
+      <button [ngStyle]="primaryButton" type="submit"
+        class="btn">{{(settings.bypass_otp == 1 ? 'Continue' : 'Send OTP') | translate}}</button>
+    </div>
+  </form>
+</div>
+
+
+<div *ngIf="otpView" class="login_feilds">
+  <form [formGroup]="otpForm" (ngSubmit)="confirmOTP()" autocomplete="off">
+
+    <input type="text" formControlName="otp" placeholder="OTP" (focus)="otpSubmitted = false" numbersOnly
+      [ngClass]="{ 'is-invalid': otpSubmitted && otpfm.otp.errors }">
+    <div *ngIf="otpSubmitted && otpfm.otp.errors" class="log-error">
+      <div *ngIf="otpfm.otp.errors.required">{{'Please enter OTP.' | translate}}</div>
+      <div *ngIf="otpfm.otp.errors.maxlength">{{'Please enter valid OTP.' | translate}}</div>
+    </div>
+
+    <div>
+      <ng-container [counter]="counter" [interval]="interval" (value)="count = $event">
+        <small *ngIf="count > 0"
+          [style.color]="style?.secondaryColor">{{'OTP will be sent shortly time left :' | translate}} {{ count |
+          formatTime}}
+        </small>
+        <small *ngIf="count === 0" [style.color]="style?.secondaryColor">{{'Did not receive OTP?' | translate}}
+          <a [style.color]="style?.primaryColor" (click)="resendOTP()" class="cursor">{{'Resend OTP' | translate}}</a>
+        </small>
+      </ng-container>
+
+    </div>
+    <div class="login-submit">
+      <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Submit' | translate}}</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="step3" class="login_feilds">
+  <form [formGroup]="infoForm" (ngSubmit)="finish()" autocomplete="off">
+
+    <div class="add-profile-pic">
+      <div class="img">
+        <img [src]="image ? image : 'assets/images/placeholder-user.png'"
+          onError="src = './assets/images/placeholder-user.png';">
+      </div>
+      <div class="profile-input" [style.color]="style?.secondaryColor">
+        <span *ngIf="!image" [style.color]="style.defaultColor" class="add-pic">{{'Add Image' | translate}}</span>
+        <input type="file" formControlName="profilePic" accept="image/*" (change)="onImageSelect($event)" #fileInput>
+      </div>
+
+      <div *ngIf="image" [style.color]="style?.secondaryColor" class="change-image">
+        <span (click)="fileInput.click()">{{'Change' | translate}}</span> /
+        <span (click)="removeImage()">{{'Remove' | translate}}</span>
+      </div>
+      <div *ngIf="infoSubmitted && info.profilePic.errors" class="log-error">
+        <div *ngIf="info.profilePic.errors.required">{{'Please select image.' | translate}}</div>
+      </div>
+    </div>
+
+    <input formControlName="name" type="text" (keydown.space)="!userForm.name.value ? $event.preventDefault() : ''"
+      placeholder="{{'Full Name' | translate}}" (focus)="infoSubmitted = false"
+      [ngClass]="{ 'is-invalid': infoSubmitted && info.name.errors }">
+    <div *ngIf="infoSubmitted && info.name.errors" class="log-error">
+      <div *ngIf="info.name.errors.required">{{'Please enter name.' | translate}}</div>
+    </div>
+
+    <div *ngIf="settings?.is_abn_business=='1'">
+      <div class="form-group mb-0">
+        <input type="text" placeholder="{{'ABN Number' | translate}}"
+          (keydown.space)="!form.controls.abn_number.value ? $event.preventDefault() : '' "
+          formControlName="abn_number">
+      </div>
+      <div class="form-group">
+        <input type="text" placeholder="{{'Business Name' | translate}}"
+          (keydown.space)="!form.controls.business_name.value ? $event.preventDefault() : '' "
+          formControlName="business_name">
+      </div>
+    </div>
+
+
+    <div class="document-upload" *ngIf="settings?.user_id_proof == 1">
+      <h6>Upload Documents</h6>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="add-document" *ngIf="documents.length <= 5" (click)="fileInput.click()">
+            <img src="/assets/images/add.png"> Choose Document
+            <input #fileInput type="file" (change)="onDocumentSelect($event)">
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="document">
+            <ul>
+              <li *ngFor="let document of documents; let i = index;">
+                <span [style.color]="style?.defaultColor">{{document?.name}}</span>
+                <i class="remove fa fa-times-circle" (click)="removeDocument(i)"></i>
+              </li>
+            </ul>
+            <!-- <img [src]="image" onError="src = './assets/images/placeholder_image.svg';"> -->
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngIf="documents.length" style="margin-top: 22px;">
+        <div class="col-md-12">
+          <button (click)="uploadDocuments()" style="width: 100%;" [ngStyle]="primaryButton" type="button"
+            class="btn">Upload
+            Documents</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="login-submit">
+      <button [ngStyle]="primaryButton" type="submit" class="btn"
+        [disabled]="settings?.user_id_proof == 1 && !documents_uploaded"
+        [ngClass]="settings?.user_id_proof == 1 && !documents_uploaded ? 'document-disabled' : ''">{{'Finish' | translate}}</button>
+    </div>
+  </form>
+</div>
+
+<span *ngIf="otpView || step3" [style.color]="style.primaryColor" class="back" (click)="back()"><i
+    class="fa fa-chevron-left"></i>
+  {{'Back' | translate}}</span>
+
+<!-- <div class="loader" *ngIf="showLoader">Loading...</div> -->

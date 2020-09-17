@@ -1,0 +1,54 @@
+<div [ngClass]="messageData?.type === 'BOT' ? 'left' : 'right'">
+  <p [style.background-color]="messageData?.type === 'USER' ? style?.primaryColor : ''">{{messageData?.message}}</p>
+  <ul *ngIf="messageData?.data?.length && messageData?.dataType == 0">
+    <li *ngFor="let item of messageData?.data" class="cursor" style="position: relative;" (click)="!item?.adds_on.length ? addToCart(item) : selectAddon(item)">
+      <img [src]="item?.image_path" onError="src = './assets/images/placeholder_image.svg';">
+      <div class="text">
+        <h4>{{item?.name}}</h4>
+        <h5>by {{item?.supplier_name}}</h5>
+        <h6>{{currency}} {{item?.fixed_price}}</h6>
+        <small *ngIf="item?.adds_on.length" class="customize" [style.color]="style?.primaryColor">Customizable</small>
+      </div>
+    </li>
+  </ul>
+
+  <ul *ngIf="messageData?.data?.length && messageData?.dataType == 1">
+    <li *ngFor="let item of messageData?.data; let i = index" class="cursor" (click)="selectAddress(item)">
+      <div class="text hover-text">
+        <h6>{{i + 1}}) {{item?.customer_address}}</h6>
+      </div>
+    </li>
+  </ul>
+
+  <div class="chat-btns" *ngIf="!messageData?.data?.length && messageData?.dataType == 1">
+    <button (click)="addAddress(1)" class="btn" style="width: 160px;"
+      [ngStyle]="{'backgroundColor': style?.primaryColor, 'borderColor': style?.primaryColor, 'color': '#ffffff'}">Add Address</button>
+  </div>
+
+  <div *ngIf="messageData?.dataType == 2">
+    <!-- <ul [style.color]="style.baseColor" class="b-n">
+      <li> {{ "Sub Total" | translate }} : <span>{{ currency }} {{ priceObj?.amount.toFixed(2) }}</span> </li>
+      <li>{{ "Delivery Charges" | translate }} :
+        <span>{{ currency }} {{ priceObj?.deliveryCharges.toFixed(2) }}</span>
+      </li>
+      <li>{{ 'tax' | localization | translate }} : <span>{{ currency }}
+          {{ priceObj?.handingCharges.toFixed(2) }}</span>
+      </li>
+    </ul> -->
+
+    <div class="chat-btns">
+      <button (click)="proceedOrder(1)" class="btn"
+        [ngStyle]="{'backgroundColor': style?.primaryColor, 'borderColor': style?.primaryColor, 'color': '#ffffff'}">Yes</button>
+      <button (click)="proceedOrder(2)" style="margin-left: 20px;" class="btn"
+        [ngStyle]="{'backgroundColor': style?.primaryColor, 'borderColor': style?.primaryColor, 'color': '#ffffff'}">No</button>
+    </div>
+  </div>
+
+  <div class="chat-btns" *ngIf="messageData?.dataType == 3">
+    <button (click)="paymentSelection(1)" class="btn"
+      [ngStyle]="{'backgroundColor': style?.primaryColor, 'borderColor': style?.primaryColor, 'color': '#ffffff'}">Online</button>
+    <button (click)="paymentSelection(2)" style="margin-left: 20px;" class="btn"
+      [ngStyle]="{'backgroundColor': style?.primaryColor, 'borderColor': style?.primaryColor, 'color': '#ffffff'}">COD</button>
+  </div>
+</div>
+

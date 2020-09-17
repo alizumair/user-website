@@ -1,0 +1,11 @@
+p span {
+    position: absolute;
+    right: 35px;
+    padding: 0em;
+    font-weight: 700;
+    color: #28a68d;
+    cursor: pointer;
+}
+p span:hover {
+    text-decoration: underline;
+}

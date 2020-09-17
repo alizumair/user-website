@@ -1,0 +1,71 @@
+<ng-container *ngIf="settings?.app_type == 2 && settings?.selected_template == 2; else default">
+
+  <div class="price_details payment_method_outter theme1_custom_div">
+    <h5 class="p-b-n" [style.color]="style.baseColor">
+      {{'payment' | localization}}
+    </h5>
+    <div class="address-detail payment_method_inner">
+      <div class="payment_method_opt">
+        <div *ngIf="settings.payment_method == '1' || settings.payment_method == '2'">
+          <input [id]="'card'" type="radio" name="payment" [value]="'1'" [(ngModel)]="paymentType"
+            (change)="paymentMode.emit(paymentType)">
+          <label [style.color]="style.baseColor" [for]="'card'">{{'Online' | translate}}</label>
+        </div>
+        <div *ngIf="!settings.payment_method || settings.payment_method != '1'">
+          <input [id]="'cash'" type="radio" (change)="paymentMode.emit(paymentType)" name="payment" [value]="'0'"
+            [(ngModel)]="paymentType" />
+          <label *ngIf="selfPickup == 1" [style.color]="style.baseColor" [for]="'cash'">
+            {{'cash' | localization}} {{ 'On Pickup' | translate}}</label>
+          <label *ngIf="selfPickup != 1" [style.color]="style.baseColor" [for]="'cash'">
+            {{'cash' | localization}} {{ 'On Delivery' | translate}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #default>
+  <div class="price_details payment_method_outter"
+    [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor}">
+    <h5 [style.color]="style.baseColor">
+      {{(('payment' | localization) + " Method") | translate }}
+    </h5>
+    <div class="address-detail payment_method_inner">
+      <div class="payment_method_opt">
+        <div *ngIf="settings.payment_method == '1' || settings.payment_method == '2'">
+          <input [id]="'card'" type="radio" name="payment" [value]="'1'" [(ngModel)]="paymentType"
+            (change)="paymentMode.emit(paymentType)">
+          <label [style.color]="style.baseColor" [for]="'card'">{{'Online' | translate}}</label>
+        </div>
+        <div *ngIf="!settings.payment_method || settings.payment_method != '1'">
+          <input [id]="'cash'" type="radio" (change)="paymentMode.emit(paymentType)" name="payment" [value]="'0'"
+            [(ngModel)]="paymentType" />
+          <label *ngIf="selfPickup == 1" [style.color]="style.baseColor" [for]="'cash'">
+            {{'cash' | localization}} {{ 'On Pickup' | translate}}</label>
+          <label *ngIf="selfPickup != 1" [style.color]="style.baseColor" [for]="'cash'">
+            {{(('cash' | localization) + ' On Delivery') | translate}}</label>
+        </div>
+        <div *ngIf="settings.wallet_module == 1">
+          <input [id]="'wallet'" type="radio" name="payment" [value]="'4'" [(ngModel)]="paymentType"
+            (change)="paymentMode.emit(paymentType)">
+          <label [style.color]="style.baseColor" [for]="'wallet'">{{'Wallet' | translate}} ( {{currency}}
+            {{walletAmount || 0}})</label>
+          <span class="float-right cursor" [ngStyle]="{color: style.primaryColor}"
+            [routerLink]="['/', 'account','my-wallet']" [queryParams]="{'from_cart': 1}">{{'Add Amount'}}</span>
+          <p [ngStyle]="{color: style.primaryColor, 'font-size': '12px'}">Pay by wallet, and you will get <span
+              class="font-weight-bold">
+              {{settings.payment_through_wallet_discount}}%
+            </span> discount!</p>
+        </div>
+        <div *ngIf="settings?.is_coin_exchange == 1 && paymentType==='0'" [ngStyle]="{'display':'flex'}">
+          <input id="changeIn" type="checkbox" (change)="changeInRequest.emit($event.currentTarget.checked)">
+          <span [ngStyle]="{color: style.primaryColor, 'font-size': '12px','margin-left':'1em'}">
+            <span class="font-weight-bold">
+              <label [for]="'changeIn'">
+                {{'Request for change in money?' | translate}}</label>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>

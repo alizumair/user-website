@@ -1,0 +1,226 @@
+<ng-container *ngIf="settings?.app_type == 2 && settings?.selected_template == 2; else default">
+    <ng-container *ngIf="!product.customization || !product.customization.length">
+        <tbody [ngStyle]="{'border-color': style.secondaryColor}">
+            <tr>
+                <td>
+                    <div class="p-dtl">
+                        <img [src]="product?.image_path" class="cart-product-img"
+                            onError="src = './assets/images/placeholder_image.svg';" />
+                        <span *ngIf="product?.isOutOfStock" class="overlay-txt">Out of stock</span>
+                        <h5 [style.color]="style.baseColor">{{ product?.name }}
+                            <span *ngIf="settings?.is_single_vendor == 0" [style.color]="style.primaryColor">
+                                <a (click)="onSupplier(product?.supplier_id)">{{ "by" | translate }}
+                                    {{ product?.supplier_name }}</a>
+                            </span>
+                        </h5>
+                        <div *ngIf="product.cartVariants && product.cartVariants.length">
+                            <div style="display: flex; word-break: break-word;"
+                                *ngFor="let variant of product.cartVariants">
+                                <ng-template [ngIf]="variant.variant_type != 1" [ngIfElse]="color">
+                                    <p class="mb-0" [style.color]="style.baseColor">
+                                        {{variant?.variant_name}}:<span>{{variant?.variant_value}}</span></p>
+                                </ng-template>
+                                <ng-template #color>
+                                    <p class="mb-0" [style.color]="style.baseColor">{{variant?.variant_name}}:<span
+                                            class="cart-color-varient"
+                                            [style.background-color]="variant?.variant_value"></span>
+                                    </p>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+
+                </td>
+                <td>
+                    <app-quantity-buttons *ngIf="product?.selectedQuantity && !product?.isOutOfStock" [style]="style"
+                        [settings]="settings" [selectedQuantity]="product?.selectedQuantity"
+                        [priceType]="product?.price_type" [isProduct]="product?.is_product" (onAdd)="increaseQuantity()"
+                        (onRemove)="decreaseQuantity()">
+                    </app-quantity-buttons>
+                    <!-- <input type="number" min="1" max="9" step="1" value="1"> -->
+
+                </td>
+                <td>
+                    {{ currency }} {{ (product?.fixed_price * 1).toFixed(settings?.price_decimal_length) }}
+                    <span *ngIf="product?.price_type && product?.is_product"> / Hour</span>
+                    <span *ngIf="product?.price_type && !product?.is_product">
+                        / {{ timeInterval | formatTimeInterval }}</span>
+                    <span *ngIf="!product?.price_type && !product?.is_product">
+                        / {{ product?.duration | formatTimeInterval }}</span>
+                </td>
+                <td>
+                    <a href="javascript:void(0)" (click)="onRemove()" [style.color]="style.baseColor">
+                        <img src="assets/images/trash-2-outline.png" class="del-icon">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </ng-container>
+</ng-container>
+<!-- {'out-of-stock':product?.isOutOfStock} -->
+<ng-template #default>
+    <ng-container *ngIf="!product.customization || !product.customization.length">
+        <div class="single_item_detail" [ngClass]="{'out-of-stock':product?.isOutOfStock}"
+            [style.background-color]="style.cardBackgroundColor" [ngStyle]="{'border-color': style.secondaryColor}">
+            <div class="row">
+                <div class="col-md-3 cart-image">
+                 
+                    <div *ngIf="product?.isOutOfStock" class="cart-out-of-stock-msg">
+                        <p>Out Of Stock</p>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="single_item_name">
+                        <h5 [style.color]="style.baseColor">
+                            {{ product?.name }}
+                            <br />
+                            <span *ngIf="settings?.is_single_vendor == 0" [style.color]="style.primaryColor"> 
+                                <a (click)="onSupplier(product?.supplier_id)" [style.cursor]="settings?.app_type == 1 ? 'pointer' : 'default'">{{ "by" | translate }} 
+                                    {{ product?.supplier_name }}</a>
+                            </span>
+
+                            <p [style.color]="style.baseColor" *ngIf="settings?.is_product_weight == 1">Weight:
+                                {{product?.duration}}gm</p>
+                        </h5>
+
+                        <h6 [style.color]="style.baseColor">
+                            {{ currency }} {{ (product?.fixed_price * 1).toFixed(settings?.price_decimal_length) }}
+                            <span *ngIf="product?.price_type && product?.is_product"> / Hour</span>
+                            <span
+                                *ngIf="product?.price_type && !product?.is_product && settings?.laundary_service_flow == 0">
+                                / {{ timeInterval | formatTimeInterval }}</span>
+                            <!-- <span
+                                *ngIf="!product?.price_type && !product?.is_product && settings?.laundary_service_flow == 0">
+                                / {{ product?.duration | formatTimeInterval }}</span> -->
+                            <span
+                                *ngIf="!product?.price_type && !product?.is_product && settings?.laundary_service_flow == 1">
+                                / Piece</span>
+                        </h6>
+                    </div>
+                    <div *ngIf="product.cartVariants && product.cartVariants.length">
+                        <div *ngFor="let variant of product.cartVariants">
+                            <ng-template [ngIf]="variant.variant_type != 1" [ngIfElse]="color">
+                                <p class="mb-0" [style.color]="style.baseColor">
+                                    {{variant?.variant_name}}:<span>{{variant?.variant_value}}</span></p>
+                            </ng-template>
+                            <ng-template #color>
+                                <p class="mb-0" [style.color]="style.baseColor">{{variant?.variant_name}}:<span
+                                        class="cart-color-varient"
+                                        [style.background-color]="variant?.variant_value"></span>
+                                </p>
+                            </ng-template>
+                        </div>
+                    </div>
+
+                    <div class="single_item_quantity">
+
+                        <app-quantity-buttons *ngIf="product?.selectedQuantity && !product?.isOutOfStock"
+                            [style]="style" [settings]="settings" [selectedQuantity]="product?.selectedQuantity"
+                            [priceType]="product?.price_type" [isProduct]="product?.is_product"
+                            (onAdd)="increaseQuantity()" (onRemove)="decreaseQuantity()">
+                        </app-quantity-buttons>
+
+                        <div class="cart_button"
+                            [ngStyle]="{'margin-top': settings?.is_single_vendor == 0 ? '-20px ' : '0px'}">
+                            <a href="javascript:void(0)" (click)="onRemove()"
+                                [style.color]="style.baseColor">{{ "Remove" | translate }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="product.agent_slot" class="row cart-service-agent">
+                <div class="col-md-3">
+                    <img style="border-radius: 5px;" [src]="product?.agent_slot?.agent?.cbl_user?.image"
+                        [alt]="'Agent Image'" onError="src = './assets/images/placeholder_image.svg';">
+                </div>
+                <div class="col-md-9">
+                    <p>Name: <span class="pl-2 text-capitalize">{{product.agent_slot?.agent?.cbl_user?.name}}</span></p>
+                    <!-- <p>phone: <span class="pl-2">{{product.agent_slot?.agent?.cbl_user?.phone_number}}</span></p> -->
+                    <p>Email: <span class="pl-2">{{product.agent_slot?.agent?.cbl_user?.email}}</span></p>
+                    <p>Occupation: <span
+                            class="pl-2 text-capitalize">{{product.agent_slot?.agent?.cbl_user?.occupation}}</span>
+                    </p>
+                    <p>Experience: <span
+                            class="pl-2 text-capitalize">{{product.agent_slot?.agent?.cbl_user?.experience}}</span>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="product.customization && product.customization.length">
+        <div *ngFor="let item of product.customization" class="single_item_detail"
+            [ngClass]="{'out-of-stock':product?.isOutOfStock}" [style.background-color]="style.cardBackgroundColor"
+            [ngStyle]="{'border-color': style.secondaryColor}">
+            <div class="row">
+                <div class="col-md-3">
+                    
+                    <div *ngIf="product?.isOutOfStock" class="cart-out-of-stock-msg">
+                        <p>Out Of Stock</p>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="single_item_name">
+                        <h5 [style.color]="style.baseColor">
+                            {{ product?.name }}
+                            <br />
+                            <span *ngIf="settings?.is_single_vendor == 0" [style.color]="style.primaryColor">
+                                <a (click)="onSupplier(product?.supplier_id)">{{ "by" | translate }}
+                                    {{ product?.supplier_name }}</a>
+                            </span>
+                            <ul class="cart-product-addon">
+                                <li *ngFor="let cust of item.data" [style.color]="style.baseColor" opacity="0.5">
+                                    {{cust?.name}} -
+                                    {{addOnNames(cust?.value)}}
+                                </li>
+                            </ul>
+                        </h5>
+
+                        <h6 [style.color]="style.baseColor">
+                            {{ currency }} {{getAddonProductPrice(product?.fixed_price,item.data) }}
+                            <!-- <span *ngIf="product?.price_type && product?.is_product"> / Hour</span> -->
+                            <!-- <span *ngIf="product?.price_type && !product?.is_product">
+                            / {{ timeInterval | formatTimeInterval }}</span> -->
+                            <!-- <span *ngIf="!product?.price_type && !product?.is_product">
+                            / {{ product?.duration | formatTimeInterval }}</span> -->
+                        </h6>
+                    </div>
+                    <div class="single_item_quantity">
+                        <app-quantity-buttons *ngIf="!product?.isOutOfStock" [style]="style"
+                            [selectedQuantity]="item?.quantity" (onAdd)="updateQuantity(item.id, 1, false)"
+                            (onRemove)="updateQuantity(item.id, -1)">
+                        </app-quantity-buttons>
+                        <div class="cart_button">
+                            <a href="javascript:void(0)" (click)="updateQuantity(item.id, -item.quantity, true)"
+                                [style.color]="style.baseColor">{{ "Remove" | translate }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+</ng-template>
+
+<!-- <td>
+        <div class="p-dtl">
+          <img src="img/product.png">
+          <h5>Nike Air Max Excee
+            <span>Universe Infotech</span>
+          </h5>
+        </div>
+
+      </td>
+      <td>
+
+        <input type="number" min="1" max="9" step="1" value="1">
+
+      </td>
+      <td>
+        $55.00
+      </td>
+      <td>
+        <img src="assets/images/trash-2-outline.png" class="del-icon">
+      </td> -->

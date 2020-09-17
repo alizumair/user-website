@@ -1,0 +1,220 @@
+/* Start Subscription Plan CSS */
+section#Subscriptions_Plan {
+    padding: 40px 0px;
+    border: 1px solid var(--secondaryColor);
+    border-radius: 4px;
+}
+.Subscriptions_Plan_heading {
+    text-align: center;
+    width: 500px;
+    margin: 0 auto 40px;
+    max-width: 100%;
+}.Subscriptions_Plan_heading h1 {
+    font-size: 25px;
+    color: #4B5061;
+}.Subscriptions_Plan_heading p {
+    font-size: 15px;
+    color: #8D8D8D;
+}
+.Subscriptions_Plan_box {
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    text-align: center;
+    padding: 40px 20px;
+}
+.Subscriptions_Plan_img {
+    width: 500px;
+    margin: 0 auto 20px;
+    max-width: 100%;
+}
+.Subscriptions_Plan_img h2 {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}.Subscriptions_Plan_img p {
+    color: #8D8D8D;
+    font-size: 15px;
+}
+.My_Subscription {
+    background-color: var(--primaryColor);
+    border-radius: 5px;
+    padding: 13px 20px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-top: 20px;
+    display: inline-block;
+}
+.My_Subscription:hover{
+    text-decoration: none;
+    color:#fff;
+}
+.Subscriptions_Plan_outter {
+    width: 800px;
+    margin: 60px auto;
+    max-width: 100%;
+}.Subscriptions_Plan_inner {
+    border: 1px solid rgba(151,151,151,0.24);
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    padding: 30px;
+    margin-bottom: 20px;
+}.Subscriptions_Plan_inner img {
+    margin-bottom: 30px;
+}.Subscriptions_Plan_inner p {
+    color: #8D8D8D;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}.Subscriptions_Plan_inner ul {
+    padding: 0px;
+    list-style: none;
+    text-align: left;
+    width: 200px;
+    margin: 0 auto;
+}
+.Subscriptions_Plan_inner ul {
+    padding: 0px;
+    list-style: none;
+    width: 200px;
+    text-align: left;
+    margin:30px auto 60px;
+}.Subscriptions_Plan_inner ul li {
+    color: #8D8D8D;
+    margin-bottom: 10px;
+    font-size: 15px;
+}.Subscriptions_Plan_inner ul li svg {
+    position: relative;
+    top: 3px;
+    margin-right: 10px;
+}
+.Subscriptions_Plan_inner h4 {
+    font-size: 18px;
+    color: #4B5061;
+    margin-bottom: 30px;
+}.Subscriptions_price span {
+    color: #4b50616e;
+    font-size: 24px;
+    position: relative;
+}.Subscriptions_price span:after {
+    position: absolute;
+    content: "";
+    width: 60px;
+    height: 2px;
+    background: #4b506159;
+    left: -7px;
+    top: 14px;
+}.Subscriptions_price h1 {
+    color: #4B5061;
+    font-size: 48px;
+}
+.Subscriptions_Plan_inner:hover {
+    box-shadow: 0 10px 19px 0 rgba(214, 67, 26, 0.14);
+}
+.Subscriptions_Plan_inner.selected {
+    border: 4px solid rgba(214,67,26,0.19);
+}
+/* End Subscription Plan CSS */
+/* Start Subscription validation Plan CSS */
+.Subscriptions_Plan_validation {
+    border: 2px solid #DDDDDD;
+    border-radius: 10px;
+}
+.Subscriptions_Plan_validation_inner {
+    border-bottom: 2px solid #DDDDDD;
+    padding: 25px 50px;
+}
+.Subscriptions_Plan_validation_inner .Subscriptions_validation_heading.bb-r{
+    border-right: 1px solid #DDDDDD;
+    text-align: left;
+}
+.Subscriptions_validation_heading h4 {
+    margin-bottom: 0px;
+    font-weight: 600;
+    font-size: 20px;
+}
+.Subscriptions_validation_heading span {
+    color: #8D8D8D;
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 10px;
+    display: block;
+}
+.Subscriptions_validation_heading {
+    text-align: right;
+}
+.Subscriptions_val_inr {
+    width: auto;
+    display: inline-block;
+    text-align: center;
+}
+.Subscriptions_validation_heading2 {
+    padding: 40px 20px;
+    text-align: center;
+    display: inline-grid;
+}
+.Subscriptions_validation_heading2 span {
+    color: #8D8D8D;
+    font-size: 16px;
+    margin-top: 20px;
+}.Subscriptions_validation_heading2 h1 {
+    font-weight: 600;
+}.Subscriptions_validation_heading2 h4 {
+    font-size: 18px;
+}.Subscriptions_validation_heading2 ul {
+    list-style: none;
+    text-align: left;
+    padding: 0px;
+}.Subscriptions_validation_heading2 ul li {
+    margin-bottom: 10px;
+    line-height: 26px;
+    color: #8D8D8D;
+    font-size: 15px;
+    font-weight: 300;
+}.Subscriptions_validation_heading2 ul li svg {
+    margin-right: 10px;
+    position: relative;
+    top: 3px;
+}.renew-Subscription {
+    background: #F6F6F6;
+    padding: 40px;
+}.renew-Subscription a {
+    border-radius: 5px;
+    padding: 15px 30px;
+    display: inline-block;
+    text-transform: uppercase;
+    margin: 0px 10px;
+}
+.renew-Subscription a.renew_btn:hover{
+    text-decoration: none;
+    color:#fff;
+}
+.renew-Subscription a.renew_btn{
+    background-color: #DA2631;
+    color: #fff;
+    border: 2px solid #DA2631;
+}
+.renew-Subscription a.cancle_renw_btn{
+    border: 2px solid #979797;
+    color:#6b6969;
+}
+.renew-Subscription a.cancle_renw_btn:hover{
+    text-decoration: none;
+    color:#6b6969;
+}
+
+.btn {
+    background-color: var(--primaryColor);
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin-top: 20px;
+    display: inline-block;
+}
+/* End Subscription validation Plan CSS */
+@media (max-width: 600px) {
+    .Subscriptions_Plan_box{
+        padding: 40px 20px;
+    }
+}

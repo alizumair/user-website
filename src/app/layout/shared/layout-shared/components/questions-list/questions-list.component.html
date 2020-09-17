@@ -1,0 +1,45 @@
+<div class="accordion container question-list" id="accordionExample">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+                <button class="qus-btn btn" type="button" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne" (click)="showQuestion = !showQuestion">
+                    <h5 [style.color]="style.primaryColor">{{'Selected Questions' | translate}}
+                        <i class="float-right"
+                            [ngClass]="showQuestion ?  'fa fa-angle-double-up' : 'fa fa-angle-double-down'"
+                            style="font-size:24px"></i>
+                    </h5>
+                </button>
+            </h2>
+        </div>
+
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+                <ng-container *ngFor="let question of questions; let index = index">
+                    <div class="question">
+                        <p class="question-title mb-0" [style.color]="style.baseColor"><span
+                                [style.color]="style.primaryColor">{{index + 1 }}. </span>{{question.question}} </p>
+                        <ng-template [ngIf]="question.optionsList.length < 2" [ngIfElse]="multiAnswer">
+                            <p class="question-answer" [style.color]="style.baseColor">
+                                {{question.optionsList[0].optionLabel}} <span
+                                    *ngIf="question.optionsList[0].valueChargeType == 1 ? question.optionsList[0].flatValue : (this.cartPrice.amount * question.optionsList[0].percentageValue) / 100"
+                                    class="float-right">{{currency}}
+                                    {{question.optionsList[0].valueChargeType == 1 ? question.optionsList[0].flatValue : (this.cartPrice.amount * question.optionsList[0].percentageValue) / 100}}</span>
+                            </p>
+                        </ng-template>
+                        <ng-template #multiAnswer>
+                            <ul class="multiAnswer">
+                                <li *ngFor="let option of question.optionsList" [style.color]="style.baseColor">
+                                    {{option.optionLabel}} <span
+                                        *ngIf="option.valueChargeType == 1 ? option.flatValue : (this.cartPrice.amount * option.percentageValue) / 100"
+                                        class="float-right">{{currency}}
+                                        {{option.valueChargeType == 1 ? option.flatValue : (this.cartPrice.amount * option.percentageValue) / 100}}</span>
+                                </li>
+                            </ul>
+                        </ng-template>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

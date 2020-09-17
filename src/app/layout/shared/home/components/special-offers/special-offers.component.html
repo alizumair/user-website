@@ -1,0 +1,124 @@
+<ng-container [ngSwitch]="settings?.app_type">
+
+  <!------------ food ----------->
+  <ng-template [ngSwitchCase]="1">
+    <div class="reccom-main_section">
+      <h2 [style.color]="style?.baseColor">{{'Offers Only For You' | translate}}</h2>
+      <div class="row" *ngIf="!isLoading; else skeleton">
+        <ng-container *ngIf="specialOffers && specialOffers.length; then data else noData"> </ng-container>
+
+        <ng-template #data>
+          <div class="col-6 col-md-6 col-xl-4 col-lg-4 col-sm-6" *ngFor="let offer of specialOffers.slice(0,8)">
+            <app-product [product]="offer" [state]="productstate" [darkTheme]="isDarkTheme" [settings]="settings"
+              [style]="style" [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)">
+            </app-product>
+          </div>
+          <div class="see_more-btn">
+            <button [ngStyle]="{'border-color': style.primaryColor, 'color': style.primaryColor}"
+              *ngIf="specialOffers.length > 8" class="btn btn-large"
+              (click)="onSeeMore()">{{'See More' | translate}}</button>
+          </div>
+        </ng-template>
+
+        <ng-template #noData>
+          <div class="home-no-data">
+            <h2 [style.color]="style.baseColor">{{'No' | translate}} {{'product' | localization | translate}}
+              {{'Found' | translate}}</h2>
+          </div>
+        </ng-template>
+      </div>
+
+      <ng-template #skeleton>
+        <div class="skeleton">
+          <div class="row">
+            <div class="col-6 col-md-6 col-xl-4 col-lg-4 col-sm-6" *ngFor="let item of util.generateFakeList(8)">
+              <app-product-skeleton [settings]="settings" [style]="style"> </app-product-skeleton>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+
+  <!----------- E- Commerce ------------->
+  <ng-template [ngSwitchCase]="2">
+    <div *ngIf="specialOffers && specialOffers.length">
+      <div class="royo_recommends discounted-product">
+        <div class="container">
+          <div class="row">
+            <h2 class="home-title" [style.color]="style.primaryColor">{{'Discounted' | translate}}
+              {{'products' | localization | translate}} </h2>
+          </div>
+        </div>
+      </div>
+      <div class="royo_recommends-produ">
+        <div class="container">
+          <div class="row " *ngIf="!isLoading; else skeleton">
+            <ng-container *ngIf="specialOffers && specialOffers.length; then data else noData"> </ng-container>
+            <ng-template #data>
+              <div class="col-md-4 col-lg-3 col-sm-6 Recommends-products"
+                *ngFor="let offer of specialOffers.slice(0,12)">
+                <app-product [product]="offer" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+                  (add)="addProduct($event)" (remove)="removeProduct($event)">
+                </app-product>
+              </div>
+              <!-- <div class="see_more-btn">
+                <button [ngStyle]="{'border-color': style.primaryColor, 'color': style.primaryColor}"
+                  *ngIf="specialOffers.length > 12" class="btn btn-large"
+                  (click)="onSeeMore()">{{'See More' | translate}}</button>
+              </div> -->
+            </ng-template>
+            <ng-template #noData>
+              <div class="home-no-data">
+                <h4 [style.color]="style.baseColor">{{'No' | translate}} {{'product' | localization}}
+                  {{'Found' | translate}}</h4>
+              </div>
+            </ng-template>
+          </div>
+
+          <ng-template #skeleton>
+            <div class="skeleton">
+              <div class="row">
+                <div class="col-6 col-md-6 col-xl-2 col-lg-4 col-sm-6 Recommends-products"
+                  *ngFor="let item of util.generateFakeList(8)">
+                  <app-product-skeleton [settings]="settings" [style]="style"> </app-product-skeleton>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="8">
+    <h2 class="title ml-0" [style.color]="style.baseColor">{{'Offers For You' | translate}}</h2>
+    <ng-container *ngIf="!isLoading; else skeleton">
+      <ng-container *ngIf="specialOffers && specialOffers.length; then data else noData"> </ng-container>
+
+      <ng-template #data>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let offer of specialOffers.slice(0,6)">
+            <app-product [product]="offer" [settings]="settings" [style]="style" [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)"></app-product>
+          </div>
+          <div class="see_more-btn">
+            <button [ngStyle]="{'border-color': style.primaryColor, 'color': style.primaryColor}"
+              *ngIf="specialOffers.length > 6" class="btn btn-large"
+              (click)="onSeeMore()">{{'See More' | translate}}</button>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #noData>
+        <div class="row">
+          <div class="home-no-data">
+            <h4 [style.color]="style.baseColor">{{'No' | translate}} {{'products' | localization | translate}}
+              {{'Found' | translate}}</h4>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+    <ng-template #skeleton>
+    </ng-template>
+  </ng-template>
+</ng-container>

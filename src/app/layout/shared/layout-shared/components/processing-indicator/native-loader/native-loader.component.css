@@ -1,0 +1,17 @@
+.hidden {
+    display: none;
+}
+
+.native-loader {
+    position: relative;
+    position: relative;
+    text-align: right;
+    margin: 0;
+}
+
+.native-loader img {
+    height: 20px;
+    position: absolute;
+    bottom: 1px;
+    right: 0;
+}

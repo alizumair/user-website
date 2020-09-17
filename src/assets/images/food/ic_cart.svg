@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_cart</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="2.0" transform="translate(-737.000000, -1697.000000)">
+            <g id="Group-11-Copy-6" transform="translate(436.000000, 1551.000000)">
+                <g id="Group-9" transform="translate(301.000000, 132.000000)">
+                    <g id="ic_cart" transform="translate(0.000000, 14.000000)">
+                        <g id="Group">
+                            <g id="Group-2" transform="translate(0.000000, 0.714286)">
+                                <ellipse id="Oval-Copy" fill="#74767B" cx="14.8500882" cy="16" rx="2.27865961" ry="2.28571429"></ellipse>
+                                <ellipse id="Oval-Copy-2" fill="#74767B" cx="6.85008818" cy="16" rx="2.27865961" ry="2.28571429"></ellipse>
+                                <polyline id="Rectangle-2" stroke="#74767B" stroke-linecap="round" stroke-linejoin="round" points="4 5.28571429 18.2857143 5.18806909 16.4951473 11.4285714 4.93960633 11.4285714 2.87350088 1.14516792 0 0"></polyline>
+                                <polygon id="Path-3" fill="#74767B" points="3.5 5.28571429 5 11.2857143 16.5 11.2857143 18.5 5.28571429"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

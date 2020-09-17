@@ -1,0 +1,106 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<section id="Coupons-page-title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>My Gift Cards</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="Coupons-detail-page">
+    <div class="container">
+        <div class="row">
+            <ng-container *ngIf="giftList.length; else noGift">
+                <div class="col-md-6" *ngFor="let gift of giftList">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="Coupons-box">
+                                <div class="Coupons-number">
+                                    <h1 class="red_color">{{gift?.percentage_value}}</h1>
+                                    <span>OFF</span>
+                                </div>
+                                <div class="Coupons-detail">
+                                    <h2>{{gift?.gift_name}}</h2>
+                                    <p>{{gift?.description}}</p>
+
+                                    <div class="Coupons-btn" (click)="selectedGift = gift">
+                                        <a class="Coupons-buy" data-toggle="modal" data-target="#myModal">View
+                                            Detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noGift>
+                <div class="no-gift">
+                    <h4>no gift card found</h4>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</section>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <!-- <h4 class="modal-title">{{selectedGift?.gift_name}}</h4> -->
+            </div>
+            <div class="modal-body">
+                <div class="Coupons-detail-outter">
+                    <div class="Coupons-detail-discount">
+                        <h1 *ngIf="selectedGift?.price_type == 1"><strong>{{selectedGift?.percentage_value}}%</strong>
+                            OFF</h1>
+                        <h1 *ngIf="selectedGift?.price_type != 1"><strong>{{selectedGift?.price}}%</strong> OFF</h1>
+                    </div>
+                    <div class="Coupons-detail-inner-box">
+                        <h3 *ngIf="selectedGift?.price_type == 1">{{selectedGift?.percentage_value}}% off Coupon</h3>
+                        <h3 *ngIf="selectedGift?.price_type != 1">{{selectedGift?.price}} off Coupon</h3>
+                        <p>{{selectedGift?.gift_name}}</p>
+
+                        <h5>Coupon Code</h5>
+                        <div class="discount-coupon">
+                            <h4>{{selectedGift?.gift_name}}</h4>
+                        </div>
+
+                        <div>
+                            <p>{{selectedGift?.description}}</p>
+                        </div>
+
+                        <div class="QA-code">
+                        </div>
+
+                        <!-- <div class="share-download">
+                            <div class="row">
+                                <div class="col-md-6 col-6">
+                                    <div class="share-download-btn">
+                                        <a href=""><i class="fa fa-share-square-o" aria-hidden="true"></i>
+                                            Share</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-6">
+                                    <div class="share-download-btn float-right">
+                                        <a href=""><i class="fa fa-download" aria-hidden="true"></i>
+                                            Download</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div> -->
+        </div>
+
+    </div>
+</div>

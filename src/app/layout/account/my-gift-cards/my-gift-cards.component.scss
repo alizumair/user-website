@@ -1,0 +1,166 @@
+#Coupons-page {
+    padding: 40px 0px;
+}
+#Coupons-page h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--baseColor);
+}
+.Coupons-box {
+    margin-bottom: 20px;
+    border: 1px dashed var(--secondaryColor);
+    border-radius: 7px;
+    padding: 20px;
+    display: flex;
+}
+.Coupons-number {
+    border: 1px dashed var(--secondaryColor);
+    border-radius: 7px;
+    padding: 15px;
+    margin-right: 20px;
+    text-align: center;
+    display: inline-table;
+}
+.Coupons-number h1 {
+    font-weight: 600;
+}
+.Coupons-number span {
+    font-size: 18px;
+    letter-spacing: 6px;
+    font-weight: 500;
+}
+.Coupons-detail p {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+}
+.Coupons-detail h2 {
+    font-size: 18px;
+    font-weight: 500;
+}
+.Coupons-detail p a {
+    margin-left: 5px;
+    color: var(--primaryColor);
+    text-decoration: underline;
+}
+.Coupons-btn a {
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+a.Coupons-buy {
+    background: var(--primaryColor);
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+}
+.Coupons-btn a:hover {
+    text-decoration: none;
+}
+
+a.Coupons-share {
+    margin: 0 0 0 auto;
+    float: right;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* Start Coupons-detail-page CSS */
+#Coupons-page-title {
+    padding: 10px 0px;
+    background: #fff;
+    text-align: center;
+}
+#Coupons-page-title h3 {
+    font-size: 24px;
+}
+#Coupons-detail-page {
+    padding: 40px 0px;
+    background: #fafafa;
+}
+.Coupons-detail-outter {
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 0px 6px rgba(187, 176, 176, 0.5);
+}
+.Coupons-detail-discount {
+    background: var(--baseColor);
+    text-align: center;
+    padding: 30px;
+    color: #fff;
+    margin-bottom: 20px;
+}
+.Coupons-detail-inner-box {
+    text-align: center;
+    padding: 20px 70px;
+}
+.Coupons-detail-inner-box h3 {
+    font-size: 24px;
+}
+.Coupons-detail-inner-box p {
+    font-size: 14px;
+    margin: 0 auto 40px;
+    width: 350px;
+    max-width: 100%;
+    color: rgba(0, 0, 0, 0.5);
+}
+.Coupons-detail-inner-box h5 {
+    text-transform: uppercase;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0px;
+}
+.discount-coupon {
+    border: 1px dashed var(--secondaryColor);
+    width: 350px;
+    margin: 20px auto;
+    max-width: 100%;
+    padding: 15px;
+    border-radius: 6px;
+}
+.discount-coupon h4 {
+    margin: 0px;
+    text-transform: uppercase;
+    letter-spacing: 7px;
+    font-size: 30px;
+}
+.Coupons-detail-inner-box ul {
+    text-align: left;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+    line-height: 28px;
+    padding-top: 30px;
+    border-bottom: 1px solid var(--secondaryColor);
+    padding-bottom: 30px;
+}
+.share-download-btn a {
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+}
+.share-download-btn {
+    text-align: left;
+}
+.no-gift {
+    margin-top: 40px;
+    border: 1px solid var(--secondaryColor);
+    border-radius: 4px;
+    padding: 50px;
+    width: 100%;
+    text-align: center;
+    text-transform: capitalize;
+    h4 {
+        color: var(--baseColor);
+    }
+}
+/* End Coupons-detail-page CSS */
+
+@media (max-width: 812px) {
+    .Coupons-box {
+        display: block;
+    }
+    .Coupons-number {
+        margin-bottom: 20px;
+    }
+    .Coupons-detail-inner-box {
+        padding: 20px 20px;
+        margin-bottom: 20px;
+    }
+}

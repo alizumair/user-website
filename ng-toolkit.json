@@ -1,0 +1,8 @@
+{
+  "universal": {
+    "project": "saas-website",
+    "skipInstall": false,
+    "directory": ".",
+    "http": true
+  }
+}

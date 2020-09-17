@@ -1,0 +1,48 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<div class="container mb-5 mt-5" *ngIf="products.length">
+    <div class="reccom-main_section">
+        <h2 [style.color]="style?.baseColor" style="margin-top: 20px">{{'products' | localization | translate}}</h2>
+        <div class="row">
+            <div class="Recommends-products" [ngClass]="productClass"
+                *ngFor="let product of products | paginate: { itemsPerPage: productPagination.perPage, currentPage: productPagination.currentPage, totalItems: productPagination.count }; let i = index">
+                <app-product [product]="product" [style]="style" [settings]="settings" [state]="productstate"
+                    [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)">
+                </app-product>
+            </div>
+        </div>
+
+        <div class="custom-pagination mt-5" style="margin-top: 15px !important"
+            *ngIf="productPagination.count > productPagination.perPage">
+            <pagination-controls responsive="true" [style.color]="style.primaryColor" previousLabel="Prev"
+                nextLabel="Next" (pageChange)="pageChange($event)"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="container mt-5" *ngIf="suppliers.length && settings?.is_single_vendor == 0">
+    <div class="reccom-main_section">
+        <h2 [style.color]="style?.baseColor" style="margin-top: 20px">{{'suppliers' | localization | translate}}</h2>
+        <div class="row">
+            <div [ngClass]="supplierClass"
+                *ngFor="let supplier of suppliers | paginate: { itemsPerPage: supplierPagination.perPage, currentPage: supplierPagination.currentPage, totalItems: suppliers.length }; let i = index;">
+                <app-supplier [settings]="settings" [style]="style" [supplier]="supplier"></app-supplier>
+            </div>
+        </div>
+
+        <div class="custom-pagination mt-5" *ngIf="suppliers.length > supplierPagination.perPage">
+            <pagination-controls responsive="true" [style.color]="style.primaryColor" previousLabel="Prev"
+                nextLabel="Next" (pageChange)="supplierPagination.currentPage = $event"></pagination-controls>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5 mt-5" *ngIf="!products.length && !suppliers.length">
+    <div class="row product-list">
+        <div class="no-data">
+            <h1 [style.color]="style.baseColor">No Data Found</h1>
+        </div>
+    </div>
+</div>

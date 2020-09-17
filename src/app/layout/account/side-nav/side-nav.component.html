@@ -1,0 +1,69 @@
+<div class="profile-left-side" style="position: relative;"
+  [ngStyle]="{'background-color':style.cardBackgroundColor, 'border-color': style.secondaryColor}">
+  <h6 [style.color]="style.baseColor">{{'My Account' | translate}}</h6>
+  <div class="user-profile">
+    <div class="row">
+      <div class="col-md-4 col-3">
+        <img [src]="user?.user_image ? user?.user_image : '/assets/images/placeholder-user.png'"
+          onError="src = './assets/images/placeholder_logo.svg'">
+      </div>
+      <div class="col-md-8 col-9" style="padding-left: 0px">
+        <div class="profile-right">
+          <h3 [style.color]="style.baseColor">{{user?.firstname}}</h3>
+          <span [style.color]="style.baseColor"> {{user?.email}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul>
+    <li routerLinkActive='active' [routerLink]="['/account/profile']"><a href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'profile' ? style.primaryColor : style.baseColor">{{'Personal Information' | translate}}</a>
+    </li>
+    <li *ngIf="isMobile" routerLinkActive='active' [routerLink]="['/orders/order-listing']"><a
+        href="javascript:void(0)">My
+        {{'orders' | translate | translate}}</a>
+    </li>
+    <li routerLinkActive='active' [routerLink]="['/account/notifications']"><a
+        href="javascript:void(0)">Notifications</a></li>
+    <li *ngIf="!isSocialLogedIn" routerLinkActive='active' [routerLink]="['/account/change-password']"><a
+        href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'change-password' ? style.primaryColor : style.baseColor">{{'Change Password' | translate}}</a>
+    </li>
+    <li routerLinkActive='active' [routerLink]="['/account/address']"><a href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'address' ? style.primaryColor : style.baseColor">{{'Manage Address' | translate}}</a>
+    </li>
+    <li *ngIf="settings.referral_feature == 1" routerLinkActive='active' [routerLink]="['/account/referrals']"><a
+        href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'referrals' ? style.primaryColor : style.baseColor">{{'Referrals' | translate}}</a>
+    </li>
+    <li routerLinkActive='active' *ngIf="settings?.gift_card == 1" [routerLink]="['/account/my-gift-cards']"><a
+        href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'my-gift-cards' ? style.primaryColor : style.baseColor">{{'My Gift Cards' | translate}}</a>
+    </li>
+    <li *ngIf="settings?.is_user_subscription == 1" routerLinkActive='active' [routerLink]="['/account/subscriptions']"> 
+      <a href="javascript:void(0)" 
+        [style.color]="activeParentRoute === 'subscriptions' ? style.primaryColor : style.baseColor">{{'my_subscription' | localization}}</a>
+    </li>
+    <li *ngIf="settings.wallet_module == 1" routerLinkActive='active' [routerLink]="['/account/my-wallet']"><a
+        href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'my-wallet' ? style.primaryColor : style.baseColor">{{'wallet' | localization}}</a>
+    </li>
+    <li *ngIf="settings.is_loyality_enable == 1" routerLinkActive='active' [routerLink]="['/account/loyalty']"><a
+        href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'loyalty' ? style.primaryColor : style.baseColor">{{'loyalty_points' | localization}}</a>
+    </li>
+    <li *ngIf="settings.is_feedback_form_enabled == 1" routerLinkActive='active' [routerLink]="['/account/feedback']"><a
+        href="javascript:void(0)"
+        [style.color]="activeParentRoute === 'feedback' ? style.primaryColor : style.baseColor">{{'Feedback' | translate}}</a>
+    </li>
+    <li routerLinkActive='active' *ngIf="settings?.is_table_booking == 1" [routerLink]="['/account/table-bookings']"><a href="javascript:void(0)">Table
+        Bookings</a></li>
+    <li><a href="javascript:void(0)" (click)="signOutConfirmation()"
+        [style.color]="style.baseColor">{{'Sign out' | translate}}</a></li>
+  </ul>
+
+  <div class="admin-chat">
+    <app-chat *ngIf="userService.currentUserValue && settings?.admin_to_user_chat == 1" [join_room]="true" [message_id]="userService.currentUserValue.message_id" [btnText]="'Chat With Admin'" [receiverType]="4"></app-chat>
+  </div>  
+</div>

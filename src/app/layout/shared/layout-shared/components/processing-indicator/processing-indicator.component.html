@@ -1,0 +1,20 @@
+<ng-container *ngIf="!!loaderImage; then image else spinner"></ng-container>
+
+<ng-template #spinner>
+    <div id="global_loader" class="glb-ldr-prt">
+        <div class="gl-ldr-ctr">
+            <div class="gl-loader "
+                [ngStyle]="{'borderBottomColor': style.primaryColor, borderLeftColor: style.primaryColor}"></div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #image>
+    <div class="loading-screen-wrapper">
+        <div class="loading-screen-icon">
+            <img [width]="width" [height]="height" class="pulse uk-animation-fade"
+                [src]="loaderImage">
+            <p [ngStyle]="{'color': style.baseColor}">{{message}}</p>
+        </div>
+    </div>
+</ng-template>

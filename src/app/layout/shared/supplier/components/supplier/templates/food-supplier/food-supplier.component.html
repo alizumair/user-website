@@ -1,0 +1,101 @@
+<ng-container [ngSwitch]="settings?.selected_template">
+
+    <ng-template [ngSwitchCase]="1">
+            <div class="wrap-rest-list">
+    
+                    <div class="rest-el" (click)="productList(supplier)">
+                            <div class="wrap-rest-logo">
+                            <img appImage [url]="supplier?.logo" [src]="supplier?.logo"  onError="src = '/assets/images/placeholder_image.svg';" @fade class="rest-logo"/>
+                 
+                            </div>
+                            <div class="wrap-inner-details">
+                                <div class="wrap-title-status">
+                                        <span class="rest-name">    {{isBranch ? supplier?.supplier_branch_name : supplier?.name}}</span> 
+                                        
+                                </div>
+                             
+                                 <span class="rest-address">
+                                     <p  *ngIf="settings?.hide_supplier_address == 0"   @fade>
+                                            {{supplier?.address}}
+                                     </p>
+                                 </span>
+                                 <div class="wrap-all-icons">
+                                         <div class="wrap-rating inner-item-details" @fade>
+                                                 <i class="fa fa-star"></i> 
+                                                 <span> {{supplier?.rating ? supplier?.rating : 0}}</span>
+                                         </div>
+                                        <div class="wrap-delivery-time inner-item-details">
+                                            <i class="fa fa-hourglass-half"></i>
+                                            <span>60 mins</span>
+                                        </div>
+                                        <div class="wrap-distance inner-item-details">
+                                             <i class="fa fa-map-marker"></i>
+                                             <span>{{supplier?.distance ? roundDistance(supplier?.distance) : ""}}km</span>
+                                        </div>
+                                 </div>
+                              
+                            </div>
+                        </div>
+                
+                            
+               </div>
+     
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="2">
+
+        <div class="cafe-Restaurants-outter">
+            <div class="cafe-Restaurants-detail">
+                <div class="cafe-Restaurants-img mobile-img" (click)="productList(supplier)">
+                    <img appImage [url]="supplier?.logo" [size]="'130x120'" [src]="supplier?.logo"
+                        onError="src = '/assets/images/placeholder_image.svg';" @fade>
+                </div>
+                <div class="cafe-Restaurants-title">
+                    <h3 class="ellipsis d-inline-flex" @fade (click)="productList(supplier)">
+                        {{isBranch ? supplier?.supplier_branch_name : supplier?.name}}</h3>
+                    <a (click)="onFavourite.emit()" class="float-right cursor" *ngIf="settings?.is_supplier_wishlist">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Page-1" stroke="none" stroke-width="2"
+                                [attr.fill]="supplier?.Favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                                <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                                    [attr.stroke]="supplier?.Favourite ? style.primaryColor : style.baseColor">
+                                    <g id="ic_heart_fill">
+                                        <path
+                                            d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                            id="Combined-Shape-Copy"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                    <p class="ellipsis" @fade>{{supplier?.address}}</p>
+                    <div *ngIf="supplier?.category_names">
+                        <p style="width: 90px;">{{'categories' | localization}} :</p> <span style="width: 70%;"
+                            @fade>{{supplier?.category_names}}</span>
+                    </div>
+                </div>
+                <div class="cafe-Restaurants-img desktop-img" (click)="productList(supplier)">
+                    <img appImage [url]="supplier?.logo" [size]="'200x120'" [src]="supplier?.logo"
+                        onError=" src='/assets/images/placeholder_image.svg' ;">
+                </div>
+            </div>
+            <div class="cafe-Restaurants-delivery">
+                <ul>
+                    <li>
+                        <span [style.background-color]="style?.primaryColor" @fade><i class="fa fa-star"
+                                aria-hidden="true"></i>
+                            {{supplier?.rating ? supplier?.rating : 0}}
+                        </span>
+                    </li>
+                    <li (click)="productList(supplier)" style="float: right; margin-top: 3px; margin-right: 0px;">
+                        <p><a style="cursor: pointer;"><img
+                                    src="/assets/images/food/ic_cart.svg">{{'order' | localization | translate}}
+                                {{'Now' | translate}}</a></p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </ng-template>
+
+</ng-container>

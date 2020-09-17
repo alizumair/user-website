@@ -1,0 +1,193 @@
+<!----------------------------page loader------------------------------------>
+<app-processing-indicator *ngIf="isLoading"
+  [loaderImage]="settings.placeholder.order_loader.web || '/assets/loader-images/' + settings.app_type + '.gif'">
+</app-processing-indicator>
+
+<!--================ Start Cart Page Detail ================-->
+<div class="cart_page-detail">
+  <div class="container" [style.width]="settings?.app_type == 2 && settings?.selected_template == 2 ? '80%' : '100%'">
+    <div class="row">
+      <div class="col-md-12" *ngIf="settings?.app_type == 2 && settings?.selected_template == 2">
+        <h3>My Cart<span [style.color]="style.baseColor" *ngIf="totalItems > 0 && cart.length > 0"
+            class="">({{cart.length}})</span></h3>
+      </div>
+      <div [ngClass]="totalItems > 0 && cart.length > 0 ? 'col-md-8' : 'col-md-12'" class="cart-products">
+        <!-- class="cart-product-inner" -->
+        <div [style.border-color]="style.secondaryColor"
+          [ngClass]="settings?.app_type == 2 && settings?.selected_template == 2 ? '' :'cart-product-inner'">
+          <app-cart-products-list *ngIf="settings" [style]="style" [settings]="settings" [darkTheme]="isDarkTheme"
+            [products]="cart" [totalItems]="totalItems">
+          </app-cart-products-list>
+        </div>
+
+        <app-questions-list *ngIf="settings.app_type == 8  && questions && questions.length && cart.length"
+          [questions]="questions" [cartPrice]="priceObj" [style]="style">
+        </app-questions-list>
+
+        <app-instructions *ngIf="settings?.order_instructions && show_instructions && cart.length" [style]="style"
+          [settings]="settings" (instructionText)="instructionChange($event)"></app-instructions>
+
+        <app-instructions *ngIf="settings?.extra_instructions && cart.length" [title]="'Parking Instructions'"
+          [style]="style" [settings]="settings" (instructionText)="parking_instruction = $event"></app-instructions>
+
+        <app-instructions *ngIf="settings?.extra_instructions && cart.length" [title]="'Area To Focus'" [style]="style"
+          [settings]="settings" (instructionText)="area_to_focus = $event"></app-instructions>
+      </div>
+
+      <div class="col-md-4" *ngIf="totalItems > 0 && cart.length > 0">
+        <div class="cart_slidebar">
+          <app-referral *ngIf="settings?.referral_feature == 1 && loggedIn" [style]="style" [settings]="settings"
+            (referralAmount)="referralAmountChange($event)"></app-referral>
+
+          <app-loyalty-discount *ngIf="settings?.is_loyality_enable == 1 && loggedIn && priceObj.totalLoyaltyAmount > 0"
+            [style]="style" [settings]="settings" [loyalty_amount]="priceObj.totalLoyaltyAmount" [priceObj]="priceObj"
+            (loyaltylAmount)="loyaltyAmountChange($event)"></app-loyalty-discount>
+
+
+          <app-cart-price-detail *ngIf="settings" [style]="style" [settings]="settings" [loggedIn]="loggedIn"
+            [priceObj]="priceObj" [is_dinin]="book_dining" [delivery_charge]="book_dining==0?delivery_charge:0"
+            [selfPickup]="self_pickup" (priceDetail)="setPrice($event)" [questions]="questions"
+            [walletAmount]="walletAmount" [applyWalletDiscount]="applyWalletDiscount" [activePlan]="activePlan">
+          </app-cart-price-detail>
+
+          <div class="price_details" *ngIf="showDeliveryOption && settings?.app_type == 1"
+            [style.background-color]="style.cardBackgroundColor" [style.border-color]="style.secondaryColor">
+            <ul class="list-inline pt-2 self-pickup">
+              <li class="list-inline-item" *ngIf="!is_after_table_booking">
+                <button class="btn"
+                  [ngStyle]="(delivery_opt == 1) ? saveBtn : {'color': style.primaryColor, 'backgroundColor': style.cardBackgroundColor, 'borderColor': style.primaryColor}"
+                  (click)="onDelivery()">{{'Delivery' | translate}}</button>
+              </li>
+              <li class="list-inline-item" *ngIf="!is_after_table_booking">
+                <button class="btn"
+                  [ngStyle]="self_pickup == 1 ? saveBtn : {'color': style.primaryColor, 'backgroundColor': style.cardBackgroundColor, 'borderColor': style.primaryColor}"
+                  (click)="onSelfPickup()">{{'Self Pick-Up' | translate}}</button>
+              </li>
+              <li *ngIf="settings?.is_table_booking==='1' && is_supplier_scheduling || is_after_table_booking"
+                class="list-inline-item">
+                <button class="btn"
+                  [ngStyle]="book_dining == 1 ? saveBtn : {'color': style.primaryColor, 'backgroundColor': style.cardBackgroundColor, 'borderColor': style.primaryColor}"
+                  (click)="onDining()">{{'Book Dining' | translate}}</button>
+              </li>
+            </ul>
+          </div>
+
+          <app-delivery-address-detail *ngIf="isCartCheck" [isAddressHide]="book_dining" class="hide" [style]="style"
+            [settings]="settings" [addAddressModel]="displayAddModal" [cart]="cart" [loggedIn]="loggedIn"
+            [class.show]="!pickUp_dateTime && self_pickup == 0" (serviceCharge)="calculateServiceCharge($event)"
+            (addressDetail)="setAddress($event)">
+          </app-delivery-address-detail>
+
+          <app-cart-payment-mode *ngIf="!payment_after_confirmation &&
+           !hidePaymentModeSelection && book_dining===0  && !is_after_table_booking" [style]="style"
+            [settings]="settings" [selfPickup]="self_pickup" [walletAmount]="addressDetail?.wallet_amount"
+            (paymentMode)="setPaymentType($event)" (changeInRequest)="onChangeInRequest($event)">
+          </app-cart-payment-mode>
+
+          <app-agent-tip [style]="style" [settings]="settings"
+            *ngIf="agent_tips.length && ['1','4'].includes(paymentType) && (settings?.app_type == 1 || settings?.agent_tip) && self_pickup == 0"
+            [tips]="agent_tips" (addedTip)="agentTipChange($event)"></app-agent-tip>
+
+          <app-online-payment [settings]="settings" [order]="paymentOrderModel" *ngIf="isPayOnline"
+            [geofencedGateways]="geofencedGateways" (onError)="onPaymentError()" (onClose)="isPayOnline = $event"
+            (onSuccess)="onPaymentSuccess($event)">
+          </app-online-payment>
+
+          <app-cart-image-upload
+            *ngIf="(settings?.cart_image_upload || settings?.product_prescription) && show_prescription" [style]="style"
+            [settings]="settings" [loggedIn]="loggedIn" (prescriptionImages)="prescriptionImagesCheck($event)">
+          </app-cart-image-upload>
+
+          <app-table-details *ngIf="table_booking_details && is_after_table_booking"
+            [tableDetails]="table_booking_details" [style]="style" [settings]="settings"
+            (onRemoveTableBooking)="removeTableBookingRequest($event)">
+          </app-table-details>
+
+
+          <div class="place_order mb-5" *ngIf="cart?.length && 
+          !is_after_table_booking  && book_dining==1 && settings.by_pass_tables_selection=='0'">
+            <input type="text" placeholder="Enter table no.(Optional)" class="form-control" [(ngModel)]="manualTableNo">
+            <span class="verify-tbl" (click)="verifyManualTableNo()">Verfiy</span>
+          </div>
+
+          <div class="place_order mb-2" *ngIf="cart?.length && 
+          settings?.is_schdule_order == 1 && !scheduleOrderSlot && 
+          !is_after_table_booking && is_supplier_scheduling">
+            <button [ngStyle]="saveBtn" (click)="openSchedulingModal()">
+              {{ book_dining==1?"Book Table":"Schedule Order" | translate}}</button>
+          </div>
+
+          <div class="place_order mb-2" *ngIf="cart?.length && settings?.is_schdule_order == 1 && scheduleOrderSlot">
+            <button [ngStyle]="saveBtn" style="width: 48%;" (click)="openSchedulingModal()">Pick Another Slot</button>
+            <button [ngStyle]="saveBtn" style="width: 48%; float: right;" (click)="removeSlot()">Remove Slot</button>
+          </div>
+
+          <div class="place_order"
+            *ngIf="cart?.length !== 0 && !isPayOnline && (paymentType != '1' || priceObj?.referral_amount >= priceObj?.netTotal)">
+            <button [ngStyle]="saveBtn" (click)="onPlaceOrder()">
+              {{ is_agent && is_service ? (settings?.laundary_service_flow == 1 ? 'Standard Booking' : 'Book Now')  : ("Place Order" | translate) }}</button>
+          </div>
+
+          <div class="place_order"
+            *ngIf="!isPayOnline && paymentType == '1' && priceObj?.referral_amount < priceObj?.netTotal">
+            <button *ngIf="settings?.laundary_service_flow == 0" [ngStyle]="saveBtn" (click)="onPay()">
+              {{ 'Pay' | translate }}
+              {{priceObj?.local_currency || currency }}{{(priceObj.displayNetTotal).toFixed(settings?.price_decimal_length)}}</button>
+            <button *ngIf="settings?.laundary_service_flow == 1" [ngStyle]="saveBtn" (click)="onPay()">
+              Schedule Booking</button>
+          </div>
+
+          <div class="place_order" style="margin-top: 20px;"
+            *ngIf="cart?.length !== 0 && settings?.laundary_service_flow == 1">
+            <button [ngStyle]="saveBtn" (click)="bookServiceNow()">
+              Urgent Booking</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="remember mt-5" *ngIf="settings?.things_to_remember && cart.length">
+        <h4>{{'Things To Remember' | translate}}</h4>
+        <p [innerText]="settings?.things_to_remember"></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Schedule order Modal -->
+<!-- <div class="modal fade" id="scheduleDateModal" tabindex="-1" role="dialog" aria-labelledby="scheduleDateModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered timemod" role="document">
+    <div class="modal-content" style="text-align: center">
+      <div class="modal-header">
+        <h5 class="modal-title" id="scheduleDateModalLabel" [style.color]="style.baseColor">
+          {{ "SCHEDULE ORDER" | translate }}
+        </h5>
+      </div>
+      <div class="modal-body">
+        <p-calendar [showTime]="true" [(ngModel)]="selectedScheduleDate" [minDate]="min" [maxDate]="scheduleMaxDate"
+          selectionMode="multiple" [inline]="true" [readonlyInput]="true"></p-calendar>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="toOrderDetail()" [ngStyle]="{
+            backgroundColor: '#ffffff',
+            borderColor: style.secondaryColor,
+            color: style.secondaryColor
+          }" class="btn" data-dismiss="modal" aria-label="Close">
+          {{ "Skip" | translate }}
+        </button>
+        <button type="button" (click)="scheduleOrder()"
+          [disabled]="!selectedScheduleDate || !selectedScheduleDate?.length" [ngClass]="!selectedScheduleDate || !selectedScheduleDate?.length ? 'disabled' : ''" 
+          [ngStyle]="{backgroundColor: style.primaryColor, borderColor: style.primaryColor, color: '#ffffff'}" class="btn" data-dismiss="modal" aria-label="Close">
+          {{ "Done" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<app-cart-date-time *ngIf="cartDateTimeData?.is_open" [dateTimeData]="cartDateTimeData" (payNow)="setDateTime($event)">
+</app-cart-date-time>
+
+<app-cart-schedule-time [style]="style" [settings]="settings" *ngIf="showScheduleTime" [schedulingData]="schedulingData"
+  (onScheduling)="onSchedulingProcess($event)" (onClose)="this.showScheduleTime = false"></app-cart-schedule-time>

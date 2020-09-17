@@ -1,0 +1,209 @@
+<footer>
+  <div class="footer-part">
+    <div class="appwrap row" *ngIf="siteName == '100% Ayiti'">
+      <ul class="text-center">
+        <li>
+          <a>{{'DOWNLOAD THE APP' | translate}}</a>
+        </li>
+        <li>
+          <a *ngIf="appLink?.android && !is_new_badge" target="_blank" [href]="appLink?.android">
+            <img src="/assets/images/google_play.png" style=" margin-bottom: 0px;">
+          </a>
+        </li>
+        <li>
+          <a *ngIf="appLink?.ios && !is_new_badge" target="_blank" [href]="appLink?.ios">
+            <img src="/assets/images/app_store.png" style=" margin-bottom: 0px;">
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <section id="download_app_section" *ngIf="settings?.selected_template == 2 && settings?.app_type == 1 && router.url == '/'">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="download_app_section-text">
+              <h2>{{settings.footer_mockup_title || 'Download Our app'}}</h2>
+              <p>{{settings?.footer_mockup_description || 'For Android and IOS'}}</p>
+              <div class="">
+                <a *ngIf="appLink?.ios" target="_blank" [href]="appLink?.ios"><img
+                    src="/assets/images/food/Apple_store.png"></a>
+                <a *ngIf="appLink?.android" target="_blank" [href]="appLink?.android"><img
+                    src="/assets/images/food/google_pay.png"></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="download_app_section_img">
+              <img [src]="settings.footer_mockup_image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container"
+      [ngStyle]="((settings?.is_single_vendor && settings?.selected_template == 1) || (!settings?.is_single_vendor && settings?.selected_template == 2)) && settings?.app_type == 1 ? {'borderTop': '0px'} : {'borderTop': '1px solid rgba(37, 73, 77, .34901960784313724)'}">
+
+      <div class="row">
+        <div class="col-md-4"
+          *ngIf="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy || settings?.faqs">
+          <div class="useful-links">
+            <h2 [style.color]="style.baseColor">{{'Useful Links' | translate}}</h2>
+            <ul>
+              <li *ngIf="settings?.aboutUs">
+                <a [style.color]="style.baseColor" [routerLink]="['/about']">{{'About Us' | translate}}</a>
+              </li>
+              <li *ngIf="settings?.termsAndConditions">
+                <a [style.color]="style.baseColor"
+                  [routerLink]="['/terms-and-conditions']">{{'Terms & Conditions' | translate}}</a>
+              </li>
+              <li *ngIf="settings?.privacyPolicy">
+                <a [style.color]="style.baseColor"
+                  [routerLink]="['/privacy-policy']">{{'Privacy Policy' | translate}}</a>
+              </li>
+              <li *ngIf="settings?.faqs">
+                <a [style.color]="style.baseColor" [routerLink]="['/faq']">{{"FAQ's" | translate}}</a>
+              </li>
+              <li *ngIf="settings?.is_vendor_registration == 1"><a [style.color]="style.baseColor" target="_blank"
+                  [href]="registrationUrl">{{'Register As' | translate}}
+                  {{'supplier' | localization}}</a></li>
+              <!-- <li><a [style.color]="style.baseColor" [routerLink]="['/sitemap']">Sitemap</a></li> -->
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="useful-links">
+            <h2 [style.color]="style.baseColor">{{'Contact Us' | translate}}</h2>
+            <ul>
+              <li [style.color]="style.baseColor">{{contact?.phoneNumber}}</li>
+              <li [style.color]="style.baseColor">{{contact?.email}}</li>
+              <li [style.color]="style.baseColor">{{contact?.country}}</li>
+              <li *ngIf="contact?.email && settings.email" class="help cursor" (click)="onHelp()">
+                {{"Help & Support" | translate}}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <div class="use-mobile-sectiont">
+            <!-- <h2 [style.color]="style.baseColor">{{'Download Our Apps' | translate}}</h2> -->
+            <div class="app-images" *ngIf="siteName !== '100% Ayiti' && settings?.selected_template != 2">
+              <a *ngIf="appLink?.android && !is_new_badge" target="_blank" [href]="appLink?.android">
+                <img src="/assets/images/google_play.png">
+              </a>
+              <a *ngIf="appLink?.android && is_new_badge" target="_blank" [href]="appLink?.android">
+                <img src="/assets/images/food/play-store-new.png">
+              </a>
+              <!-- <a><img src="/assets/images/google_play.png"></a> -->
+              <!-- <br> -->
+              <a *ngIf="appLink?.ios && !is_new_badge" target="_blank" [href]="appLink?.ios">
+                <img src="/assets/images/app_store.png">
+              </a>
+              <a *ngIf="appLink?.ios && is_new_badge" target="_blank" [href]="appLink?.ios">
+                <img src="/assets/images/food/app-store-new.png">
+              </a>
+              <!-- <a><img src="/assets/images/app_store.png"></a> -->
+            </div>
+
+            <div class="app-images" *ngIf="siteName !== '100% Ayiti' && settings?.selected_template == 2">
+              <h2 [style.color]="style.baseColor">{{'Download Our App' | translate}}</h2>
+
+              <a *ngIf="appLink?.android" target="_blank" [href]="appLink?.android" [style.color]="style.baseColor">
+                Get It On Google
+              </a>
+              <a *ngIf="appLink?.ios" target="_blank" [href]="appLink?.ios" [style.color]="style.baseColor">
+                Download At App Store
+              </a>
+            </div>
+
+            <div class="work-with-us" *ngIf="siteName == '100% Ayiti'">
+              <h2 [style.color]="style.baseColor">{{'Work With Us' | translate}}</h2>
+              <ul>
+                <li>
+                  <a target="_blank" [href]="registrationUrl" [style.color]="style.baseColor">
+                    Sign up your store
+                  </a>
+                </li>
+                <li>
+                  <a target="_blank" [href]="settings?.agent_android_app_url" [style.color]="style.baseColor">
+                    Android Driver App
+                  </a>
+                </li>
+                <li>
+                  <a target="_blank" [href]="settings?.agent_ios_app_url" [style.color]="style.baseColor">
+                    IOS Driver App
+                  </a>
+                </li>
+                <li *ngIf="contact?.email && settings.email" class="help cursor" (click)="onHelp()">
+                  {{"Help & Support" | translate}}
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="useful-links social" *ngIf="settings?.social_media_icons == 1 && !settings?.is_single_vendor && settings?.selected_template == 1 && (settings?.fackbook_link || settings?.twitter_link || settings?.linkedin_link || settings?.google_link)">
+            <h2 [style.color]="style.baseColor">{{'Follow Us On' | translate}}</h2>
+            <ul>
+              <li><a *ngIf="settings?.fackbook_link" [style.color]="style.primaryColor" target="_blank"
+                  [href]="settings?.fackbook_link"><i class="fa fa-facebook" aria-hidden="true"></i>
+                </a></li>
+              <li><a *ngIf="settings?.twitter_link" [style.color]="style.primaryColor" target="_blank"
+                  [href]="settings?.twitter_link"><i class="fa fa-twitter" aria-hidden="true"></i>
+                </a></li>
+              <li><a *ngIf="settings?.linkedin_link" [style.color]="style.primaryColor" target="_blank"
+                  [href]="settings?.linkedin_link"><i class="fa fa-linkedin" aria-hidden="true"></i>
+                </a></li>
+              <li><a *ngIf="settings?.google_link" [style.color]="style.primaryColor" target="_blank"
+                  [href]="settings?.google_link"><i class="fa fa-google-plus" aria-hidden="true"></i>
+                </a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="powered_by" *ngIf="settings.payment_card_images == 1">
+        <h2 class="text-center"><b><span>We Accept</span></b></h2>
+        <div class="row">
+          <div class="powered_by_img"><img src="./../../../../../assets/images/Amex.jpg"></div>
+          <div class="powered_by_img"><img src="./../../../../../assets/images/Mastercard SecureCode.jpg">
+          </div>
+          <div class="powered_by_img"><img src="./../../../../../assets/images/MasterCard.jpg"></div>
+          <div class="powered_by_img"><img src="./../../../../../assets/images/Verified by Visa.jpg"></div>
+          <div class="powered_by_img"><img src="./../../../../../assets/images/visa.png"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="single-vender-bottom-footer" *ngIf="settings?.selected_template == 1 && settings?.is_single_vendor">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="single-vender-bottom-text">
+          <p>{{siteName}} © 2020. All Rights Reserved</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="single-vender-bottom-social">
+          <ul>
+            <li *ngIf="settings?.fackbook_link"><a [href]="settings?.fackbook_link" target="_blank"><i
+                  class="fa fa-facebook-square" aria-hidden="true"></i>
+              </a></li>
+            <li *ngIf="settings?.linkedin_link"><a [href]="settings?.linkedin_link" target="_blank"><i
+                  class="fa fa-instagram" aria-hidden="true"></i>
+              </a></li>
+            <li *ngIf="settings?.google_link"><a [href]="settings?.google_link" target="_blank"><i
+                  class="fa fa-google-plus" aria-hidden="true"></i>
+              </a></li>
+            <li *ngIf="settings?.twitter_link"><a [href]="settings?.twitter_link" target="_blank"><i
+                  class="fa fa-twitter-square" aria-hidden="true"></i>
+              </a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

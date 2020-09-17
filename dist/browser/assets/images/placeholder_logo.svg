@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="116px" height="116px" viewBox="0 0 116 116" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>logo_empty</title>
+    <desc>Created with Sketch.</desc>
+    <g id="web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval-Copy-11" fill="#E5E5E5" cx="58" cy="58" r="56"></circle>
+        <g id="Group-10" transform="translate(34.000000, 37.000000)">
+            <path d="M5.34161688,4.05377629 L42.6813974,4.01357832 C44.1541559,4.01199282 45.3493478,5.20461417 45.3509333,6.67737265 C45.3509354,6.67927938 45.3509354,6.6811861 45.3509334,6.68309283 L45.3221775,33.594908 C45.3206062,35.0654331 44.1289082,36.2571406 42.6583831,36.2587237 L5.31860258,36.2989217 C3.8458441,36.3005072 2.65065216,35.1078858 2.64906667,33.6351273 C2.64906462,33.6332206 2.64906461,33.6313139 2.64906665,33.6294072 L2.67782252,6.71759202 C2.67939381,5.2470669 3.87109177,4.05535938 5.34161688,4.05377629 Z" id="Rectangle-Copy-17" stroke="#BBBBBB" stroke-width="1.33333333" fill="#E5E5E5" transform="translate(24.000000, 20.156250) rotate(-8.000000) translate(-24.000000, -20.156250) "></path>
+            <rect id="Rectangle" stroke="#BBBBBB" stroke-width="1.33333333" fill="#E5E5E5" x="4.64751158" y="10.6022057" width="42.6666667" height="32.25" rx="2.66666667"></rect>
+            <g id="Group-4" transform="translate(13.980845, 13.289706)">
+                <g id="Group-3" transform="translate(3.870968, 0.000000)">
+                    <ellipse id="Combined-Shape" fill="#BBBBBB" cx="10.0645161" cy="10.2757353" rx="10.0645161" ry="10.2757353"></ellipse>
+                    <ellipse id="Oval" stroke="#E5E5E5" stroke-width="1.1328976" cx="10.0645161" cy="10.2757353" rx="4.4804273" ry="10.8421841"></ellipse>
+                    <ellipse id="Oval-Copy" stroke="#E5E5E5" stroke-width="1.1328976" transform="translate(10.064516, 10.275735) rotate(-270.000000) translate(-10.064516, -10.275735) " cx="10.0645161" cy="10.2757353" rx="4.56256808" ry="10.6309649"></ellipse>
+                </g>
+                <path d="M3.87096774,14.147662 L14.3829409,14.147662 C14.8161054,14.147662 15.1672547,14.4988112 15.1672547,14.9319757 C15.1672547,15.0071108 15.1564583,15.0818561 15.1351967,15.1539202 L12.843079,22.9227941 L4.77841482,18.1060432 L3.87096774,14.147662 Z" id="Path-7" fill="#E5E5E5"></path>
+                <g id="ic_cart" transform="translate(0.000000, 11.066176)">
+                    <g id="Group" transform="translate(0.245161, 0.494026)">
+                        <g id="Group-2" transform="translate(0.000000, 0.529313)">
+                            <ellipse id="Oval-Copy" fill="#BBBBBB" cx="10.9220003" cy="11.8566176" rx="1.67591739" ry="1.69380252"></ellipse>
+                            <ellipse id="Oval-Copy-2" fill="#BBBBBB" cx="5.03812937" cy="11.8566176" rx="1.67591739" ry="1.69380252"></ellipse>
+                            <polyline id="Rectangle-2" stroke="#BBBBBB" stroke-width="0.784313725" stroke-linecap="round" stroke-linejoin="round" points="5.03812937 3.05237329 13.7290323 3.05237329 12.1319148 8.46901261 3.63300078 8.46901261 2.11341355 0.848613632 0 0"></polyline>
+                        </g>
+                    </g>
+                    <path d="M5.14946447,7.77241426 L8.89594884,7.77241426" id="Line" stroke="#BBBBBB" stroke-width="0.784313725" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+                    <path d="M5.14946447,6.19153191 L6.92640499,6.19153191" id="Line-Copy" stroke="#BBBBBB" stroke-width="0.784313725" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

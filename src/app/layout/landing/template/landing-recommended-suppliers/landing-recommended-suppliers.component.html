@@ -1,0 +1,35 @@
+<section class="marketplace-categories marketplace-deal">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="marketplace-categories_heading">
+                    <h3>Recommended {{'suppliers' | localization}}</h3>
+                    <!-- <a href="">View All</a> -->
+                </div>
+            </div>
+            <div *ngFor="let supplier of suppliers?.slice(0,9)" class="col-md-4">
+                <div class="box">
+                    <div class="top">
+                        <img appImage [url]="supplier?.logo" [size]="'350x150'" [src]="supplier?.logo" class="deals-img"
+                            onError="src = './assets/images/placeholder_image.svg';">
+                    </div>
+                    <div class="btm">
+                        <div class="d-flex no-img">
+                            <div class="text">
+                                <strong data-toggle="tooltip" title="{{supplier.name}}" style="color: rgb(54, 54, 54);">
+                                    {{supplier.name}}
+                                </strong>
+                                <h5>{{supplier?.address}}</h5>
+                            </div>
+                        </div>
+                        <hr
+                            style="background-image: -webkit-gradient(linear, 0 0, 100% 0, from(rgba(250, 237, 204, 0.53)), to(rgba(250, 237, 204, 0.53)), color-stop(0.5, rgb(54, 54, 54)));">
+                        <button class="text-uppercase" type="button" (click)="onViewDetial.emit(supplier)">View
+                            Details</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

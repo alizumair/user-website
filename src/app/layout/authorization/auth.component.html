@@ -1,0 +1,39 @@
+<!-- Start Login Model -->
+<div id="auth" #auth class="modal fade" role="dialog" data-backdrop="static">
+  <div class="modal-dialog" style="max-width: 420px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" #closeModal (click)="closeAuthModal()"></button>
+      </div>
+      <div class="modal-body">
+
+        <app-login *ngIf="isLogin && !forgotPassword" (openForgot)="openForgotPassword()"
+          (onIncompleteProfile)="onInCompleteProfile($event)" (closeModal)="closeModalFromChild($event)"></app-login>
+        <app-sign-up *ngIf="!isLogin && !forgotPassword" (closeModal)="closeModalFromChild($event)"
+          (otherLogins)="otherLogins = $event" [inCompleteProfile]="inCompleteProfile"></app-sign-up>
+        <app-forgot-password *ngIf="forgotPassword" (closeModal)="closeModalFromChild($event)"></app-forgot-password>
+
+        <div class="other-logins" *ngIf="otherLogins">
+          <ul>
+            <li [style.color]="style?.defaultColor" *ngIf="isLogin || forgotPassword">
+              {{'Not registered yet?' | translate}} <a [style.color]="style?.primaryColor"
+                (click)="isLogin = false; forgotPassword = false;">{{'Sign up' | translate}}</a></li>
+            <li [style.color]="style?.defaultColor" *ngIf="!isLogin || forgotPassword">
+              {{'Already have an account?' | translate}} <a [style.color]="style?.primaryColor"
+                (click)="isLogin = true; forgotPassword = false;">{{'Login' | translate}}</a></li>
+            <li *ngIf="settings?.is_vendor_registration == 1"><a [style.color]="style?.primaryColor" target="_blank"
+                [href]="registrationUrl">{{'Register As' | translate}}
+                {{'supplier' | localization}}</a></li>
+            <!-- <li [style.color]="style?.defaultColor" *ngIf="!forgotPassword">{{'Interested in selling?' | translate}} <a [style.color]="style?.primaryColor" target="_blank" href="http://45.232.252.46:3007/">{{'Get Started' | translate}}</a></li> -->
+          </ul>
+          <!-- <p [style.color]="style?.baseColor" *ngIf="isLogin || forgotPassword">Not registered yet? <a [style.color]="style?.primaryColor" (click)="isLogin = false; forgotPassword = false;">Sign up</a> </p>
+          <p [style.color]="style?.baseColor" *ngIf="!isLogin || forgotPassword">Already have an account? <a [style.color]="style?.primaryColor" (click)="isLogin = true; forgotPassword = false;">Login</a> </p>
+          <p [style.color]="style?.baseColor" *ngIf="!forgotPassword">Interested in selling? <a [style.color]="style?.primaryColor" target="_blank" href="http://45.232.252.46:3007/">Get Started</a> </p> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Login Model -->
+
+<!-- <button type="button" data-toggle="modal" data-target="auth" #toggleAuth></button> -->

@@ -1,0 +1,420 @@
+<ng-container *ngIf="settings?.selected_template == 4; then temp_4 ;else default;"></ng-container>
+
+<ng-template #default>
+
+  <ng-container *ngIf="!isLoading; then data else skeleton"></ng-container>
+  <ng-template #data>
+    <div class="sub_bar">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- <h3 [style.color]="style.primaryColor">{{detail?.category_flow}}><strong
+                  [style.color]="style.primaryColor">{{detail?.name}}</strong></h3> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="product_section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class=" images-section-left" [ngStyle]="{'borderColor': style.primaryColor}">
+              <img #productImage class="drift-trigger" appImage [url]="image" [size]="'600x500'" [src]="image"
+                [height]="'500'" width="100%" onError="src = './assets/images/image_placeholder.jpeg';" @fade>
+              <div class="images-slides" [ngStyle]="{'borderColor': style.primaryColor}"
+                *ngIf="detail?.image_path?.length"
+                [class.separate_product]="settings?.separate_images_product_detail == 1">
+
+                <img *ngFor="let img of detail?.image_path" [class.active]="img == image" appImage [url]="img"
+                  [size]="'150x150'" [src]="img" (click)="onImageClick(img)"
+                  onError="src = './assets/images/image_placeholder.jpeg';" @fade>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 nike-txt-part drift-detail">
+            <div class="heart-img" *ngIf="settings?.is_product_wishlist == 1">
+              <a (click)="wishlist(!detail?.is_favourite)">
+                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Page-1" stroke="none" stroke-width="2"
+                    [attr.fill]="detail?.is_favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                    <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                      [attr.stroke]="detail?.is_favourite ? style.primaryColor : style.baseColor">
+                      <g id="ic_heart_fill">
+                        <path
+                          d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                          id="Combined-Shape-Copy"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </a>
+            </div>
+            <p class="title_shoes" [style.color]="style.baseColor" opacity="0.900000036" @fade>{{detail?.name}}</p>
+            <p [style.color]="style.primaryColor" opacity="0.5" @fade>{{'by' | translate}} {{detail?.supplier_name}}
+            </p>
+            <h6 *ngIf="detail?.brand_name" [style.color]="style.baseColor" @fade>{{detail?.brand_name}}</h6>
+
+            <div class="star-rating" *ngIf="settings?.is_product_rating == 1">
+              <!-- <rating *ngIf="!(settings?.app_type == 2 && settings?.selected_template == 3)"
+                [ngModel]="detail?.avg_rating" [readonly]="true" [max]="5" [float]="true" @fade></rating> -->
+
+                <p-rating *ngIf="!(settings?.app_type == 2 && settings?.selected_template == 3)" [ngModel]="detail?.avg_rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+
+              <span *ngIf="settings?.app_type == 2 && settings?.selected_template == 3" [style.color]="style.baseColor"
+                class="rating">{{detail?.avg_rating ? detail?.avg_rating : 0}}/5</span>
+            </div>
+            <h2 @fade><strong [style.color]="style.baseColor">{{currency}}
+                {{detail?.fixed_price ? detail?.fixed_price : 0}} </strong><span *ngIf="detail?.discount"
+                class="detail-discount" [style.color]="style.baseColor">{{currency}} {{detail?.display_price}}</span>
+            </h2>
+            <div *ngIf="detail?.variants.length">
+              <!-- for first varient -->
+              <div class="product_size">
+                <h4 [style.color]="style.primaryColor">{{categoryName}}</h4>
+                <div class="color_outter cursor"
+                  [ngStyle]="data.isClicked ? {'borderColor': style.primaryColor, 'color': style.primaryColor, 'backgroundColor': '#ffffff' } : ''"
+                  *ngFor="let data of detail?.variants;let i = index;"
+                  (click)="replaceAllValue(i);mainCategoryIndex = i">
+                  <a *ngIf="firstVariantType == 0">{{data?.name}}</a>
+                  <a *ngIf="firstVariantType == 1" class="color-box" [ngStyle]="{'backgroundColor': data.name}"></a>
+                </div>
+              </div>
+
+              <!-- for all other variants -->
+              <div class="product_size"
+                *ngFor="let data of detail?.variants[mainCategoryIndex]?.subCat;let parent = index;let last = last;">
+                <h4 [style.color]="style.primaryColor">{{data.name}}
+                </h4>
+
+                <div
+                  [ngStyle]="value.isClicked ? {'borderColor': style.primaryColor, 'color': '#ffffff', 'backgroundColor': style.primaryColor} : {'borderColor': style.primaryColor, 'color': style.primaryColor, 'backgroundColor': '#ffffff' }"
+                  class="size_outter" *ngFor="let value of data.values;let i = index;" [ngClass]="parent == 0 ? (!detail?.variants[mainCategoryIndex]?.isClicked ? 'disabled' : 'cursor') :
+                (!detail?.variants[mainCategoryIndex]?.subCat[parent - 1 ].isClicked ? 'disabled' : 'cursor')">
+
+                  <a [ngStyle]="{'background': value?.variant_value}" class="color-variant"
+                    [hidden]="parent !== 0 && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId !== value.product_id"
+                    (click)="value.isClicked = true;data.isClicked = true;data.clickedId = value.product_id;replaceNextValues(mainCategoryIndex, parent, i,last, value)"
+                    *ngIf="value?.variant_type == 1"></a>
+
+                  <a [style.color]="value.isClicked ? '#ffffff' : style.primaryColor"
+                    [hidden]="parent !== 0 && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId !== value.product_id"
+                    *ngIf="value?.variant_type == 0"
+                    (click)="value.isClicked = true;data.isClicked = true;data.clickedId = value.product_id;replaceNextValues(mainCategoryIndex, parent,i ,last,value)">{{value?.variant_value}}</a>
+
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!detail?.isOutOfStock" class="mt-3">
+              <!-- <p class="quantity-text" [style.color]="style.baseColor" @fade>Quantity</p> -->
+              <app-quantity-buttons *ngIf="settings.app_type != 8" [settings]="settings" [style]="style" [deafultView]="true"
+                [selectedQuantity]="detail?.selectedQuantity" (onAdd)="increaseValue()" (onRemove)="decreaseValue()">
+              </app-quantity-buttons>
+
+              <ng-container *ngIf="settings.app_type == 8">
+                <h5 @fade [style.color]="style.baseColor">{{'Select Time Of Need' | translate}}</h5>
+                <app-quantity-buttons [style]="style" [settings]="settings" [priceType]="detail?.price_type"
+                  [isProduct]="detail?.is_product" [selectedQuantity]="detail.selectedQuantity"
+                  (onRemove)="onServiceAddOrRemove(detail, -1)" (onAdd)="onServiceAddOrRemove(detail, 1)">
+                </app-quantity-buttons>
+              </ng-container>
+            </div>
+
+            <p *ngIf="detail.adds_on && detail.adds_on.length"
+              [ngStyle]="{color: style.primaryColor, 'font-size': '14px'}"> {{'Customizable' | translate}} </p>
+
+            <div class="description_txt">
+              <h2 [style.color]="style.baseColor" @fade>{{'DESCRIPTION' | translate}}</h2>
+              <ng-container></ng-container>
+              <p [innerHtml]="detail?.product_desc | safe: 'html'" [style.color]="style.baseColor" opacity="0.69" @fade>
+              </p>
+            </div>
+
+            <div class="add-to-cart_btn" *ngIf="!detail?.isOutOfStock && settings.app_type == 2">
+              <!-- <button [style.color]="style.primaryColor" class="btn btn-large add-tocart" [disabled]="disableAdd"
+                (click)="checkAdd()" @fade>{{'ADD TO CART' | translate}}</button> -->
+              <button class="btn btn-large buy-now" [ngStyle]="{'background-color': style.primaryColor}"
+                (click)="onBuyNow()" @fade>{{'Buy Now' | translate}}</button>
+            </div>
+
+            <div class="add-to-cart_btn" *ngIf="settings.app_type == 1">
+              <button [style.color]="style.primaryColor" class="btn btn-large add-tocart w-100" (click)="goToCart()">
+                {{'Go To Cart' | translate}}</button>
+            </div>
+
+            <div class="add-to-cart_btn" *ngIf="settings.app_type == 8">
+              <button [ngStyle]="{'background-color': style.primaryColor, 'color' : '#fff'}"
+                class="btn btn-large add-tocart w-100" (click)="onBookNow()">
+                {{'Select Date & Time' | translate}}</button>
+            </div>
+
+            <div class="add-to-cart_btn" *ngIf="detail?.isOutOfStock">
+              <button [style.color]="style.primaryColor" class="btn btn-large add-tocart w-100"
+                [disabled]="disableAdd">{{'Out Of Stock' | translate}}</button>
+            </div>
+          </div>
+
+          <!-- <div *ngIf="brandId && settings?.app_type == 2 && settings?.selected_template == 2">
+        <app-product-listing-by-brand [brandId]="brandId" [settings]="settings" [style]="style">
+        </app-product-listing-by-brand>
+      </div> -->
+
+          <div class="clearfix container">
+            <div class="tab_margin product_ul" *ngIf="settings?.isProductCustomTabDescriptionEnable">
+              <ul>
+                <ng-container *ngFor="let data of settings?.productCustomTabDescriptionLabel; let i=index;">
+                  <li [ngClass]="{'active' : isTabActive == i+1}" *ngIf="detail['customTabDescription'+(i+1)]"
+                    (click)="setTabContent(detail['customTabDescription'+(i+1)], i+1)">{{data.labelText}}</li>
+                </ng-container>
+              </ul>
+
+              <div class="content_padding">
+                <div [innerHTML]="tabContent"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 100px;" *ngIf="similarProducts.length && settings?.app_type != 1">
+          <div class="col-md-12">
+            <h4>Similar {{'products' | localization | translate}}</h4>
+            <div class="row">
+              <div class="col-md-3" *ngFor="let product of similarProducts.slice(0, 8)">
+                <div [ngClass]="settings?.app_type == 2 && settings.selected_template == 0 ? 'Recommends-products mb-3' : ''">
+                <app-ecommerce [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+                  (add)="addProduct($event)" (remove)="removeProduct($event)"></app-ecommerce>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #skeleton>
+
+    <div class="skeleton">
+      <div class="sub_bar">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <!-- <h3 [style.color]="style.primaryColor">{{detail?.category_flow}}><strong
+                    [style.color]="style.primaryColor">{{detail?.name}}</strong></h3> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="product_section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class=" images-section-left">
+                <img [ngStyle]="{'height': '500px', 'width': '100%', 'border': 'none'}">
+                <div class="images-slides">
+                  <img [ngStyle]="{'height': '150px', 'width': '150px', 'background':'#dedfe1'}"
+                    *ngFor="let img of util.generateFakeList(3)">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 nike-txt-part">
+              <h2 [ngStyle]="{'height': '32px'}"></h2>
+
+              <p [ngStyle]="{'height': '24px','width': '100%'}" class="title_shoes"></p>
+
+              <p [ngStyle]="{'height': '12px', 'margin-top': '5px'}"> </p>
+              <div class="star-rating">
+                <!-- <rating [ngModel]="detail?.avg_rating" [readonly]="true" [max]="5" [float]="true"></rating> -->
+                <p-rating [ngModel]="detail?.avg_rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+                <!-- <span [style.color]="style.baseColor" class="rating">{{detail?.avg_rating ? detail?.avg_rating : 0}}/5</span> -->
+              </div>
+              <h2 [ngStyle]="{'height': '32px', 'width': '100px'}"></h2>
+              <p class="quantity-text" [ngStyle]="{'height': '22px', 'width': '150px'}"></p>
+              <h2 [ngStyle]="{'height': '35px', 'width': '100px'}"></h2>
+              <div class="description_txt">
+                <h2 [ngStyle]="{'height': '22px', 'width': '150px'}"></h2>
+                <p [ngStyle]="{'height': '18px','width': '100%'}"></p>
+                <p [ngStyle]="{'margin-top': '-10px','height': '18px','width': '100%'}"></p>
+                <p [ngStyle]="{'margin-top': '-10px','height': '18px','width': '100%'}"></p>
+                <p [ngStyle]="{'margin-top': '-10px','height': '18px','width': '100%'}"></p>
+                <p [ngStyle]="{'margin-top': '-10px','height': '18px','width': '100%'}"></p>
+                <p [ngStyle]="{'margin-top': '-10px','height': '18px','width': '100%'}"></p>
+                <p [ngStyle]="{'margin-top': '-10px','height': '18px','width': '100%'}"></p>
+              </div>
+              <div class="add-to-cart_btn">
+                <h2 [ngStyle]="{'height': '70px', 'width': '250px'}" class="btn btn-large add-tocart"></h2>
+                <h2 [ngStyle]="{'height': '70px', 'width': '250px', 'margin-left': '20px'}"
+                  class="btn btn-large buy-now">
+                </h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </ng-template>
+
+</ng-template>
+
+<ng-template #temp_4>
+  <div class="E-commerce-Product-Page">
+    <div class="container">
+      <div class="E-commerce-Product-outter">
+        <div class="row">
+          <div class="col-md-5">
+            <div class="E-commerce-Product-images">
+              <div class="E-commerce-Product-images-left" *ngIf="detail?.image_path?.length">
+                <ul>
+                  <li *ngFor="let img of detail?.image_path">
+                    <a href="javascript:void(0)" (click)="onImageClick(img)">
+                      <img [class.active]="img == image" appImage [url]="img" [size]="'150x150'" [src]="img"
+                        onError="src = './assets/images/image_placeholder.jpeg';" @fade>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="E-commerce-Product-images-right">
+                <a href="javascript:void(0)">
+                  <img #productImage appImage style="object-fit: cover; width: 100%;" [url]="image" [size]="'92x163'" [src]="image"
+                    onError="src = './assets/images/image_placeholder.jpeg';" @fade>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="E-commerce-Product-description">
+              <h1>{{detail?.name}}</h1>
+              <!-- <div class="E-commerce-Product-model">
+                <span><strong>Model: </strong>***-******</span>
+                <span><strong>SKU: </strong>********</span>
+              </div> -->
+              <div class="star-rating" *ngIf="settings?.is_product_rating == 1">
+                <!-- <rating [ngModel]="detail?.avg_rating" [readonly]="true" [max]="5" [float]="true" @fade></rating> -->
+                <p-rating  [ngModel]="detail?.avg_rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+              </div>
+              <div *ngIf="detail?.discount" class="E-commerce-Product-save-money">
+                <span>Save {{detail?.discount}}%</span>
+              </div>
+              <div class="E-commerce-Product-price-detail">
+                <span *ngIf="detail?.discount">{{currency}}{{detail?.fixed_price ? detail?.fixed_price : 0}}</span>
+                <p>{{currency}} {{detail?.display_price}}</p>
+                <!-- <span>Inclusive of VAT</span> -->
+              </div>
+
+              <div *ngIf="detail?.variants.length">
+                <!-- for first varient -->
+                <div class="product_size">
+                  <h4 [style.color]="style.primaryColor">{{categoryName}}</h4>
+                  <div class="color_outter cursor"
+                    [ngStyle]="data.isClicked ? {'borderColor': style.primaryColor, 'color': style.primaryColor, 'backgroundColor': '#ffffff' } : ''"
+                    *ngFor="let data of detail?.variants;let i = index;"
+                    (click)="replaceAllValue(i);mainCategoryIndex = i">
+                    <a *ngIf="firstVariantType == 0">{{data?.name}}</a>
+                    <a *ngIf="firstVariantType == 1" class="color-box" [ngStyle]="{'backgroundColor': data.name}"></a>
+                  </div>
+                </div>
+  
+                <!-- for all other variants -->
+                <div class="product_size"
+                  *ngFor="let data of detail?.variants[mainCategoryIndex]?.subCat;let parent = index;let last = last;">
+                  <h4 [style.color]="style.primaryColor">{{data.name}}
+                  </h4>
+  
+                  <div
+                    [ngStyle]="value.isClicked ? {'borderColor': style.primaryColor, 'color': '#ffffff', 'backgroundColor': style.primaryColor} : {'borderColor': style.primaryColor, 'color': style.primaryColor, 'backgroundColor': '#ffffff' }"
+                    class="size_outter" *ngFor="let value of data.values;let i = index;" [ngClass]="parent == 0 ? (!detail?.variants[mainCategoryIndex]?.isClicked ? 'disabled' : 'cursor') :
+                  (!detail?.variants[mainCategoryIndex]?.subCat[parent - 1 ].isClicked ? 'disabled' : 'cursor')">
+  
+                    <a [ngStyle]="{'background': value?.variant_value}" class="color-variant"
+                      [hidden]="parent !== 0 && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId !== value.product_id"
+                      (click)="value.isClicked = true;data.isClicked = true;data.clickedId = value.product_id;replaceNextValues(mainCategoryIndex, parent, i,last, value)"
+                      *ngIf="value?.variant_type == 1"></a>
+  
+                    <a [style.color]="value.isClicked ? '#ffffff' : style.primaryColor"
+                      [hidden]="parent !== 0 && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId && detail?.variants[mainCategoryIndex]?.subCat[parent - 1].clickedId !== value.product_id"
+                      *ngIf="value?.variant_type == 0"
+                      (click)="value.isClicked = true;data.isClicked = true;data.clickedId = value.product_id;replaceNextValues(mainCategoryIndex, parent,i ,last,value)">{{value?.variant_value}}</a>
+  
+                  </div>
+                </div>
+              </div>
+
+              <div class="E-commerce-Product-add-cart" *ngIf="!detail?.isOutOfStock && settings.app_type == 2">
+                <a class="buy_now" href="javascript:void(0)" [ngStyle]="{'background-color': style.primaryColor}"
+                  (click)="onBuyNow()" @fade>{{'Buy Now' | translate}}</a>
+                <a class="add_to_cart" href="javascript:void(0)" (click)="checkAdd()"
+                  @fade>{{'ADD TO CART' | translate}}</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="E-commerce-Product-policy">
+              <ul>
+                <!-- <li><span><img src="./assets/images/ic_01.png"></span>
+                  <p>By ** July</p>
+                </li> -->
+                <li><span><img src="./assets/images/ic_02.png"></span>
+                  <p>100% Genuine Product</p>
+                </li>
+                <li><span><img src="./assets/images/ic_03.png"></span>
+                  <p>Secure Payment</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="E-commerce-Product-review-description">
+        <div class="E-commerce-Product-review-description-tabs">
+          <ul>
+            <li class="active"><a href="javascript:void(0)">Description</a></li>
+            <!-- <li><a href="javascript:void(0)">Reviews</a></li> -->
+          </ul>
+        </div>
+        <div class="E-commerce-description-product">
+          <h2 [style.color]="style.baseColor" @fade>{{'DESCRIPTION' | translate}}</h2>
+          <ng-container></ng-container>
+          <!-- <div class="E-commerce-description-product-outter">
+            <div class="E-commerce-description-product-details">
+              <div class="">
+                <p [innerHtml]="detail?.product_desc | safe: 'html'" [style.color]="style.baseColor" opacity="0.69" @fade>
+              </div>
+            </div>
+            <div class="E-commerce-description-product-image">
+              <img src="images/9.png">
+            </div>
+          </div> -->
+
+          <p [innerHtml]="detail?.product_desc | safe: 'html'" [style.color]="style.baseColor" opacity="0.69" @fade>
+
+
+        </div>
+      </div>
+
+      <div class="E-commerce-Product-viewed-outter">
+        <div class="row E-commerce-Product-viewed-title">
+          <div class="col-md-12">
+            <h1>People also viewed</h1>
+          </div>
+        </div>
+        <div class="E-commerce-Product-viewed-products" *ngIf="detail?.similarProduct && detail?.similarProduct.length">
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem class="E-commerce-Product-viewed-bb" *ngFor="let prod of detail?.similarProduct">
+              <app-product [product]="prod" [style]="style" [settings]="settings" [loggedIn]="loggedIn"
+                (add)="addProduct($event)" (remove)="removeProduct($event)">
+              </app-product>
+            </div>
+          </ngx-slick-carousel>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</ng-template>

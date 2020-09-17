@@ -1,0 +1,12 @@
+<div class="social-login facebook_login" *ngIf="is_facebook_login">
+  <a (click)="socialSignIn('facebook')" style="cursor: pointer;">
+    <img src="/assets/images/fb_icon.png" >
+    Facebook
+  </a>
+</div>
+<div class="social-login google_login" *ngIf="is_google_login">
+  <a (click)="socialSignIn('google')" style="cursor: pointer;">
+    <img src="/assets/images/google_logo.png">
+     Google
+  </a>
+</div>

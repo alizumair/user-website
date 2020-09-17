@@ -1,0 +1,181 @@
+.charges h6 {
+  font-size: 14px;
+}
+
+.charges span {
+  margin-top: 0px !important;
+}
+
+
+
+.billing-info {
+  h5 {
+    font-size: 13px;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  .bill-list {
+    list-style: none;
+    padding-left: 0px !important;
+    line-height: 28px;
+    font-size: 14px;
+    span {
+      float: right;
+    }
+  }
+
+  .bill-list li {
+    width: 100%;
+    display: inline-block;
+}
+}
+
+.word-break {
+  word-break: break-all;
+
+  .word {
+    text-align: right;
+  }
+}
+
+.addOnTable {
+  margin: 15px;
+}
+
+.order-instruction {
+  margin-top: 20px;
+  border: 1px solid var(--secondaryColor);
+  border-radius: 4px;
+  padding: 10px;
+
+  h5 {
+    border-bottom: 1px dashed var(--secondaryColor);
+    color: var(--primaryColor);
+    padding-bottom: 10px;
+  }
+
+  p {
+    color: var(--baseColor);
+    opacity: 0.8;
+  }
+}
+
+
+.return-request {
+  // position: absolute;
+  // bottom: 20px;
+  // right: 20px;
+  font-weight: 600;
+}
+
+.return-status { }
+
+.download-file {
+  font-size: 12px;
+  cursor: pointer;
+  text-transform: lowercase;
+  color: var(--primaryColor);
+  font-weight: bold;
+}
+
+.download-file:hover {
+  text-decoration: underline;
+  color: var(--primaryColor);
+}
+
+.btn-success {
+  color: #fff;
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
+}
+
+.btn-success:hover {
+  color: #fff;
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
+}
+
+
+
+.form-check-label {
+  position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 100%;
+    float: left;
+}
+
+/* Hide the browser's default checkbox */
+.form-check-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.check-span {
+  position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 2px solid var(--primaryColor);
+}
+
+/* When the checkbox is checked, add a blue background */
+.form-check-label input:checked ~ .check-span{
+  background-color: #fff;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.check-span:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.form-check-label input:checked ~ .check-span:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.form-check-label .check-span:after {
+  left: 2px;
+  top: 2px;
+  width: 17px;
+  height: 17px;
+ 
+  background: var(--primaryColor);
+  border-radius: 50%;
+}
+
+.form-check-inline {
+  align-items: center;
+  padding-left: 0;
+  margin-right: .75rem;
+  float: left;
+  width: 25%;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: var(--primaryColor);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+html[lang="ar"] .track_order_outter_detail .billing-info .bill-list span{
+  float: left !important;
+}

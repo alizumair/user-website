@@ -1,0 +1,28 @@
+.hover-text :hover {
+    text-decoration: underline;
+}
+
+.chat-btns {
+    border: 1px solid rgba(74, 74, 74, .2);
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .1);
+    padding: 15px;
+    width: 220px;
+    display: inline-block;
+    text-align: center;
+
+    button {
+        border-radius: 10px;
+        width: 70px;
+    }
+}
+
+.customize {
+    position: absolute;
+    bottom: 6px;
+    right: 0;
+    text-decoration: underline;
+    font-weight: 600;
+    font-size: 11px;
+}

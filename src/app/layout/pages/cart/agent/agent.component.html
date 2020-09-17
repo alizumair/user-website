@@ -1,0 +1,172 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<!--================ start banner tab section =================-->
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <div class="back-page" (click)="onBack()">
+          <i class="fa fa-chevron-left"
+            aria-hidden="true"></i><span>{{settings.app_type == 8 ? 'Back'  :  'Back To Cart' | translate}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h5 [style.color]="style.defaultColor">{{'Choose Your' | translate}} {{'agent' | localization}} </h5>
+      </div>
+      <div class="col-md-6">
+        <p [style.color]="style.primaryColor" class="float-right cursor" (click)="selectDate()">
+          <span><i class="fa fa-calendar" aria-hidden="true"></i>
+          </span>
+          {{'Select Date' | translate}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 mb-3 mt-3" *ngFor="let agent of agents; let k = index;">
+        <div class="tab-main-outer">
+          <div class="tab-outer">
+            <div class="tab-main-outer-img">
+              <img [src]="agent?.cbl_user?.image" onError="src = './assets/images/placeholder_image.svg';">
+            </div>
+            <div class="tab-main-outer-data">
+              <h1 [style.color]="style.primaryColor">{{agent?.cbl_user?.name}}</h1>
+              <!-- <p>Email: {{agent?.cbl_user?.email}}</p> -->
+              <p [style.color]="style.defaultColor">{{'Phone Number:' | translate}} {{agent?.cbl_user?.phone_number}}
+              </p>
+              <p [style.color]="style.defaultColor">{{'Occupation:' | translate}} {{agent?.cbl_user?.occupation}}</p>
+              <!-- <p [style.color]="style.defaultColor">{{'Experience:' | translate}} {{agent?.cbl_user?.experience}}</p> -->
+            </div>
+          </div>
+
+          <div class="outer-btn">
+            <button class="tab-btn" data-toggle="collapse" [attr.data-target]="'#'+k"
+              [ngStyle]="{'backgroundColor': style.primaryColor, 'color': '#ffffff', 'borderColor': style.primaryColor}"
+              (click)="getAvailability(agent)">
+              <div class="btn-data">
+                <!-- <i class="fa fa-bolt" aria-hidden="true"></i>{{'Slot Selection' | translate}}  -->
+                <i class="fa fa-bolt" aria-hidden="true"></i>{{'View Slots' | translate}}
+              </div>
+            </button>
+            <br>
+            <button class="tab-btn mt-3 p-2" (click)="checkSlot(agent)"
+              [ngStyle]="{'backgroundColor': style.primaryColor, 'color': '#ffffff', 'borderColor': style.primaryColor}">
+              {{ 'Select Agent' | translate}}</button>
+          </div>
+
+          <!--================start tab section =================-->
+
+          <section [id]="k" [ngClass]="agent.cbl_user?.id === a_id ? 'collapse tabs show' : 'collapse tabs'">
+
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <nav>
+                  <button [style.color]="style.primaryColor" class="fa fa-arrow-circle-left slide-arrow-left"
+                    (click)="decrement()" *ngIf="datesArr.length > 5" [disabled]="dateCount <= 5">
+                  </button>
+
+                  <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active cursor" [id]="i" data-toggle="tab" role="tab"
+                      (click)="slotTime = ''; getSlots(date, agent)" aria-controls="nav-home" aria-selected="true"
+                      [ngStyle]="selectedDate === date ? {'color': style.primaryColor, 'borderBottomColor': style.primaryColor} : ''"
+                      *ngFor="let date of getDates(); let i = index;">{{date | date}}</a>
+                  </div>
+                  <button [style.color]="style.primaryColor" class="fa fa-arrow-circle-right slide-arrow-right"
+                    (click)="increment()" [disabled]="dateCount >= datesArr.length"
+                    *ngIf="datesArr.length > 5"></button>
+                </nav>
+
+                <div class="tab-content pt-3 pb-3 px-sm-0" id="nav-tabContent">
+                  <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                    <div class="tab-content" *ngIf="slotData.Morning.length">
+                      <div class="tabsleft-content"> <i class="fa fa-sun-o"
+                          aria-hidden="true"></i><span>{{'Morning' | translate}}</span>
+                      </div>
+                      <div class="tabsright-content" [style.color]="style.defaultColor">
+                        <div class="tabsright-content-data" *ngFor="let slot of slotData.Morning; let i = index"
+                          (click)="selectSlot(slot)">
+                          <span (mouseover)="hover.index = i; hover.tab = 'Morning'"
+                            [ngStyle]="(hover.index === i && hover.tab === 'Morning') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                            (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-content bt" *ngIf="slotData.Afternoon.length">
+                      <div class="tabsleft-content"> <i class="fa fa-sun-o"
+                          aria-hidden="true"></i><span>{{'Afternoon' | translate}}</span>
+                      </div>
+                      <div class="tabsright-content" [style.color]="style.defaultColor">
+                        <div class="tabsright-content-data" *ngFor="let slot of slotData.Afternoon; let i = index"
+                          (click)="selectSlot(slot)">
+                          <span (mouseover)="hover.index = i; hover.tab = 'Afternoon'"
+                            [ngStyle]="(hover?.index === i && hover?.tab === 'Afternoon') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                            (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-content bt" *ngIf="slotData.Evening.length">
+                      <div class="tabsleft-content"> <i class="fa fa-moon-o"
+                          aria-hidden="true"></i><span>{{'Evening' | translate}}</span>
+                      </div>
+                      <div class="tabsright-content" [style.color]="style.defaultColor">
+                        <div class="tabsright-content-data" *ngFor="let slot of slotData.Evening; let i = index"
+                          (click)="selectSlot(slot)">
+                          <span (mouseover)="hover.index = i; hover.tab = 'Evening'"
+                            [ngStyle]="(hover.index === i && hover.tab === 'Evening') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                            (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="tab-content bt" *ngIf="slotData.Night.length">
+                      <div class="tabsleft-content"> <i class="fa fa-moon-o"
+                          aria-hidden="true"></i><span>{{'Night' | translate}}</span>
+                      </div>
+                      <div class="tabsright-content" [style.color]="style.defaultColor">
+                        <div class="tabsright-content-data" *ngFor="let slot of slotData.Night; let i = index"
+                          (click)="selectSlot(slot)">
+                          <span (mouseover)="hover.index = i; hover.tab = 'Night'"
+                            [ngStyle]="(hover.index === i && hover.tab === 'Night') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                            (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="no-data"
+                  *ngIf="!slotData.Morning.length && !slotData.Afternoon.length && !slotData.Evening.length && !slotData.Night.length && noData">
+                  <h1 [style.color]="style.defaultColor">{{'No Slots Found' | translate}}</h1>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <!-- <button class="book-btn float-right" [ngClass]="!selectedSlot ? 'disabled' : ''" [disabled]="!selectedSlot" (click)="generateOrder(agent?.cbl_user?.id)" [ngStyle]="{'backgroundColor': style.primaryColor, 'color': '#ffffff', 'borderColor': style.primaryColor}">
+                  {{'Done' | translate}}
+                </button> -->
+              </div>
+            </div>
+          </section>
+          <!--================end tab section =================-->
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!agents.length && noAgent" class="no-data">
+      <h1 [style.color]="style.defaultColor">{{'No' | translate}} {{'agent' | localization}} {{'Found' | translate}}
+      </h1>
+      <p [style.color]="style.secondaryColor" class="cursor">{{'Try selecting different date-time' | translate}}</p>
+    </div>
+
+  </div>
+</section>
+<!--================ end banner tab section =================-->
+
+<app-cart-date-time *ngIf="cartDateTimeData.is_open" [dateTimeData]="cartDateTimeData"></app-cart-date-time>

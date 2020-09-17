@@ -1,0 +1,65 @@
+<ng-container *ngIf="settings?.selected_template == 4; then temp_4 ;else default;"></ng-container>
+
+<ng-template #default>
+  <div class="container topmargin clearfix" *ngIf="brands.length < 7" style="margin-bottom: 40px">
+    <div class="heading-block nobottomborder bottommargin center">
+        <h3 class="" style="font-size: 20px;">Shop By Brands</h3>
+        <span>Shop products by your favourite brands.</span>
+    </div>
+
+    <div class="row clearfix clear-bottommargin">
+        <div class="col-md-2" *ngFor="let brand of brands">
+            <div class="feature-box fbox-center nobottomborder bottommargin">
+                <!-- <h3 class="t400 ls1">{{brand?.name}}</h3> -->
+                <div class="fbox-image imagescalein" style="border: 1px solid #e3e3e3">
+                    <a (click)="productListing(brand)" style="cursor: pointer;">
+                        <img appImage [url]="brand?.image" [size]="'1500x375'" [src]="brand?.image" height="120px"
+                            onError="src = './assets/images/placeholder_image.svg';">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container clearfix" *ngIf="brands.length >= 7" style="margin-bottom: 40px">
+
+    <div class="heading-block nobottomborder center">
+        <h3 class="" style="font-size: 20px;">Shop By Brands</h3>
+        <span>Shop products by your favourite brands.</span>
+    </div>
+
+    <div class="row ecommerce-categories clearfix" style="padding: 20px 0 0;">
+        <div [ngClass]="brand.class" *ngFor="let brand of brands; let i = index">
+            <a (click)="productListing(brand)" style="cursor: pointer;">
+                <img style="height: 100%; width: 100%; object-fit: cover;" [src]="brand.image"
+                    onError="src = './assets/images/placeholder_image.svg';">
+            </a>
+        </div>
+    </div>
+</div>
+</ng-template>
+
+<ng-template #temp_4>
+  <section id="" class="product-sales brands-sale">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="product-sales-title">
+                    <h2>Our Brands</h2>
+                </div>
+            </div>
+            <div class="col-md-9">
+              <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let brand of brands; let i = index;" class="col-md-3">
+                  <div class="E-commerce-brand-image">
+                    <img appImage [url]="brand?.image" [size]="'700x800'" [src]="brand?.image"
+                      onError="src = './assets/images/placeholder_image.svg';" (click)="productListing(brand)">
+                  </div>
+                </div>
+              </ngx-slick-carousel>
+            </div>
+        </div>
+    </div>
+</section>
+</ng-template>

@@ -1,0 +1,89 @@
+<ng-container *ngIf="settings?.selected_template == 4; then temp_4 ;else default;"></ng-container>
+
+<ng-template #default>
+  <div class="section clearfix" style="padding: 10px 0px 60px; margin-top: 0px;">
+    <div class="container clearfix">
+
+        <div class="fancy-title title-dotted-border topmargin-sm mb-5 title-center">
+            <h4 class="uppercase">Discounted Products</h4>
+            <!-- <h4>Best Deals For You</h4> -->
+        </div>
+
+        <ng-container *ngIf="!isLoading; else skeleton">
+            <div class="row grid-6">
+                <ng-container *ngIf="offerData && offerData.length; then data else noData"> </ng-container>
+                <ng-template #data>
+                    <!-- Shop Item 1 ============================================= -->
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-2 padd" *ngFor="let product of offerData">
+                        <app-ecommerce [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+                            (add)="addProduct($event)" (remove)="removeProduct($event)"></app-ecommerce>
+                    </div>
+                </ng-template>
+
+                <ng-template #noData>
+                    <div class="home-no-data m-n">
+                        <h2 [style.color]="style.baseColor">{{'No' | translate}} {{'product' | localization}}
+                            {{'Found' | translate}}</h2>
+                    </div>
+                </ng-template>
+            </div>
+        </ng-container>
+
+        <ng-template #skeleton>
+            <div class="skeleton">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-2 padd"
+                        *ngFor="let item of util.generateFakeList(8)">
+                        <app-product-skeleton [settings]="settings"></app-product-skeleton>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+</div>
+</ng-template>
+
+<ng-template #temp_4>
+  <section  class="product-sales" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="product-sales-title">
+                    <h2>{{'Hot' | translate}} {{'deals' | translate}}</h2>
+                    <a href="javascript:void(0)" routerLink='/products/all-discounted-products' [queryParams]="{type: 1}" [style.background]="style.primaryColor">View All <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                </div>
+            </div>
+            <div class="col-md-9">
+              <ng-container *ngIf="offerData && offerData.length; then data else noData"> </ng-container>
+              <ng-template #data>
+                <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                  <div ngxSlickItem *ngFor="let product of offerData.slice(1, 9)">
+                <app-ecommerce [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+                (add)="addProduct($event)" (remove)="removeProduct($event)"></app-ecommerce>
+              </div>
+              </ngx-slick-carousel>
+              </ng-template>
+
+              <ng-template #noData>
+                  <div class="home-no-data m-n">
+                      <h2 [style.color]="style.baseColor">{{'No' | translate}} {{'product' | localization}}
+                          {{'Found' | translate}}</h2>
+                  </div>
+              </ng-template>
+
+            <ng-template #skeleton>
+                <div class="skeleton">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-2 padd"
+                            *ngFor="let item of util.generateFakeList(8)">
+                            <app-product-skeleton [settings]="settings"></app-product-skeleton>
+                          </div>
+                    </div>
+                </div>
+            </ng-template>
+            </div>
+        </div>
+    </div>
+  </section>
+  </ng-template>

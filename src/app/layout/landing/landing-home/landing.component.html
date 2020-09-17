@@ -1,0 +1,132 @@
+<!--    banner area   -->
+<section class="banner-wrapper">
+  <app-banner></app-banner>
+</section>
+
+<div *ngIf="settings.web_custom_domain_theme == 0">
+  <!-- our services  -->
+  <section
+    *ngIf="settings.dynamic_home_section == 1 && settings.descriptionSections && settings.descriptionSections.length"
+    class="services-wrapper">
+    <div class="container">
+      <h2 class="heading">Our Service Process</h2>
+      <div class="row">
+        <div class="col-md-4" *ngFor="let service of settings.descriptionSections">
+          <div class="icon">
+            <img appImage [url]="service.image" [size]="'500x500'" [src]="service.image"
+              style="height: 100px; width: 100px;" onError="src = './assets/images/placeholder_image.svg';">
+          </div>
+          <h3>{{service?.title}}</h3>
+          <p>{{service?.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- our services  -->
+
+  <!-- top deals -->
+  <div>
+    <section *ngFor="let offer of offers; let i = index" class="top-deals"
+      [style.backgroundColor]="i % 2 == 0 ? style.primaryColor : style.backgroundColor">
+      <div class="container">
+        <h2 class="heading" [style.color]="i %2 == 0 ? '#ffffff' : style.baseColor">Top Deals in {{offer?.name}}</h2>
+        <!-- <p>Lorem Ipsum is simply dummy text of the printing </p> -->
+        <app-top-deals [products]="offer.value" [settings]="settings" [style]="style"></app-top-deals>
+      </div>
+    </section>
+  </div>
+  <!-- top deals -->
+
+  <!-- recomended -->
+  <section class="top-deals recomended" *ngIf="suppliers && suppliers.length && !settings?.is_single_vendor">
+    <div class="container">
+      <h2 class="heading supplier"><strong>Recommended</strong> {{'suppliers' | localization}}</h2>
+      <!-- <p>Lorem Ipsum is simply dummy text of the printing </p> -->
+      <div class="row">
+        <div class="carousel slide" data-ride="carousel" id="postsCarousel">
+          <div class="col-md-12 text-md-right lead">
+            <a class="btn btn-outline-secondary prev" href="javascript:void(0)" title="go back"><i
+                class="fa fa-caret-left" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-outline-secondary next" href="javascript:void(0)" title="more"><i
+                class="fa fa-caret-right" aria-hidden="true"></i>
+            </a>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item" [class.active]="i==0" *ngFor="let items of suppliers; let i = index;">
+              <div class="row">
+                <div class="col-md-4" *ngFor="let supplier of items;">
+                  <div class="col-item deals">
+                    <img appImage [url]="supplier?.logo" [size]="'600x500'" [src]="supplier?.logo" class="deals-img"
+                      onError="src = './assets/images/placeholder_image.svg';">
+                    <h4>{{supplier.name}}</h4>
+                    <div class="open-close-info">
+                      <!-- <span><span class="red">Open</span> ⋅ Closes 11PM</span> -->
+                      <a href="javascript:void(0)" class="view-detail" (click)="onSupplierViewDetail(supplier)">View
+                        detail <i class="fa fa-caret-right" aria-hidden="true"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div *ngIf="settings.web_custom_domain_theme == 1">
+  <app-landing-categories [style]="style" [settings]="settings"></app-landing-categories>
+
+  <app-landing-recommended-suppliers *ngIf="!settings?.is_single_vendor" [suppliers]="data.SupplierInArabic" (onViewDetial)="onSupplierViewDetail($event)">
+  </app-landing-recommended-suppliers>
+
+  <app-category-offers [offerCategories]="offers" [style]="style" [settings]="settings"></app-category-offers>
+
+  <!-- our services  -->
+  <section
+    *ngIf="settings.dynamic_home_section == 1 && settings.descriptionSections && settings.descriptionSections.length"
+    class="services-wrapper">
+    <div class="container">
+      <h2 class="heading">Our Service Process</h2>
+      <div class="row">
+        <div [ngClass]="settings.descriptionSections.length > 3 ? 'col-md-3' : 'col-md-4'" *ngFor="let service of settings.descriptionSections">
+          <div class="icon">
+            <img appImage [url]="service.image" [size]="'500x500'" [src]="service.image"
+              style="height: 100px; width: 100px;" onError="src = './assets/images/placeholder_image.svg';">
+          </div>
+          <h3>{{service?.title}}</h3>
+          <p>{{service?.description}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- our services  -->
+</div>
+
+
+<section *ngIf="settings.footer_type == 1" id="download_app"
+  [ngStyle]="{'background-color':style.footerSecColor, color: style.footerTextColor}">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="download_app_title">
+          <h5>Download app free app for </h5>
+          <h2>Android and iphone</h2>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="download_app_store">
+          <a href="">
+            <img src="assets/images/apple.png">
+          </a>
+          <a href="">
+            <img src="assets/images/google.png">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

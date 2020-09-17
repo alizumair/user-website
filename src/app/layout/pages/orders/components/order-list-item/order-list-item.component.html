@@ -1,0 +1,77 @@
+<ng-container>
+    <div class="track_order_outter"
+        [ngStyle]="{'background-color':style.cardBackgroundColor, 'border-color': style.secondaryColor}">
+        <div class="head">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="float-left" [style.color]="order?.status | orderStatusColor">
+                        {{order?.status | orderStatus: order?.type}}</h5>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="float-right" [style.color]="style.primaryColor">
+                        {{currency}} {{(order?.net_amount).toFixed(settings?.price_decimal_length)}},
+                        {{makeProductCount(order?.product)}}
+                        {{ order.type == 8  ? 'Service(s)' : 'item(s)' | translate}}
+                    </h5>
+                </div>
+            </div>
+            <div class="row order">
+                <div class="col-md-6">
+                    <div class="float-left date" [style.color]="style.baseColor">
+                        <p>{{order.type == 8 ? 'Booked On' : 'Placed On' | translate}}</p>
+                        <p *ngIf="order.created_on && order.created_on  !='Invalid date'">
+                            {{order?.created_on | date: 'medium' : '+000'}}</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="float-right" [style.color]="style.baseColor">
+                        {{(('order' | localization: order?.type) + ' ' + 'No:') | translate}}
+                        {{order?.order_id}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="row item-row mt-2">
+                <div class="col-md-6" *ngFor="let product of order?.product">
+                    <div class="item-column">
+                        <p class="ellipsis" [style.color]="style.baseColor">
+                            <strong>{{ order.type == 8 ? 'Service:' : 'Item:' | translate}} </strong>
+                            <span data-toggle="tooltip" [title]="product?.name">{{product?.name}}</span></p>
+                        <p [style.color]="style.baseColor"><strong>{{'Quantity:' | translate}}</strong>
+                            {{product?.quantity}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="float-left date" [style.color]="style.defaultColor">
+
+                        <span [style.color]="style.baseColor"
+                            *ngIf="order?.delivered_on != 'Invalid date' && order?.delivered_on !='0000-00-00 00:00:00'">
+                            <p>
+                                {{order.type == 8 ? 'Service date' : [5,6].includes(order?.status) ? 'Delivered On:' : 'Expected Delivery On:' | translate}}
+                            </p>
+                            <p *ngIf="settings.show_expected_delivery_between == 0">
+                                {{order?.delivered_on | date: 'medium' : '+000'}}
+                            <p *ngIf="settings.show_expected_delivery_between == 1">
+                                {{settings?.app_type == 8 ? (order?.delivered_on | date: 'medium' : '+000') : [5,6].includes(order?.status) ? (order?.delivered_on | date: 'medium' : '+000') : (order?.delivery_min_time + ' min to ' + order?.delivery_max_time + ' min')}}
+                            </p>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="margin-top: -6px">
+                        <a class="float-right cancel-btn margin-left-10" [ngStyle]="cancelButton"
+                            (click)="cancel.emit()" *ngIf="![2,5,8].includes(order?.status)">{{'Cancel' | translate}}
+                            {{'order' | localization: order?.type | translate}}</a>
+                        <a class="float-right cancel-btn" [ngStyle]="cancelButton"
+                            (click)="orderDetail(order)">{{'View Detail' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,73 @@
+<!--================ Start Page Breadcrumb Page ================-->
+<div class="page_breadcrumb" [style.background-color]="style.backgroundColor">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <ul>
+          <li><a class="bold" [style.color]="style.baseColor">{{'wishlist' | localization}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <p class="page-resultes" [style.color]="style.baseColor">
+          <span
+            *ngIf="products.length > 2">{{(pagination.currentPage - 1) * (pagination.perPage) + 1}}-{{((((pagination.currentPage - 1) * (pagination.perPage) + 1) + pagination.perPage)-1) > products.length ? products.length : ((((pagination.currentPage - 1) * (pagination.perPage) + 1) + pagination.perPage)-1)}}
+            of </span>
+          {{products.length}} results</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!--================ End Page Breadcrumb Page ================-->
+
+
+<section style="margin: 30px 0px 30px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 more-product-page_section" [ngClass]="{'products': settings?.selected_template == 3}">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 [style.color]="style?.primaryColor">{{'products' | localization}}</h2>
+            <!-- <p [style.color]="style?.baseColor">{{'Awesome deals unlocked every day' | translate}}</p> -->
+          </div>
+        </div>
+
+        <ng-container *ngIf="!isLoading; else skeleton">
+          <div class="row product-list" [ngClass]="{'all-products': settings?.selected_template == 3 && products.length}">
+            <div class="col col-md-3 Recommends-products"
+              [ngClass]="{'col-md-3': settings?.selected_template == 0 , 'col-md-6': settings?.selected_template == 1, 'col-md-2': settings?.selected_template == 3}"
+              *ngFor="let product of products | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: products.length }; let i = index">
+              <app-product [settings]="settings" [style]="style" [loggedIn]="true" [product]="product"
+                (onFavourite)="onFavourite(product.product_id)" (add)="addProduct($event)"
+                (remove)="removeProduct($event)"></app-product>
+            </div>
+
+          </div>
+
+          <div *ngIf="products.length === 0" class="no-data">
+            <h1 [style.color]="style.baseColor">{{'No' | translate}} {{'product' | localization}}
+              {{'Found' | translate}}
+            </h1>
+          </div>
+
+          <div class="custom-pagination mt-5" *ngIf="products.length > pagination.perPage">
+            <pagination-controls [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+              (pageChange)="pagination.currentPage = $event"></pagination-controls>
+          </div>
+
+        </ng-container>
+
+        <ng-template #skeleton>
+          <div class="row product-list skeleton">
+            <div class="col col-md-3 Recommends-products"
+              [ngClass]="{'col-md-3': settings?.selected_template == 0 , 'col-md-6': settings?.selected_template == 1}"
+              *ngFor="let item of util.generateFakeList(8)">
+              <app-product-skeleton [style]="style" [settings]="settings"></app-product-skeleton>
+            </div>
+          </div>
+        </ng-template>
+
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,373 @@
+#wallet_page {
+    padding: 0px 0px;
+}
+
+.wallet_outter {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.wallet_left {
+    width: 20%;
+    border-right: 1px solid #ddd;
+}
+
+.wallet_right {
+    width: 100%;
+}
+
+.wallet_left ul {
+    padding: 0px;
+    list-style: none;
+}
+
+.wallet_left ul a {
+    width: 100%;
+    display: block;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    color: #00000094;
+}
+
+.wallet_right_heading {
+    border-bottom: 1px solid #ddd;
+}
+
+.wallet_balance {
+    padding: 20px;
+    display: flex;
+    margin-top: 10px;
+}
+
+.wallet_balance p {
+    font-size: 14px;
+    margin-right: 20px;
+    margin-bottom: 0px;
+    line-height: 27px;
+}
+
+.wallet_balance h2 {
+    font-size: 27px;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.wallet_btn {
+    border: 2px solid #4B5061;
+    border-radius: 5px;
+    color: #4B5061;
+    padding: 15px 20px;
+    text-transform: uppercase;
+    font-size: 14px;
+    display: inline-block;
+    margin: 0px 10px;
+}
+
+.wallet_amount_button {
+    float: right;
+    padding: 20px;
+}
+
+.pricem-color {
+    background: var(--primaryColor);
+    color: #fff;
+    border-color: var(--primaryColor);
+}
+
+.wallet_right_heading_status {
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+}
+
+.wallet_right_heading_status p {
+    margin: 0px;
+    text-transform: uppercase;
+}
+
+.wallet_list_inner {
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+}
+
+.wallet_list_detail {
+    display: flex;
+}
+
+.wallet_list_img {
+    margin-right: 20px;
+}
+
+.wallet_list_status p {
+    font-weight: 700;
+    margin-bottom: 0px;
+    font-size: 14px;
+    margin-top: 7px;
+}
+
+.wallet_list_status span {
+    font-size: 14px;
+    color: #8D8D8D;
+}
+
+.wallet_list_amount p {
+    margin: 0px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 54px;
+}
+
+.wallet_list_amount {
+    float: right;
+}
+
+.wallet_load_more a {
+    color: #4B5061;
+    text-transform: uppercase;
+    font-size: 15px;
+}
+
+.wallet_load_more {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.wallet_btn:hover {
+    text-decoration: none;
+    color: #000;
+}
+.pricem-color:hover{
+    color: #fff;
+}
+#sendMoney button.close, .choose_walle button.close{
+    right: 4px;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    top: -3px;
+}
+
+#sendMoney h4.modal-title, .choose_walle h4.modal-title {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}#sendMoney label, .choose_walle label {
+    color: #909090 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    
+}
+.enter-wallet-amount input, .choose_walle input {
+    padding: 0px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px !important;
+    font-weight: 700;
+    font-size: 20px;
+}.send_money_by p {
+    color: #909090 !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    margin-top: 30px;
+}.payment_method_opt div {
+    text-align: left;
+    float: left;
+    width: 100%; 
+    display: flex;
+    margin-bottom: 15px;
+}.payment_method_opt div input {
+    height: 20px; 
+    width: 20px;
+    margin-right: 20px;
+}.payment_method_opt div label {
+    margin: 0px;
+}
+
+
+[type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: var(--primaryColor);
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    border-color: var(--primaryColor);
+    transition: all 0.2s ease;
+}
+
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+[type="radio"]:checked + label:before {
+    content: '';
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--primaryColor);
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label, [type="radio"]:not(:checked) + label {
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}[type="radio"]:checked, [type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    transform: scale(0);
+}.payment_method_opt {
+    margin-bottom: 20px;
+    display: flow-root;
+}.wallet_input input {
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 0px;
+    border-radius: 0px !important;
+    width: 100%;
+}
+.wallet_input .allow-dropdown {
+    width: 100%;
+}#sendMoney .wallet_btn, .choose_walle .wallet_btn{
+    width: 100%;
+    border: none;
+    color: #fff;
+    margin-top: 20px;
+}
+input:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: var(--primaryColor) !important;
+}
+
+.choose_walle .payment_method_opt div{
+    width: 50%;
+}
+.log-error {
+    font-size: 14px;
+    color: #e32a2a;
+    text-align: left; 
+    margin-bottom: 10px;
+    margin-top: 0px; 
+}
+.comment{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #dddddd;
+    border-radius: 0px !important;
+    padding: 0px;
+}
+.wallet_input .intl-tel-input {
+    width: 100%;
+}
+.wallet_input .intl-tel-input input#phone {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0px;
+    padding-left: 112px;
+}
+
+.wallet_input .selected-flag.dropdown-toggle {
+    border-radius: 0px !important;
+}
+
+.form-check-label {
+    position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      width: 100%;
+      float: left;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .form-check-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .check-span {
+    position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      border: 2px solid var(--primaryColor);
+  }
+  
+  
+  
+  /* When the checkbox is checked, add a blue background */
+  .form-check-label input:checked ~ .check-span{
+    background-color: #fff;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .check-span:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .form-check-label input:checked ~ .check-span:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .form-check-label .check-span:after {
+    left: 2px;
+    top: 2px;
+    width: 12px;
+    height: 12px;
+   
+    background: var(--primaryColor);
+    border-radius: 50%;
+  }
+  
+  .form-check-inline {
+    align-items: center;
+    padding-left: 0;
+    margin-right: 0px !important;
+    float: left;
+    width: 25%;
+  }
+  
+  

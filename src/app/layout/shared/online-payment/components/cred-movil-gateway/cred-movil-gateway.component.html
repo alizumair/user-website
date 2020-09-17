@@ -1,0 +1,28 @@
+<div class="price_details"
+    [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor }">
+
+    <div class="file-upload" *ngIf="!image">
+        <input #fileInput type="file" accept="image/*" (change)="onImageSelect($event)">
+        <a [style.color]="style?.baseColor" (click)="fileInput.click()"><i class="fa fa-upload"></i>Choose Payment
+            Receipt To Upload</a>
+    </div>
+
+    <div class="image-selected" *ngIf="image">
+        <img class="receipt" [src]="image">
+        <button class="btn" (click)="uploadReceipt()" *ngIf="!image_url && !loading"
+            [ngStyle]="{'background-color': style.primaryColor, 'border-color': style.primaryColor, 'color': '#ffffff' }">
+            <i class="fa fa-upload"></i> Upload Receipt
+        </button>
+        <span class="spinner" [style.color]="style?.baseColor" *ngIf="loading && !image_url">
+            Uploading
+            <img src="/assets/images/spinner.svg">
+        </span>
+        <span *ngIf="!loading && image_url" class="uploaded" [style.color]="style?.baseColor">Payment Receipt Uploaded <i class="fa fa-check-circle-o"></i></span>
+    </div>
+
+</div>
+
+<div class="place_order mb-3" *ngIf="image_url">
+    <button (click)="placeOrder()" [ngStyle]="{'background-color': style.primaryColor, 'border-color': style.primaryColor, 'color': '#ffffff' }">
+        {{"Place Order" | translate }}</button>
+</div>

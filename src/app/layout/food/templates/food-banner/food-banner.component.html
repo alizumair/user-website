@@ -1,0 +1,16 @@
+<app-banner></app-banner>
+
+<section id="gernal-product-slider" style="padding-bottom: 0px;" *ngIf="[1,2].includes(settings?.selected_template) && !is_mobile">
+    <div class="container">
+        <div class="home-search" style="margin-top: -54px;">
+            <div class="row">
+                <div class="col-md-5">
+                    <app-location [settings]="settings"></app-location>
+                </div>
+                <div class="col-md-7">
+                    <app-search [settings]="settings" [style]="style"></app-search>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

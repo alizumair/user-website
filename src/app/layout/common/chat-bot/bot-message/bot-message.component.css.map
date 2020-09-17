@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "bot-message.component.scss"
+    ],
+    "names": [],
+    "file": "bot-message.component.css"
+}

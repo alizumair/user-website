@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>loader</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-4" transform="translate(7.000000, 1.000000)">
+            <g id="Group-3" transform="translate(23.709677, 0.000000)">
+                <ellipse id="Combined-Shape" fill="#9B8B5F" cx="61.6451613" cy="61.1764706" rx="61.6451613" ry="61.1764706"></ellipse>
+                <ellipse id="Oval" stroke="#FFFFFF" stroke-width="6.79738562" cx="61.6451613" cy="61.1764706" rx="27.3718111" ry="64.5751634"></ellipse>
+                <ellipse id="Oval-Copy" stroke="#FFFFFF" stroke-width="6.79738562" transform="translate(61.645161, 61.176471) rotate(-270.000000) translate(-61.645161, -61.176471) " cx="61.6451613" cy="61.1764706" rx="27.1895425" ry="65.0438541"></ellipse>
+            </g>
+            <path d="M23.7096774,84.2279412 L88.1751891,84.2279412 C90.7741762,84.2279412 92.8810715,86.3348365 92.8810715,88.9338235 C92.8810715,89.3969358 92.8127102,89.8575117 92.6781981,90.3006589 L78.663859,136.470588 L29.2677908,107.794118 L23.7096774,84.2279412 Z" id="Path-7" fill="#FFFFFF"></path>
+            <g id="ic_cart" transform="translate(0.000000, 65.882353)">
+                <g id="Group" transform="translate(1.501613, 2.941176)">
+                    <g id="Group-2" transform="translate(0.000000, 3.151261)">
+                        <ellipse id="Oval-Copy" fill="#9B8B5F" cx="66.8972521" cy="70.5882353" rx="10.264994" ry="10.0840336"></ellipse>
+                        <ellipse id="Oval-Copy-2" fill="#9B8B5F" cx="30.8585424" cy="70.5882353" rx="10.264994" ry="10.0840336"></ellipse>
+                        <polyline id="Rectangle-2" stroke="#9B8B5F" stroke-width="4.70588235" stroke-linecap="round" stroke-linejoin="round" points="30.8585424 18.1722689 84.0903226 18.1722689 74.3079782 50.4201681 22.2521298 50.4201681 12.944658 5.05221139 0 0"></polyline>
+                    </g>
+                </g>
+                <path d="M31.5404699,46.2729779 L54.4876866,46.2729779" id="Line" stroke="#9B8B5F" stroke-width="4.70588235" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+                <path d="M31.5404699,36.8612132 L42.4242306,36.8612132" id="Line-Copy" stroke="#9B8B5F" stroke-width="4.70588235" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

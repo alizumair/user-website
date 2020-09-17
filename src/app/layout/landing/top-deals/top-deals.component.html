@@ -1,0 +1,24 @@
+<div>
+    <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let product of products let i = index;" class="slide">
+            <div class="col-item deals">
+                <img appImage [url]="product?.image_path" [size]="'600x500'" [src]="product?.image_path"
+                    class="deals-img" onError="src = './assets/images/placeholder_image.svg';">
+                <h4>{{product?.name}}
+                    <span>{{product?.supplier_name}}</span>
+                </h4>
+                <h3 class="discount">upto {{product?.discountPercentage}}% off</h3>
+                <div class="top-deal">
+                    <app-quantity-buttons *ngIf="product.type == 1 || product.type == 2" [settings]="settings"
+                        [style]="style" [selectedQuantity]="product.selectedQuantity" [isProduct]="product"
+                        [selectedQuantity]="product?.selectedQuantity" (onAdd)="increaseValue(product)"
+                        (onRemove)="decreaseValue(product)">
+                    </app-quantity-buttons>
+                </div>
+                <a class="book-now" *ngIf="product.type == 8" href="javascript:void(0)"
+                    (click)="onBookNow(product)">Book
+                    Now</a>
+            </div>
+        </div>
+    </ngx-slick-carousel>
+</div>

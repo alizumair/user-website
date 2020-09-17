@@ -1,0 +1,190 @@
+<ng-container *ngIf="settings.footer_type == 1">
+    <footer [ngStyle]="{'background-color':style.footerColor, color: style.footerTextColor}">
+        <div class="footer-part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="useful-links">
+                            <h2>Health Care</h2>
+                            <ul>
+                                <li><a href="">About</a></li>
+                                <li><a href="">Blog</a></li>
+                                <li><a href="">Careers</a></li>
+                                <li><a href="">Press</a></li>
+                                <li><a href="">Contact Us</a></li>
+                                <li *ngIf="settings?.is_vendor_registration == 1"><a [style.color]="style.baseColor"
+                                        target="_blank" [href]="registrationUrl">{{'Register As' | translate}}
+                                        {{'supplier' | localization}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="useful-links">
+                            <h2>For patients</h2>
+                            <ul>
+                                <li><a href="">Search doctors</a></li>
+                                <li><a href="">Search Clinics</a></li>
+                                <li><a href="">Read about medicinees</a></li>
+                                <li><a href="">Home Service</a></li>
+                                <li><a href="">Search hospitials</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="useful-links">
+                            <h2>For Pharmacy</h2>
+                            <ul>
+                                <li><a href="">Medicine</a></li>
+                                <li><a href="">Online Sell</a></li>
+                                <li><a href="">Offers</a></li>
+                                <li><a href="">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="useful-links">
+                            <h2>More</h2>
+                            <ul>
+                                <li><a href="">Help</a></li>
+                                <li><a href="">Developers</a></li>
+                                <li><a href="">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2 footer-item">
+                        <div class="useful-links social">
+                            <h2>Follow Us on</h2>
+                            <ul>
+                                <li><a href=""><i class="fa fa-facebook" aria-hidden="true"></i>
+                                    </a></li>
+                                <li><a href=""><i class="fa fa-twitter" aria-hidden="true"></i>
+                                    </a></li>
+                                <li><a href=""><i class="fa fa-linkedin" aria-hidden="true"></i>
+                                    </a></li>
+                                <li><a href=""><i class="fa fa-google-plus" aria-hidden="true"></i>
+                                    </a></li>
+                                <li><a href=""><i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a></li>
+                                <li><a href=""><i class="fa fa-youtube-play" aria-hidden="true"></i>
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-bottom" [ngStyle]="{'background-color':style.footerSecColor, color: style.footerTextColor}">
+        <p>Copyright © 2020, HealthCare. All rights reserved.</p>
+    </div>
+</ng-container>
+
+<ng-container *ngIf="settings.footer_type == 2">
+    <section id="download_app_section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="download_app_section_image">
+                        <img [src]="settings.footer_mockup_image || '/assets/images/marketplace_app.png'">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="download_app_section_detail">
+                        <h3>{{ settings.footer_mockup_title || 'Download Our app'}}</h3>
+                        <p>{{settings?.footer_mockup_description || 'Our App is available on IOS and Android.'}}</p>
+                        <div class="">
+                            <a *ngIf="appLink?.android" [href]="appLink?.android"><img
+                                    src="/assets/images/google_play.png"></a>
+                            <a *ngIf="appLink?.ios" [href]="appLink?.ios"><img src="/assets/images/app_store.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer-part">
+            <div class="container" [ngStyle]="{'border-top': 'none'}">
+                <div class="row">
+                    <div [ngClass]="!appLink?.android && !appLink?.ios ? 'col-md-6' : 'col-md-4'"
+                        *ngIf="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs">
+                        <div class="useful-links">
+                            <h2 [style.color]="style.baseColor">{{'Useful Links' | translate}}</h2>
+                            <ul>
+                                <li *ngIf="settings?.aboutUs">
+                                    <a [style.color]="style.baseColor"
+                                        [routerLink]="['/about']">{{'About Us' | translate}}</a>
+                                </li>
+                                <li *ngIf="settings?.termsAndConditions">
+                                    <a [style.color]="style.baseColor"
+                                        [routerLink]="['/terms-and-conditions']">{{'Terms & Conditions' | translate}}</a>
+                                </li>
+                                <li *ngIf="settings?.privacyPolicy">
+                                    <a [style.color]="style.baseColor"
+                                        [routerLink]="['/privacy-policy']">{{'Privacy Policy' | translate}}</a>
+                                </li>
+                                <li *ngIf="settings?.faqs">
+                                    <a [style.color]="style.baseColor"
+                                        [routerLink]="['/faq']">{{"FAQ's" | translate}}</a>
+                                </li>
+                                <li *ngIf="settings?.is_vendor_registration == 1"><a [style.color]="style.baseColor"
+                                        target="_blank" [href]="registrationUrl">{{'Register As' | translate}}
+                                        {{'supplier' | localization}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div
+                        [ngClass]="(!appLink?.android && !appLink?.ios) || (!settings?.aboutUs && !settings?.termsAndConditions && !settings?.privacyPolicy && !settings?.faqs) ? 'col-md-6' : 'col-md-4'">
+                        <div class="useful-links">
+                            <h2 [style.color]="style.baseColor">{{'Contact Us' | translate}}</h2>
+                            <ul>
+                                <li class="help"><a [style.color]="style.baseColor"
+                                        href="tel:{{contact?.phoneNumber}}">{{contact?.phoneNumber}}</a></li>
+                                <li [style.color]="style.baseColor" class="help" (click)="mailTo()">
+                                    {{contact?.email}}</li>
+                                <li [style.color]="style.baseColor">{{contact?.country}}</li>
+                                <li *ngIf="contact?.email && settings.email" [style.color]="style.baseColor"
+                                    class="help" (click)="onHelp.emit()">
+                                    {{'Help & Support' | translate}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div
+                        [ngClass]="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs ? 'col-md-4' : 'col-md-6'">
+                        <div>
+                            <div class="useful-links social">
+                                <h2 [style.color]="style.baseColor">Follow Us on</h2>
+                                <ul>
+                                    <li><a *ngIf="settings?.fackbook_link" [style.color]="style.primaryColor"
+                                            target="_blank" [href]="settings?.fackbook_link"><i class="fa fa-facebook"
+                                                aria-hidden="true"></i>
+                                        </a></li>
+                                    <li><a *ngIf="settings?.twitter_link" [style.color]="style.primaryColor"
+                                            target="_blank" [href]="settings?.twitter_link"><i class="fa fa-twitter"
+                                                aria-hidden="true"></i>
+                                        </a></li>
+                                    <li><a *ngIf="settings?.linkedin_link" [style.color]="style.primaryColor"
+                                            target="_blank" [href]="settings?.linkedin_link"><i class="fa fa-linkedin"
+                                                aria-hidden="true"></i>
+                                        </a></li>
+                                    <li><a *ngIf="settings?.google_link" [style.color]="style.primaryColor"
+                                            target="_blank" [href]="settings?.google_link"><i class="fa fa-google-plus"
+                                                aria-hidden="true"></i>
+                                        </a></li>
+                                    <li><a *ngIf="settings?.instagram_link" [style.color]="style.primaryColor"
+                                            target="_blank" [href]="settings?.instagram_link"><i class="fa fa-instagram"
+                                                aria-hidden="true"></i>
+                                        </a></li>
+                                    <li><a *ngIf="settings?.youtube_link" [style.color]="style.primaryColor"
+                                            target="_blank" [href]="settings?.youtube_link"><i class="fa fa-youtube"
+                                                aria-hidden="true"></i>
+                                        </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</ng-container>

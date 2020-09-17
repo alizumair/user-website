@@ -1,0 +1,18 @@
+<div class="dropdown show cat-srt">
+    <button class="btn btn-large dropdown-toggle " id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false" [style.color]="style.primaryColor">
+        <span [style.color]="style.primaryColor">{{labelText | translate}}:</span>
+        {{selectedCatSorting | translate}}</button>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item cursor" *ngIf="settings?.is_pickup_order != 1"
+            [ngStyle]="catSortValue == 0 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onCatSortBy(0)">{{'Delivery' | translate}}</a>
+        <a class="dropdown-item cursor" *ngIf="settings?.is_pickup_order != 0"
+            [ngStyle]="catSortValue == 1 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onCatSortBy(1)">{{'Pick-Up' | translate}}</a>
+        <a class="dropdown-item cursor" *ngIf="settings?.is_table_booking == 1"
+            [ngStyle]="catSortValue == 2 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onCatSortBy(2)">{{'Dining Table' | translate}}</a>
+    </div>
+</div>

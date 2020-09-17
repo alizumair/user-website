@@ -1,0 +1,12 @@
+<div class="dropdown show">
+  <button class="btn btn-large dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+    aria-expanded="false" [style.color]="style.primaryColor">
+    <span [style.color]="style.primaryColor">{{'Sort by:' | translate}}</span> {{selectedSorting | translate}}</button>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a *ngIf="settings?.no_default_product_sort" class="dropdown-item cursor" [ngStyle]="filters.low_to_high == -1 ? {'background-color': style.baseColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"  (click)="onSort(-1)">{{'Default' | translate}}</a>
+    <a class="dropdown-item cursor" [ngStyle]="filters.low_to_high == 1 ? {'background-color': style.baseColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"  (click)="onSort(1)">{{'Price: Low to High' | translate}}</a>
+    <a class="dropdown-item cursor" [ngStyle]="filters.low_to_high == 0 ? {'background-color': style.baseColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}" (click)="onSort(0)">{{'Price: High to Low' | translate}}</a>
+    <a *ngIf="settings.app_type != 8" class="dropdown-item cursor" [ngStyle]="filters.low_to_high == 3? {'background-color': style.baseColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}" (click)="onSort(3)">{{'Popularity' | translate}}</a>
+  </div >
+</div>

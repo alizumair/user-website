@@ -1,0 +1,15 @@
+
+
+.help {
+  color: var(--baseColor);
+  cursor: pointer;
+}
+
+.help:hover {
+  color: var(--primaryColor);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+ 

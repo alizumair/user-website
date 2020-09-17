@@ -1,0 +1,57 @@
+<div class="mobile-header" [style.background-color]="style?.headerBackgroundColor || style.backgroundColor">
+    <div class="mobile-location">
+        <!-- <div class="mobile-other">
+            Other <span class="icon-downArrow"></span>
+        </div>
+        <div class="mobile-location-set">Chandigarh, India</div> -->
+        <app-location [settings]="settings"></app-location>
+    </div>
+    <!-- <div class="mobile-cart">
+        <div class="cart_div">
+            <app-header-cart [style]="style" [settings]="settings"></app-header-cart>
+        </div>
+    </div> -->
+    <div class="mobile-login-account">
+    <a (click)="account()" [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+        <i *ngIf="!loggedIn" class="fa fa-user-o" aria-hidden="true"></i>
+        <span *ngIf="!loggedIn">Account</span>
+
+        <div class="user-profile" *ngIf="loggedIn">
+            <ng-container [ngTemplateOutlet]="userProfile"></ng-container>
+        </div>
+    </a>
+</div>
+</div>
+
+<ng-template #userProfile>
+    <a class="nav-link" [routerLink]="['/account/profile']" [ngClass]="settings?.header_theme == 1 ? 'topheader-user' : ''">
+        <img [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+            onError="src = './assets/images/placeholder_image.svg'"></a>
+    <!-- <div>
+        <ul class="dropdown-menu">
+            <li>
+                <div class="profile-detail">
+                    <div class="profile-image-home">
+                        <img class="profile-menu-image"
+                            [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+                            onError="src = './assets/images/placeholder_image.svg'">
+                    </div>
+                    <h3 [style.color]="style?.defaultColor">{{userData?.firstname}}</h3>
+                    <h4 [style.color]="style?.secondaryColor">{{userData?.email}}</h4>
+                </div>
+            </li>
+            <li><a [style.color]="style?.defaultColor"
+                    [routerLink]="['/account/profile']">{{'My Account' | translate}}
+                    <span>></span></a></li>
+            <li><a [style.color]="style?.defaultColor"
+                    [routerLink]="['/orders/order-listing']">{{('My ' + ('orders' | localization)) | translate}}
+                    <span>></span></a></li>
+            <li *ngIf="settings?.show_prescription_requests"><a [style.color]="style?.defaultColor"
+                     [routerLink]="['/orders/order-request']">
+                    {{'orders' | localization}} Requests
+                    <span>></span></a></li>
+            <li><a [style.color]="style?.defaultColor" (click)="signOutConfirmation()">{{'Sign Out' | translate}}
+                </a></li>
+        </ul>
+    </div> -->
+</ng-template>

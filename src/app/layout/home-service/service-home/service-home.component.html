@@ -1,0 +1,70 @@
+<div class="main_section">
+    <div class="banner_section">
+        <app-banner></app-banner>
+    </div>
+</div>
+
+<div [id]="'search'" class="search-form" *ngIf="!is_mobile">
+    <div class="container">
+        <div *ngIf="!router.url.includes('#search')" class="row">
+            <div class="col-lg-3 col-md-4">
+                <app-location [settings]="settings"></app-location>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <app-search [settings]="settings" [style]="style"></app-search>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="recoomond_section royo_home_services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="left_section">
+                    <ul>
+                        <li class="pt-3 pb-3"
+                            [ngStyle]="selectedTab == 1 ? {'backgroundColor': style.primaryColor,  color: '#ffffff', opacity: '1'} : {color: style.baseColor}"
+                            (click)="scrollTo(1)"><a href="javascript:void(0)"
+                                [ngStyle]="selectedTab == 1 ? { color: '#ffffff', opacity: '1'} : {color: style.baseColor}">{{'Most Booked' | translate}}</a>
+                        </li>
+                        <li class="pt-3 pb-3" *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                            [ngStyle]="selectedTab == 2 ? {'backgroundColor': style.primaryColor,  color: '#ffffff', opacity: '1'} : {color: style.baseColor}"
+                            (click)="scrollTo(2)"><a href="javascript:void(0)"
+                                [ngStyle]="selectedTab == 2 ? { color: '#ffffff', opacity: '1'} : {color: style.baseColor}">{{'Offers For You' | translate}}</a>
+                        </li>
+                        <li *ngIf="!settings?.is_single_vendor" class="pt-3 pb-3"
+                            [ngStyle]="selectedTab == 3 ? {'backgroundColor': style.primaryColor,  color: '#ffffff', opacity: '1'} : {color: style.baseColor}"
+                            (click)="scrollTo(3)"><a href="javascript:void(0)"
+                                [ngStyle]="selectedTab == 3 ? { color: '#ffffff', opacity: '1'} : {color: style.baseColor}">{{'Top Service Providers' | translate}}</a>
+                        </li>
+                        <li *ngIf="recentlyViewed.length" class="pt-3 pb-3"
+                            [ngStyle]="selectedTab == 4 ? {'backgroundColor': style.primaryColor,  color: '#ffffff', opacity: '1'} : {color: style.baseColor}"
+                            (click)="scrollTo(4)"><a href="javascript:void(0)"
+                                [ngStyle]="selectedTab == 4 ? { color: '#ffffff', opacity: '1'} : {color: style.baseColor}">Recently
+                                Viewed</a>
+                        </li>
+                        <app-home-service-categories [categories]="categories" [settings]="settings" [style]="style">
+                        </app-home-service-categories>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+                <div class="reccom-main_section">
+                    <app-popular-products id="1"></app-popular-products>
+                    <app-special-offers id="2" *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                        [offerData]="homeData?.offerEnglish" [isLoading]="isLoading">
+                    </app-special-offers>
+                    <app-recommended-suppliers
+                        *ngIf="!settings?.is_single_vendor && homeData?.SupplierInArabic && homeData?.SupplierInArabic?.length"
+                        [recommendedData]="homeData?.SupplierInArabic" [isLoading]="isLoading" id="3">
+                    </app-recommended-suppliers>
+                    <app-home-service-recently-viewed *ngIf="recentlyViewed.length" [settings]="settings" id="4"
+                        [style]="style" [recentlyViewed]="recentlyViewed" [isLoading]="isLoading">
+                    </app-home-service-recently-viewed>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

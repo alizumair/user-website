@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>ic_cart</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_cart" transform="translate(3.000000, 2.000000)" stroke="#2E2A38">
+            <g id="Group">
+                <g id="Group-2" transform="translate(0.000000, 0.714286)">
+                    <ellipse id="Oval-Copy" cx="14.8500882" cy="16" rx="1.77865961" ry="1.78571429"></ellipse>
+                    <ellipse id="Oval-Copy-2" cx="6.85008818" cy="16" rx="1.77865961" ry="1.78571429"></ellipse>
+                    <polyline id="Rectangle-2" stroke-linecap="round" stroke-linejoin="round" points="18.2857143 5.18806909 16.4951473 11.4285714 4.93960633 11.4285714 2.87350088 1.14516792 0 0"></polyline>
+                </g>
+            </g>
+            <line x1="7.5" y1="8.5" x2="11.5" y2="8.5" id="Line" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></line>
+        </g>
+    </g>
+</svg>

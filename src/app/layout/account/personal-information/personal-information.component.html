@@ -1,0 +1,51 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<div id="personal_info" class="profile-left-right">
+  <h1 [style.color]="style.baseColor">{{'Personal Information' | translate}}</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+    <div class="profile-image">
+      <img [src]="user?.user_image ? user?.user_image : '/assets/images/placeholder-user.png'"
+        onError="src = './assets/images/placeholder_logo.svg'">
+      <input type="file" formControlName="profilePic" accept="image/*" (change)="onImageSelect($event)" #fileInput
+        style="display: none;">
+      <p [style.color]="style.primaryColor" (click)="fileInput.click()" class="cursor">
+        {{user?.user_image ? 'Change Image' : 'Add Image'}}</p>
+    </div>
+    <div class="profile_form">
+      <div class="form-group">
+        <label [style.color]="style.baseColor">{{'Full Name' | translate}}</label>
+        <input type="text" placeholder="{{'Full Name' | translate}}"
+          (keydown.space)="!form.controls.name.value ? $event.preventDefault() : '' " formControlName="name">
+        <div class="text-error"
+          *ngIf="(form.controls['name'].errors?.required || form.controls['name'].errors?.whitespace) && showError">
+          {{'Please enter name' | translate}}</div>
+      </div>
+      <div *ngIf="settings?.is_abn_business=='1'">
+        <div class="form-group">
+          <label [style.color]="style.baseColor">{{'ABN Number' | translate}}</label>
+          <input type="text" placeholder="{{'ABN Number' | translate}}"
+            (keydown.space)="!form.controls.abn_number.value ? $event.preventDefault() : '' "
+            formControlName="abn_number">
+        </div>
+        <div class="form-group">
+          <label [style.color]="style.baseColor">{{'Business Name' | translate}}</label>
+          <input type="text" placeholder="{{'Business Name' | translate}}"
+            (keydown.space)="!form.controls.business_name.value ? $event.preventDefault() : '' "
+            formControlName="business_name">
+        </div>
+      </div>
+      <!-- <div class="form-group">
+        <label>{{'Email' | translate}}</label>
+        <input type="email" placeholder="{{'Email' | translate}}" [ngModel]="user?.email"
+          [ngModelOptions]="{standalone: true}" readonly>
+      </div> -->
+      <!-- <button type="submit" class="profile-submit-form" href="javascript:void(0)">Save</button> -->
+
+      <div class="login-submit" style="width: 100px">
+        <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Save' | translate}}</button>
+      </div>
+
+
+    </div>
+  </form>
+</div>

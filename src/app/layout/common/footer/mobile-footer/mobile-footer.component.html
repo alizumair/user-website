@@ -1,0 +1,38 @@
+<div class="mobile-footer">
+    <div *ngIf="viewSearch">
+        <app-search style="display: block;" [settings]="settings" [style]="style" (searched)="viewSearch = $event"></app-search>
+    </div>
+
+    <div class="mobile-footer-list" [style.background-color]="style?.headerBackgroundColor || style.backgroundColor">
+        <a [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'" [routerLink]="['/']" class="select"
+            [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <span>Home</span>
+        </a>
+        <a (click)="viewSearch = !viewSearch" class="cursor" *ngIf="!(settings?.isCustomFlow && router.url === '/')"
+            [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <span>Search</span>
+        </a>
+        <a *ngIf="settings?.app_type != 2" [routerLink]="['/products/all-discounted-products']" [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+            <i class="fa fa-gift" aria-hidden="true"></i>
+            <span>Offers</span>
+        </a>
+        <a *ngIf="settings?.app_type == 2 || (router.url === '/' && settings?.isCustomFlow)" [routerLink]="['/products/category-listing']" [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+            <i class="fa fa-list" aria-hidden="true"></i>
+            <span>Categories</span>
+        </a>
+        <a class="mobile-cart">
+            <app-header-cart [style]="style" [settings]="settings" class="cart_div"></app-header-cart>
+        </a>
+        <!-- <a (click)="account()" [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+            <i *ngIf="!loggedIn" class="fa fa-user-o" aria-hidden="true"></i>
+            <span *ngIf="!loggedIn">Account</span>
+
+            <div class="user-profile" *ngIf="loggedIn">
+                <ng-container  [ngTemplateOutlet]="userProfile"></ng-container>
+            </div>
+        </a> -->
+    </div>
+</div>
+

@@ -1,0 +1,70 @@
+.card-frame.frame--activated{
+  width: 100%;
+  height: 40px;
+  padding: 10px 12px;
+
+  color: #515151;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  outline: none;
+
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+
+  #singleIframe .card-number, .cvv, .expiry-date{
+    color: #515151;   
+  }
+  input#checkout-frames-card-number {
+    color: #515151;   
+  }
+}
+
+
+.one-liner{
+    margin-top:20px;
+
+    #card-errors{
+        font-size: 0.875rem;
+    }
+}
+
+.card-frame.frame--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.card-frame.frame--invalid {
+  border-color: #fa755a;
+}
+
+button {
+    display: block;
+    margin: 20px 0px 10px;
+    padding: 10px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    outline: none;
+    text-align: center;
+    text-transform: uppercase;
+    border: none;
+    float: right;
+  }
+  
+  .dialog-close-button {
+    color: #aaaaaa !important;
+    display: inline-block;
+    margin-top: -10px;
+  }
+  
+  .form-row {
+  margin-left: 0px !important;
+  }
+  
+  label {
+    opacity: 0.8;
+  }
+  
+  .container {
+    max-width: 100%;
+  }

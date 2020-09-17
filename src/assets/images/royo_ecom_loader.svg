@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="33px" height="35px" viewBox="0 0 33 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>royo_ecom_loader</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-4" transform="translate(0.000000, 2.000000)">
+            <g id="Group-3" transform="translate(5.000000, 0.000000)">
+                <circle id="Combined-Shape" fill="#2169CE" cx="13" cy="13" r="13"></circle>
+                <ellipse id="Oval" stroke="#FFFFFF" stroke-width="1.44444444" cx="13" cy="13" rx="5.77777778" ry="13.7222222"></ellipse>
+                <ellipse id="Oval-Copy" stroke="#FFFFFF" stroke-width="1.44444444" transform="translate(13.000000, 13.000000) rotate(-270.000000) translate(-13.000000, -13.000000) " cx="13" cy="13" rx="5.77777778" ry="13.7222222"></ellipse>
+            </g>
+            <path d="M5,17.8984375 L18.5874902,17.8984375 C19.1397749,17.8984375 19.5874902,18.3461528 19.5874902,18.8984375 C19.5874902,18.9961402 19.5731718,19.0933156 19.5449916,19.1868661 L16.5889771,29 L6.17211914,22.90625 L5,17.8984375 Z" id="Path-7" fill="#FFFFFF"></path>
+            <g id="ic_cart" transform="translate(0.000000, 14.000000)">
+                <g id="Group" transform="translate(0.316667, 0.625000)">
+                    <g id="Group-2" transform="translate(0.000000, 0.669643)">
+                        <ellipse id="Oval-Copy" fill="#2169CE" cx="14.1075838" cy="15" rx="2.16472663" ry="2.14285714"></ellipse>
+                        <ellipse id="Oval-Copy-2" fill="#2169CE" cx="6.50758377" cy="15" rx="2.16472663" ry="2.14285714"></ellipse>
+                        <polyline id="Rectangle-2" stroke="#2169CE" stroke-linecap="round" stroke-linejoin="round" points="6.50758377 3.86160714 17.7333333 3.86160714 15.67039 10.7142857 4.69262601 10.7142857 2.72982584 1.07359492 0 0"></polyline>
+                    </g>
+                </g>
+                <path d="M6.6513916,9.83300781 L11.4906006,9.83300781" id="Line" stroke="#2169CE" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+                <path d="M6.6513916,7.83300781 L8.94660645,7.83300781" id="Line-Copy" stroke="#2169CE" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

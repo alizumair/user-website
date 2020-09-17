@@ -1,0 +1,232 @@
+<ng-container [ngSwitch]="settings?.app_type">
+
+  <!--================ Start Page Breadcrumb Page ================-->
+  <div class="page_breadcrumb" [style.background-color]="style.backgroundColor">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <ul>
+            <li [style.color]="style.baseColor"><b>{{categoryName}}</b>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <p class="page-resultes" [style.color]="style.baseColor">
+            <span
+              *ngIf="suppliers.length > 2">{{(pagination.currentPage - 1) * (pagination.perPage) + 1}}-{{((((pagination.currentPage - 1) * (pagination.perPage) + 1) + pagination.perPage)-1) > suppliers.length ? suppliers.length : ((((pagination.currentPage - 1) * (pagination.perPage) + 1) + pagination.perPage)-1)}}
+              {{'Of' | translate}} </span>
+            {{suppliers.length}} {{'Results' | translate}}</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!--================ End Page Breadcrumb Page ================-->
+
+
+
+  <ng-template [ngSwitchCase]="8">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 [ngStyle]="{'color': style?.baseColor, 'font-size': '22px'}" class="text-uppercase"
+            *ngIf="!is_favourite && !isRecommendedSuppliers">
+            {{'Choose' | translate}}
+            {{'supplier' | localization}}</h2>
+          <h2 [ngStyle]="{'color': style?.baseColor, 'font-size': '22px'}" class="text-uppercase"
+            *ngIf="!is_favourite && isRecommendedSuppliers">
+            {{'Recommended' | translate}}
+            {{'suppliers' | localization}}</h2>
+          <h2 [ngStyle]="{'color': style?.baseColor, 'font-size': '22px'}" class="text-uppercase"
+            *ngIf="is_favourite && !isRecommendedSuppliers">
+            {{'Your Favourite' | translate}}
+            {{'suppliers' | localization}}</h2>
+        </div>
+      </div>
+      <hr>
+      <div class="row mt-5">
+        <div class="col-3 left_section">
+          <ul>
+            <app-home-service-categories [settings]="settings" [style]="style" [categories]="categories"
+              [selectedIds]="categoryFilter">
+            </app-home-service-categories>
+          </ul>
+        </div>
+        <div class="col-9">
+
+          <div class="row" *ngIf="showSubCat && categories.length">
+            <div class="col-md-12 mt-4">
+              <div id="category" class="tabcontent" style="height: 100%" [style.color]="style.defaultColor">
+                <h3 style="margin-bottom: 20px;">
+                  Select {{'category' | localization}}
+                </h3>
+                <div class="supdetbox">
+                  <div class="row">
+                    <div class="col-md-4 uk-animation-slide-right"
+                      *ngFor="let subCat of subCategories[subCatIndex]; let i = index">
+                      <figure (click)="!isProcessing ? onSubCatSelect(subCat, true) : ''">
+                        <img appImage [url]="subCat?.image" [size]="'700x600'" [src]="subCat?.image"
+                          style="width: 100%; height: 180px; cursor: pointer;"
+                          onError="src = './assets/images/placeholder_image.svg';" (load)="onImageLoad(subCat)">
+                      </figure>
+                      <p>{{subCat?.name || subCat?.category_name}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="reccom-main_section" *ngIf="!showSubCat">
+            <h2 class="capitalize" [style.color]="style.primaryColor">{{categoryName}}</h2>
+
+            <ng-container *ngIf="!isLoading; else skeleton">
+              <div class="row">
+                <div class="col-md-4 col-sm-6 neapolitan-section top-service-providers"
+                  *ngFor="let supplier of suppliers | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: suppliers.length }; let i = index;">
+                  <app-supplier [settings]="settings" [style]="style" [supplier]="supplier"
+                    (onFavourite)="onFavourite(supplier.id)"></app-supplier>
+                </div>
+                <div *ngIf="suppliers.length === 0 && noData" class="no-data w-100">
+                  <h1 [style.color]="style.baseColor">{{'No' | translate}} {{'supplier' | localization | translate}}
+                    {{"Found" | translate}}</h1>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-template #skeleton>
+              <div class="row">
+                <div class="skeleton col-md-4" *ngFor="let item of util.generateFakeList(9)">
+                  <app-supplier-skeleton [settings]="settings" [style]="style"></app-supplier-skeleton>
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="custom-pagination mt-4" *ngIf="suppliers.length > pagination.perPage">
+              <pagination-controls [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+                (pageChange)="pagination.currentPage = $event"></pagination-controls>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template ngSwitchDefault>
+    <section *ngIf="!showSubCat"
+      [style.margin-top.px]="settings?.app_type == 1 && settings?.selected_template == 1 ? '10' : '30'">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="spechil-offer" style="background-color: #ffffff; padding-top: 0px;">
+              <div class="row">
+                <div class="col-md-7">
+                  <h2 [style.color]="style?.baseColor" class="text-uppercase"
+                    *ngIf="!is_favourite && !isRecommendedSuppliers">{{'choose_supplier' | localization | translate}}
+                  </h2>
+                  <h2 [style.color]="style?.baseColor" class="text-uppercase"
+                    *ngIf="!is_favourite && isRecommendedSuppliers">{{'Recommended' | translate}}
+                    {{'suppliers' | localization}}</h2>
+                  <h2 [style.color]="style?.baseColor" class="text-uppercase"
+                    *ngIf="is_favourite && !isRecommendedSuppliers">{{'Your Favourite' | translate}}
+                    {{'suppliers' | localization}}</h2>
+                </div>
+                <div *ngIf="is_all" class="col-md-5 text-right cat-fd">
+                  <app-supplier-sorting [style]="style" [sortValue]="sortBy" (onSort)="onSortBy($event)">
+                  </app-supplier-sorting>
+                  <app-supplier-cat-sorting *ngIf="settings?.app_type == 1" [style]="style" [settings]="settings" [catShortValue]="catShortValue"
+                    (onCatSort)="onCatSortBy($event)" class="sorting-btn"></app-supplier-cat-sorting>
+                </div>
+              </div>
+              <hr>
+
+              <div class="itboxrec" id="menu1" *ngIf="!(settings?.app_type == 1 && settings?.selected_template == 1)">
+                <div class="row reccom-main_section">
+                  <ng-container *ngIf="!isLoading; else skeleton">
+                    <div class="col col-md-3 "
+                      *ngFor="let supplier of suppliers | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: suppliers.length }; let i = index;">
+                      <app-supplier [settings]="settings" [style]="style" [supplier]="supplier"
+                        (onFavourite)="onFavourite(supplier.id)"></app-supplier>
+                    </div>
+
+                    <div *ngIf="suppliers.length === 0 && noData" class="no-data">
+                      <h1 [style.color]="style.baseColor">{{'No'  | translate}} {{'supplier' | localization}}
+                        {{'Found' | translate}}</h1>
+                    </div>
+                  </ng-container>
+
+                  <ng-template #skeleton>
+                    <div class="skeleton col-md-3" *ngFor="let item of util.generateFakeList(8)">
+                      <app-supplier-skeleton [settings]="settings" [style]="style"></app-supplier-skeleton>
+                    </div>
+                  </ng-template>
+
+                </div>
+              </div>
+
+              <div class="row" *ngIf="settings?.app_type == 1 && settings?.selected_template == 1">
+                <ng-container *ngIf="!isLoading; else skeleton2">
+                  <div class="col-md-6"
+                    *ngFor="let supplier of suppliers | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: suppliers.length }; let i = index;">
+                    <app-supplier [settings]="settings" [style]="style" [supplier]="supplier"
+                      (onFavourite)="onFavourite(supplier.id)"></app-supplier>
+                  </div>
+                </ng-container>
+
+                <div *ngIf="suppliers.length === 0 && noData" class="no-data">
+                  <h1 [style.color]="style.baseColor">{{'No'  | translate}} {{'supplier' | localization}}
+                    {{'Found' | translate}}</h1>
+                </div>
+              </div>
+
+              <ng-template #skeleton2>
+                <div class="skeleton col-md-6" *ngFor="let offer of util.generateFakeList(6)">
+                  <app-supplier-skeleton [settings]="settings" [style]="style"></app-supplier-skeleton>
+                </div>
+              </ng-template>
+            </div>
+            <app-supplier-category-sidebar *ngIf="showSidebar" [supplierId]="selectedSupplierId"
+              [categories]="sidebarCategories" (onHide)="closeSidebar()">
+            </app-supplier-category-sidebar>
+
+            <div class="custom-pagination mt-4" *ngIf="suppliers.length > pagination.perPage">
+              <pagination-controls [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+                (pageChange)="pagination.currentPage = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section *ngIf="showSubCat && categories.length">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <div id="category" class="tabcontent" style="height: 100%" [style.color]="style.defaultColor">
+              <h3 style="margin-bottom: 20px;">
+                Select {{'category' | localization}}
+              </h3>
+              <div class="supdetbox">
+                <div class="row">
+                  <div class="col-md-4 uk-animation-slide-right"
+                    *ngFor="let subCat of subCategories[subCatIndex]; let i = index">
+                    <figure (click)="onSubCatSelect(subCat, true)" style="height: auto;">
+                      <img appImage [url]="subCat?.image" [size]="'700x600'" [src]="subCat?.image"
+                        style="width: 100%; height: 180px; cursor: pointer; border-radius: 4px;"
+                        onError="src = './assets/images/placeholder_image.svg';" (load)="onImageLoad(subCat)">
+                    </figure>
+                    <p>{{subCat?.name || subCat?.category_name}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+
+</ng-container>

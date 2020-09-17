@@ -1,0 +1,63 @@
+<ng-container [ngSwitch]="settings?.selected_template">
+
+    <ng-template [ngSwitchCase]="0">
+
+        <div class="recommends-products">
+            <img appImage [url]="product.image_path" [size]="'255x120'" [src]="product.image_path"
+                (click)="porductDescription()" class="cursor" onError="src = './assets/images/placeholder_image.svg';"
+                @fade>
+            <span *ngIf="product.discountPercentage" class="discount"
+                [ngStyle]="{'color': '#ffffff', 'background-color': style.primaryColor}">{{product.discountPercentage + '%' + ' OFF'}}</span>
+            <div class="star-rating">
+                <span> {{product?.avg_rating}} <i class="fa fa-star" aria-hidden="true"></i> </span>
+            </div>
+            <div *ngIf="settings.is_product_wishlist == 1" class="favourite">
+                <a (click)="wishlist(!product?.is_favourite, product)">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="2"
+                            [attr.fill]="product?.is_favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                            <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                                [attr.stroke]="product?.is_favourite ? style.primaryColor : style.baseColor">
+                                <g id="ic_heart_fill">
+                                    <path
+                                        d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                        id="Combined-Shape-Copy"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+            <h3 [style.color]="style.baseColor" data-toggle="tooltip" [title]="product?.name" @fade>{{product?.name}}
+            </h3>
+            <p *ngIf="!this.settings.is_single_vendor" class="brand" [style.color]="style.baseColor"
+                data-toggle="tooltip" [title]="'by ' + product?.supplier_name" @fade> <span>{{'by' | translate}}
+                    {{product?.supplier_name}}</span></p>
+            <div>
+                <div *ngIf="settings?.laundary_service_flow == 0" class="add-btn float-right"><button
+                        class="btn btn-large" [style.background-color]="style.primaryColor" (click)="onBookNow()"
+                        @fade>{{this.settings.product_detail == 1 ? 'View Detail' : (settings?.laundary_service_flow == 1 ? 'Add' : 'Book Now') | translate }}</button>
+                </div>
+                <div class="add-btn float-right lndry-btn" *ngIf="settings?.laundary_service_flow == 1">
+                    <app-quantity-buttons [style]="style" [settings]="settings"
+                        [selectedQuantity]="product?.selectedQuantity" (onAdd)="increaseValue()"
+                        (onRemove)="decreaseValue()" @fade>
+                    </app-quantity-buttons>
+                </div>
+
+                <p class="d-block price price_number" [style.color]="style.primaryColor"><span
+                        *ngIf="settings?.laundary_service_flow == 0"
+                        [style.color]="style.baseColor">{{'Starting From' | translate}}</span>
+                    <span class="total-price" [style.color]="style.primaryColor">{{currency}} {{product?.fixed_price}}
+                        <span *ngIf="product?.discount" class="actual-price" [style.color]="style?.baseColor"
+                            @fade>{{currency}}
+                            {{product?.display_price}}</span>
+                    </span>
+                </p>
+            </div>
+        </div>
+
+    </ng-template>
+
+</ng-container>

@@ -1,0 +1,65 @@
+<ng-container *ngIf="!isLoading">
+    <div class="dialog-model">
+        <div class="dialog-content">
+            <h5 [style.color]="style?.defaultColor">{{'Add New Card' | translate}}</h5>
+            <a href="javascript:void(0)" class="dialog-close-button" (click)="close()">&times;</a>
+            <form *ngIf="!showAddCard" [formGroup]="paymentForm" (ngSubmit)="addCard()">
+                <div class="profile_form payment-form">
+
+                    <div class="form-group">
+                        <label>{{'Card Holder Name' | translate}}</label>
+                        <input type="text" placeholder="{{'Card Holder Name' | translate}}" formControlName="name">
+                        <div class="text-error" *ngIf="paymentForm.controls['name'].errors?.required && submitted">
+                            {{'Please enter name' | translate}}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{'Card Number' | translate}}</label>
+                        <input (keydown.space)="$event.preventDefault()" type="text" mask='XXXX-XXXX-XXXX-XXXX'
+                            placeholder="{{'Card Number' | translate}}" formControlName="number">
+                        <div class="text-error" *ngIf="paymentForm.controls['number'].errors?.required && submitted">
+                            {{'Please enter number' | translate}}</div>
+
+                        <div class="text-error"
+                            *ngIf="submitted && !paymentForm.controls['number'].errors?.required && paymentForm.controls['number'].errors?.cardNumber">
+                            {{'Please enter valid card number.' | translate}}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{'Card Month' | translate}}</label>
+                        <input maxlength="2" (keydown.space)="$event.preventDefault()" type="text" numbersOnly
+                            placeholder="{{'Card Month' | translate}}" formControlName="exp_month">
+                        <div class="text-error" *ngIf="paymentForm.controls['exp_month'].errors?.required && submitted">
+                            {{'Please enter month' | translate}}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{'Card Year' | translate}}</label>
+                        <input maxlength="4" (keydown.space)="$event.preventDefault()" type="text" numbersOnly
+                            placeholder="{{'Card Year' | translate}}" formControlName="exp_year">
+                        <div class="text-error" *ngIf="paymentForm.controls['exp_year'].errors?.required && submitted">
+                            {{'Please enter year' | translate}}</div>
+                        <div class="text-error" *ngIf="submitted && paymentForm.controls['exp_year'].errors?.minlength">
+                            {{'Year Should be 4 character long' | translate}}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{'Card CVV' | translate}}</label>
+                        <input maxlength="3" (keydown.space)="$event.preventDefault()" type="text" numbersOnly
+                            placeholder="{{'Card CVV' | translate}}" formControlName="cvc">
+                        <div class="text-error" *ngIf="paymentForm.controls['cvc'].errors?.required && submitted">
+                            {{'Please enter cvv' | translate}}</div>
+                        <div class="text-error"
+                            *ngIf="submitted && !paymentForm.controls['cvc'].errors?.required && paymentForm.controls['cvc'].errors?.cvc">
+                            {{'Please enter valid cvv' | translate}}</div>
+                    </div>
+
+                    <button class="btn"
+                        [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+                        href="javascript:void(0)" type="submit">{{'Submit Payment' | translate}}</button>
+                </div>
+            </form>
+            <app-add-card *ngIf="showAddCard" [gatewayId]="'conekta'" (onSelect)="onCardSelect($event)"></app-add-card>
+        </div>
+    </div>
+</ng-container>

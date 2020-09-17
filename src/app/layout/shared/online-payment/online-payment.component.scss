@@ -1,0 +1,34 @@
+  .container {
+    max-width: 100%;
+  }
+  
+  .dialog-close-button {
+    color: #aaaaaa !important;
+    display: inline-block;
+    margin-top: -10px;
+  }
+
+  .dialog-content {
+    width: 50%;
+  }
+
+  .gateway-list {
+    max-height: 250px;
+    overflow-y: auto;
+  }
+  @media (max-width:767px){
+
+  .dialog-content {
+    width: 95%;
+  }
+  .gateway-list .col-4 {
+    width: 100%;
+    max-width: 100%;
+}
+.container.gateway-list .row {
+  display: block;
+}
+.card img {
+  object-fit: contain;
+}
+  }

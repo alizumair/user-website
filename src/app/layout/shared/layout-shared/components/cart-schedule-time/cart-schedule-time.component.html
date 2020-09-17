@@ -1,0 +1,57 @@
+<!-- <app-processing-indicator *ngIf="dataLoaded"></app-processing-indicator> -->
+
+<div class="modal fade" id="cartScheduleModal" tabindex="-1" role="dialog" aria-labelledby="cartDateModalLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered datetimemod" role="document">
+        <div class="modal-content" style="text-align: center">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartDateModalLabel" [style.color]="style.defaultColor"
+                    style="margin-top: -10px">
+                    {{is_slot_selection ? 'Select Slot' : (isShowTable?'Select Table':'Select Date')}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                    (click)="onDismiss()"></button>
+            </div>
+            <div class="modal-body">
+                <p-calendar *ngIf="!is_slot_selection && !isShowTable" [(ngModel)]="date" [minDate]="minDate"
+                    [maxDate]="maxDate" [inline]="true" [readonlyInput]="true"></p-calendar>
+
+                <div *ngIf="is_slot_selection && !isShowTable">
+                    <div class="tab-content pt-3 pb-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                            <div class="tab-content" *ngIf="slotData.length">
+                                <div class="tabsright-content" [style.color]="style.defaultColor">
+                                    <div class="tabsright-content-data" *ngFor="let slot of slotData; let i = index">
+                                        <span (mouseover)="hover.index = i;" (click)="selectSlot(slot);"
+                                            [ngStyle]="(hover.index === i) || selectedSlot?.time == slot?.time ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                                            (mouseleave)="hover.index = -1; hover.tab = null">{{slot?.time}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-data" *ngIf="!slotData.length && dataLoaded">
+                        <h1 [style.color]="style.defaultColor">{{'No Slots Found' | translate}}</h1>
+                    </div>
+                </div>
+
+                <div *ngIf="isShowTable">
+                    <app-supplier-tables [style]="style" [settings]="settings" [tableRequestData]="tableRequestData"
+                        (onTableSelect)="onTableSelection($event)"></app-supplier-tables>
+                </div>
+
+            </div>
+            <div *ngIf="!isShowTable" class="modal-footer">
+                <button *ngIf="!is_slot_selection" type="button" class="btn"
+                    [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+                    (click)="is_slot_selection = false; getSlots(date)">Select Slot</button>
+                <button *ngIf="is_slot_selection" type="button" class="btn"
+                    [ngStyle]="{'backgroundColor': '#ffffff', 'borderColor': style.primaryColor, 'color': style.primaryColor}"
+                    (click)="is_slot_selection = false">Back</button>
+                <button *ngIf="is_slot_selection" type="button" (click)="submit()"
+                    [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+                    class="btn" aria-label="Close">{{'Proceed' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

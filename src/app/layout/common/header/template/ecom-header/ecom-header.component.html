@@ -1,0 +1,395 @@
+<ng-container [ngSwitch]="settings?.selected_template">
+  <ng-template [ngSwitchCase]="1">
+
+    <div class="stretched">
+      <header id="header" class="full-header no-sticky clearfix">
+        <div id="header-wrap" [style.background]="style.headerBackgroundColor" [style.color]="style.headerTextColor">
+          <div class="container clearfix">
+            <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+            <!-- Logo
+            ============================================= -->
+            <div *ngIf="!is_search_active" style="width: 150px;" id="logo" [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'"
+              [routerLink]="['/']">
+              <app-logo class="standard-logo" [width]="'auto'" [height]="'78'" [logoColor]="style.primaryColor"
+                [logoPadding]="'10'"></app-logo>
+            </div><!-- #logo end -->
+
+            <!-- Primary Navigation
+            ============================================= -->
+            <nav id="primary-menu" class="style-ecommerce">
+
+              <app-categories class="menu-home" *ngIf="!is_search_active" style="float: left; margin-left: -25px;">
+              </app-categories>
+
+              <div id="top-search" class="menu-home" (mouseleave)="hoverType = ''" (mouseover)="hoverType = 'SEARCH'">
+                <a id="top-search-trigger" style="cursor: pointer;"
+                  [style.color]="hoverType == 'SEARCH' ? style.baseColor : style.headerTextColor"
+                  (click)="is_search_active = !is_search_active">
+                  <i *ngIf="!is_search_active" class="icon-line2-magnifier"></i>
+                  <i *ngIf="is_search_active" class="icon-line-cross"></i>
+                </a>
+                <form action="search.html" method="get"
+                  [ngStyle]="is_search_active ? {'opacity': '1', 'z-index': '10'} : {}">
+                  <input [ngStyle]="is_search_active ? {'pointerEvents': 'auto'} : {}" type="text" name="q"
+                    class="form-control" [(ngModel)]="search" (keydown.enter)="searchProduct($event.target.value)"
+                    placeholder=" Type &amp; Hit Enter..">
+                </form>
+              </div>
+
+              <div id="top-cart" class="user-profile menu-home" *ngIf="!is_search_active && loggedIn">
+                <ng-container [ngTemplateOutlet]="userProfile"></ng-container>
+              </div>
+
+              <div id="top-cart" class="menu-home" *ngIf="!is_search_active && loggedIn" (mouseleave)="hoverType = ''"
+                (mouseover)="hoverType = 'FAVOURITE'">
+                <!-- <a class="nav-link"><img src="/assets/images/ic_wishlist_icon.png"></a> -->
+                <a class="nav-link" [routerLink]="['/', 'products', 'wishlist']" [style.color]="style.headerTextColor">
+                  <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="2" fill="none" fill-rule="evenodd">
+                      <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                        [attr.stroke]="hoverType == 'FAVOURITE' ? style.baseColor : style.headerTextColor">
+                        <g id="ic_heart_fill">
+                          <path
+                            d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                            id="Combined-Shape-Copy"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </a>
+              </div>
+
+              <div id="top-cart" *ngIf="!is_search_active" class="menu-home" (mouseleave)="hoverType = ''"
+                (mouseover)="hoverType = 'CART'">
+                <a style="cursor: pointer;"
+                  [style.color]="hoverType == 'CART' ? style.baseColor : style.headerTextColor"
+                  [routerLink]="['/', 'cart']" id="top-cart-trigger"><i
+                    class="icon-line2-handbag"></i><span>{{totalCart}}</span></a>
+              </div>
+
+              <div class="menu-home" id="top-account" (mouseleave)="hoverType = ''" (mouseover)="hoverType = 'AUTH'"
+                *ngIf="!loggedIn && !is_search_active" data-toggle="modal" data-target="#auth">
+                <a style="width: 20px; height: 40px; font-size: 20px; line-height: 40px; cursor: pointer;"
+                  [style.color]="hoverType == 'AUTH' ? style.baseColor : style.headerTextColor"
+                  (click)="openAuthModal('LOGIN')">
+                  <i class="icon-line2-user"></i>
+                </a>
+              </div>
+            </nav>
+          </div>
+        </div>
+
+
+        <ng-template #userProfile>
+          <a class="nav-link" data-toggle="dropdown">
+            <img [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+              onError="src = './assets/images/placeholder_image.svg'"></a>
+          <div>
+            <ul class="dropdown-menu profile-dropdown">
+              <li>
+                <div class="profile-detail">
+                  <div class="profile-image-home">
+                    <img class="profile-menu-image"
+                      [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+                      onError="src = './assets/images/placeholder_image.svg'">
+                  </div>
+                  <h3 [style.color]="style?.defaultColor">{{userData?.firstname}}</h3>
+                  <h4 [style.color]="style?.secondaryColor">{{userData?.email}}</h4>
+                </div>
+              </li>
+              <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                  [routerLink]="['/account/profile']">{{'My Account' | translate}}
+                  <span>></span></a></li>
+              <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                  [routerLink]="['/orders/order-listing']">{{'My' | translate }}
+                  {{'orders' | localization}}
+                  <span>></span></a></li>
+              <li><a [style.color]="style?.defaultColor" (click)="signOutConfirmation()">{{'Sign Out' | translate}}
+                </a></li>
+            </ul>
+          </div>
+        </ng-template>
+
+
+      </header>
+
+    </div>
+  </ng-template>
+
+  <!-- #header_template -->
+  <ng-template [ngSwitchCase]="2">
+    <header class="header-theme-3">
+      <app-top-header [showSearchbar]="showSearchbar" [loggedIn]="loggedIn" [style]="style" [settings]="settings"
+        [userData]="userData" [openAuth]="openAuth" (searchBar)="showSearchbar = $event"
+        (triggerAuthModal)="openAuth = $event" (authType)="authType = $event"></app-top-header>
+
+      <nav class="navbar navbar-expand-md header-default"
+        [style.background-color]="is_dark ?  style.backgroundColor : style?.headerBackgroundColor || style.backgroundColor"
+        [ngClass]="isNavFixed ? 'fix' : ''">
+        <div class="container">
+          <div class="row w-100">
+            <div class="col-md-2 col-6">
+              <a class="navbar-brand" [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'" (click)="onLogo()">
+                <app-logo [width]="'auto'" [height]="'100'" [logoColor]="style.primaryColor" [logoPadding]="'10'">
+                </app-logo>
+              </a>
+            </div>
+            <!-- Navbar links -->
+
+            <div class="col-md-10 col-6" style="margin: 30px 0;">
+              <span class="open_menu" (click)="sidenav = 1">&#9776;
+              </span>
+              <div id="mySidenav" class="home_sidenav"
+                [style.background-color]="is_dark ?  style.backgroundColor : style?.headerBackgroundColor || style.backgroundColor"
+                [style.width]="sidenav != 0  ? sidenav == 1 ? '250px' : '0px' : ''">
+                <a href="javascript:void(0)" class="closebtn" (click)="sidenav = 2">&times;</a>
+                <div class="row navbar-collapse ecomhead" id="">
+                  <div class="col-md-8 header-middel ecom-header">
+                    <app-categories></app-categories>
+                    <div class="w-100">
+                      <app-search [settings]="settings" [style]="style" [searchBy]="searchBy"></app-search>
+                    </div>
+                  </div>
+                  <app-function-list class=" ml-auto" [showSearchbar]="showSearchbar" [userData]="userData" [userWalletBalance]="userWalletBalance"
+                    [loggedIn]="loggedIn" [style]="style" [settings]="settings" [openAuth]="openAuth"
+                    (searchBar)="showSearchbar = $event" (triggerAuthModal)="openAuth = $event"
+                    (authType)="openAuthModal($event)">
+                  </app-function-list>
+
+                  <div *ngIf="showSearchbar">
+                    <form autocomplete="off" class="dropdown_resp">
+                      <input class="dropdown-toggle" type="text"
+                        placeholder="{{'What are you looking for?' | translate}}" name="search" [(ngModel)]="search"
+                        (keydown.enter)="searchProduct($event.target.value)" data-toggle="dropdown">
+                      <div style="width: 100%" class="dropdown-menu" id="recentSearch">
+                        <h6 class="dropdown-header list-header" [style.color]="style?.secondaryColor">
+                          {{'Recently Searched1' | translate}}</h6>
+                        <a class="dropdown-item search-results" *ngFor="let item of localSearchedData"
+                          (click)="searchProduct(item); search = item" [style.color]="style?.defaultColor">{{item}}</a>
+                      </div>
+                      <button class="cancel-btn" (click)="showSearchbar = !showSearchbar">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                      </button>
+                    </form>
+                  </div>
+                  <!-- <button class="cancel-btn" (click)="changeSearchBar()">
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </button> -->
+                </div>
+
+                <app-location *ngIf="settings?.header_theme == 1" class="ml-auto" [settings]="settings"></app-location>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="3">
+    <header>
+      <div class="container">
+        <div class="row justify-content-space-between">
+          <div class="col-md-3">
+            <a class="d-flex align-items-center" [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'"
+              (click)="search='';onLogo()">
+              <app-logo [width]="'auto'" [height]="'70'" [logoColor]="style.primaryColor" [logoPadding]="'10'">
+              </app-logo>
+            </a>
+          </div>
+          <div class="col-md-6">
+            <form autocomplete="off">
+              <div class="search">
+                <input class="form-control" type="text" placeholder="{{'Search here...' | translate}}" id="searchText" name="search"
+                  [(ngModel)]="search" (keydown.enter)="searchProduct($event.target.value)">
+
+                <button type="submit" class="btn" (click)="searchProduct(search)"><i class="fa fa-search"
+                    aria-hidden="true"></i></button>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-3">
+            <button type="button" *ngIf="!loggedIn" data-toggle="modal" data-target="#auth" class="btn blue-btn"
+              (click)="openAuthModal('LOGIN')">{{'login' | localization | translate}}</button>
+            <div class="top-bar">
+
+            <div id="top-cart" class="menu-home" *ngIf="!is_search_active && loggedIn" (mouseleave)="hoverType = ''"
+              (mouseover)="hoverType = 'FAVOURITE'">
+              <!-- <a class="nav-link"><img src="/assets/images/ic_wishlist_icon.png"></a> -->
+              <a class="nav-link" [routerLink]="['/', 'products', 'wishlist']" [style.color]="style.headerTextColor">
+                <svg width="18px" height="18px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <g id="Page-1" stroke="none" stroke-width="2" fill="none" fill-rule="evenodd">
+                    <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                      [attr.stroke]="hoverType == 'FAVOURITE' ? style.white : style.headerTextColor">
+                      <g id="ic_heart_fill">
+                        <path
+                          d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                          id="Combined-Shape-Copy"></path>
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </a>
+            </div>
+
+            <div id="top-cart" *ngIf="!is_search_active" class="menu-home" (mouseleave)="hoverType = ''"
+              (mouseover)="hoverType = 'CART'">
+              <a style="cursor: pointer;" [style.color]="hoverType == 'CART' ? style.baseColor : style.headerTextColor"
+                [routerLink]="['/', 'cart']" id="top-cart-trigger"><i
+                  class="icon-line2-handbag"></i><sup *ngIf="totalCart > 0"  [style.background-color]="style.primaryColor">{{totalCart}}</sup></a>
+            </div>
+
+            <div id="top-cart" class="user-profile menu-home" *ngIf="!is_search_active && loggedIn">
+              <ng-container [ngTemplateOutlet]="userProfile"></ng-container>
+            </div>
+          </div>
+          </div>
+
+        </div>
+      </div>
+
+      <ng-template #userProfile>
+        <a class="nav-link" data-toggle="dropdown">
+          <img [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+            onError="src = './assets/images/placeholder_image.svg'"></a>
+
+          <ul class="dropdown-menu profile-dropdown">
+            <li>
+              <div class="profile-detail">
+                <div class="profile-image-home">
+                  <img class="profile-menu-image"
+                    [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+                    onError="src = './assets/images/placeholder_image.svg'">
+                </div>
+                <h3 [style.color]="style?.defaultColor">{{userData?.firstname}}</h3>
+                <h4 [style.color]="style?.secondaryColor">{{userData?.email}}</h4>
+              </div>
+            </li>
+            <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                [routerLink]="['/account/profile']">{{'My Account' | translate}}
+                <span>></span></a></li>
+            <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                [routerLink]="['/orders/order-listing']">{{'My' | translate }}
+                {{'orders' | localization}}
+                <span>></span></a></li>
+            <li><a [style.color]="style?.defaultColor" (click)="signOutConfirmation()">{{'Sign Out' | translate}}
+              </a></li>
+          </ul>
+      </ng-template>
+    </header>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="4">
+        <header id="E-commerce-header" [style.background]="style.headerBackgroundColor" [style.color]="style.headerTextColor">
+        <div class="container-fluid" >
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="E-commerce-logo"  [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'"
+                    [routerLink]="['/']">
+                      <app-logo class="standard-logo" [width]="'auto'" [height]="'45'" [logoColor]="style.primaryColor"
+                      [logoPadding]="'10'"></app-logo>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="E-commerce-search-container">
+                        <div class="E-commerce-search-outter">
+                            <!-- <div class="E-commerce-search-opts">
+                                <select>
+                                    <option>All</option>
+                                    <option>All</option>
+                                    <option>All</option>
+                                </select>
+                            </div> -->
+                            <div class="E-commerce-search">
+                              <input [ngStyle]="is_search_active ? {'pointerEvents': 'auto'} : {}" type="text" name="q"
+                                class="form-control" [(ngModel)]="search" (keydown.enter)="searchProduct($event.target.value)"
+                                placeholder="Search">
+                                <i class="fa fa-search" aria-hidden="true" (click)="searchProduct(search)"
+                                [style.background]="style.headerBackgroundColor"></i>
+                            </div>
+                        </div>
+                        <!-- <div class="E-commerce-app-download">
+                            <a href="javascript:void(0)"><img src="images/App_Store.png"></a>
+                            <a href="javascript:void(0)"><img src="images/google-play.png"></a>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="E-commerce-menu">
+                      <!-- <div clas="E-commerce-language">
+                        <ul>
+                          <li></li>
+                        </ul>
+                      </div> -->
+                      <app-language clas="E-commerce-language" *ngIf="settings.secondary_language != '0'" [style]="style" [settings]="settings"></app-language>
+
+                        <p *ngIf="settings?.fackbook_link || settings?.instagram_link || settings?.twitter_link" [style.color]="style.headerTextColor">Follow us on</p>
+                        <ul class="E-commerce-social">
+                            <li><a *ngIf="settings?.fackbook_link" target="_blank" [href]="settings?.fackbook_link" [style.color]="style.headerTextColor"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            <li><a *ngIf="settings?.instagram_link" target="_blank" [href]="settings?.instagram_link" [style.color]="style.headerTextColor"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            <li><a *ngIf="settings?.twitter_link" target="_blank" [href]="settings?.twitter_link" [style.color]="style.headerTextColor"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+
+                        </ul>
+                        <ul>
+                            <li>
+                              <a href="javascript:void(0)" style="cursor: pointer;"
+                              [style.color]="style.headerTextColor"
+                              [routerLink]="['/', 'cart']" id="top-cart-trigger">
+                                {{'Cart' | localization}}
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <span>{{totalCart}}</span>
+                              </a>
+                            </li>
+                            <li >
+                              <ng-container *ngIf="!loggedIn" >
+                                <a href="javascript:void(0)" [style.color]="style.headerTextColor"
+                                (mouseleave)="hoverType = ''" (mouseover)="hoverType = 'AUTH'"
+                                  data-toggle="modal" data-target="#auth"
+                                (click)="openAuthModal('LOGIN')">
+                                  Sign In
+                                  <i [style.color]="style.headerTextColor" class="fa fa-user-o" aria-hidden="true"></i>
+                                </a>
+                              </ng-container>
+                              <ng-container *ngIf="loggedIn" [ngTemplateOutlet]="userProfile"></ng-container>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #userProfile>
+          <a class="nav-link" data-toggle="dropdown">
+            <img class="usr-img" [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+              onError="src = './assets/images/placeholder_image.svg'"></a>
+          <div>
+            <ul class="dropdown-menu profile-dropdown" style="padding: 10px;">
+              <li>
+                <div class="profile-detail">
+                  <div class="profile-image-home">
+                    <img class="profile-menu-image"
+                      [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+                      onError="src = './assets/images/placeholder_image.svg'">
+                  </div>
+                  <h3 [style.color]="style?.defaultColor">{{userData?.firstname}}</h3>
+                  <h4 [style.color]="style?.secondaryColor">{{userData?.email}}</h4>
+                </div>
+              </li>
+              <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                  [routerLink]="['/account/profile']">{{'My Account' | translate}}
+                  <span>></span></a></li>
+              <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                  [routerLink]="['/orders/order-listing']">{{'My' | translate }}
+                  {{'orders' | localization}}
+                  <span>></span></a></li>
+              <li><a [style.color]="style?.defaultColor" (click)="signOutConfirmation()">{{'Sign Out' | translate}}
+                </a></li>
+            </ul>
+          </div>
+        </ng-template>
+      </header>
+  </ng-template>
+</ng-container>

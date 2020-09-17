@@ -1,0 +1,29 @@
+<div *ngIf="(settings?.cart_image_upload || settings?.product_prescription) && order.pres_image1" class="m-top-30">
+    <h4 style="color: #4a4a4a; font-weight: 500;">{{'prescription_value' | localization: order?.type}}</h4>
+    <div class="box prescription">
+        <ul>
+            <li *ngIf="order.pres_image1" (click)="viewAttachment(order.pres_image1)">
+                <img src="{{order.pres_image1}}">
+            </li>
+            <li *ngIf="order.pres_image2" (click)="viewAttachment(order.pres_image2)">
+                <img src="{{order.pres_image2}}">
+            </li>
+            <li *ngIf="order.pres_image3" (click)="viewAttachment(order.pres_image3)">
+                <img src="{{order.pres_image3}}">
+            </li>
+            <li *ngIf="order.pres_image4" (click)="viewAttachment(order.pres_image4)">
+                <img src="{{order.pres_image4}}">
+            </li>
+            <li *ngIf="order.pres_image5" (click)="viewAttachment(order.pres_image5)">
+                <img src="{{order.pres_image5}}">
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div *ngIf="settings.order_instructions == 1 && order.pres_description" class="m-top-30">
+    <h4 style="font-weight: 500;">{{'instruction' | localization: order?.type}}</h4>
+    <div class="box instructions">
+        <p>{{order.pres_description}}</p>
+    </div>
+</div>

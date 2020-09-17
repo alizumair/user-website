@@ -1,0 +1,48 @@
+<div *ngIf="!isLoading" [ngStyle]="body" [ngClass]="rtl === 1 ? 'rtl' : ''">
+
+    <app-header [nav_fixed]="nav_fixed" [fix_search]="fix_search"></app-header>
+
+    <div [ngClass]="nav_fixed && !isMobile ? 'fix-section' : (isMobile ? 'mobile-top-bottom-margin' : '')"
+        [style.backgroundImage]="layout_background">
+        <router-outlet (activate)="util.goToTop()"></router-outlet>
+    </div>
+
+    <app-footer></app-footer>
+
+    <div class="chatmsg" *ngIf="dialogFlowData && userData && userData.access_token">
+        <a (click)="openChatBot()" class="cursor">
+            <figure style="margin-bottom: 0;">
+                <img [src]="dialogFlowData?.agent?.avatarUri" onError="src = '/assets/images/chat-bot.png';"
+                    class="user">
+                <span style="background-color: #7ED321;"></span>
+            </figure>
+            <div class="text">
+                <h1>Hey! My name is {{dialogFlowData?.agent?.displayName}}</h1>
+                <h6>Is there something I can help you with?</h6>
+            </div>
+        </a>
+    </div>
+
+    <app-chat-bot [dialogFlowData]="dialogFlowData" [userData]="userData"
+        *ngIf="dialogFlowData && userData && userData.access_token"></app-chat-bot>
+
+    <!-- <div class="chatmsg" *ngIf="hiJiffy_link">
+        <a [href]="hiJiffy_link" target="_blank" style="width: 100px">
+            <figure style="margin-bottom: 0; margin-right: 0px;">
+                <img style="height: 70px; width: 70px;" [src]="dialogFlowData?.agent?.avatarUri" onError="src = '/assets/images/chatbot.png';"
+                    class="user">
+            </figure>
+        </a>
+    </div> -->
+
+    <div class="chatmsg" *ngIf="is_instance_selection">
+        <a target="_blank" class="back-instance" (click)="openInstanceSelection()">
+            <figure style="margin-bottom: 0; margin-right: 0px;">
+                <h5>Select Backend Instance</h5>
+            </figure>
+        </a>
+    </div>
+
+</div>
+
+<app-toast *ngIf="isBrowser"></app-toast>

@@ -1,0 +1,91 @@
+.calender {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+}
+
+.time, .location{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 15px;
+
+  h4{
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+.submit {
+  border-radius: 4px;
+  font-size: 16px;
+  color: #fff;
+  width: 100%;
+  float: left;
+  height: 55px;
+  text-align: center;
+  line-height: 46px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.selected-address {
+  padding: 10px;
+}
+
+
+.modal-header {
+  h4 {
+      float: left;
+  }
+  p {
+      display: inline-flex;
+      margin-left: 20px;
+      margin-top: 8px;
+      cursor: pointer;
+  }
+}
+
+.modal-dialog {
+  max-width: 650px !important;
+  margin: 1.75rem auto;
+}
+
+
+.modal-header {
+  padding: 0px;
+  border: none !important;
+  display: unset !important;
+}
+
+.login-first {
+  text-align: center;
+  font-size: 12px;
+}
+
+.time-input {
+  background-color: #f6f6f6;
+  color: #8b8b8b;
+  height: 50px;
+  line-height: 2.5;
+}
+
+.input-group-append, .input-group-prepend {
+  button {
+  padding: 0px 15px;
+  }
+
+  .up {
+    border-radius: 0px 4px 0px 0px;    
+  }
+
+  .down {
+    margin-left: 0px;
+    border-radius: 0px 0px 4px 0px;
+  }
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+

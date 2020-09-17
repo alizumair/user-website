@@ -1,0 +1,112 @@
+<section id="Subscriptions_Plan">
+    <div class="container">
+        <div class="Subscriptions_Plan">
+
+            <div class="Subscriptions_Plan_heading">
+                <h1>{{'Subscriptions Plans' | translate}}</h1>
+                <p>
+
+                </p>
+            </div>
+            <div class="Subscriptions_Plan_box">
+                <div class="Subscriptions_Plan_img">
+                    <img height="250" width="250" [src]="selectedSubscription?.image" appImage
+                        [url]="selectedSubscription?.image" [size]="'255x120'"
+                        onError="src = 'assets/images/ic_food.png';">
+                    <h2>{{selectedSubscription?.title}}</h2>
+                    <p>{{selectedSubscription?.description}}</p>
+                    <!-- <a class="My_Subscription" href="">My Subscription</a> -->
+                </div>
+                <div class="Subscriptions_Plan_validation">
+                    <div class="Subscriptions_Plan_validation_inner">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="Subscriptions_validation_heading bb-r">
+                                    <div class="Subscriptions_val_inr">
+                                        <span>Valid from</span>
+                                        <h4>{{selectedSubscription?.start_date | date: 'dd-MM-yyyy'}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="Subscriptions_validation_heading">
+                                    <div class="Subscriptions_val_inr">
+                                        <span>Valid to</span>
+                                        <h4>{{selectedSubscription?.end_date | date: 'dd-MM-yyyy'}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Subscriptions_validation_inner_plan">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="Subscriptions_validation_heading2">
+                                    <img src="assets/images/ic_drinks.png">
+                                    <span>2 + 2 ON DRINKS </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="Subscriptions_validation_heading2">
+                                    <ul>
+                                        <li *ngFor="let benefit of selectedSubscription?.benefits">
+                                            <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+                                                <title>check-mark</title>
+                                                <desc>Created with Sketch.</desc>
+                                                <g id="Page-1" stroke="none" stroke-width="1" fill="none"
+                                                    fill-rule="evenodd">
+                                                    <g id="subscription" transform="translate(-875.000000, -952.000000)"
+                                                        [attr.fill]="style.primaryColor" fill-rule="nonzero">
+                                                        <g id="check-mark-copy-2"
+                                                            transform="translate(875.000000, 952.000000)">
+                                                            <path
+                                                                d="M14.4204712,6.8269348 C14.725647,7.13211059 14.725647,7.62680055 14.4204712,7.93182375 L9.17938234,13.1730652 C8.87420656,13.4780884 8.37966918,13.4780884 8.0744934,13.1730652 L5.57952883,10.677948 C5.27435305,10.3729248 5.27435305,9.87823484 5.57952883,9.57321168 C5.88455199,9.2680359 6.37924195,9.2680359 6.68426516,9.57321168 L8.62686156,11.5158081 L13.3155823,6.8269348 C13.620758,6.52191164 14.115448,6.52191164 14.4204712,6.8269348 L14.4204712,6.8269348 Z M20,10 C20,15.5274963 15.5267334,20 10,20 C4.47250367,20 0,15.5267334 0,10 C0,4.47250367 4.4732666,0 10,0 C15.5274963,0 20,4.4732666 20,10 Z M18.4375,10 C18.4375,5.33615113 14.6632385,1.5625 10,1.5625 C5.33615113,1.5625 1.5625,5.33676148 1.5625,10 C1.5625,14.6638489 5.33676148,18.4375 10,18.4375 C14.6638489,18.4375 18.4375,14.6632385 18.4375,10 Z"
+                                                                id="Shape"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                            {{benefit?.title}}
+                                            <br />
+                                            <small class="ml-4"
+                                                *ngIf="benefit?.benefit_id=== 'FD_1' && selectedSubscription?.min_order_amount>0">
+                                                {{'Minimum Order Amt:'}}{{selectedSubscription?.min_order_amount}}
+                                            </small>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="Subscriptions_validation_heading2">
+                                    <h4>
+                                        <span *ngIf="selectedSubscription?.type == '1'">{{'Weekly' | translate}}</span>
+                                        <span *ngIf="selectedSubscription?.type == '2'">{{'Monthly' | translate}}</span>
+                                        <span *ngIf="selectedSubscription?.type == '3'">{{'Yearly' | translate}}</span>
+                                        Membership</h4>
+                                    <h1>{{currency}} {{selectedSubscription?.price}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="renew-Subscription">
+                        <a class="renew_btn" (click)="buySubscription()">{{'Renew' | translate}}
+                            {{'subscription' | localization | translate}}</a>
+                        <a class="cancle_renw_btn" (click)="cancelSubscription()">{{'Cancel' | translate}}
+                            {{'subscription' | localization | translate}}</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<app-online-payment [settings]="settings" [order]="paymentOrderModel" *ngIf="isPayOnline" (onError)="onPaymentError()"
+    (onClose)="isPayOnline = $event" (onSuccess)="onPaymentSuccess($event)">
+</app-online-payment>
+
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>

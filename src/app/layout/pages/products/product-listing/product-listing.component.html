@@ -1,0 +1,419 @@
+<div
+  [ngClass]="settings?.is_single_vendor && settings?.app_type == 1 && settings?.selected_template == 1 ? 'single-food-theme-two' : ''">
+
+  <div class="sub_bar"
+    *ngIf="path.length && !(settings?.app_type == 2 && settings?.selected_template == 3 || settings?.selected_template == 4)">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul>
+            <li [ngClass]="{'single-food-category': path && path.length == 1 }"
+              *ngFor="let name of path; let i = index">
+              <a [ngClass]="(i === path.length - 1) ? 'bold' : ''" [style.color]="style.baseColor">{{name}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container [ngSwitch]="settings?.app_type">
+
+    <ng-template [ngSwitchCase]="8">
+      <div class="container">
+        <div class="col-md-12 mt-4" *ngIf="showSubCat">
+          <div id="category" class="tabcontent" style="height: 100%" [style.color]="style.defaultColor">
+            <h3>
+              Select {{'category' | localization}}
+            </h3>
+            <div class="supdetbox">
+              <div class="row">
+                <div class="col-md-3 uk-animation-slide-right"
+                  *ngFor="let subCat of subCategories[subCatIndex]; let i = index">
+                  <figure (click)="!isProcessing ? onSubCatSelect(subCat, true) : ''">
+                    <img appImage [url]="subCat?.image" [size]="'700x600'" [src]="subCat?.image"
+                      onError="src = './assets/images/placeholder_image.svg';" (load)="onImageLoad(subCat)">
+                  </figure>
+                  <p>{{subCat?.name || subCat?.category_name}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5" *ngIf="!showSubCat">
+
+          <div *ngIf="showBranches">
+            <app-supplier-branches [supplierId]="supplierIds[0]" [settings]="settings" [style]="style">
+            </app-supplier-branches>
+          </div>
+
+          <div *ngIf="!showBranches" class="col-md-12 reccom-main_section home-services-listing">
+            <div class="mb-4">
+              <h2 [style.color]="style.baseColor">{{'Choose Suitable' | translate }}
+                {{'product' | localization | translate}}
+              </h2>
+              <div class="sorting">
+                <app-sorting></app-sorting>
+              </div>
+            </div>
+            <ng-container *ngIf="!isLoading; else skeleton">
+              <div id="accordion" *ngIf="settings?.laundary_service_flow == 0">
+                <ng-container
+                  *ngFor="let product of productList | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }; let i = index">
+
+                  <div class="card">
+                    <div class="card-header" [id]="'heading'+i">
+                      <div class="custom-radio" data-toggle="collapse" [attr.data-target]="'#collapse' + i"
+                        aria-expanded="false" [attr.aria-controls]="'collapse' + i">
+                        <input type="radio" [id]="'test'+ i" name="radio-group">
+                        <label [style.color]="style.baseColor" [for]="'test'+i" @fade>{{product?.name}}
+                          <span [style.color]="style.baseColor" @fade>by {{product?.supplier_name}}</span>
+                          <span [style.color]="style.primaryColor"> {{product?.avg_rating}} <i class="fa fa-star"
+                              aria-hidden="true"></i> </span>
+                        </label>
+                        <!-- <div>
+                          <span> {{product?.avg_rating}} <i class="fa fa-star" aria-hidden="true"></i> </span>
+                        </div> -->
+
+                        <div class="price" [style.color]="style.primaryColor" @fade>
+                          <div class="heart-img wish-product" *ngIf="settings?.is_product_wishlist == 1">
+                            <a (click)="wishlist(product, !product?.is_favourite)">
+                              <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="Page-1" stroke="none" stroke-width="2"
+                                  [attr.fill]="product?.is_favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                                  <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                                    [attr.stroke]="product?.is_favourite ? style.primaryColor : style.baseColor">
+                                    <g id="ic_heart_fill">
+                                      <path
+                                        d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                        id="Combined-Shape-Copy"></path>
+                                    </g>
+                                  </g>
+                                </g>
+                              </svg>
+                            </a>
+                          </div>
+                          {{currency}} {{product?.fixed_price}}
+                          <span
+                            *ngIf="product?.price_type && !product?.is_product && settings?.laundary_service_flow == 0"
+                            @fade> /
+                            {{product?.duration | formatTimeInterval}}</span>
+                          <span [style.color]="style"
+                            *ngIf="!product?.price_type && !product?.is_product && settings?.laundary_service_flow == 0"
+                            @fade> /
+                            {{timeInterval | formatTimeInterval}}</span>
+                          <span [style.color]="style"
+                            *ngIf="!product?.price_type && !product?.is_product && settings?.laundary_service_flow == 1"
+                            @fade> /
+                            Piece</span>
+                          <p *ngIf="product?.discount" class="actual-price" [style.color]="style?.baseColor" @fade>
+                            {{currency}} {{product?.display_price}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div [id]="'collapse' + i" class="collapse" [attr.aria-labelledby]="'heading'+i"
+                      data-parent="#accordion">
+                      <div class="card-body">
+                        <p [innerHtml]="product?.product_desc | safe: 'html'" [style.color]="style.baseColor"
+                          class="prod-des" @fade></p>
+                        <div class="mt-4 mb-4">
+                          <h5 *ngIf="settings.product_detail == 0" @fade>
+                            {{settings?.laundary_service_flow == 1 ? ('Select Quantity Of Need' | translate) : ('Select Time Of Need' | translate)}}
+                          </h5>
+                          <div class="row">
+                            <div class="col hrl-btn">
+                              <app-quantity-buttons *ngIf="settings.product_detail == 0" [style]="style"
+                                [settings]="settings" [priceType]="product?.price_type"
+                                [isProduct]="product?.is_product" [selectedQuantity]="product.selectedQuantity"
+                                (onRemove)="onServiceAddOrRemove(product, -1)"
+                                (onAdd)="onServiceAddOrRemove(product, 1)">
+                              </app-quantity-buttons>
+                            </div>
+                            <div class="col" *ngIf="settings?.laundary_service_flow == 0">
+                              <button [ngStyle]="{'background': style.primaryColor, 'borderColor': style.primaryColor}"
+                                class="btn btn-primary float-right" type="button" (click)="onBookNow(product)">
+                                {{settings.product_detail == 1 ? 'View Detail' : 'Book Now' | translate}}</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </ng-container>
+              </div>
+
+              <div class="row mt-5" *ngIf="settings?.laundary_service_flow == 1">
+                <div class="col-md-3"
+                  *ngFor="let product of productList | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }; let i = index">
+                  <app-product [product]="product" [style]="style" [settings]="settings" [state]="productstate"
+                    [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)">
+                  </app-product>
+                </div>
+              </div>
+
+              <ng-container [ngTemplateOutlet]="pager"></ng-container>
+              <div *ngIf="productList.length === 0 && noData" class="service-no-data">
+                <h1 [style.color]="style.baseColor">No {{'products' | localization | translate}} Found</h1>
+              </div>
+            </ng-container>
+          </div>
+
+          <ng-template #skeleton>
+            <div *ngIf="settings?.laundary_service_flow == 0">
+              <div class="skeleton" *ngFor="let item of util.generateFakeList(10)">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="custom-radio">
+                      <input type="radio" name="radio-group">
+                      <label>
+                        <p class="rounded-0"></p>
+                      </label>
+                      <div class="price">
+                        <p class="rounded-0"> </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row skeleton" *ngIf="settings?.laundary_service_flow == 1">
+              <div class="col-md-3" *ngFor="let item of util.generateFakeList(8)">
+                <div class="recommends-products">
+                  <img class="rounded-0">
+                  <h3 class="rounded-0 w-100 mt-1"></h3>
+                  <h4 class="brand rounded-0 mt-1" [ngStyle]="{'width': '100%', 'margin-top':'3px'}"></h4>
+                  <div class="add-btn w-100 rounded-0 mt-1">
+                    <h2 class="btn btn-large rounded-0" [ngStyle]="{'width': '100%', 'height': '40px'}"></h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+
+    </ng-template>
+
+    <ng-template ngSwitchDefault>
+      <ng-container [ngSwitch]="settings?.selected_template">
+
+        <ng-template [ngSwitchCase]="3">
+          <div class="container">
+            <div class="products">
+              <div class="row">
+                <div class="col-md-3">
+
+                  <app-side-bar *ngIf="!!settings" [showFilters]="showFilter" [settings]="settings"
+                    (displayFilter)="setFilter($event)">
+                  </app-side-bar>
+
+                </div>
+                <div class="col-md-9">
+                  <div class="row all-products" *ngIf="!isLoading; else skeleton">
+                    <div class="col-md-2"
+                      *ngFor="let product of productList | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }; let i = index">
+                      <app-product [product]="product" [style]="style" [settings]="settings" [darkTheme]="isDarkTheme"
+                        [state]="productstate" [loggedIn]="loggedIn" (add)="addProduct($event)"
+                        (remove)="removeProduct($event)">
+                      </app-product>
+                    </div>
+
+                    <div *ngIf="productList.length === 0 && noData" class="no-data">
+                      <h1 [style.color]="style.baseColor">No {{'products' | localization | translate}} Found</h1>
+                    </div>
+                    <div class="col-12">
+                      <ng-container [ngTemplateOutlet]="pager"></ng-container>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #skeleton>
+            <div class="row skeleton all-products">
+              <div class="col-md-3" *ngFor="let data of util.generateFakeList(8)">
+                <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="4">
+          <div class="E-commerce-Product-Page">
+            <div class="container">
+              <div class="E-commerce-Product-filter-page">
+                <div class="row">
+                  <div class="col-md-3 E-commerce-Product-filter-left" *ngIf="isShowFilters"
+                    [ngClass]="settings?.app_type == 2 && settings?.selected_template == 2 ? 'theme1_custom_div': ''">
+                    <app-side-bar *ngIf="!!settings" [showFilters]="showFilter" [settings]="settings"
+                      (displayFilter)="setFilter($event)">
+                    </app-side-bar>
+                  </div>
+                  <div class="col-md-9 E-commerce-Product-filter-right" *ngIf="!isLoading; else skeleton">
+                    <div class="E-commerce-Product-listing">
+                      <div class="row E-commerce-Product-viewed-products">
+                        <div class="col-lg-4 col-md-6 E-commerce-Product-viewed-bb"
+                          *ngFor="let product of productList | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }; let i = index">
+                          <app-product [product]="product" [style]="style" [settings]="settings"
+                            [darkTheme]="isDarkTheme" [state]="productstate" [loggedIn]="loggedIn"
+                            (add)="addProduct($event)" (remove)="removeProduct($event)">
+                          </app-product>
+                        </div>
+                        <div *ngIf="productList.length === 0 && noData" class="no-data">
+                          <h1 [style.color]="style.baseColor">No {{'products' | localization | translate}} Found</h1>
+                        </div>
+                        <div class="col-12">
+                          <ng-container [ngTemplateOutlet]="pager"></ng-container>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #skeleton>
+            <div class="row product-list skeleton" *ngIf="settings?.selected_template == 0">
+              <div class="col col-md-3 Recommends-products" *ngFor="let data of util.generateFakeList(8)">
+                <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+              </div>
+            </div>
+
+            <div class="row skeleton" *ngIf="[1,2].includes(settings?.selected_template)">
+              <div
+                [ngClass]="settings?.is_single_vendor && settings?.app_type == 1 && settings?.selected_template == 1 ? 'col-md-3' : 'col-md-6'"
+                *ngFor="let data of util.generateFakeList(6)">
+                <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+              </div>
+            </div>
+          </ng-template>
+
+        </ng-template>
+
+        <ng-template ngSwitchDefault>
+
+          <div *ngIf="showBranches">
+            <app-supplier-branches [supplierId]="supplierIds[0]" [settings]="settings" [style]="style">
+            </app-supplier-branches>
+          </div>
+
+          <div class="main_products-page mt-4" *ngIf="!showBranches">
+            <div class="container" [style.border-color]="style.baseColor">
+              <div class="row">
+                <div class="col-md-3 text-center" *ngIf="isShowFilters">
+                  <h3 [style.color]="style.primaryColor">filters</h3>
+                </div>
+                <div class="col-md-3 text-left">
+                  <span [style.color]="style.baseColor">{{pagination.count}}
+                    {{pagination.count ? 'Items' : 'Item'}}</span>
+                </div>
+                <div class="col-md-3 text-center">
+                  <h2 [style.color]="style.primaryColor">{{supplierData?.name}}</h2>
+                </div>
+                <div [ngClass]="isShowFilters ? 'col-md-3' : 'col-md-6'" class="text-right">
+                  <app-sorting></app-sorting>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sort_section" style="padding-top: 25px" *ngIf="!showBranches">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-3 col-12 gender-bk-color" *ngIf="isShowFilters"
+                  [ngClass]="settings?.app_type == 2 && settings?.selected_template == 2 ? 'theme1_custom_div': ''">
+                  <app-side-bar *ngIf="!!settings" [showFilters]="showFilter" [settings]="settings"
+                    (displayFilter)="setFilter($event)">
+                  </app-side-bar>
+                </div>
+
+                <div [ngClass]="isShowFilters ? 'col-md-9' : 'col-md-12'" class="more-product-page_section">
+
+                  <div *ngIf="(settings?.selected_template == 0 && settings?.app_type == 1) || settings?.app_type == 2">
+
+                    <div class="row product-list" *ngIf="!isLoading; else skeleton">
+                      <div class="col-6 col-md-4 col-lg-3 Recommends-products"
+                        *ngFor="let product of productList | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }; let i = index">
+                        <app-product [product]="product" [style]="style" [settings]="settings" [darkTheme]="isDarkTheme"
+                          [state]="productstate" [loggedIn]="loggedIn" (add)="addProduct($event)"
+                          (remove)="removeProduct($event)">
+                        </app-product>
+                      </div>
+
+                      <div *ngIf="productList.length === 0 && noData" class="no-data">
+                        <h1 [style.color]="style.baseColor">No {{'products' | localization | translate}} Found</h1>
+                      </div>
+                      <div class="col-12">
+                        <ng-container [ngTemplateOutlet]="pager"></ng-container>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div *ngIf="[1,2].includes(settings?.selected_template) && settings?.app_type == 1">
+
+                    <div class="categories-item-products">
+                      <div class="row" *ngIf="!isLoading; else skeleton">
+                        <div [ngClass]="settings?.is_single_vendor ? 'col-md-4' : 'col-md-6'"
+                          *ngFor="let product of productList | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }; let i = index">
+                          <app-product [product]="product" [style]="style" [settings]="settings"
+                            [darkTheme]="isDarkTheme" [state]="productstate" [loggedIn]="loggedIn"
+                            (add)="addProduct($event)" (remove)="removeProduct($event)">
+                          </app-product>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row product-list">
+                      <div *ngIf="productList.length === 0 && noData" class="no-data">
+                        <h1 [style.color]="style.baseColor">No {{'products' | localization | translate}} Found</h1>
+                      </div>
+                      <div class="col-12">
+                        <ng-container [ngTemplateOutlet]="pager"></ng-container>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #skeleton>
+            <div class="row product-list skeleton" *ngIf="settings?.selected_template == 0">
+              <div class="col col-md-3 Recommends-products" *ngFor="let data of util.generateFakeList(8)">
+                <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+              </div>
+            </div>
+
+            <div class="row skeleton" *ngIf="[1,2].includes(settings?.selected_template)">
+              <div
+                [ngClass]="settings?.is_single_vendor && settings?.app_type == 1 && settings?.selected_template == 1 ? 'col-md-3' : 'col-md-6'"
+                *ngFor="let data of util.generateFakeList(6)">
+                <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+
+    </ng-template>
+
+  </ng-container>
+
+  <ng-template #pager>
+    <div class="custom-pagination mt-5" *ngIf="pagination.count > pagination.perPage">
+      <pagination-controls responsive="true" [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+        (pageChange)="pageChange($event)"></pagination-controls>
+    </div>
+  </ng-template>
+
+</div>

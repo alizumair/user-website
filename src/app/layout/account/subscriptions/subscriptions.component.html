@@ -1,0 +1,125 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+<section id="Subscriptions_Plan">
+  <div class="container">
+    <div class="Subscriptions_Plan">
+
+      <!-- <div class="Subscriptions_Plan_heading">
+                <h1>{{'Subscriptions Plans' | translate}}</h1>
+                <p>They are big, bold and beautiful. Billboards have been around for quite a while.
+                    In almost all places nowadays you can find billboards </p>
+            </div> -->
+      <div class="Subscriptions_Plan_box">
+        <div class="Subscriptions_Plan_img">
+          <img src="assets/images/ic_food.png">
+          <h2>Membership plans</h2>
+          <p></p>
+          <a class="My_Subscription" *ngIf="is_subscribed"
+            [routerLink]="['/', 'account', 'subscriptions', activeSubscription?.id]">{{'my_subscription' | localization}}</a>
+        </div>
+        <div class="Subscriptions_Plan_outter">
+          <div class="row">
+            <div class="col-md-6"
+              *ngFor="let subscription of subscriptions | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }">
+              <div class="Subscriptions_Plan_inner">
+                <img height="66" width="140" [src]="subscription?.image" appImage [url]="subscription?.image"
+                  [size]="'66x140'" onError="src = 'assets/images/ic_food.png';">
+                <p>{{subscription?.title}}</p>
+                <ul>
+                  <li *ngFor="let benefit of subscription.benefits">
+                    <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <title>check-mark</title>
+                      <desc>Created with Sketch.</desc>
+                      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="subscription" transform="translate(-875.000000, -952.000000)"
+                          [attr.fill]="style.primaryColor" fill-rule="nonzero">
+                          <g id="check-mark-copy-2" transform="translate(875.000000, 952.000000)">
+                            <path
+                              d="M14.4204712,6.8269348 C14.725647,7.13211059 14.725647,7.62680055 14.4204712,7.93182375 L9.17938234,13.1730652 C8.87420656,13.4780884 8.37966918,13.4780884 8.0744934,13.1730652 L5.57952883,10.677948 C5.27435305,10.3729248 5.27435305,9.87823484 5.57952883,9.57321168 C5.88455199,9.2680359 6.37924195,9.2680359 6.68426516,9.57321168 L8.62686156,11.5158081 L13.3155823,6.8269348 C13.620758,6.52191164 14.115448,6.52191164 14.4204712,6.8269348 L14.4204712,6.8269348 Z M20,10 C20,15.5274963 15.5267334,20 10,20 C4.47250367,20 0,15.5267334 0,10 C0,4.47250367 4.4732666,0 10,0 C15.5274963,0 20,4.4732666 20,10 Z M18.4375,10 C18.4375,5.33615113 14.6632385,1.5625 10,1.5625 C5.33615113,1.5625 1.5625,5.33676148 1.5625,10 C1.5625,14.6638489 5.33676148,18.4375 10,18.4375 C14.6638489,18.4375 18.4375,14.6632385 18.4375,10 Z"
+                              id="Shape"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    {{benefit?.title}}<br/>
+                    <small class="ml-4" *ngIf="benefit?.benefit_id=== 'FD_1' && subscription?.min_order_amount>0">
+                      {{'Minimum Order Amt:'}}{{subscription?.min_order_amount}}
+                    </small>
+                  </li>
+                </ul>
+                <h4>
+                  <span *ngIf=" subscription.type=='1'">{{'Weekly' | translate}}</span>
+                  <span *ngIf=" subscription.type=='2'">{{'Monthly' | translate}}</span>
+                  <span *ngIf=" subscription.type=='3'">{{'Yearly' | translate}}</span>
+                  Membership</h4>
+                <div class=" Subscriptions_price">
+                  <!-- <span>500</span> -->
+                  <h1>{{currency}} {{subscription?.price}}</h1>
+                </div>
+                <button *ngIf="activeSubscription && subscription.is_subscribed==1 && is_subscribed"
+                  (click)="viewSubsDetails()" class="btn">{{'Subscribed' | translate}}<i
+                    class="fa fa-check ml-2"></i></button>
+                <button *ngIf="!activeSubscription && settings?.wallet_module == 0 && !is_subscribed" class="btn"
+                  (click)="buySubscription(subscription)">{{'Buy Now' | translate}}</button>
+                <button *ngIf="!activeSubscription && settings?.wallet_module == 1  && !is_subscribed" class="btn"
+                  (click)="selectPaymentSource(subscription)">{{'Buy Now' | translate}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="custom-pagination mt-5" *ngIf="pagination.count > pagination.perPage">
+      <pagination-controls responsive="true" [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+        (pageChange)="pageChange($event)"></pagination-controls>
+    </div>
+  </div>
+</section>
+
+
+<app-online-payment [settings]="settings" [order]="paymentOrderModel" *ngIf="isPayOnline" (onError)="onPaymentError()"
+  (onClose)="isPayOnline = $event" (onSuccess)="onPaymentSuccess($event)">
+</app-online-payment>
+
+
+
+<div class="modal fade" id="paymentSelection">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Select Payment Option</h4>
+        <button type="button" class="close" data-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-check-inline">
+            <label class="form-check-label" for="radio1">Online
+              <input type="radio" class="form-check-input" id="radio1" name="refund" [value]="1"
+                [(ngModel)]="paymentSource" [checked]="!paymentSource"><span class="check-span"></span>
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label" for="radio2">{{'Wallet' | translate}}
+              <input type="radio" class="form-check-input" id="radio2" name="refund" [value]="4"
+                [(ngModel)]="paymentSource" [checked]="paymentSource">
+              <span class="check-span"></span>
+            </label>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="proceedPayment()">Submit</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

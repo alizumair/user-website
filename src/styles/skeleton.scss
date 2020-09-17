@@ -1,0 +1,63 @@
+.skeleton {
+
+  h2,
+   h3,
+  h4,h5,h6,
+  p,
+  a,
+  img {
+    animation: loading 1.7s infinite linear;
+    background: #dedfe1;
+    background-image: -webkit-linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
+    background-image: linear-gradient(to right, #dedfe1 0%, #f2f3f5 20%, #dedfe1 40%, #dedfe1 100%);
+    background-repeat: no-repeat;
+    // border: 1px solid #dedfe1;
+    border-radius: 20px;
+  }
+
+  h2 {
+    height: 22px;
+    width: 200px;
+  }
+
+  h3 {
+    height: 22px;
+    width: 200px;
+  }
+
+  h4 {
+    height: 18px;
+    width: 200px;
+  }
+
+  h5 {
+    height: 18px;
+    width: 200px;
+  }
+
+  h6 {
+    height: 18px;
+    width: 200px;
+  }
+
+  a {
+    height: 18px;
+    width: 200px; 
+  }
+
+  p {
+    height: 18px;
+    width: 200px;
+  }
+
+}
+
+@keyframes loading {
+  0% {
+    background-position: -100px;
+  }
+
+  100% {
+    background-position: 200px;
+  }
+}

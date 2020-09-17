@@ -1,0 +1,92 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<ng-container *ngIf="showAddCard; then addCard else cardList"></ng-container>
+<ng-template #addCard>
+    <h5 class="d-inline" [style.color]="style?.defaultColor">{{'Add New Card' | translate}}</h5>
+    <a class="d-inline float-right" [style.color]="style?.primaryColor" href="javascript:void(0)"
+        (click)="onBack()">Back</a>
+    <form [formGroup]="form" (ngSubmit)="onSave()">
+        <div class="profile_form">
+            <div class="form-group">
+                <label>{{'Card Holder Name' | translate}}</label>
+                <input class="w-100" type="text" placeholder="{{'Card Holder Name' | translate}}"
+                    formControlName="card_holder_name">
+                <div class="text-error" *ngIf="form.controls['card_holder_name'].errors?.required && submitted">
+                    {{'Please enter name' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+                <label>{{'Card Number' | translate}}</label>
+                <input class="w-100" maxlength="16" (keydown.space)="$event.preventDefault()" type="text" numbersOnly
+                    mask='XXXX-XXXX-XXXX-XXXX' placeholder="{{'Card Number' | translate}}"
+                    formControlName="card_number">
+                <div class="text-error" *ngIf="form.controls['card_number'].errors?.required && submitted">
+                    {{'Please enter card number' | translate}}</div>
+                <div class="text-error" *ngIf="submitted && form.controls['card_number'].errors?.minlength">
+                    {{'Card Number length should be 16 digits.' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+                <label>{{'Card Month' | translate}}</label>
+                <input class="w-100" maxlength="2" (keydown.space)="$event.preventDefault()" type="text" numbersOnly
+                    placeholder="{{'Card Month' | translate}}" formControlName="exp_month">
+                <div class="text-error" *ngIf="form.controls['exp_month'].errors?.required && submitted">
+                    {{'Please enter card month' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+                <label>{{'Card Year' | translate}}</label>
+                <input class="w-100" maxlength="4" (keydown.space)="$event.preventDefault()" type="text" numbersOnly
+                    placeholder="{{'Card Year' | translate}}" formControlName="exp_year">
+                <div class="text-error" *ngIf="form.controls['exp_year'].errors?.required && submitted">
+                    {{'Please enter card year' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+                <label>{{'Card CVV' | translate}}</label>
+                <input class="w-100" maxlength="3" (keydown.space)="$event.preventDefault()" type="text" numbersOnly
+                    placeholder="{{'Card CVV' | translate}}" formControlName="cvc">
+                <div class="text-error" *ngIf="form.controls['cvc'].errors?.required && submitted">
+                    {{'Please enter cvv' | translate}}</div>
+                <div class="text-error" *ngIf="submitted && form.controls['cvc'].errors?.minlength">
+                    {{'Please enter valid cvv' | translate}}</div>
+            </div>
+
+            <button class="btn float-right" [ngStyle]=" {'backgroundColor': style.primaryColor, 'borderColor' : style.primaryColor, 'color'
+                : '#ffffff' }" href="javascript:void(0)" type="submit">{{'Save' | translate}}</button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #cardList>
+    <div class="price_details">
+        <h5 [style.color]="style.baseColor">{{'Card Details' | translate}}
+            <a style="font-weight: 600" (click)="createForm()"
+                [style.color]="style.primaryColor">{{'Add New Card' | translate}}</a>
+        </h5>
+        <div class="address-detail">
+            <div *ngIf="!cards?.length">
+                <h5 class="logo-outter" [style.color]="style.baseColor">{{'No Card Found' | translate}}</h5>
+            </div>
+            <div *ngIf="cards?.length">
+                <div *ngFor="let card of cards">
+                    <label class="radio" style="margin-bottom: 0rem;">
+                        <input class="uk-radio" type="radio" name="payment"
+                            [checked]="card.id == cardId || card.authnet_payment_profile_id==cardId"
+                            [value]="card.id || card.authnet_payment_profile_id" [(ngModel)]="cardId" name="radio">
+                        <span class="ml-2 text-capitalize"
+                            [style.color]="style.baseColor">{{card?.card_holder_name ||''}}</span>
+                    </label>
+                    <a class="d-inline float-right .text-danger" href="javascript:void(0)"
+                        (click)="onRemoveCard(card)">remove</a>
+                    <address [style.color]="style.baseColor"><br>
+                        {{'XXXXXXXXXXXX' + card?.last4}} {{card?.exp_month }}/{{card?.exp_year }} {{card?.cardType}}
+                    </address>
+                </div>
+                <button class="btn payment"
+                    [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+                    (click)="onPay()">{{'Pay' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

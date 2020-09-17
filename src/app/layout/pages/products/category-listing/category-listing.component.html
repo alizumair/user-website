@@ -1,0 +1,34 @@
+<div class="container categories">
+    <ng-container *ngIf="!isLoading; else skeleton">
+        <div class="row">
+            <ng-container *ngIf="categories && categories.length; else noData">
+                <div class="col-md-3 col-sm-6" *ngFor="let category of categories[subCatIndex];">
+                    <img appImage [url]="category?.image" style="object-fit: cover; width: 100%; border-radius: 5px; height: 200px;"
+                    [size]="'270x180'" [src]="category?.image"
+                        onError="src = './assets/images/placeholder_image.svg'" alt="Image 1" class="cursor"
+                        (click)="getSubCat(category)">
+                    <h5 class="text-center">{{category?.name}}</h5>
+                </div>
+            </ng-container>
+
+            <ng-template #noData>
+                <div class="home-no-data">
+                    <h4 [style.color]="style.baseColor">{{'No' | translate}}
+                            {{'categories' | localization | translate}} {{'Found' | translate}}</h4>
+                </div>
+            </ng-template>
+        </div>
+    </ng-container>
+
+
+    <ng-template #skeleton>
+        <div class="skeleton">
+            <div class="row">
+                <div class="col-md-3" *ngFor="let item of util.generateFakeList(8)">
+                    <img>
+                    <h5></h5>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

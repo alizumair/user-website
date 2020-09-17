@@ -1,0 +1,62 @@
+<div *ngIf="settings?.category_selection == 0; else  category_selection_template">
+  <ul class="nav navbar-nav megamenu">
+    <li class="dropdown mega-dropdown">
+      <a class="dropdown-toggle cursor" [style.color]="style.headerTextColor" data-toggle="dropdown" #toggleCatBtn
+        (click)="openCategorySelection()">{{'Shop By' | translate}} {{'categories' | localization}}
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </a>
+      <div class="dropdown-menu megamenu-inner" (click)="$event.stopPropagation()">
+        <div class="category">
+          <h5 class="cat-name" [style.color]="style.baseColor">{{'categories' | localization}}</h5>
+          <a class="dropdown-item" *ngFor="let category of categories; let i = index;"
+            (mouseenter)="flowCheck(category, true); hoverCatIndex = i" (mouseleave)="hoverCatIndex = -1"
+            [style.color]="hoverCatIndex == i ? style.primaryColor : style.defaultColor"
+            (click)="flowCheck(category, false)">
+            {{category.name}}
+            <span class="float-right">
+              <i *ngIf="category?.sub_category && category?.sub_category.length"
+                class="fa fa-angle-right angle pr-2"></i>
+            </span>
+          </a>
+        </div>
+
+        <div [ngClass]="showSubcat ? 'sub-categories ml-hover-child show' : 'sub-categories ml-hover-child'">
+          <div class="sub-cat-row">
+            <div class="sub-cat-col" *ngFor="let cat of subCategories; let i = index;">
+              <button class="btn cat-btn" [disabled]="selectedMulSubCat.length == 0"
+              [hidden]="(settings?.app_type == 2 && settings?.selected_template == 2)" 
+                *ngIf="(subCategories.length - 1) === i" [ngStyle]="catBtn" (click)="viewProducts()">{{'done' | localization}}</button>
+              <h5 class="cat-name" data-toggle="tooltip" [title]="cat?.name" [style.color]="style.baseColor">
+                {{cat?.name}}
+              </h5>
+
+              <a class="dropdown-item" *ngFor="let subCat of cat.sub_category; let j = index"
+                (mouseenter)="selectSubCat(subCat, i); hoverIndex = j; hoverParentIndex = i"
+                (mouseleave)="hoverIndex = -1; hoverParentIndex = -1"
+                [style.color]="hoverIndex == j && hoverParentIndex == i ? style.primaryColor : style.defaultColor">
+
+                <span *ngIf="subCat.sub_category">
+                  {{subCat?.name}}
+                  <i class="fa fa-angle-right angle"></i>
+                </span>
+
+                <label *ngIf="!subCat.sub_category" class="checkbox-label cursor">
+                  {{subCat?.name}}
+                  <input style="display: block" *ngIf="(subCategories.length - 1) === i"
+                    [ngStyle]="selectedMulSubCat.includes(subCat.id) ? checkbox : ''"
+                    [style.display]="settings?.app_type == 2 && settings?.selected_template == 2 ? 'none' : 'block'"
+                    [checked]="selectedMulSubCat.includes(subCat.id)" class="uk-checkbox"
+                    (click)="selectMulSubCat(subCat)" type="checkbox">
+                </label>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #category_selection_template>
+  <app-category-selection></app-category-selection>
+</ng-template>

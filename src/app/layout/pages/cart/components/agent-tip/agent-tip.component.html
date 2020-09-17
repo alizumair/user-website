@@ -1,0 +1,36 @@
+<div class="price_details"
+    [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor }">
+
+    <div class="tips">
+        <div class="top">
+            <div class="right" *ngIf="total_tip">
+                <p [style.color]="style?.baseColor">{{currency}}{{total_tip}}</p>
+                <a [style.color]="style?.primaryColor" (click)="removeTip()">Clear</a>
+            </div>
+            <h3 [style.color]="style?.baseColor">Add a {{'tip' | localization}} for your {{'agent' | localization}}</h3>
+            <small [style.color]="style?.baseColor">{{'The entire amount will be transferred to the' | translate}}
+                {{'agent' | localization}}</small>
+        </div>
+
+        <ul>
+            <li [ngStyle]="selectedTip == tip ? {'color': '#ffffff', 'background-color': style?.primaryColor, 'border-color': style?.primaryColor } : {'color': style?.primaryColor, 'border-color': style?.primaryColor }"
+                *ngFor="let tip of tips" (click)="addTip(tip)">
+                <span *ngIf="settings?.agentTipPercentage == 0">+ {{currency}}{{tip}}</span>
+                <span *ngIf="settings?.agentTipPercentage == 1">{{tip}}%</span>
+            </li>
+        </ul>
+
+        <div *ngIf="settings?.agentTipPercentage == 1" class="tip-percent">
+            <div class="or">OR</div>
+
+            <div class="input-group">
+                <input type="text" class="form-control" appAmount placeholder="Enter Tip" [(ngModel)]="total_tip">
+                <div class="input-group-append">
+                    <span class="input-group-text cursor" [ngStyle]="{'color': '#ffffff', 'background-color': style?.primaryColor, 'border-color': style?.primaryColor }" (click)="addCustomTip()" id="basic-addon2">Add {{'tip' | localization}}</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

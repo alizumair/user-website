@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="160px" viewBox="0 0 160 160" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>loader</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="80" cy="80" r="80"></circle>
+    </defs>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-29-Copy">
+            <g id="Group-19">
+                <circle id="Oval" fill="#063A50" opacity="0.100000001" cx="80" cy="80" r="80"></circle>
+                <circle id="Oval-Copy-10" fill="#063A50" opacity="0.100000001" cx="80" cy="80" r="66.6666667"></circle>
+                <g id="ic_dummy-copy-3" transform="translate(35.555556, 35.555556)" stroke="#063A50" stroke-linecap="round" stroke-linejoin="round" stroke-width="8.88888889">
+                    <g id="Group">
+                        <g id="ic_home">
+                            <polyline id="Shape" points="0 36.2139918 44.4444444 -8.8817842e-16 88.8888889 36.2139918"></polyline>
+                            <polyline id="Path" points="75.5555556 66.6666667 75.5555556 84.4444444 13.3333333 84.4444444 13.3333333 66.6666667 13.3333333 66.6666667"></polyline>
+                        </g>
+                    </g>
+                </g>
+                <g id="bank">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Mask" opacity="0.100000001"></g>
+                </g>
+            </g>
+            <g id="Group-30" transform="translate(53.333333, 57.777778)">
+                <circle id="Oval" fill="#063A50" cx="26.6666667" cy="26.6666667" r="21.3333333"></circle>
+                <circle id="Oval-Copy-14" fill="#CFD9DC" transform="translate(26.666667, 26.666667) scale(-1, 1) translate(-26.666667, -26.666667) " cx="26.6666667" cy="26.6666667" r="10.6666667"></circle>
+                <circle id="Oval-Copy-15" fill="#063A50" transform="translate(26.666667, 26.666667) scale(-1, 1) translate(-26.666667, -26.666667) " cx="26.6666667" cy="26.6666667" r="5.33333333"></circle>
+                <path d="M26.6666667,2.66666667 L26.6666667,8.13085938" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M41.7516113,8.91505533 L41.7516113,14.379248" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(41.751611, 11.581722) rotate(45.000000) translate(-41.751611, -11.581722) "></path>
+                <path d="M48,24 L48,29.4641927" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(48.000000, 26.666667) rotate(90.000000) translate(-48.000000, -26.666667) "></path>
+                <path d="M41.7516113,39.0849447 L41.7516113,44.5491374" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(41.751611, 41.751611) rotate(135.000000) translate(-41.751611, -41.751611) "></path>
+                <path d="M26.6666667,45.3333333 L26.6666667,50.797526" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(26.666667, 48.000000) rotate(180.000000) translate(-26.666667, -48.000000) "></path>
+                <path d="M11.581722,39.0849447 L11.581722,44.5491374" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(11.581722, 41.751611) rotate(225.000000) translate(-11.581722, -41.751611) "></path>
+                <path d="M5.33333333,24 L5.33333333,29.4641927" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(5.333333, 26.666667) rotate(270.000000) translate(-5.333333, -26.666667) "></path>
+                <path d="M11.581722,8.91505533 L11.581722,14.379248" id="Line" stroke="#063A50" stroke-width="5.33333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(11.581722, 11.581722) rotate(315.000000) translate(-11.581722, -11.581722) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

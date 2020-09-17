@@ -1,0 +1,122 @@
+
+    
+    
+    
+    .chatButton {
+        background-color: var(--primaryColor);
+        color: #ffffff;
+    }
+    
+    .my-msg {
+        float: right;   
+        width:80%;
+        text-align: right;
+
+        p {
+            padding: 15px;
+            border-radius: 25px 0px 25px 25px;
+            color: #ffffff;
+            background-color: var(--primaryColor);
+            display: inline-block;
+            margin-bottom: 0px;
+        }
+
+        span {
+            margin-top: 0px;
+            font-size: 13px;
+            color: #a3a3a3;
+            margin-bottom: 10px;
+            padding: 0;
+        }
+    }
+
+    .agent-msg {
+        float: left;
+        width:80%;
+        text-align: left;
+        p {
+            padding: 15px;
+            border-radius: 0px 25px 25px 25px;
+            color: var(--baseColor);
+            background-color: #dddddd; 
+            display: inline-block;
+            margin-bottom: 0px;
+        }
+
+        span {
+            margin-top: 0px;
+            font-size: 13px;
+            color: #a3a3a3;
+            margin-bottom: 10px;
+            padding: 0;
+        }
+    }
+
+    .modal-dialog {
+        max-width: 50%;
+    }
+
+    .modal-header {
+        img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        h5 {
+            margin-left: 8px;
+            margin-top: 5px;
+        }
+    }
+
+    .modal-body {
+        max-height: 500px;
+        overflow-y: scroll;
+        min-height: 300px;
+    }
+    
+    .modal-footer {
+    position: relative;
+    border-top: none;
+    }
+
+    .modal-footer button.send-btn {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    border: none;
+    background: none;
+    font-size: 20px;
+    transform: translateY(-50%);
+    }
+
+
+    .modal-footer .input-group input {
+         background-color: transparent !important; 
+        border: 1px solid #ced4da; 
+        text-align: left; 
+        padding-left: 10px !important; 
+        line-height: normal;
+        height: auto !important; 
+        line-height: 34px;
+        border-radius: 0px;
+        padding-right: 70px;
+        color: #495057;
+    }
+
+    .modal-footer .input-group button {
+       background-color: transparent; 
+       padding: 10px !important;
+      border: 1px solid #ced4da;
+    }
+
+    .emoji-mart {
+        position: absolute;
+        bottom: 90px;
+        left: 70px;
+        z-index: 999;
+      }
+
+      span.emoji-mart-anchor-bar {
+        background-color: transparent !important;
+    }

@@ -1,0 +1,62 @@
+// {
+//   "extends": "../tsconfig.json",
+//   "compilerOptions": {
+//     "allowSyntheticDefaultImports": true,
+//     "outDir": "../out-tsc/app",
+//     "baseUrl": "./",
+//     "module": "commonjs",
+//     "types": [
+//       "node"
+//     ]
+//   },
+//   "exclude": [
+//     "test.ts",
+//     "**/*.spec.ts"
+//   ],
+//   "angularCompilerOptions": {
+//     "entryModule": "app/app.server.module#AppServerModule",
+//     "strictTemplates": false
+//   },
+//   "include": [
+//     "**/*.ts"
+//   ]
+// }
+
+// {
+//   "extends": "./tsconfig.app.json",
+//   "compilerOptions": {
+//     "allowSyntheticDefaultImports": true,
+//     "outDir": "./out-tsc/app-server",
+//     "module": "commonjs",
+//     "types": ["node"]
+//   },
+//   "files": [
+//     "main.server.ts",
+//     "./../server.ts"
+//   ],
+//     "exclude": [
+//     "test.ts",
+//     "**/*.spec.ts"
+//   ],
+//   "angularCompilerOptions": {
+//     "entryModule": "app/app.server.module#AppServerModule",
+//     "strictTemplates": false
+//   }
+// }
+
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app-server",
+    "module": "commonjs",
+    "types": ["node"]
+  },
+  "files": [
+    "src/main.server.ts",
+    "server.ts"
+  ],
+  "angularCompilerOptions": {
+    "entryModule": "./src/app/app.server.module#AppServerModule"
+  }
+}
+

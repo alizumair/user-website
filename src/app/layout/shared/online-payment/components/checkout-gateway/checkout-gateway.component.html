@@ -1,0 +1,58 @@
+<!-- <form class="payment-form" method="POST" action="https://merchant.com/successUrl">
+    <script>
+      window.CKOConfig = {
+        publicKey: 'pk_test_6ff46046-30af-41d9-bf58-929022d2cd14',
+        customerEmail: 'user@email.com',
+        value: 100,
+        currency: 'GBP',
+        paymentMode: 'cards',
+        cardFormMode: 'cardTokenisation',
+        cardTokenised: function(event) {
+          console.log(event.data.cardToken);
+        }
+      };
+    </script>
+    <script async src="https://cdn.checkout.com/sandbox/js/checkout.js"></script>
+  </form> -->
+
+  <ng-container>
+    <div class="dialog-model">
+      <div class="dialog-content">
+        <div class="container">
+          <div class="dialog-header">
+            <h5>Pay With Checkout</h5>
+            <a href="javascript:void(0)" class="dialog-close-button" (click)="close()">&times;</a>
+          </div>
+          <!-- <form *ngIf="!showAddCard" (submit)="onSubmit()">
+            <div class="stripe-form form-row">
+              <label for="card-element">
+                Credit or Debit card
+              </label>
+              <div id="card-element">
+                ====A Stripe Element will be inserted here.
+              </div>
+  
+              ======Used to display form errors.
+              <div id="card-errors" role="alert"></div>
+            </div>
+  
+            <button type="submit" [ngStyle]="{color: '#ffffff', 'backgroundColor': style.primaryColor}">Submit
+              {{'payment' | localization}}</button>
+          </form> -->
+
+
+          <form id="payment-form"  (submit)="onSubmit()">
+            <div class="one-liner">
+              <div class="card-frame">
+                <!-- form will be added here -->
+              </div>
+              <div id="card-errors" role="alert"></div>
+            </div>
+            <!-- <p class="success-payment-message"></p> -->
+            <button id="pay-button" type="submit" [disabled]="disabled" [ngStyle]="{color: '#ffffff', 'backgroundColor': style.primaryColor}">Submit
+              {{'payment' | localization | translate}}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </ng-container>

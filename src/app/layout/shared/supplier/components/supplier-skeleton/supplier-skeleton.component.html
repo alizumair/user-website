@@ -1,0 +1,118 @@
+<ng-container [ngSwitch]="settings?.app_type">
+
+    <!------------------------------------- food supplier -------------------------------------------->
+    <ng-template [ngSwitchCase]="1">
+
+        <ng-container [ngSwitch]="settings?.selected_template">
+
+            <ng-template [ngSwitchCase]="0">
+                <div class="food-supplier">
+                    <div class="food-supplier-img"
+                        [ngStyle]="{'box-shadow': darkTheme ? '0px 0px 0px #ddd' : '0px 0px 10px #ddd'}">
+                        <img>
+                    </div>
+                    <div class="supplier-name">
+                        <h3 class="product-name" [ngStyle]="{'width': '70%'}"></h3>
+                        <div class="star-rating" style="margin-top: 0px">
+                  
+                            <p [ngStyle]="{'height':'22px', 'width': '40px'}"></p>
+                        </div>
+                    </div>
+                    <p class="brand product-name" [ngStyle]="{'height':'14px'}"> </p>
+                </div>
+            </ng-template>
+
+            <ng-template [ngSwitchCase]="1">
+                <div class="cafe-Restaurants-outter">
+                    <div class="cafe-Restaurants-detail">
+                        <div class="cafe-Restaurants-img mobile-img">
+                            <img>
+                        </div>
+                        <div class="cafe-Restaurants-title">
+                            <h3 [ngStyle]="{'width': '60%', 'height': '16px'}"></h3>
+                            <p [ngStyle]="{'width': '60%', 'height': '14px'}"></p>
+                            <div>
+                                <p [ngStyle]="{'height': '14px'}" style="width: 28%;"></p>
+                            </div>
+                        </div>
+                        <div class="cafe-Restaurants-img desktop-img">
+                            <img>
+                        </div>
+                    </div>
+                    <div class="cafe-Restaurants-delivery">
+                        <ul>
+                            <li style="float: right; margin-top: 3px; margin-right: 0px;">
+                                <p [ngStyle]="{'width': '60%', 'height': '14px'}"></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </ng-template>
+
+        </ng-container>
+
+    </ng-template>
+
+    <!------------------------------------- E-Commerce supplier -------------------------------------------->
+
+    <ng-template [ngSwitchCase]="2">
+
+        <ng-container [ngSwitch]="settings?.selected_template">
+
+            <ng-template [ngSwitchCase]="0">
+                <div class="ecom-supplier">
+                    <img class="bcb-img">
+                    <div class="ambarce-section">
+                        <h3 [ngStyle]="{'width': '100%', 'border-radius': '15px'}"></h3>
+                        <div class="star-rating">
+                        </div>
+                    </div>
+                    <span class="brand-reviwes">
+                        <p class="brand" [ngStyle]="{'width': '100%', 'margin-top':'3px', 'border-radius': '15px'}">
+                            <span></span></p>
+                    </span>
+                    <div class="view-details-btn">
+                        <h2 class="btn btn-large"
+                            [ngStyle]="{'width': '100%', 'height': '40px', 'border-radius': '15px'}"></h2>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template [ngSwitchCase]="1">
+                <div class="row">
+                    <div class="col-md-6 grid-image">
+                        <img style="height: 140px; width: 100%; object-fit: cover">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="grid-info clearfix">
+                            <h3 [ngStyle]="{'width': '100%', 'margin-top':'3px', 'border-radius': '15px'}"
+                            ></h3>
+                            <p [ngStyle]="{'width': '100%', 'height': '20px', 'border-radius': '15px'}"></p>
+                            <a [ngStyle]="{'width': '100%', 'height': '40px', 'border-radius': '15px', 'border': 'none'}" class="more-link clearfix"></a>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ng-container>
+    </ng-template>
+
+
+    <ng-template [ngSwitchCase]="3"></ng-template>
+    <ng-template [ngSwitchCase]="4"></ng-template>
+    <ng-template [ngSwitchCase]="5"></ng-template>
+    <ng-template [ngSwitchCase]="6"></ng-template>
+    <ng-template [ngSwitchCase]="7"></ng-template>
+
+    <!------------------------------------- Home Service supplier -------------------------------------------->
+
+    <ng-template [ngSwitchCase]="8">
+        <div class="recommends-products">
+            <img class="rounded-0">
+            <h3 class="rounded-0 w-100 mt-1"></h3>
+            <h4 class="brand rounded-0 mt-1" [ngStyle]="{'width': '100%', 'margin-top':'3px'}"></h4>
+            <div class="add-btn w-100 rounded-0 mt-1">
+                <h2 class="btn btn-large rounded-0" [ngStyle]="{'width': '100%', 'height': '40px'}"></h2>
+            </div>
+        </div>
+    </ng-template>
+</ng-container>

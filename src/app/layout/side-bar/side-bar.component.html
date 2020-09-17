@@ -1,0 +1,281 @@
+<!-- <ng-container #filter>
+  <ng-container *ngIf="settings?.selected_template == 3; then category_filter else default;"></ng-container>
+
+  <ng-template #default>
+    <span *ngIf="settings?.category_selection == 1 && subCategoryAr.length > 0">
+      <div class="gender-size-section">
+        <h2 [style.color]="style.primaryColor">{{'subCategories' | translate}}</h2>
+        <ul class="see-all_cls">
+          <li *ngFor="let subCat of subCategoryAr">
+            <label><input type="checkbox" class="radio-design" [checked]="selectedSubCategory.includes(subCat?.id)"
+                (click)="selectSubCategory(subCat?.id)">{{subCat?.name}} </label>
+          </li>
+        </ul>
+      </div>
+    </span>
+
+    <span *ngIf="brands.length > 0">
+      <div class="gender-size-section">
+        <h2 [style.color]="style.primaryColor">{{'Brands' | translate}}</h2>
+        <ul class="see-all_cls">
+          <li *ngFor="let brand of brands.slice(0,7)">
+            <label><input type="checkbox" class="radio-design" [checked]="selectedBrands.includes(brand?.id)"
+                (click)="selectBrand(brand?.id, 'min')">{{brand?.name}} </label>
+          </li>
+        </ul>
+        <a *ngIf="brands.length > 7" data-toggle="modal" href="JavaScript:void(0)" class="see-all"
+          data-target="#brandsModal">{{'See More' | translate}}</a>
+      </div>
+    </span>
+
+    <span *ngIf="variants.length > 0">
+      <div class="gender-size-section" *ngFor="let variant of variants">
+        <h2 [style.color]="style.primaryColor">{{variant?.variant_name}}</h2>
+        <ng-container *ngIf="variant?.variant_type != 1; else color">
+          <ul class="see-all_cls">
+            <li *ngFor="let values of variant?.variant_values">
+              <label><input class="radio-design" type="checkbox" [checked]="selectedVariants.includes(values?.id)"
+                  (click)="selectVariant(values?.id)">{{values?.value}}</label>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #color>
+          <div class="flex-container">
+            <div [style.border-color]="selectedVariants.includes(values?.id) ? style.primaryColor : style.baseColor"
+              *ngFor="let values of variant?.variant_values" (click)="selectVariant(values?.id)">
+              <span *ngIf="!(values?.value).match(colorPattern)"
+                [style.color]="style.baseColor">{{values?.value}}</span>
+              <div *ngIf="(values?.value).match(colorPattern)" class="color" [style.background-color]="values?.value">
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </span>
+
+    <div id="price_range" class="gender-size-section">
+      <h2 [style.color]="style.primaryColor">{{'Price' | translate}}</h2>
+
+      <input type="text" placeholder="1000" type="number" min="0"
+        (change)="filters?.min_price_range == '' ? filters.min_price_range = 0 : ''"
+        [(ngModel)]="filters.min_price_range">
+      <input class="ml-2" type="text" placeholder="50000" type="number" min="50000"
+        (change)="filters?.max_price_range == '' ? filters.max_price_range = 0 : ''"
+        [(ngModel)]="filters.max_price_range">
+      <button (click)="filterProducts()" class="go btn"
+        [disabled]="filters.max_price_range == 0 && filters.min_price_range == 0"
+        [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}">{{'Go' | translate}}</button>
+
+    </div>
+
+    <div class="gender-size-section">
+      <label><input class="radio-design" type="checkbox" [checked]="filters.is_discount"
+          (change)="onDiscount($event)">{{'Show discounted items only' | translate}}
+      </label>
+    </div>
+  </ng-template>
+
+  <ng-template #category_filter>
+
+    <div class="left-menu">
+      <ul>
+        <li [ngClass]="{'active' : selectedCategoryId == cat.id}" *ngFor="let cat of categoryData">
+          <a  class="primary_text" (click)="selectCategory(cat)">{{cat?.name}}
+            <i class="fa fa-chevron-right" *ngIf="cat?.sub_category.length" aria-hidden="true"></i></a>
+
+          <ul class="secondary" *ngIf="cat?.sub_category.length">
+              <li [ngClass]="{'active' : selectedSubCategory.includes(subCat.id)}" *ngFor="let subCat of cat.sub_category">
+                <a (click)="selectSingleSubCategory(cat?.id, subCat?.id)" class="">{{subCat?.name}}</a>
+              </li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+</ng-container> -->
+
+<!-- <ng-template #skeleton>
+  <div class="skeleton">
+  <span>
+    <div class="gender-size-section">
+      <h2 [ngStyle]="{'width': '50%'}"></h2>
+      <ul class="see-all_cls">
+        <li *ngFor="let brand of util.generateFakeList(3)">
+          <p [ngStyle]="{'width': '100%', 'margin': '15px 0px'}"> </p>
+        </li>
+      </ul>
+    </div>
+  </span>
+
+  <span >
+    <div class="gender-size-section" *ngFor="let variant of util.generateFakeList(4)">
+      <h2 [ngStyle]="{'width': '50%'}"></h2>
+      <ul class="see-all_cls">
+        <li *ngFor="let data of util.generateFakeList(3)">
+          <p [ngStyle]="{'width': '100%', 'margin': '15px 0px'}"></p>
+        </li>
+      </ul>
+    </div>
+  </span>
+</div>
+</ng-template> -->
+
+
+
+<ng-container [ngSwitch]="settings?.selected_template">
+
+  <ng-template [ngSwitchCase]="3">
+    <div class="left-menu">
+      <ul>
+        <li [ngClass]="{'active' : selectedCategoryId == cat.id}" *ngFor="let cat of categoryData">
+          <a  class="primary_text" (click)="selectCategory(cat)">{{cat?.name}}
+            <i class="fa fa-chevron-right" *ngIf="cat?.sub_category.length" aria-hidden="true"></i></a>
+
+          <ul class="secondary" *ngIf="cat?.sub_category.length">
+              <li [ngClass]="{'active' : selectedSubCategory.includes(subCat.id)}" *ngFor="let subCat of cat.sub_category">
+                <a (click)="selectSingleSubCategory(cat?.id, subCat?.id)" class="">{{subCat?.name}}</a>
+              </li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="4">
+    <div class="E-commerce-Product-filter-outter">
+      <h2>Categories</h2>
+      <div class="E-commerce-Product-filter-categories" *ngIf="brands.length > 0">
+          <h3 [style.color]="style.primaryColor">{{'Brands' | translate}}</h3>
+          <ul>
+            <li *ngFor="let brand of brands.slice(0,7)">
+                <input type="checkbox" [checked]="selectedBrands.includes(brand?.id)"
+                (click)="selectBrand(brand?.id, 'min')">
+                <span>{{brand?.name}} </span>
+            </li>
+          </ul>
+      </div>
+      <div  *ngIf="variants.length > 0">
+        <div class="E-commerce-Product-filter-categories" *ngFor="let variant of variants">
+          <h3 [style.color]="style.primaryColor">{{variant?.variant_name}}</h3>
+          <ng-container *ngIf="variant?.variant_type != 1; else color">
+            <ul>
+              <li *ngFor="let values of variant?.variant_values">
+                <input type="checkbox" [checked]="selectedVariants.includes(values?.id)"
+                    (click)="selectVariant(values?.id)">
+                    <span>{{values?.value}}</span>
+              </li>
+            </ul>
+          </ng-container>
+          <ng-template #color>
+            <div class="flex-container">
+              <div [style.border-color]="selectedVariants.includes(values?.id) ? style.primaryColor : style.baseColor"
+                *ngFor="let values of variant?.variant_values" (click)="selectVariant(values?.id)">
+                <span *ngIf="!(values?.value).match(colorPattern)"
+                  [style.color]="style.baseColor">{{values?.value}}</span>
+                <div *ngIf="(values?.value).match(colorPattern)" class="color" [style.background-color]="values?.value">
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div id="price_range" class="gender-size-section E-commerce-Product-filter-categories">
+          <h3 [style.color]="style.primaryColor">{{'Price' | translate}}</h3>
+          <!-- <ng5-slider [(value)]="filters.min_price_range" [(highValue)]="filters.max_price_range" [options]="options"
+          [ngStyle]="{'backgroundColor': style.primaryColor, 'color': style.baseColor}"></ng5-slider> -->
+          <input type="text" placeholder="1000" type="number" min="0"
+            (change)="filters?.min_price_range == '' ? filters.min_price_range = 0 : ''"
+            [(ngModel)]="filters.min_price_range">
+          <input class="ml-2" type="text" placeholder="50000" type="number" min="50000"
+            (change)="filters?.max_price_range == '' ? filters.max_price_range = 0 : ''"
+            [(ngModel)]="filters.max_price_range">
+          <button (click)="filterProducts()" class="go btn"
+            [disabled]="filters.max_price_range == 0 && filters.min_price_range == 0"
+            [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}">{{'Go' | translate}}</button>
+
+      </div>
+      <div class="E-commerce-Product-filter-categories">
+        <input class="radio-design" type="checkbox" [checked]="filters.is_discount"
+        (change)="onDiscount($event)">
+        <span>{{'Show discounted items only' | translate}}</span>
+      </div>
+  </div>
+
+  </ng-template>
+
+  <ng-template ngSwitchDefault>
+    <span *ngIf="settings?.category_selection == 1 && subCategoryAr.length > 0">
+      <div class="gender-size-section">
+        <h2 [style.color]="style.primaryColor">{{'subCategories' | translate}}</h2>
+        <ul class="see-all_cls">
+          <li *ngFor="let subCat of subCategoryAr">
+            <label><input type="checkbox" class="radio-design" [checked]="selectedSubCategory.includes(subCat?.id)"
+                (click)="selectSubCategory(subCat?.id)">{{subCat?.name}} </label>
+          </li>
+        </ul>
+      </div>
+    </span>
+
+    <span *ngIf="brands.length > 0">
+      <div class="gender-size-section">
+        <h2 [style.color]="style.primaryColor">{{'Brands' | translate}}</h2>
+        <ul class="see-all_cls">
+          <li *ngFor="let brand of brands.slice(0,7)">
+            <label><input type="checkbox" class="radio-design" [checked]="selectedBrands.includes(brand?.id)"
+                (click)="selectBrand(brand?.id, 'min')">{{brand?.name}} </label>
+          </li>
+        </ul>
+        <a *ngIf="brands.length > 7" data-toggle="modal" href="JavaScript:void(0)" class="see-all"
+          data-target="#brandsModal">{{'See More' | translate}}</a>
+      </div>
+    </span>
+
+    <span *ngIf="variants.length > 0">
+      <div class="gender-size-section" *ngFor="let variant of variants">
+        <h2 [style.color]="style.primaryColor">{{variant?.variant_name}}</h2>
+        <ng-container *ngIf="variant?.variant_type != 1; else color">
+          <ul class="see-all_cls">
+            <li *ngFor="let values of variant?.variant_values">
+              <label><input class="radio-design" type="checkbox" [checked]="selectedVariants.includes(values?.id)"
+                  (click)="selectVariant(values?.id)">{{values?.value}}</label>
+            </li>
+          </ul>
+        </ng-container>
+        <!-- <a href="#" class="see-all">See all</a> -->
+        <ng-template #color>
+          <div class="flex-container">
+            <div [style.border-color]="selectedVariants.includes(values?.id) ? style.primaryColor : style.baseColor"
+              *ngFor="let values of variant?.variant_values" (click)="selectVariant(values?.id)">
+              <span *ngIf="!(values?.value).match(colorPattern)"
+                [style.color]="style.baseColor">{{values?.value}}</span>
+              <div *ngIf="(values?.value).match(colorPattern)" class="color" [style.background-color]="values?.value">
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </span>
+
+    <div id="price_range" class="gender-size-section">
+      <h2 [style.color]="style.primaryColor">{{'Price' | translate}}</h2>
+      <!-- <ng5-slider [(value)]="filters.min_price_range" [(highValue)]="filters.max_price_range" [options]="options"
+      [ngStyle]="{'backgroundColor': style.primaryColor, 'color': style.baseColor}"></ng5-slider> -->
+      <input type="text" placeholder="1000" type="number" min="0"
+        (change)="filters?.min_price_range == '' ? filters.min_price_range = 0 : ''"
+        [(ngModel)]="filters.min_price_range">
+      <input class="ml-2" type="text" placeholder="50000" type="number" min="50000"
+        (change)="filters?.max_price_range == '' ? filters.max_price_range = 0 : ''"
+        [(ngModel)]="filters.max_price_range">
+      <button (click)="filterProducts()" class="go btn"
+        [disabled]="filters.max_price_range == 0 && filters.min_price_range == 0"
+        [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}">{{'Go' | translate}}</button>
+
+    </div>
+
+    <div class="gender-size-section">
+      <label><input class="radio-design" type="checkbox" [checked]="filters.is_discount"
+          (change)="onDiscount($event)">{{'Show discounted items only' | translate}}
+      </label>
+    </div>
+  </ng-template>
+</ng-container>

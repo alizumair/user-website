@@ -1,0 +1,115 @@
+<!----------------------------page loader------------------------------------>
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<div id="personal_info" class="profile-left-right">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="address-path">
+        <a [style.color]="style.secondaryColor"
+          [routerLink]="['/account/address']">{{'Manage Address' | translate}}</a>&nbsp;
+        <i [style.color]="style.secondaryColor" class="fa fa-angle-right"></i>&nbsp;
+        <a [style.color]="style.baseColor">{{addEdit + ' Address' | translate}}</a>
+      </div>
+    </div>
+  </div>
+  <h1 [style.color]="style.baseColor">{{addEdit + ' Address' | translate}}</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+    <div class="profile_form">
+
+      <div class="form-group">
+        <label [style.color]="style.baseColor">{{'Full Name' | translate}}</label>
+        <input type="text" formControlName="name" placeholder="{{'Enter Full Name' | translate}}"
+          (keydown.space)="!form.controls.name.value ? $event.preventDefault() : ''">
+        <div class="text-error"
+          *ngIf="(form.controls['name'].errors?.required || form.controls['name'].errors?.whitespace) && showError">
+          {{'Please enter name' | translate}}</div>
+      </div>
+
+      <div class="form-group">
+        <label [style.color]="style.baseColor">{{'House No/Plot No' | translate}}</label>
+        <input type="text" formControlName="houseNo" placeholder="{{'Enter House/Plot no' | translate}}"
+          (keydown.space)="!form.controls.houseNo.value ? $event.preventDefault() : ''">
+        <div class="text-error"
+          *ngIf="(form.controls['houseNo'].errors?.required || form.controls['houseNo'].errors?.whitespace) && showError">
+          {{'Please enter house/plot no' | translate}}</div>
+      </div>
+
+      <div class="form-group" *ngIf="setting?.addCollectFieldInAddress == 1">
+        <label [style.color]="style.baseColor">{{'Click/Collect Number' | translate}}</label>
+        <input type="text" formControlName="collectNo" placeholder="{{'Enter Click/Collect Number' | translate}}"
+          (keydown.space)="!form.controls.collectNo.value ? $event.preventDefault() : ''">
+        <div class="text-error"
+          *ngIf="(form.controls['collectNo'].errors?.required || form.controls['collectNo'].errors?.whitespace) && showError">
+          {{'Please enter click/collect number' | translate}}</div>
+      </div>
+
+      
+
+      <!-- <div class="form-group">
+        <label>{{'Building Name' | translate}}</label>
+        <input type="text" formControlName="buildingName">
+        <div class="text-error" *ngIf="form.controls['buildingName'].errors?.required && showError">
+          {{'Please enter building name' | translate}}</div>
+      </div> -->
+
+      <!-- <div class="form-group">
+        <label>{{'Area' | translate}}</label>
+        <input type="text" formControlName="area">
+        <div class="text-error" *ngIf="form.controls['area'].errors?.required && showError">
+            Please Enter Area</div>
+      </div> -->
+
+      <div class="form-group">
+        <label [style.color]="style.baseColor">{{'complete_address' | localization | translate}}</label>
+        <input type="text" formControlName="addressLineFirst" appGoogleplace (onSelect)="address($event)" placeholder="{{'Enter a location' | translate}}">
+        <div class="text-error" *ngIf="form.controls['addressLineFirst'].errors?.required && showError">
+          {{'Please enter address' | translate}}</div>
+        <div class="text-error"
+          *ngIf="!form.controls['addressLineFirst'].errors?.required && form.controls['latitude'].errors?.required && showError">
+          {{'Please enter valid address' | translate}}</div>
+      </div>
+
+      <!-- <div class="form-group">
+        <div class="default-address">
+            <label>Make Default Address</label>
+            <input type="checkbox" formControlName="isDefault" >
+        </div>
+      </div> -->
+
+      <!-- <div class="form-group">
+        <label>{{'Landmark' | translate}}</label>
+        <input type="text" formControlName="landmark">
+        <div class="text-error" *ngIf="form.controls['landmark'].errors?.required && showError">
+          {{'Please enter address and landmark' | translate}}</div>
+      </div> -->
+
+      <!-- <div class="form-group">
+        <label>{{'City' | translate}}</label>
+        <input type="text" formControlName="city">
+        <div class="text-error" *ngIf="form.controls['city'].errors?.required && showError">
+            Please Enter City</div>
+      </div> -->
+
+      <!-- <div class="form-group">
+        <label>{{'Country' | translate}}</label>
+        <input type="text" formControlName="country">
+        <div class="text-error" *ngIf="form.controls['country'].errors?.required && showError">
+            Please Enter Country</div>
+      </div> -->
+
+      <div class="form-group">
+        <label [style.color]="style.baseColor">{{'Contact Number' | translate}}</label>
+        <input type="text" formControlName="phone_number" numbersOnly>
+        <div class="text-error" *ngIf="form.controls['phone_number'].errors?.required && showError">
+          Please Enter Contact Number</div>
+        <div class="text-error"
+          *ngIf="!form.controls['phone_number'].errors?.required && form.controls['phone_number'].errors?.pattern && showError">
+          Please Enter Valid Contact Number</div>
+      </div>
+
+      <button class="btn profile-submit-form cancel-button" [ngStyle]="cancelBtn" type="button"
+        (click)="util.goBack()">{{'Cancel' | translate}}</button>
+      <button class="btn profile-submit-form ml-3" [ngStyle]="saveBtn" type="submit">{{'Save' | translate}}</button>
+    </div>
+  </form>
+</div>

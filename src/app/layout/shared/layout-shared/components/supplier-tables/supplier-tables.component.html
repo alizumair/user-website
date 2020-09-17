@@ -1,0 +1,36 @@
+<div class="custom-pagination mt-4" *ngIf="pagination.count > pagination.perPage">
+    <pagination-controls [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+        (pageChange)="pageChange($event)"></pagination-controls>
+</div>
+<div class="tab-content pt-3 pb-3 px-sm-0" id="nav-tabContent">
+    <div class="tab-pane fade show active">
+        <div class="tab-content" *ngIf="supplierTables.length">
+            <div class="tabsright-content row" [style.color]="style.defaultColor">
+                <div class="tabsright-content-data col-md-6" *ngFor="let table of supplierTables |
+                paginate: { itemsPerPage: pagination.perPage, 
+                    currentPage: pagination.currentPage, 
+                    totalItems: pagination.count }; let i = index;">
+                    <div class="data-info">
+                        <div (mouseover)="hover.index = i;" (click)="selectTable(table);"
+                            [ngStyle]="(hover.index === i) || selectedTable?.id == table?.id ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                            (mouseleave)="hover.index = -1; hover.tab = null">
+                            <p class="mb-0"> {{table?.table_name}}</p>
+                            <p class="mb-0"> {{'Seating Capacity'}}: {{table?.seating_capacity}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="no-data" *ngIf="!supplierTables.length && dataLoaded">
+    <h1 [style.color]="style.defaultColor">{{'No Table Found' | translate}}</h1>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn"
+        [ngStyle]="{'backgroundColor': '#ffffff', 'borderColor': style.primaryColor, 'color': style.primaryColor}"
+        (click)="proceedWithTable(false)">Back</button>
+    <button type="button" (click)="proceedWithTable(true)"
+        [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+        class="btn" aria-label="Close">{{'Proceed' | translate}}</button>
+</div>

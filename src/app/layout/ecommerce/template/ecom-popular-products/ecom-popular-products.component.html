@@ -1,0 +1,120 @@
+<ng-container *ngIf="settings?.selected_template == 4; then temp_4 ;else default;"></ng-container>
+
+<ng-template #default>
+<div *ngIf="popularProducts.length" class="section clearfix" style="padding: 10px 0px 60px; margin-top: 0px;">
+    <div class="clearfix container">
+        <div class="title-dotted-border topmargin-sm mb-5 title-center">
+            <!-- <h4>Best Selling Products</h4> -->
+            <h4 class="uppercase">{{'Top' | translate}} {{'products' | localization | translate}}</h4>
+        </div>
+
+        <ng-container *ngIf="!isLoading; else skeleton">
+            <div class="row clearfix">
+                <ng-container *ngIf="popularProducts && popularProducts.length; else noData">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-2 padd"
+                        *ngFor="let product of popularProducts.slice(1, 9)">
+                        <app-ecommerce [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+                            (add)="addProduct($event)" (remove)="removeProduct($event)"></app-ecommerce>
+                    </div>
+                </ng-container>
+
+                <ng-template #noData>
+                    <div class="home-no-data m-n">
+                        <h4 [style.color]="style.baseColor">{{'No' | translate}}
+                            {{'products' | localization | translate}} {{'Found' | translate}}</h4>
+                    </div>
+                </ng-template>
+            </div>
+        </ng-container>
+
+        <ng-template #skeleton>
+            <div class="skeleton">
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-2 padd"
+                        *ngFor="let item of utilityService.generateFakeList(8)">
+                        <app-product-skeleton [settings]="settings"></app-product-skeleton>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+    </div>
+</div>
+
+<div class="section nobg" *ngIf="popularProducts.length">
+    <div class="container clearfix">
+        <div class="row clearfix">
+            <div class="col-lg-5">
+                <div class="featured-image">
+                    <a><img appImage [url]="popularProducts[0]?.image_path" [size]="'550x440'"
+                            [src]="popularProducts[0]?.image_path" style="width: 100%;" alt="Image 1"></a>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="featured-item topmargin">
+                    <div class="item-title">
+                        <div class="before-heading t600 ls5"><a href="#" style="color: #aab7bd !important;">Have A Look
+                                At <i class="icon-angle-right"></i></a></div>
+                        <h3><a href="#">{{popularProducts[0]?.name}}</a></h3>
+                    </div>
+                    <div class="item-meta font-secondary">
+                        By {{popularProducts[0]?.supplier_name}}
+                    </div>
+                    <div class="clear"></div>
+                    <div class="item-desc">
+                        <p [innerHtml]="popularProducts[0]?.product_desc | safe: 'html'"></p>
+                    </div>
+                    <div class="item-color bottommargin-sm">
+                        <span>{{currency}} {{popularProducts[0]?.fixed_price}}</span>
+                    </div>
+                    <div class="button button-border button-circle nomargin font-secondary"
+                        (click)="productDetail(popularProducts[0])">View Details</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</ng-template>
+
+<ng-template #temp_4>
+<section  class="product-sales"  *ngIf="popularProducts.length">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-2">
+              <div class="product-sales-title">
+                  <h2>{{'TRENDING ' | translate}} {{'products' | localization | translate}}</h2>
+                  <a href="javascript:void(0)" routerLink='/products/all-discounted-products' [queryParams]="{type: 0}" [style.background]="style.primaryColor">View All <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+              </div>
+          </div>
+          <div class="col-md-9">
+
+            <ng-container *ngIf="!isLoading; else skeleton">
+              <!-- <div class="row"> -->
+                <ng-container *ngIf="popularProducts && popularProducts.length; else noData">
+                  <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                    <div ngxSlickItem *ngFor="let product of popularProducts.slice(1, 9)">
+                <!-- <div class="col-md-4"> -->
+                  <app-ecommerce [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+                  (add)="addProduct($event)" (remove)="removeProduct($event)"></app-ecommerce>
+                <!-- </div> -->
+                </div>
+                </ngx-slick-carousel>
+                </ng-container>
+            <!-- </div> -->
+          </ng-container>
+
+          <ng-template #skeleton>
+              <div class="skeleton">
+                  <div class="row">
+                      <div class="col-lg-3 col-md-4 col-sm-6 col-12 px-2 padd"
+                          *ngFor="let item of utilityService.generateFakeList(8)">
+                          <app-product-skeleton [settings]="settings"></app-product-skeleton>
+                      </div>
+                  </div>
+              </div>
+          </ng-template>
+          </div>
+      </div>
+  </div>
+</section>
+</ng-template>

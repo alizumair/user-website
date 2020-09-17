@@ -1,0 +1,102 @@
+<div class="product-dtl m-top-100">
+  <div class="container">
+    <div class="row">
+      <div class="col col-md-8">
+        <div class="listing">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="list-img">
+                <img [src]="cart_data?.image_path" onError="src = './assets/images/placeholder_image.svg';">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="list-details">
+                <div class="title-and-price">
+                  <h2 class="float-left">{{cart_data?.name}}
+                    <span>{{(cart_data?.distance).toFixed(2)}}km. away</span>
+                  </h2>
+                  <h3 class="float-right">{{currency}} {{cart_data?.fixed_price}}
+                    <!-- <span>+ Booking Fee</span> -->
+                  </h3>
+                </div>
+              </div>
+              <div class="listing supplier-dtl">
+                <h4>Supplier Details</h4>
+                <ul>
+                  <li>
+                    <div class="address">
+                      <img [src]="cart_data?.supplier_logo" onError="src = './assets/images/placeholder_image.svg';">
+                      <p>{{cart_data?.supplier_name}} <span class="d-block">{{cart_data?.supplier_address}}</span></p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="listing address-details">
+          <div class="row">
+            <div class="col-md-6">
+              <h4>Pickup Details</h4>
+              <ul>
+                <li>
+                  <div class="mb-2">
+                    {{cart_data?.from_address}}<span class="d-block">{{cart_data?.booking_from_date | date: 'MMM d, y . hh:mm a'}}</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="listing supplier-dtl">
+          <h4>Details</h4>
+          <div [innerHtml]="cart_data?.product_desc | safe: 'html'"></div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="listing payment-dtl">
+          <div class="list-details">
+            <h4>Payment Details</h4>
+            <ul>
+              <li>
+                <div class="mb-2">
+                  Car fare<span class="float-right">{{currency}} {{priceObj?.amount.toFixed(2)}}</span>
+                </div>
+                <!-- <div class="mb-2">
+                  Booking fee<span class="float-right">{{currency}} 10.00</span>
+                </div> -->
+              </li>
+              <li>
+                <h5>Total<span class="float-right">{{currency}} {{(priceObj?.netTotal).toFixed(2)}}</span></h5>
+                <!-- <h6>You will pay now <i class="fa fa-info-circle" aria-hidden="true"></i><span
+                    class="float-right">$25.00</span></h6> -->
+              </li>
+              <li>
+                <h4>Choose your payment type</h4>
+                <label class="form-check-label" *ngIf="[0,2].includes(settings?.payment_method)">
+                  <input class="form-check-input" type="radio"
+                    [style.backgroundColor]="paymentType == '0' ? style.primaryColor : ''" name="payment" [value]="'0'"
+                    [(ngModel)]="paymentType">Cash On Delivery
+                  <span class="checkmark" [style.color]="style.baseColor"></span>
+                </label>
+
+                <label class="form-check-label" *ngIf="[1,2].includes(settings?.payment_method)">
+                  <input class="form-check-input" type="radio"
+                    [style.backgroundColor]="paymentType == '1' ? style.primaryColor : ''" name="payment" [value]="'1'"
+                    [(ngModel)]="paymentType">Online
+                  <span class="checkmark" [style.color]="style.baseColor"></span>
+                </label>
+                <p>By clicking on payment, you agree to the rental policy and our <a href="term.html" target="_blank">Terms and Conditions</a>
+                </p>
+              </li>
+              <li>
+                <button type="button" class="btn btn-primary w-100" (click)="placeOrder()">Book Now</button>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

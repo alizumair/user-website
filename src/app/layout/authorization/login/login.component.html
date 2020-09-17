@@ -1,0 +1,115 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<div class="login-title" [ngClass]="settings?.logo_background_color == 1 ? 'img-bck-auth' : ''">
+  <!-- <img [src]="image_paths"> -->
+  <app-logo [width]="'auto'" [height]="100" [logoColor]="style.primaryColor" [logoPadding]="24" [logoRadius]="10">
+  </app-logo>
+
+  <h2 [attr.title]="siteName" [style.color]="style?.defaultColor">{{siteName}}</h2>
+  <!-- <h5 [style.color]="style?.defaultColor">{{'Get the unique products with the best deals' | translate}}</h5> -->
+</div>
+
+<div class="login_feilds" *ngIf="!otpView">
+
+  <!-- <app-social-login (closeModal)="closeModal.emit(true)"></app-social-login> -->
+
+  <div class="row mb-3" *ngIf="settings?.phone_registration_flag == 0">
+    <div class="col">
+      <button class="btn login-type" [ngClass]="{'active': loginType === 'email'}"
+        (click)="loginMethod('email')">{{'Email' | translate}}</button>
+    </div>
+    <div class="col">
+      <button class="btn" [ngClass]="{'active': loginType === 'phone'}"
+        (click)="loginMethod('phone')">{{'Phone' | translate}}</button>
+    </div>
+  </div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="loginType == 'email'" [style.color]="style?.defaultColor">
+      <input (keydown.space)="$event.preventDefault()" type="email" placeholder="{{'Email' | translate}}"
+        (focus)="submitted = false" formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && userForm.email.errors }">
+      <div *ngIf="submitted && userForm.email.errors" class="log-error">
+        <div *ngIf="userForm.email.errors.required">{{'Please enter email.' | translate}}</div>
+        <div *ngIf="submitted && userForm.email.errors.email">{{'Please enter a valid email.' | translate}}</div>
+      </div>
+    </div>
+
+    <div *ngIf="loginType == 'phone'">
+      <div class="mb-4 signup-phone">
+        <ngx-intl-tel-input [selectedCountryISO]="countryISO" [preferredCountries]="preferredCountries"
+          (focus)="submitted= false" [searchCountryFlag]="true" placeholder="Phone Number"
+          [enableAutoCountrySelect]="false" [enablePlaceholder]="true" name="phone" [separateDialCode]="true"
+          [phoneValidation]="true" [formControlName]="settings?.phone_registration_flag == 0 ? 'phoneNumber': 'mobileNumber'">
+        </ngx-intl-tel-input>
+      </div>
+      <div *ngIf="submitted && userForm[settings?.phone_registration_flag == 0 ? 'phoneNumber': 'mobileNumber']?.errors" class="log-error">
+        <div *ngIf="userForm[settings?.phone_registration_flag == 0 ? 'phoneNumber': 'mobileNumber']?.errors.required">{{'Please enter Phone Number.' | translate}}</div>
+        <div *ngIf="!userForm[settings?.phone_registration_flag == 0 ? 'phoneNumber': 'mobileNumber']?.errors.required && userForm[settings?.phone_registration_flag == 0 ? 'phoneNumber': 'mobileNumber']?.invalid">
+          {{'Please Enter a Valid Phone Number.' | translate}}</div>
+      </div>
+    </div>
+
+    <div [style.color]="style?.defaultColor" class="password" *ngIf="settings?.phone_registration_flag == 0 || loginType == 'email'">
+      <input (keydown.space)="$event.preventDefault()" [type]="passwordType" placeholder="{{'Password' | translate}}"
+        (focus)="submitted = false" formControlName="password"
+        [ngClass]="{ 'is-invalid': submitted && userForm.password.errors && (!userForm?.email?.errors || !userForm?.phoneNumber?.errors) }">
+      <span>
+        <i *ngIf="passwordType == 'password'" (click)="passwordType = 'text'" class="fa fa-eye" aria-hidden="true"></i>
+        <i *ngIf="passwordType == 'text'" (click)="passwordType = 'password'" class="fa fa-eye-slash"
+          aria-hidden="true"></i>
+      </span>
+      <div *ngIf="submitted && userForm.password.errors && (!userForm?.email?.errors || !userForm?.phoneNumber?.errors)"
+        class="log-error">
+        <div *ngIf="submitted && userForm.password.errors.required">{{'Please enter password.' | translate}}</div>
+        <div *ngIf="submitted && userForm.password.errors.minlength">
+          {{'Password length should be 6-20 digits.' | translate}}</div>
+        <div *ngIf="submitted && userForm.password.errors.maxlength">
+          {{'Password length should be 6-20 digits.' | translate}}</div>
+      </div>
+    </div>
+
+    <!-- <div [style.color]="style?.defaultColor" class="name" *ngIf="settings?.phone_registration_flag == 1 && loginType == 'phone'">
+      <input (keydown.space)="$event.preventDefault()"  placeholder="{{'name' | translate}}"
+        (focus)="submitted = false" formControlName="name" [ngClass]="{ 'is-invalid': submitted && userForm.name.errors}">
+    </div> -->
+
+    <a class="forgot-login cursor forgot" [style.color]="style?.primaryColor" *ngIf="settings?.phone_registration_flag == 0 || loginType == 'email'"
+      (click)="openForgotPassword()">{{'Forgot Password?' | translate}}</a>
+    <div class="login-submit">
+      <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Login' | translate}}</button>
+    </div>
+
+  </form>
+
+  <app-social-login (closeModal)="closeModal.emit(true)" [isSignUp]="false" (onSocialLogin)="onSocialLogin($event)"></app-social-login>
+
+</div>
+
+<div *ngIf="otpView" class="login_feilds">
+  <form [formGroup]="otpForm" (ngSubmit)="confirmOTP()" autocomplete="off">
+
+    <input type="text" formControlName="otp" placeholder="OTP" (focus)="otpSubmitted = false" numbersOnly
+      [ngClass]="{ 'is-invalid': otpSubmitted && otpfm.otp.errors }">
+    <div *ngIf="otpSubmitted && otpfm.otp.errors" class="log-error">
+      <div *ngIf="otpfm.otp.errors.required">{{'Please enter OTP.' | translate}}</div>
+      <div *ngIf="otpfm.otp.errors.maxlength">{{'Please enter valid OTP.' | translate}}</div>
+    </div>
+
+    <div>
+      <ng-container [counter]="counter" [interval]="interval" (value)="count = $event">
+        <small *ngIf="count > 0"
+          [style.color]="style?.secondaryColor">{{'OTP will be sent shortly time left :' | translate}} {{ count |
+          formatTime}}
+        </small>
+        <small *ngIf="count === 0" [style.color]="style?.secondaryColor">{{'Did not receive OTP?' | translate}}
+          <a [style.color]="style?.primaryColor" (click)="resendOTP()" class="cursor">{{'Resend OTP' | translate}}</a>
+        </small>
+      </ng-container>
+
+    </div>
+    <div class="login-submit">
+      <button [ngStyle]="primaryButton" type="submit" class="btn">{{'Submit' | translate}}</button>
+    </div>
+  </form>
+</div>

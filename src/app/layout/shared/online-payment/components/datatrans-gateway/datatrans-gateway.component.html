@@ -1,0 +1,55 @@
+
+<ng-container>
+    <div class="dialog-model">
+        <div class="dialog-content" style="max-width: 420px;">
+            <div class="container">
+                <div class="dialog-header" style="margin-bottom: 10px;">
+                    <h5>Pay With Datatrans</h5>
+                    <a href="javascript:void(0)" class="dialog-close-button" (click)="close()">&times;</a>
+                </div>
+
+                <form [formGroup]="paymentForm" (ngSubmit)="submitPayment()">
+                    <div class="profile_form payment-form" style="padding: 0px;">
+
+                        <div class="form-group">
+                            <label>{{'Card Number' | translate}}</label>
+                            <div class="card-field" id="cardNumberPlaceholder"></div>
+                            <div class="text-error" *ngIf="ccInvalid">{{'Please enter valid card number.' | translate}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{'Card CVV' | translate}}</label>
+                            <div class="card-field" id="cvvPlaceholder"></div>
+                            <div class="text-error" *ngIf="cvvInvalid">{{'Please enter valid cvv.' | translate}}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{'Card Month' | translate}}</label>
+                            <input maxlength="2" (keydown.space)="$event.preventDefault()" type="text" numbersOnly formControlName="exp_month">
+                            <div class="text-error"
+                                *ngIf="paymentForm.controls['exp_month'].errors?.required && submitted">
+                                {{'Please enter month' | translate}}</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{'Card Year' | translate}}</label>
+                            <input maxlength="2" (keydown.space)="$event.preventDefault()" type="text" numbersOnly formControlName="exp_year">
+                            <div class="text-error"
+                                *ngIf="paymentForm.controls['exp_year'].errors?.required && submitted">
+                                {{'Please enter year' | translate}}</div>
+                        </div>
+
+                        <button class="btn" style="float: right; margin-top: 15px;"
+                            [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+                            href="javascript:void(0)" type="submit">{{'Submit Payment' | translate}}</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</ng-container>
+
+<app-processing-indicator *ngIf="loading"></app-processing-indicator>

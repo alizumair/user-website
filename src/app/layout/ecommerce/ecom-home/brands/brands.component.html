@@ -1,0 +1,21 @@
+<div class="custom-slider" *ngIf="brands.length">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 bk-img">
+        <h2>{{'popular_brands' | localization | translate}}</h2>
+        <p>Check out the hot <br />favourites among people</p>
+      </div>
+      <div class="col-md-9">
+        <div class="brand-slider">
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <div ngxSlickItem *ngFor="let brand of brands; let i = index;" class="slide brand-img">
+              <img appImage [url]="brand?.image" [size]="'700x800'" [src]="brand?.image"
+                onError="src = './assets/images/placeholder_image.svg';" (click)="productListing(brand)">
+            </div>
+          </ngx-slick-carousel>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

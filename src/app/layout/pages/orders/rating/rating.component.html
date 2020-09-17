@@ -1,0 +1,89 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<!--================ Start Ratings & Reviews Page ================-->
+<div class="rating_and_reviews_page">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="rating_and_reviews_left"
+          [ngStyle]="{'background-color':style.cardBackgroundColor, 'border-color': style.secondaryColor}">
+          <h2 [style.color]="style.baseColor">{{'Ratings & Review' | translate}}</h2>
+          <div class="user_rating_reviews" [style.background-color]="style.cardBackgroundColor">
+            <img [src]="image" onError="src = './assets/images/placeholder_image.svg';">
+            <div class="user-review-part">
+
+              <div *ngIf="productId && !supplierId">
+                <h3 [style.color]="style.baseColor">{{type === 'product' ? product?.name : product?.supplier_name}}
+                </h3>
+                <p *ngIf="type === 'product'" [style.color]="style.baseColor">{{'supplier' | localization}}:<span
+                    [style.color]="style.primaryColor"> {{product?.supplier_name}} </span></p>
+              </div>
+
+              <div *ngIf="!productId && supplierId">
+                <h3 [style.color]="style.baseColor">{{supplier?.name}}</h3>
+                <h5 *ngIf="supplier?.address" [style.color]="style.baseColor"><i class="fa fa-map-marker mr-1"
+                    aria-hidden="true"></i>
+                  {{supplier.address}}</h5>
+              </div>
+
+              <div *ngIf="type == 'agent'">
+                <h3 [style.color]="style.baseColor">{{ agentName }}
+                </h3>
+                <!-- <p *ngIf="type === 'product'" [style.color]="style.baseColor">{{'supplier' | localization}}:<span
+                    [style.color]="style.primaryColor"> {{product?.supplier_name}} </span></p> -->
+              </div>
+
+              <!-- <div class="row mb-2" *ngIf="productId && !supplierId">
+                <div class="col-md-5">
+                  <label class="radio" [style.color]="style.baseColor"> Rate {{'product' | localization}} <input
+                      (change)="image = product?.image_path[0]" [value]="'product'" [(ngModel)]="type"
+                      [style.backgroundColor]="type === 'product' ? style.primaryColor : ''" class="uk-radio"
+                      type="radio" name="radio2"></label>
+                </div>
+
+                <div class="col-md-7" *ngIf="!settings?.is_single_vendor">
+                  <label class="radio" [style.color]="style.baseColor">Rate {{'supplier' | localization}} <input
+                      [value]="'supplier'" (change)="image = product?.supplier_image" [(ngModel)]="type"
+                      [style.backgroundColor]="type === 'supplier' ? style.primaryColor : ''" class="uk-radio"
+                      type="radio" name="radio2"></label>
+                </div>
+              </div> -->
+
+
+            </div>
+            <div class="user_rating_star">
+              <span>
+                <i class="cursor" (click)="rateProduct(1)"
+                  [ngClass]="[1,2,3,4,5].includes(rating) ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i>
+                <i class="cursor" (click)="rateProduct(2)"
+                  [ngClass]="[2,3,4,5].includes(rating) ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i>
+                <i class="cursor" (click)="rateProduct(3)"
+                  [ngClass]="[3,4,5].includes(rating) ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i>
+                <i class="cursor" (click)="rateProduct(4)"
+                  [ngClass]="[4,5].includes(rating) ? 'fa fa-star' : 'fa fa-star-o'" aria-hidden="true"></i>
+                <i class="cursor" (click)="rateProduct(5)" [ngClass]="rating === 5 ? 'fa fa-star' : 'fa fa-star-o'"
+                  aria-hidden="true"></i>
+              </span>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <form class="rating-form">
+                <input class="title" *ngIf="type === 'product'" type="text" placeholder="Title for your review"
+                  name="title" [(ngModel)]="title">
+                <textarea placeholder="Write your review here..." name="review" [(ngModel)]="review"></textarea>
+                <button class="btn" [ngStyle]="submit" (click)="onSubmit()">{{'Submit' | translate}}</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!--================ End Ratings & Reviews Page ================-->

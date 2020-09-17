@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="39px" viewBox="0 0 120 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>royo_foods_logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-75.0%" y="-75.0%" width="250.1%" height="250.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="0.298507463 0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-12" transform="translate(-3.000000, -1.000000)">
+            <g id="Group-18" transform="translate(34.000000, 0.000000)">
+                <ellipse id="Oval" fill="#F42C30" cx="14.0241935" cy="25.8977987" rx="14.0241935" ry="14.0298507"></ellipse>
+                <path d="M2.38709677,25.8977987 C2.38709677,32.3273824 7.59720247,37.5395897 14.0241935,37.5395897 L14.0241935,37.5395897 M25.6612903,25.8977987 C25.6612903,19.468215 20.4511846,14.2560077 14.0241935,14.2560077" id="Shape" stroke="#FFFFFF" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M17.2320005,22.3200089 C19.5477059,22.0224489 19.3695915,20.0757371 21.5298383,21.4726588 C23.6900851,22.8695804 25.3081212,27.6554654 21.6916346,31.2878407 C18.0751481,34.9202159 16.7197305,35.9985158 12.4047733,35.4593659 C8.08981619,34.9202159 5.18097908,29.0589461 5.18097908,25.0136452 C5.18097908,20.9683444 6.5980264,17.3257663 11.9276162,18.1951984 C17.2572061,19.0646306 14.9162952,22.617569 17.2320005,22.3200089 Z" id="Path-3" fill="#FFFFFF"></path>
+                <g id="Group-17" transform="translate(12.830645, 26.494814)">
+                    <ellipse id="Oval" fill="#FFB248" cx="2.98387097" cy="2.98507463" rx="2.98387097" ry="2.98507463"></ellipse>
+                    <ellipse id="Oval-Copy-5" fill="#F9FFFF" filter="url(#filter-1)" cx="2.08870968" cy="1.49253731" rx="1" ry="1"></ellipse>
+                </g>
+                <polygon id="Path-4" fill="#F42C30" points="23.8264563 16.5930529 25.6620188 14.2918635 23.8264563 12.7755681 21.7585095 15.0177264"></polygon>
+                <path d="M29.8093322,-0.297824773 L29.8093322,-0.297824773 C31.082102,-0.297570605 32.1136798,0.73441928 32.1134257,2.00718915 C32.1134202,2.03435063 32.1129346,2.06150989 32.1119691,2.0886542 L31.6290103,15.6656749 L28.0621428,15.6748081 L27.5174535,2.08729366 C27.4667221,0.821776929 28.4515002,-0.245253002 29.7170169,-0.295984394 C29.7477732,-0.297217336 29.7785512,-0.29783092 29.8093322,-0.297824773 Z" id="Rectangle" fill="#F42C30" transform="translate(29.814502, 7.688492) rotate(41.000000) translate(-29.814502, -7.688492) "></path>
+            </g>
+            <g id="Group-7-Copy" transform="translate(0.000000, 1.000000)" fill="#FFFFFF" font-size="40.4210526" font-weight="normal">
+                <g id="Group-4-Copy-2">
+                    <text id="R">
+                        <tspan x="0" y="38">R</tspan>
+                    </text>
+                    <text id="YO">
+                        <tspan x="66.8947368" y="38">YO</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

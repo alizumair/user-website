@@ -1,0 +1,277 @@
+<ng-container [ngSwitch]="settings?.selected_template">
+
+    <ng-template [ngSwitchCase]="0">
+
+        <div class="food-product" [ngClass]="{'out-of-stock':isOutOfStock}"
+            [ngStyle]="{'border-color': style.secondaryColor}">
+            <div class="food-product-image"
+                (click)="settings.product_detail== 1 ? productDetail(product) : porductDescription()"
+                [ngStyle]="{'box-shadow': darkTheme ? '0 0px 10px rgba(0, 0, 0, 0.82)' : '0 0px 4px rgba(0, 0, 0, 0.52)'}">
+                
+                <div *ngIf="isOutOfStock" class="out-of-stock-msg">
+                    <p>{{'Out Of Stock' | translate}}</p>
+                </div>
+                <img *ngIf="product.image_path" appImage [url]="product.image_path" [size]="'255x160'" [src]="product.image_path"
+                    onError="src = './assets/images/placeholder_image.svg';" (click)="productDetail(product)" @fade>
+            </div>
+
+            <div *ngIf="settings.is_product_wishlist == 1" class="favourite">
+                <a (click)="wishlist(!product?.is_favourite, product)">
+                    <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g id="Page-1" stroke="none" stroke-width="2"
+                            [attr.fill]="product?.is_favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                            <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                                [attr.stroke]="product?.is_favourite ? style.primaryColor : style.baseColor">
+                                <g id="ic_heart_fill">
+                                    <path
+                                        d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                        id="Combined-Shape-Copy"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="star-rating">
+                <img [src]="'./assets/images/small_star_icon_food.svg'" height="12" width="12" @fade>
+                <span class="rating" @fade>{{product?.avg_rating ? product?.avg_rating : 0}} </span>
+            </div>
+
+            <h3 class="product-name ellipsis" data-toggle="tooltip" [style.color]="style?.baseColor"
+                [title]="product?.name" @fade>
+                {{product?.name}}
+            </h3>
+            <p *ngIf="!state?.hideSupplier" class="brand product-name"> <span [style.color]="style?.baseColor"
+                    data-toggle="tooltip" [title]="product?.supplier_name" @fade>by {{product?.supplier_name}}</span>
+            </p>
+
+            <div class="price-div">
+                <p class="price price_number" [style.color]="style?.baseColor" @fade>{{currency}}
+                    {{product?.fixed_price}}
+                    <br>
+                    <span *ngIf="product?.discount" class="actual-price" [style.color]="style?.baseColor"
+                        @fade>{{currency}}
+                        {{product?.display_price}}</span>
+                </p>
+
+                <p *ngIf="settings?.is_product_weight == 1" [style.color]="style.baseColor">Weight:
+                    {{product?.duration}}gm</p>
+
+                <app-quantity-buttons *ngIf="!isOutOfStock" [disabled]="!!state.hideQuantity" [style]="style"
+                    [settings]="settings" [selectedQuantity]="product?.selectedQuantity" (onAdd)="increaseValue()"
+                    (onRemove)="decreaseValue()" @fade>
+                </app-quantity-buttons>
+                <div class="customisable"> <span *ngIf="product.adds_on && product.adds_on.length"
+                        class="float-right customize-txt" [ngStyle]="{'color': style.primaryColor}"
+                        @fade>{{'Customizable' | translate}}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="1">
+
+        <div *ngIf="!settings?.is_single_vendor else singleVendor" class="categories-item-product-outter"
+            style="height: auto;" [ngClass]="{'out-of-stock':isOutOfStock}">
+           
+            <div class="categories-item-product-detail product-item" style="width: 80%;">
+                <div>
+                    <h2 class="ellipsis" data-toggle="tooltip" [title]="product?.name" [style.color]="style?.baseColor">
+                        {{product?.name}}</h2>
+                    <a *ngIf="settings.is_product_wishlist == 1" (click)="wishlist(!product?.is_favourite, product)">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Page-1" stroke="none" stroke-width="2"
+                                [attr.fill]="product?.is_favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                                <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                                    [attr.stroke]="product?.is_favourite ? style.primaryColor : style.baseColor">
+                                    <g id="ic_heart_fill">
+                                        <path
+                                            d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                            id="Combined-Shape-Copy"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+                <!-- <p data-toggle="tooltip" [title]="product?.supplier_name">by {{product?.supplier_name}}</p> -->
+                <p *ngIf="((product.product_desc).trim()).length > 70"
+                    [innerHtml]="(product.product_desc) | innerHtmlLimit: 90 | safe: 'html'"></p>
+                <p *ngIf="((product.product_desc).trim()).length <= 70"
+                    [innerHtml]="(product.product_desc) | safe: 'html'"></p>
+
+                <p *ngIf="settings?.is_product_weight == 1" [style.color]="style.baseColor">Weight:
+                    {{product?.duration}}gm</p>
+
+                <div class="product-price-tag">
+                    <h6> <span *ngIf="product?.discount"
+                            style="text-decoration: line-through; font-size: 16px; margin-right: 4px; opacity: 0.8;">{{currency}}{{product?.display_price}}</span>
+                        {{currency}}{{product?.fixed_price}}</h6>
+                    <div class="product-price-tag-addbtn" style="position: absolute; right: 28px;"
+                        *ngIf="!isOutOfStock">
+                        <app-quantity-buttons [disabled]="!!state.hideQuantity" [style]="style" [settings]="settings"
+                            [selectedQuantity]="product?.selectedQuantity" (onAdd)="increaseValue()" (quantityUpdate)="quantityUpdate($event)"
+                            (onRemove)="decreaseValue()">
+                        </app-quantity-buttons>
+                        <div class="customisable"> <span *ngIf="product.adds_on && product.adds_on.length"
+                                class="float-right customize-txt"
+                                [ngStyle]="{'color': style.primaryColor}">{{'Customizable' | translate}}
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="isOutOfStock" style="position: absolute; right: 28px;">
+                        {{'Out Of Stock' | translate}}
+                    </div>
+                </div>
+            </div>
+           <!--- <div class="categories-item-product-img">
+                
+                    <img appImage  [url]="product.image_path" [size]="'160x120'" [src]="product.image_path"
+                        style="cursor: pointer;" onError=""
+                        (click)="settings.product_detail== 1 ? productDetail(product) : porductDescription()" @fade>
+                </div> -->
+        </div>
+
+        <ng-template #singleVendor>
+
+            <div class="ecom-product-item">
+                <div class="ecom-product-image-block">
+                    <a>
+                        <img appImage *ngIf="product.image_path" [url]="product.image_path" [size]="'255x160'" [src]="product.image_path"
+                            onError="src = './assets/images/placeholder_image.svg';">
+                        <div class="img-overlayer"></div>
+                    </a>
+                    <div class="list-product-reviews">
+                        <div class="star_content">
+                            <!-- <rating [ngModel]="product?.avg_rating" [readonly]="true" [max]="5" [float]="true"></rating> -->
+                            <p-rating  [ngModel]="product?.avg_rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+                        </div>
+                        <div class="product-reviews-rate" [style.color]="style?.baseColor">
+                            <p>{{product?.avg_rating ? product?.avg_rating : 0}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="ecom-product-desc">
+                    <h3 class="h3 product-title ellipsis" itemprop="name" data-toggle="tooltip" [title]="product?.name">
+                        <a [style.color]="style?.baseColor">{{product?.name}}</a>
+                    </h3>
+                    <div class="product-price-and-shipping pricehv">
+                        <span itemprop="price" class="price" [style.color]="style?.baseColor">{{currency}}
+                            {{product?.fixed_price}}</span>
+                        <span class="regular-price" *ngIf="product?.discount"
+                            [style.color]="style?.baseColor">{{currency}} {{product?.display_price}}</span>
+                        <span *ngIf="settings?.is_product_weight == 1" itemprop="price" class="price" style="font-weight: 400; font-size: 14px;" [style.color]="style.baseColor"><br>Weight:
+                            {{product?.duration}}gm</span>
+
+                    </div>
+                    <div class="button-group">
+                        <div class="qv"
+                            (click)="settings.product_detail== 1 ? productDetail(product) : porductDescription()">
+                            <svg id="bquick" viewBox="0 0 459.529 459.529">
+                                <path d="M448.947,218.475c-0.922-1.168-23.055-28.933-61-56.81c-50.705-37.253-105.877-56.944-159.551-56.944
+                                          c-53.672,0-108.844,19.691-159.551,56.944c-37.944,27.876-60.077,55.642-61,56.81L0,228.397l7.846,9.923
+                                          c0.923,1.168,23.056,28.934,61,56.811c50.707,37.252,105.879,56.943,159.551,56.943c53.673,0,108.845-19.691,159.55-56.943
+                                          c37.945-27.877,60.078-55.643,61-56.811l7.848-9.923L448.947,218.475z M228.396,315.039c-47.774,0-86.642-38.867-86.642-86.642
+                                          c0-7.485,0.954-14.751,2.747-21.684l-19.781-3.329c-1.938,8.025-2.966,16.401-2.966,25.013c0,30.86,13.182,58.696,34.204,78.187
+                                          c-27.061-9.996-50.072-24.023-67.439-36.709c-21.516-15.715-37.641-31.609-46.834-41.478c9.197-9.872,25.32-25.764,46.834-41.478
+                                          c17.367-12.686,40.379-26.713,67.439-36.71l13.27,14.958c15.498-14.512,36.312-23.412,59.168-23.412
+                                          c47.774,0,86.641,38.867,86.641,86.642C315.037,276.172,276.17,315.039,228.396,315.039z M368.273,269.875
+                                          c-17.369,12.686-40.379,26.713-67.439,36.709c21.021-19.49,34.203-47.326,34.203-78.188s-13.182-58.697-34.203-78.188
+                                          c27.061,9.997,50.07,24.024,67.439,36.71c21.516,15.715,37.641,31.609,46.834,41.477
+                                          C405.91,238.269,389.787,254.162,368.273,269.875z"></path>
+                                <path d="M173.261,211.555c-1.626,5.329-2.507,10.982-2.507,16.843c0,31.834,25.807,57.642,57.642,57.642
+                                          c31.834,0,57.641-25.807,57.641-57.642s-25.807-57.642-57.641-57.642c-15.506,0-29.571,6.134-39.932,16.094l28.432,32.048
+                                          L173.261,211.555z"></path>
+                            </svg>
+                        </div>
+                        <div class="cart">
+                            <app-quantity-buttons [disabled]="!!state.hideQuantity" [style]="style"
+                                [settings]="settings" [selectedQuantity]="product?.selectedQuantity"
+                                (onAdd)="increaseValue()" (onRemove)="decreaseValue()">
+                            </app-quantity-buttons>
+                        </div>
+                        <div class="like" *ngIf="settings.is_product_wishlist == 1"
+                            (click)="wishlist(!product?.is_favourite, product)">
+                            <svg viewBox="0 0 129 129" id="heart">
+                                <path
+                                    d="m121.6,40.1c-3.3-16.6-15.1-27.3-30.3-27.3-8.5,0-17.7,3.5-26.7,10.1-9.1-6.8-18.3-10.3-26.9-10.3-15.2,0-27.1,10.8-30.3,27.6-4.8,24.9 10.6,58 55.7,76 0.5,0.2 1,0.3 1.5,0.3 0.5,0 1-0.1 1.5-0.3 45-18.4 60.3-51.4 55.5-76.1zm-57,67.9c-39.6-16.4-53.3-45-49.2-66.3 2.4-12.7 11.2-21 22.3-21 7.5,0 15.9,3.6 24.3,10.5 1.5,1.2 3.6,1.2 5.1,0 8.4-6.7 16.7-10.2 24.2-10.2 11.1,0 19.8,8.1 22.3,20.7 4.1,21.1-9.5,49.6-49,66.3z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="2">
+
+        <div class="categories-item-product-outter"
+            style="height: auto;" [ngClass]="{'out-of-stock':isOutOfStock}">
+            <div class="categories-item-product-img">
+                <img *ngIf="product.image_path" appImage [url]="product.image_path" [size]="'160x120'" [src]="product.image_path"
+                    style="cursor: pointer;" onError="src = './assets/images/placeholder_image.svg';"
+                    (click)="settings.product_detail== 1 ? productDetail(product) : porductDescription()" @fade>
+            </div>
+            <div class="categories-item-product-detail product-item" style="width: 70%;">
+                <div>
+                    <h2 class="ellipsis" data-toggle="tooltip" [title]="product?.name" [style.color]="style?.baseColor">
+                        {{product?.name}}</h2>
+                    <a *ngIf="settings.is_product_wishlist == 1" (click)="wishlist(!product?.is_favourite, product)">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Page-1" stroke="none" stroke-width="2"
+                                [attr.fill]="product?.is_favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                                <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                                    [attr.stroke]="product?.is_favourite ? style.primaryColor : style.baseColor">
+                                    <g id="ic_heart_fill">
+                                        <path
+                                            d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                            id="Combined-Shape-Copy"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </a>
+                </div>
+                <!-- <p data-toggle="tooltip" [title]="product?.supplier_name">by {{product?.supplier_name}}</p> -->
+                <p *ngIf="((product.product_desc).trim()).length > 70"
+                    [innerHtml]="(product.product_desc) | innerHtmlLimit: 70 | safe: 'html'"></p>
+                <p *ngIf="((product.product_desc).trim()).length <= 70"
+                    [innerHtml]="(product.product_desc) | safe: 'html'"></p>
+
+                <p *ngIf="settings?.is_product_weight == 1" [style.color]="style.baseColor">Weight: {{product?.duration}}gm</p>
+
+                <div class="product-price-tag">
+                    <h6> <span *ngIf="product?.discount"
+                            style="text-decoration: line-through; font-size: 16px; margin-right: 4px; opacity: 0.8;">{{currency}}{{product?.display_price}}</span>
+                        {{currency}}{{product?.fixed_price}}</h6>
+                    <div class="product-price-tag-addbtn" style="position: absolute; right: 28px;"
+                        *ngIf="!isOutOfStock">
+                        <app-quantity-buttons [disabled]="!!state.hideQuantity" [style]="style" [settings]="settings"
+                            [selectedQuantity]="product?.selectedQuantity" (onAdd)="increaseValue()" (quantityUpdate)="quantityUpdate($event)"
+                            (onRemove)="decreaseValue()">
+                        </app-quantity-buttons>
+                        <div class="customisable"> <span *ngIf="product.adds_on && product.adds_on.length"
+                                class="float-right customize-txt"
+                                [ngStyle]="{'color': style.primaryColor}">{{'Customizable' | translate}}
+                            </span>
+                        </div>
+                    </div>
+                    <div *ngIf="isOutOfStock" style="position: absolute; right: 28px;">
+                        {{'Out Of Stock' | translate}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </ng-template>
+
+</ng-container>

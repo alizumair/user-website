@@ -1,0 +1,32 @@
+export class CartProductModel {
+  productId: string;
+  selectedQuantity: number;
+  name: string;
+  supplier_name: string;
+  delivery_charges: number;
+  image_path: string;
+  fixed_price: number;
+  supplier_branch_id: number;
+  supplier_id: number;
+  can_urgent: number;
+  handling_admin: number;
+  handling_supplier: number;
+  price_type: number;
+  urgent_value: number;
+  urgent_type: number;
+  handingCharges: number;
+  unitId: number;
+  categoryId: number;
+  agent_list: number;
+  avg_rating: number;
+  is_quantity: number;
+  is_agent: number;
+  duration: number;
+  is_product: number;
+  category_flow: string;
+  customization: Array<any>;
+  adds_on: Array<any>;
+  supplier_logo: string;
+  distance: number;
+  product_desc: string;
+}

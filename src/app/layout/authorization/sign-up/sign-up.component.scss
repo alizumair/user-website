@@ -1,0 +1,182 @@
+.phone {
+  width: 300px !important;
+
+  p {
+    font-size: 11px;
+    text-align: center;
+  }
+}
+
+.pd {
+  padding: 0px 5px !important;
+}
+
+small {
+  text-align: center;
+}
+
+.add-profile-pic {
+  width: 140px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 30px;
+
+
+  .img {
+    width: 130px;
+    height: 130px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+    }
+  }
+
+  .add-pic {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.profile-input {
+  height: 30px;
+}
+
+.profile-input input[type="file"] {
+  text-indent: 800px;
+    font-size: 0;
+    width: 100%;
+    margin-top: 2px;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    overflow: hidden;
+    top: -114px;
+    height: 107px !important;
+    background: transparent !important;
+    outline: none;
+    border-radius: 50%;
+    border: none;
+    box-shadow: none;
+}
+
+.change-image{
+  margin-top: -25px;
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 12px;
+  span {
+    cursor: pointer;
+  }
+}
+
+// .login-title h5{
+//   margin: 30px 0px -10px;
+// }
+
+.back {
+  position: absolute;
+  font-weight: 600;
+  font-size: 16px;
+  bottom: 0;
+  left: 43%;
+  cursor: pointer;
+  i {
+    font-size: 13px;
+  }
+}
+
+/*************************** Checkbox css start *****************************/
+input[type=checkbox] + label {
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label:before {
+  content: "\2714";
+  border: 0.1em solid #dddddd;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding-left: 2px;
+  padding-bottom: 0px;
+  margin-right: 10px;
+  // vertical-align: bottom;
+  color: transparent;
+  -webkit-transition: .2s;
+  transition: .2s;
+  padding-top: 1px;
+  line-height: 18px;
+}
+
+input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+
+input[type=checkbox]:checked + label:before {
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
+  color: #fff;
+}
+
+input[type=checkbox]:disabled + label:before {
+  // transform: scale(1);
+  border-color: #aaa;
+}
+
+input[type=checkbox]:checked:disabled + label:before {
+  transform: scale(1);
+  background-color: #bfb;
+  border-color: #bfb;
+}
+
+/***************************** Checkbox css end ************************/
+
+.document-upload {
+  
+  .add-document {
+    margin-top: 10px;
+    border: 1px solid green;
+    border-radius: 4px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+
+    input {
+      display: none;
+    }
+
+    img {
+      height: 25px;
+      width: 25px;
+      cursor: pointer;
+      margin-right: 6px;
+    }
+  }
+
+  .document {
+
+    span {
+      margin-right: 12px;
+    }
+    .remove {
+      cursor: pointer;
+    }
+    ul {
+      padding-left: 16px;
+    }
+  }
+}
+
+.document-disabled {
+  opacity: 0.6;
+  cursor: default;
+}

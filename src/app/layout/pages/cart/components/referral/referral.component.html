@@ -1,0 +1,27 @@
+<ng-container *ngIf="settings?.app_type == 2 && settings?.selected_template == 2; else theme1">
+    <div class="price_details theme1_custom_div"
+        [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor }">
+
+        <div class="referral-cart">
+            <a *ngIf="referral_amount" [style.color]="style?.primaryColor"
+                (click)="applyReferral()">{{referral_applied ? 'Remove' : 'Apply'}}</a>
+            <h6><i *ngIf="referral_applied" class="fa fa-check-circle-o applied"></i>Your Referral Amount : {{currency}}
+                {{referral_amount}}</h6>
+        </div>
+
+    </div>
+</ng-container>
+
+<ng-template #theme1>
+    <div class="price_details"
+        [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor }">
+
+        <div class="referral-cart">
+            <a *ngIf="referral_amount" [style.color]="style?.primaryColor"
+                (click)="applyReferral()">{{referral_applied ? 'Remove' : 'Apply'}}</a>
+            <h6><i *ngIf="referral_applied" class="fa fa-check-circle-o applied"></i>Your Referral Amount : {{currency}}
+                {{referral_amount}}</h6>
+        </div>
+
+    </div>
+</ng-template>

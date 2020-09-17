@@ -1,0 +1,40 @@
+.input-group {
+  float: none;
+}
+
+.buy-now {
+  float: right;
+  font-size: 12px;
+  border: 2px solid black;
+  padding: 2px 8px;
+  border-radius: 30px;
+  margin-top: -26px;
+  cursor: pointer;
+  background-color: #ffffff00;
+  position: relative;
+  font-weight: 500;
+}
+
+.underline {
+  text-decoration: none;
+  margin-top: 20px;
+  border-bottom: 2px solid #ffff;
+}
+
+
+.supp-prescription {
+  margin-top: 70px;
+  // margin-bottom: -50px;
+  text-align: right;
+}
+
+.sup-description p {
+  width: 100% !important;
+}
+
+.chat-sup {
+  position: absolute;
+  width: 250px;
+  top: -100px;
+  right: 24px;
+}

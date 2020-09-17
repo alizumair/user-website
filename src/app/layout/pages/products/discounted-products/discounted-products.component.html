@@ -1,0 +1,66 @@
+<div class="container"
+  *ngIf="(settings?.selected_template == 0 && settings?.app_type == 1) || ([2,8].includes(settings.app_type) && settings?.selected_template != 3)">
+  <div class="reccom-main_section">
+    <h2 [style.color]="style?.baseColor" style="margin-top: 20px">Offered {{'products' | localization | translate}}</h2>
+    <div class="row">
+      <ng-container *ngIf="!isLoading; else skeleton">
+        <div class="col-6 col-md-6 col-xl-4 col-lg-4 col-sm-6" *ngFor="let offer of specialOffers">
+          <app-product [product]="offer" [darkTheme]="isDarkTheme" [settings]="settings" [style]="style"
+            [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)"></app-product>
+        </div>
+      </ng-container>
+
+      <ng-template #skeleton>
+        <div class="skeleton col-6 col-md-6 col-xl-4 col-lg-4 col-sm-6" *ngFor="let offer of util.generateFakeList(8)">
+          <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 30px;" *ngIf="settings?.selected_template == 1 && settings?.app_type == 1">
+
+  <div class="categories-item-products">
+    <div class="row">
+      <ng-container *ngIf="!isLoading; else skeleton">
+        <div class="col-md-6" *ngFor="let offer of specialOffers">
+          <app-product [product]="offer" [darkTheme]="isDarkTheme" [settings]="settings" [style]="style"
+            [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)"></app-product>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <ng-template #skeleton>
+    <div class="skeleton col-md-6" *ngFor="let offer of util.generateFakeList(8)">
+      <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+    </div>
+  </ng-template>
+
+</div>
+
+<div class="container offers" *ngIf="settings?.selected_template == 3 && settings?.app_type == 2">
+  <div class="row">
+
+    <ng-container *ngIf="!isLoading; else skeleton">
+      <div class="col-md-4" *ngFor="let offer of specialOffers.slice(0,3)">
+        <div class="offer-div cursor" (click)="productDetail(offer)">
+          <img
+           appImage [url]="offer?.image_path" [size]="'550x650'" [src]="offer?.image_path"
+            onError="src = './assets/images/placeholder_image.svg'" alt="Image 1" class="cursor"
+            (click)="categoryDetail(category)">
+
+          <h4 data-toggle="tooltip" [title]="offer?.name">{{offer?.name}}</h4>
+          <div class="offer-discount" *ngIf="offer?.discount" style="min-height: 20px; line-height: 24px;">
+            {{offer?.discount}}% <span>off</span></div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <ng-template #skeleton>
+    <div class="skeleton col-md-4" *ngFor="let offer of util.generateFakeList(3)">
+      <img>
+    </div>
+  </ng-template>
+</div>

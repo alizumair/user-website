@@ -1,0 +1,114 @@
+<div *ngIf="settings?.selected_template == 0; else  home_template_selection">
+    <div class="w-100">
+        <app-banner></app-banner>
+    </div>
+
+    <app-popular-products></app-popular-products>
+
+    <app-about *ngIf="settings?.template_section == 1" [settings]="settings" [style]="style"></app-about>
+
+    <section class="ittab" *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length">
+        <div class="container">
+            <app-special-offers [isLoading]="isLoading" [offerData]="homeData?.offerEnglish" id="1">
+            </app-special-offers>
+        </div>
+    </section>
+
+    <app-brands *ngIf="showBrands" id="2"></app-brands>
+
+    <section class="ittab" *ngIf="recentlyViewed?.length">
+        <div class="container">
+            <app-ecom-recently-viewed [settings]="settings" [style]="style" [recentlyViewed]="recentlyViewed"
+                [isLoading]="isLoading"></app-ecom-recently-viewed>
+        </div>
+    </section>
+
+    <app-recommended-suppliers
+        *ngIf="!settings?.is_single_vendor && homeData?.SupplierInArabic && homeData?.SupplierInArabic?.length"
+        [recommendedData]="homeData?.SupplierInArabic" [isLoading]="isLoading" id="3">
+    </app-recommended-suppliers>
+</div>
+
+
+<ng-template #home_template_selection>
+
+    <ng-container [ngSwitch]="settings?.selected_template">
+
+        <ng-template [ngSwitchCase]="1">
+            <div class="w-100">
+                <app-ecom-banner [settings]="settings" [style]="style"></app-ecom-banner>
+            </div>
+            <section id="content">
+                <div class="content-wrap nopadding">
+                    <app-ecom-recommended-suppliers
+                        *ngIf="homeData?.SupplierInArabic && homeData?.SupplierInArabic?.length"
+                        [recommendedData]="homeData?.SupplierInArabic" [isLoading]="isLoading" [settings]="settings"
+                        [style]="style"></app-ecom-recommended-suppliers>
+
+                    <app-ecom-brands *ngIf="showBrands" [style]="style"></app-ecom-brands>
+                    <app-ecom-popular-products [settings]="settings" [style]="style"></app-ecom-popular-products>
+                    <app-ecom-special-offers *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                        [offerData]="homeData?.offerEnglish" [isLoading]="isLoading" [settings]="settings"
+                        [style]="style">
+                    </app-ecom-special-offers>
+                    <app-ecom-recently-viewed *ngIf="recentlyViewed.length" [settings]="settings" [style]="style"
+                        [recentlyViewed]="recentlyViewed" [isLoading]="isLoading"></app-ecom-recently-viewed>
+                </div>
+            </section>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="2">
+            <div class="w-100">
+                <app-ecom-banner [settings]="settings" [style]="style"></app-ecom-banner>
+            </div>
+            <section id="content" [style.background]="'transparent'">
+                <div class="content-wrap nopadding ecom-theme-3">
+                    <app-ecom-recommended-suppliers
+                        *ngIf="homeData?.SupplierInArabic && homeData?.SupplierInArabic?.length"
+                        [recommendedData]="homeData?.SupplierInArabic" [isLoading]="isLoading" [settings]="settings"
+                        [style]="style"></app-ecom-recommended-suppliers>
+
+                    <app-ecom-brands *ngIf="showBrands" [style]="style"></app-ecom-brands>
+                    <app-ecom-popular-products [settings]="settings" [style]="style"></app-ecom-popular-products>
+                    <app-ecom-special-offers *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                        [offerData]="homeData?.offerEnglish" [isLoading]="isLoading" [settings]="settings"
+                        [style]="style">
+                    </app-ecom-special-offers>
+                </div>
+            </section>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="3">
+            <div class="w-100">
+                <app-ecom-banner [settings]="settings" [style]="style"></app-ecom-banner>
+            </div>
+            <section id="content" [style.background]="'transparent'">
+                <div class="content-wrap nopadding ecom-theme-3">
+                    <app-ecom-categories [categoryId]="null"></app-ecom-categories>
+                    <app-ecom-about [settings]="settings" [style]="style"></app-ecom-about>
+                </div>
+            </section>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="4">
+            <div class="w-100">
+                <app-ecom-banner [settings]="settings" [style]="style"></app-ecom-banner>
+            </div>
+            <section id="content">
+                <div class="content-wrap nopadding">
+                    <app-ecom-mega-menu></app-ecom-mega-menu>
+                    <app-ecom-today-offer *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                        [offerData]="homeData?.offerEnglish" [settings]="settings"></app-ecom-today-offer>
+                    <app-ecom-popular-products [settings]="settings" [style]="style"></app-ecom-popular-products>
+                    <app-ecom-special-offers *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                        [offerData]="homeData?.offerEnglish" [isLoading]="isLoading" [settings]="settings"
+                        [style]="style">
+                    </app-ecom-special-offers>
+                    <app-ecom-recently-viewed *ngIf="recentlyViewed.length > 2" [settings]="settings" [style]="style"
+                        [recentlyViewed]="recentlyViewed" [isLoading]="isLoading"></app-ecom-recently-viewed>
+                    <app-ecom-brands *ngIf="showBrands" [style]="style" [settings]="settings"></app-ecom-brands>
+                </div>
+            </section>
+        </ng-template>
+    </ng-container>
+</ng-template>

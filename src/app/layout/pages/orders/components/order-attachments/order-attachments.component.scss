@@ -1,0 +1,35 @@
+h4 {
+    color: var(--baseColor);
+}
+
+.box {
+    border: 1px solid #ececec;
+    border-radius: 20px;
+    margin: 10px 0px;
+    background-color: var(--cardBackgroundColor);
+}
+
+.prescription {
+    padding: 15px;
+}
+
+.prescription ul {
+    display: inline-flex;
+}
+
+.prescription li {
+    margin-right: 15px;
+    list-style-type: none;
+}
+
+.prescription li img {
+    height: 70px;
+    width: 70px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.instructions {
+    padding: 15px;
+    overflow: auto;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="20px" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.6 (67491) - http://www.bohemiancoding.com/sketch -->
+    <title>ic_location</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_location" stroke="#FFFFFF" stroke-width="1.28571429">
+            <path d="M7.7319865,18.2777836 L12.7384013,13.1283284 C15.515354,10.2720341 15.515354,5.6337667 12.7384013,2.77747242 C9.9713074,-0.0686812831 5.4926656,-0.0686812831 2.72557172,2.77747242 C-0.0513810489,5.6337667 -0.0513810489,10.2720341 2.72557172,13.1283284 C4.57687357,15.0325246 6.24567849,16.7490097 7.7319865,18.2777836 Z" id="Rectangle-2"></path>
+            <ellipse id="Oval" cx="7.77777778" cy="8" rx="2.24603175" ry="2.32857143"></ellipse>
+        </g>
+    </g>
+</svg>

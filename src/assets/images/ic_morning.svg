@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="24px" viewBox="0 0 32 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>ic_morning</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-321.000000, -104.000000)" stroke="#909090">
+            <g id="ic_morning" transform="translate(321.000000, 100.000000)">
+                <g id="Group" transform="translate(0.000000, 5.333333)">
+                    <path d="M21.979118,18.9520135 C22.4192893,18.0621761 22.6666667,17.0599771 22.6666667,16 C22.6666667,12.3181017 19.6818983,9.33333333 16,9.33333333 C12.3181017,9.33333333 9.33333333,12.3181017 9.33333333,16 C9.33333333,17.0443793 9.57348384,18.0326683 10.0015757,18.9126581" id="Oval-5" stroke-width="1.33333333"></path>
+                    <path d="M16,4.93252794 L16,0.129750153 M22.5602279,7.32025561 L25.6473939,3.64111437 M26.0508522,13.3661943 L30.780665,12.5322007 M5.94914781,13.3661943 L1.21933501,12.5322007 M9.43977214,7.32025561 L6.35260609,3.64111437" id="Line" stroke-width="1.33333333" stroke-linecap="square"></path>
+                    <path d="M28,21.3333333 C20.3427506,17.8495193 11.6971345,17.7792253 4,21.1224515" id="Oval-4" stroke-width="1.33333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,44 @@
+<ng-container *ngIf="settings?.app_type == 1">
+  <div class="reccom-main_section">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="pizza-title" [style.color]="style.baseColor">{{'top_suppliers_near_you' | localization | translate}}</h2>
+      </div>
+      <div class="col-md-6" [ngStyle]="{'text-align': 'center','right': '20px'}">
+        <app-supplier-sorting [style]="style" (onSort)="onSortBy($event)">
+        </app-supplier-sorting>
+      </div>
+    </div>
+
+    <div class="row">
+      <ng-container *ngIf="!isLoading; else skeleton">
+        <ng-container *ngIf="allSuppliers && allSuppliers.length > 0; then data else noData"></ng-container>
+        <ng-template #data>
+          <div class="col-6 col-md-6 col-xl-4 col-lg-4 col-sm-6" *ngFor="let supplier of allSuppliers.slice(0,8)">
+            <app-supplier [supplier]="supplier" [style]="style" [settings]="settings" [darkTheme]="isDarkTheme">
+            </app-supplier>
+          </div>
+          <div class="see_more-btn" *ngIf="allSuppliers.length > 8">
+            <button [ngStyle]="{'border-color': style.primaryColor, 'color': style.primaryColor}" class="btn btn-large"
+              (click)="onSeeMore()">{{'See More' | translate}}</button>
+          </div>
+        </ng-template>
+        <ng-template #noData>
+          <div class="home-no-data">
+            <h2 [style.color]="style.baseColor">{{'No'| translate}} {{'suppliers' | localization | translate}}
+              {{'Found' | translate}}</h2>
+          </div>
+        </ng-template>
+
+      </ng-container>
+
+      <ng-template #skeleton>
+        <div class="skeleton col-6 col-md-6 col-xl-4 col-lg-4 col-sm-6"
+          *ngFor="let supplier of util.generateFakeList(4)">
+          <app-supplier-skeleton [style]="style" [settings]="settings"></app-supplier-skeleton>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</ng-container>

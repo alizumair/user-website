@@ -1,0 +1,96 @@
+form {
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.presription-image-upload {
+    input {
+        display: none;
+    }
+
+    .add-image {
+        border: 1px solid #0000002e;
+        border-radius: 4px;
+        padding: 15px 25px;
+        text-align: center;
+        cursor: pointer;
+
+        .dummy {
+            height: 100px;
+
+            img {
+                height: 70px;
+            }
+
+            p {
+                font-weight: 600;
+                color: #00000069;
+                margin-top: 10px;
+            }
+        }
+
+        .image {
+            height: 200px;
+
+            img {
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
+
+    }
+
+    .active {
+        border: 2px solid var(--primaryColor);
+      }
+
+    .in-active {
+          border: 1px solid var(--secondaryColor);
+      }
+
+    .default_address  {
+          border-radius: 5px;
+      }
+
+   .no-data {
+        margin: 0px;
+        a {
+            color: var(--primaryColor);
+        }
+    }
+}
+
+.loader-pres {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1100;
+    /* background-color: #ffffff7a; */
+    display: block;
+    display: block;
+    text-align: center;
+    background-color: rgba(200, 200, 200, 0.7);
+
+    .spinner-pres {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -55px;
+        margin-top: -60px;
+        display: block;
+        z-index: 1200;
+        opacity: 1;
+        /* background-color: white; */
+        border-radius: 10px;
+        padding: 4px;
+
+        img {
+            height: 105px;;
+        }
+    }
+}

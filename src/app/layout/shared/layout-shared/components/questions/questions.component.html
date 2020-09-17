@@ -1,0 +1,81 @@
+<div class="questions">
+    <a class="close" (click)="close()"><i class="fa fa-times"></i></a>
+
+    <div *ngIf="!isLoading; else skeleton">
+        <div class="top">
+            <h3 [style.color]="style?.primaryColor">{{questions[questionIndex]?.question}}</h3>
+        </div>
+
+        <div class="options">
+            <ng-container *ngIf="questions[questionIndex].questionTypeSelection == 1; then single else multi">
+            </ng-container>
+            <ng-template #single>
+                <div *ngFor="let option of questions[questionIndex]?.optionsList; let i = index">
+                    <div class="w-100">
+                        <input class="mr-2" type="radio" [value]="option?.optionLabel" [id]="'option-' + i"
+                            [checked]="option.isSelected" (change)="selectOption(i)" name="question">
+                        <label [for]="'option-' + i" [style.color]="style.baseColor">{{option?.optionLabel}}</label>
+                        <strong class="float-right" *ngIf="option.valueChargeType == 1 && option?.flatValue"
+                            [style.color]="style.primaryColor">
+                            {{ currency }} {{option?.flatValue}}
+                        </strong>
+                        <div class="float-right" *ngIf="option.valueChargeType != 1 && option.percentageValue">
+                            <strong [style.color]="style.primaryColor">
+                                {{ option.percentageValue + "%"}} <span>of service</span>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #multi>
+                <div *ngFor="let option of questions[questionIndex]?.optionsList; let i = index">
+                    <div class="w-100">
+                        <input class="mr-2" type="checkbox" [id]="'option-' + i" [checked]="option.isSelected"
+                            (change)="option.isSelected = !option.isSelected; selectOption(i)" name="question">
+                        <label [for]="'option-' + i" [style.color]="style.baseColor">{{option?.optionLabel}}</label>
+                        <strong class="float-right" *ngIf="option.valueChargeType == 1 && option?.flatValue"
+                            [style.color]="style.primaryColor">
+                            {{ currency }} {{option?.flatValue}}
+                        </strong>
+                        <div class="float-right" *ngIf="option.valueChargeType != 1 && option.percentageValue">
+                            <strong [style.color]="style.primaryColor">
+                                {{ option.percentageValue + "%"}} <span>of service</span>
+                            </strong>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="row">
+            <div class="col text-left">
+                <p class="info-text">**Add-on will be calculated on the base price of the services.</p>
+            </div>
+            <div class="col text-right">
+                <button class="btn back-btn" [disabled]="!questionIndex" (click)="onBack()">Back</button>
+                <button class="btn" [disabled]="isLoading || !selectedOptions.length"
+                    (click)="submit()">{{questions.length > questionIndex + 1 ? 'Next' : 'Submit'}}</button>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<ng-template #skeleton>
+    <div class="skeleton">
+        <div class="top">
+            <h3 [style.color]="style?.baseColor" @fade></h3>
+        </div>
+
+        <div class="options">
+
+            <div *ngFor="let item of util.generateFakeList(3)">
+                <h2 class="w-100 rounded-0"></h2>
+            </div>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,308 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<section id="become_A_Driver_page">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="become_a_driver_info_outter">
+                    <div class="become_a_driver_info">
+                        <h1>Become a Driver</h1>
+
+                        <div class="profile_img_upload">
+                            <img [src]="image ? image : 'assets/images/placeholder-user.png'"
+                                onError="src = './assets/images/placeholder-user.png';">
+                            <p (click)="fileInput.click()" class="cursor">Add Profile Picture</p>
+                            <input type="file" style="display: none;" accept="image/*" (change)="onImageSelect($event)"
+                                #fileInput>
+                        </div>
+                    </div>
+                    <!-- <div class="Chossee_resturants">
+                        <ul>
+                            <li>
+                                <label class="container-Chossee_resturants">All Resturant
+                                    <input type="radio" checked="checked" name="All Resturant">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </li>
+                            <li>
+                                <label class="container-Chossee_resturants">Choose Resturant
+                                    <input type="radio" name="All Resturant">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </li>
+                        </ul>
+                    </div> -->
+
+                    <div class="Chossee_resturants_form">
+                        <form [formGroup]="agentForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Driver Name</label>
+                                        <input type="text" placeholder="Driver Name" formControlName="name">
+                                        <div *ngIf="submitted && form.name.errors" class="alert alert-danger error">
+                                            <div *ngIf="form.name.errors.required">Please enter Name.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Driver Email</label>
+                                        <input type="email" placeholder="Driver Email" formControlName="email">
+                                        <div *ngIf="submitted && form.email.errors" class="alert alert-danger error">
+                                            <div *ngIf="form.email.errors.required">Please enter Email.</div>
+                                            <div *ngIf="form.email.errors.email">Please enter valid Email.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Agent Mobile number</label>
+                                        <ngx-intl-tel-input [selectedCountryISO]="countryISO"
+                                            [preferredCountries]="preferredCountries" (focus)="submitted= false"
+                                            [searchCountryFlag]="true" placeholder="Phone Number"
+                                            [enableAutoCountrySelect]="false" [enablePlaceholder]="true"
+                                            [separateDialCode]="true" [phoneValidation]="true"
+                                            formControlName="phone_number">
+                                        </ngx-intl-tel-input>
+                                        <div *ngIf="submitted && form.phone_number?.errors"
+                                            class="alert alert-danger error">
+                                            <div *ngIf="form.phone_number?.errors.required">
+                                                {{'Please enter Phone Number.' | translate}}</div>
+                                            <div
+                                                *ngIf="!form.phone_number?.errors.required && form.phone_number?.invalid">
+                                                {{'Please Enter a Valid Phone Number.' | translate}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Address</label>
+                                        <input type="text" placeholder="Address" formControlName="address"
+                                            appGoogleplace (onSelect)="addressSearch($event)">
+                                        <div *ngIf="submitted && form.address.errors" class="alert alert-danger error">
+                                            <div *ngIf="form.address.errors.required">Please enter Address.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Driver's License number</label>
+                                        <input type="text" placeholder="Enter License number" formControlName="driver_license_number">
+                                        <div *ngIf="submitted && form.driver_license_number.errors" class="alert alert-danger error">
+                                            <div *ngIf="form.driver_license_number.errors.required">Please enter Driver's License number.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Car Model</label>
+                                        <input type="text" placeholder="Enter Car Model" formControlName="car_model">
+                                        <div *ngIf="submitted && form.car_model.errors" class="alert alert-danger error">
+                                            <div *ngIf="form.car_model.errors.required">Please enter car model.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Car Color</label>
+                                        <input type="text" placeholder="Car Color" formControlName="car_color">
+                                        <div *ngIf="submitted && form.car_color.errors" class="alert alert-danger error">
+                                            <div *ngIf="form.car_color.errors.required">Please enter car color.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Password</label>
+                                        <input type="password" placeholder="Password" formControlName="password">
+                                        <div *ngIf="submitted && form.password.errors" class="alert alert-danger error">
+                                            <div *ngIf="form.password.errors.required">Please enter password.</div>
+                                            <div *ngIf="form.password.errors.minLength">Password length cannot be less
+                                                than 6.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-6">
+                                    <div class="Chossee_resturants_group">
+                                        <label>Car Color</label>
+                                        <select>
+                                            <option>red</option>
+                                            <option>red</option>
+                                            <option>red</option>
+                                            <option>red</option>
+                                        </select>
+                                    </div>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <div class="Chossee_resturants_group car-insured-outter">
+                                        <label>Is your car insured?</label>
+                                        <ul class="car-insured">
+                                            <li>
+                                                <label class="container-Chossee_resturants">Yes
+                                                    <input type="radio" value="1" [checked]="agentForm.value.is_car_insured == 1" formControlName="is_car_insured">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="container-Chossee_resturants">No
+                                                    <input type="radio" value="0" [checked]="agentForm.value.is_car_insured == 0" formControlName="is_car_insured">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12" *ngIf="agentForm.value.is_car_insured == 1">
+                                    <div class="insurance_requirements">
+                                        <h4>Insurance requirements</h4>
+                                        <ul>
+                                            <li>To become a Flavor driver for Local Flavor KC you must provide proof of
+                                                vehicle insurance.
+                                            </li>
+                                            <li>You must have comprehensive or 3rd party property damage coverage (
+                                                Liability Insurance)
+                                            </li>
+                                            <li>You must be listed as an insured driver on the policy, even if the
+                                                vehicle you are driving is owned by someone else.
+                                            </li>
+                                            <li>The insurance policy must display an effective and expiry date
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-12"  *ngIf="agentForm.value.is_car_insured == 1">
+                                    <div class="Chossee_resturants_group car-insured-outter">
+                                        <label>Do you agree to insurance requirements?</label>
+                                        <ul class="car-insured">
+                                            <li>
+                                                <label class="container-Chossee_resturants">Yes
+                                                    <input type="radio" value="1" [checked]="agentForm.value.is_agreeed == 1" formControlName="is_agreeed">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="container-Chossee_resturants">No
+                                                    <input type="radio" value="0" [checked]="agentForm.value.is_agreeed == 0" formControlName="is_agreeed">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="upload_insurance_documents">
+                                        <h3 (click)="fileDocument.click()" class="cursor">Upload Insurance Documnets
+                                        </h3>
+                                        <input type="file" style="display: none;" (change)="onDocumentSelect($event)"
+                                            #fileDocument>
+                                    </div>
+                                    <div class="row Uploaded_Documnets">
+                                        <div class="col-md-6">
+                                            <p>Uploaded Documnets ------</p>
+                                        </div>
+                                        <div class="col-md-6" *ngIf="documents.length">
+                                            <a> <span *ngFor="let document of documents; let i = index"><span
+                                                        *ngIf="i > 0"> &nbsp;,</span>{{document?.name}}</span>
+                                                <p class="cursor" (click)="removeDocument()">X</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="uploaded_link">
+                                        <a href="">link//insurance2512LKopdriver:complete fom456
+                                        </a>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="submit_value">
+                                        <button type="submit" [disabled]="agentForm.value.is_agreeed == 0 && agentForm.value.is_car_insured == 1" [ngClass]="agentForm.value.is_agreeed == 0 && agentForm.value.is_car_insured == 1 ? 'btn-disabled' : ''" class="btn">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="become_driver">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="become_driver_text">
+                    <h3>Become a Driver</h3>
+                    <p>Our delivery drivers will be in Local Flavor KC uniforms and will be delivering
+                        your food in thermal-insulated carriers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="key_benifits">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="key_text">
+                    <h3><strong>Key</strong> Benefits</h3>
+                </div>
+            </div>
+            <div class="row key_benifits_box">
+                <div class="col-md-4 col-sm-4">
+                    <div class="Key_Benifits_outter">
+                        <div class="Key_Benifits_image">
+                            <img src="/assets/images/food/first.svg">
+                        </div>
+                        <h5>Minimum guarantee delivery fee per delivery</h5>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="Key_Benifits_outter">
+                        <div class="Key_Benifits_image">
+                            <img src="/assets/images/food/Second.svg">
+                        </div>
+                        <h5>Work your own schedule</h5>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4">
+                    <div class="Key_Benifits_outter">
+                        <div class="Key_Benifits_image">
+                            <img src="/assets/images/food/Third.svg">
+                        </div>
+                        <h5>Daily cash out available</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="Success_your_story">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="Success_your_story_text">
+                    <h3>OUR SUCCESS <strong>IS YOUR SUCCESS</strong></h3>
+                </div>
+            </div>
+            <div class="row Success_your_story_box">
+                <div class="col-md-6">
+                    <div class="Success_your_story_outter">
+                        <img src="/assets/images/food/map-1.svg">
+                        <h5>Globally Expanding</h5>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="Success_your_story_outter">
+                        <img src="/assets/images/food/store-1.svg">
+                        <h5>covering multiple restaurants
+                            and expanding</h5>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>ic_tracker</title>
+    <desc>Created with Sketch.</desc>
+    <g id="app" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-13" transform="translate(1.000000, 1.000000)">
+            <circle id="Oval" fill="#E84284" cx="7" cy="7" r="7"></circle>
+            <path d="M7.05776367,2.8 C7.95383684,4.87333646 8.40124895,6.28894518 8.4,7.04682617 C8.39875105,7.80470716 7.94672468,9.18909844 7.0439209,11.2 C6.07990496,9.3118273 5.59859799,7.94236115 5.6,7.09160156 C5.60140201,6.24084197 6.08732323,4.81030812 7.05776367,2.8 Z" id="Rectangle" fill="#F5F7FB" transform="translate(7.000000, 7.000000) rotate(-315.000000) translate(-7.000000, -7.000000) "></path>
+            <circle id="Oval" fill="#E84284" cx="6.9730835" cy="6.97504883" r="1"></circle>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,51 @@
+<ng-container *ngIf="!!products?.length; then data; else noData"></ng-container>
+
+<ng-template #data>
+  <ng-container *ngIf="settings?.app_type == 2 && settings?.selected_template == 2; else theme1">
+    <div class="">
+      <table class="p-table table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Qty.</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <div *ngFor="let product of products; let index = index">
+            <app-cart-product [settings]="settings" [style]="style" [product]="product" (remove)=removeFromCart(index)
+              (onPlus)="add(product, index)" (onMins)="mins(product, index)"
+              (onCustomizationUpdate)="updateCustomizationQuantity($event, index)"></app-cart-product>
+          </div>
+      </table>
+    </div> 
+  </ng-container>
+
+  <ng-template #theme1>
+    <div class="items_added_outter_box">
+      <h4 [ngStyle]="{backgroundColor: style.cardBackgroundColor, color: style.baseColor}">
+        {{ settings?.app_type == 8 ? "Services Added"  :  "Items Added" | translate }}
+        ({{settings?.app_type == 8 && settings?.laundary_service_flow == 0 ? products.length : totalItems }})
+      </h4>
+    </div>
+
+    <div *ngFor="let product of products; let index = index" class="single-item-wrap">
+      <app-cart-product [settings]="settings" [style]="style" [product]="product" (remove)=removeFromCart(index)
+        (onPlus)="add(product, index)" (onMins)="mins(product, index)"
+        (onCustomizationUpdate)="updateCustomizationQuantity($event, index)"></app-cart-product>
+    </div>
+  </ng-template>
+
+</ng-template>
+
+<ng-template #noData>
+  <div class="empty-cart" [ngStyle]="{'border-color': darkTheme ? style.baseColor : style.cardBackgroundColor}">
+    <img [src]="settings.placeholder.empty_cart.web || '/assets/images/empty-cart' + settings.app_type + '.png'"
+      height="150" width="200">
+    <h5 [style.color]="style.baseColor">{{'emptyCartMsg' | localization}} </h5>
+    <p>
+      <a [style.color]="style.primaryColor" [routerLink]="['/']"
+        class="next-btn">{{"Continue" | translate }}</a>
+    </p>
+  </div>
+</ng-template>

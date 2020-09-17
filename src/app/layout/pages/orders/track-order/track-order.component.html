@@ -1,0 +1,55 @@
+<!--================ Start Page Breadcrumb Page ================-->
+<div class="page_breadcrumb" [style.background-color]="style.backgroundColor">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <ul>
+          <li><a href="javascript:void(0)" [routerLink]="['/orders/order-detail']" [queryParams]="{orderId: orderId}"
+              [style.color]="style.baseColor">{{'order' | localization}} Detail</a></li>
+          <li><a class="active" href="javascript:void(0)" class="uk-text-bold"
+              [style.color]="style.baseColor">{{'order' | localization}}
+              Tracking</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--================ End Page Breadcrumb Page ================-->
+
+<!--================ Start Tracking Page ================-->
+<section class="product_result_body pb-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col">
+            <h3 *ngIf="self_pickup == 0" [style.color]="style.baseColor">Track {{'agent' | localization }}</h3>
+            <h3 *ngIf="self_pickup == 1" [style.color]="style.baseColor">{{'supplier' | localization }} {{'location' | translate}}</h3>
+          </div>
+          <div class="col">
+            <h4 *ngIf="location.estimatedTimeInMinutes" [style.color]="style.primaryColor" class="text-right">Estimated Time Of Arrival :
+              {{location?.estimatedTimeInMinutes}}</h4>
+          </div>
+        </div>
+
+        <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <p *ngIf="location?.order_id" [style.color]="style.baseColor">{{'order' | localization}} No:
+          {{location?.order_id}}</p>
+      </div>
+      <div class="col-md-6">
+        <p class="float-right" [style.color]="location?.status | orderStatusColor">{{location?.status | orderStatus}}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div id="trackLocation"></div>
+      </div>
+    </div>
+  </div>
+</section>

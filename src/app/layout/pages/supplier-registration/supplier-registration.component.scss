@@ -1,0 +1,216 @@
+.catmod .checkboxdiv {
+    background-color: #fff;
+    position: absolute;
+    padding: 15px;
+    z-index: 9;
+    display: none;
+    border: 1px solid #5a616847;
+    border-radius: 4px;
+    top: 42px;
+  }
+  
+  .catmod .addcatbtn:focus + .checkboxdiv {
+    display: block;
+  }
+  
+  .catmod label {
+    display: block;
+  }
+  
+  .catmod label span {
+    float: right;
+    position: relative;
+    top: 4px;
+  }
+  
+  .supplier-reg .scroll {
+    height: 350px;
+    overflow: auto;
+  }
+  
+  .supplier-reg .form-group ul {
+    height: auto !important;
+  }
+  
+  .supplier-reg .subcat p {
+    font-size: 17px;
+    font-weight: 600;
+    color: #31a6b0;
+    padding-left: 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.14);
+    padding-top: 11px;
+  }
+  
+  .supplier-reg .form-group .scroll .subcat:first-child p {
+    border: none !important  ;
+  }
+  
+  .persinfo .form-group.last .box .items {
+    padding-bottom: 52px;
+  }
+
+  
+.checkbox {
+    margin-bottom: 0;
+  }
+  
+  .suppro .box {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+  }
+  
+  .suppro .box .top {
+    padding: 20px 15px 20px;
+    border-bottom: 1px solid #0000001f;
+  }
+  
+  .suppro .box h2 {
+    display: inline-block;
+  }
+  
+  .suppro .box .top ul {
+    float: right;
+    margin-top: -2px;
+  }
+  
+  .suppro .box .top ul li {
+    display: inline-block;
+  }
+  
+  .suppro .box .top ul li:last-child {
+    margin-left: 13px;
+  }
+  
+  .suppro .box .items li {
+    color: #4a4a4a;
+    font-size: 16px;
+    padding: 12px 27px 12px 15px;
+    position: relative;
+  }
+  
+  .suppro .box .items li a {
+    position: absolute;
+    right: 4px;
+    top: 11px;
+  }
+  
+  .suppro .box .items .active {
+    background-color: #eff8f9;
+  }
+  
+  .suppro .box .items .active:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 0 100px 100px 0;
+    background-color: var(--primaryColor);
+    width: 4px;
+  }
+  
+  .suppro .create {
+    color: var(--primaryColor);
+    display: block;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .secnav h1,
+  .chbuss h2,
+  .onbrrap .head h2 {
+    color: #4a4a4a;
+    font-size: 20px;
+  }
+  
+  .suppro .box button {
+    height: 40px;
+    border-radius: 4px;
+    background: linear-gradient(180deg, #57d2d9 0%, var(--primaryColor) 100%);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+    color: #ffffff;
+    font-size: 14px;
+    border: none;
+    width: 93%;
+    margin: 20px auto;
+    display: block;
+  }
+
+
+  
+.persinfo .suppro label {
+    margin-bottom: 0;
+    float: right;
+    margin-top: 6px;
+  }
+  
+  .persinfo .suppro label span,
+  table .check span,
+  .checkbox span,
+  .setting .box .check label span,
+  .login .box .checkbox span {
+    display: block;
+    float: right;
+    height: 13.33px;
+    width: 13.33px;
+    border: 1px solid var(--primaryColor);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .persinfo .suppro label input[type="checkbox"]:checked + span:after,
+  .stepth label input[type="radio"]:checked + span:after,
+  table input[type="checkbox"]:checked + span:after,
+  .checkbox input[type="checkbox"]:checked + span:after,
+  .setting .box .check label input[type="radio"]:checked + span:after,
+  .login .box .checkbox input[type="radio"]:checked + span:after {
+    content: "";
+    position: absolute;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: var(--primaryColor);
+    height: 100%;
+    width: 100%;
+    background-size: 14px;
+    cursor: pointer;
+    left: 0;
+  }
+
+  .formsec form .form-group label,
+.persinfo label,
+.onbstepone form label,
+.reporttop label,
+.addagent .form-group label {
+  /* opacity: 0.7; */
+  /* color: #484848; */
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 9px;
+  text-transform: uppercase;
+  color: #000000d4;
+}
+
+.persinfo .suppro label span,
+table .check span,
+.checkbox span,
+.setting .box .check label span,
+.login .box .checkbox span {
+  display: block;
+  float: right;
+  height: 13.33px;
+  width: 13.33px;
+  border: 1px solid var(--primaryColor);
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+.persinfo .suppro label input, .persinfo .labelrad input {
+    display: none;
+}

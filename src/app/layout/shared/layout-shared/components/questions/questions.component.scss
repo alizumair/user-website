@@ -1,0 +1,218 @@
+.questions {
+  padding: 22px 18px 8px;
+
+  .close {
+    position: absolute;
+    right: 32px;
+    top: 38px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 999;
+  }
+
+  .top {
+    h3 {
+      opacity: 0.8;
+      text-transform: capitalize;
+      font-size: 24px;
+      border-bottom: 1px solid;
+      padding-bottom: 20px;
+    }
+  }
+
+  label {
+    font-size: 16px;
+  }
+
+  strong {
+    font-size: 16px;
+    padding-right: 15px;
+  }
+
+  .options {
+    margin-top: 20px;
+    display: flow-root;
+    max-height: 250px;
+    overflow-y: scroll;
+
+    ul {
+      list-style: none;
+      padding: 0px;
+
+      li {
+        a {
+          margin: 10px;
+          width: auto;
+          float: left;
+          border: 1px solid rgba(116, 116, 112, 0.11);
+          border-radius: 4px;
+          background-color: rgba(116, 116, 112, 0.05);
+          height: auto;
+          text-align: center;
+          color: #747470;
+          line-height: 22px;
+          padding: 10px 24px;
+          cursor: pointer;
+          font-size: 16px;
+          transition: 0.2s ease-in-out;
+          -webkit-transition: 0.2s ease-in-out;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    margin-top: 15px;
+    text-align: right;
+    border-top: 1px solid #0000002b;
+    padding-top: 15px;
+
+    button {
+      text-align: center;
+      width: 100px;
+      line-height: 30px;
+      border-radius: 4px;
+      border: 1px solid;
+      color: #ffffff;
+      background: var(--primaryColor);
+      border-color: var(--primaryColor);
+    }
+
+    .back-btn {
+      margin-right: 10px;
+    }
+  }
+
+.info-text {
+  color: var(--baseColor);
+  opacity: 0.5;
+ }
+}
+
+.skeleton {
+  .top {
+    h3 {
+      border-radius: 4px;
+      height: 25px;
+      width: 90%;
+      margin-left: 7px;
+    }
+  }
+
+  .options {
+    ul {
+      li {
+        a {
+          width: 180px;
+          height: 40px;
+        }
+      }
+    }
+  }
+}
+
+/*************************** Checkbox css start *****************************/
+input[type=checkbox] + label {
+  margin: 0.2em;
+  cursor: pointer;
+  padding: 0.2em;
+}
+
+input[type=checkbox] {
+  display: none;
+}
+
+input[type=checkbox] + label:before {
+  content: "\2714";
+  border: 0.1em solid #dddddd;
+  border-radius: 0.2em;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding-left: 3px;
+  padding-bottom: 0px;
+  margin-right: 10px;
+  vertical-align: bottom;
+  color: transparent;
+  -webkit-transition: .2s;
+  transition: .2s;
+  padding-top: 0;
+  line-height: 18px;
+}
+
+input[type=checkbox] + label:active:before {
+  transform: scale(0);
+}
+
+input[type=checkbox]:checked + label:before {
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
+  color: #fff;
+}
+
+input[type=checkbox]:disabled + label:before {
+  // transform: scale(1);
+  border-color: #aaa;
+}
+
+input[type=checkbox]:checked:disabled + label:before {
+  transform: scale(1);
+  background-color: #bfb;
+  border-color: #bfb;
+}
+
+/***************************** Checkbox css end ************************/
+
+
+/***************************** ration button  css start ************************/
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: var(--primaryColor);
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+/***************************** radio button  css end ************************/

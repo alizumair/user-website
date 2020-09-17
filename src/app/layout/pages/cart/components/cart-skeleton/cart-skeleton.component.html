@@ -1,0 +1,68 @@
+<div class="cart_page-detail skeleton">
+    <div class="container">
+        <div class="row">
+            <div class="cart-products col-md-8">
+                <div class="cart-product-inner">
+                    <div class="items_added_outter_box">
+                        <h3></h3>
+                    </div>
+                    <div *ngFor="let product of util.generateFakeList(4); let index = index" class="single-item-wrap">
+                        <div class="single_item_detail">
+                            <div class="row">
+                                <div class="col-md-3 cart-image">
+                                    <img class="w-100" [style.height]="'100px'">
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="single_item_name">
+                                        <h5><br />
+                                            <span></span>
+                                        </h5>
+                                        <h6></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="cart_slidebar">
+                    <div class="price_details">
+                        <h5></h5>
+                        <ul>
+                            <li class="skeleton">
+                                <p></p>
+                            </li>
+                            <li>
+                                <p> </p>
+                            </li>
+                            <!-- <li>{{'Total' | translate}} <span>{{currency}} {{priceObj?.subTotal}}</span></li> -->
+                            <li>
+                                <p></p>
+                            </li>
+                            <li>
+                                <p></p>
+                            </li>
+                        </ul>
+                        <h6>
+                            <span></span>
+                        </h6>
+                    </div>
+                    <div class="price_details">
+                        <ul class="list-inline pt-2 self-pickup">
+                            <li class="list-inline-item">
+                                <h5 [style.height]="'50px'"></h5>
+                            </li>
+                            <li class="list-inline-item">
+                                <h5 [style.height]="'50px'"></h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

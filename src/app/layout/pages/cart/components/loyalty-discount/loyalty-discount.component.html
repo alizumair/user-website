@@ -1,0 +1,12 @@
+<div class="price_details"
+    [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor }">
+
+    <div class="referral-cart">
+        <a [style.color]="style?.primaryColor" (click)="applyReferral()">{{loyalty_applied ? 'Remove' : 'Apply'}}</a>
+        <h6><i *ngIf="loyalty_applied" class="fa fa-check-circle-o applied"></i>Your Loyalty Amount : {{currency}}
+            {{(loyalty_amount - applied_admount).toFixed(settings?.price_decimal_length)}}</h6>
+        <small *ngIf="loyalty_applied" style="padding: 10px 20px; margin-left: 26px;">Amount Applied: {{currency}}
+            {{applied_admount.toFixed(settings?.price_decimal_length)}}</small>
+    </div>
+
+</div>

@@ -1,0 +1,21 @@
+:host ::ng-deep .custom-toast .ui-toast-message {
+    color: #ffffff !important;
+    background: var(--primaryColor) !important;
+    background-color: var(--primaryColor) !important;
+}
+
+
+
+body .ui-toast .ui-toast-message.ui-toast-message-info {
+    background-color: var(--primaryColor);
+    border: 0 none;
+    color: #ffffff !important;
+}
+
+body .ui-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon {
+    color: #ffffff !important;
+}
+
+
+
+

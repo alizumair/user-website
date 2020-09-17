@@ -1,0 +1,27 @@
+<ng-container [ngSwitch]="settings?.app_type">
+
+    <ng-template [ngSwitchCase]="1">
+
+        <app-food-home></app-food-home>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="2">
+
+        <app-ecom-home></app-ecom-home>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="8">
+
+        <app-service-home></app-service-home>
+
+    </ng-template>
+
+    <ng-template ngSwitchDefault>
+
+        <app-landing></app-landing>
+
+    </ng-template>
+
+</ng-container>

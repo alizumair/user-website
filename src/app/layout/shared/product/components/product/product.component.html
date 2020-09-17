@@ -1,0 +1,31 @@
+<ng-container *ngIf="product">
+  <ng-container [ngSwitch]="settings?.app_type">
+
+    <!---------------------------------------- Food --------------------------------------------------->
+    <ng-template [ngSwitchCase]="1">
+
+      <app-food [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn" [darkTheme]="darkTheme"
+        [state]="state" (add)="addProduct($event)" (remove)="removeProduct($event)" (onFavourite)="favourite($event)">
+      </app-food>
+
+    </ng-template>
+
+    <!---------------------------------------- E-Commerce ---------------------------------------------->
+    <ng-template [ngSwitchCase]="2">
+
+      <app-ecommerce [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn" [state]="state"
+        (add)="addProduct($event)" (remove)="removeProduct($event)" (onFavourite)="favourite($event)"></app-ecommerce>
+
+    </ng-template>
+
+    <!-------------------------------------- Home Services --------------------------------------------->
+    <ng-template [ngSwitchCase]="8">
+
+      <app-home-service [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+        (add)="addProduct($event)" (remove)="removeProduct($event)" (onFavourite)="favourite($event)" [state]="state">
+      </app-home-service>
+
+    </ng-template>
+
+  </ng-container>
+</ng-container>

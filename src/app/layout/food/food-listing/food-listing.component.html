@@ -1,0 +1,521 @@
+<ng-container *ngIf="!isLoading; then data  else skeleton"> </ng-container>
+
+<ng-template #data>
+  <div *ngIf="settings?.selected_template == 0">
+    <div class="main_section">
+      <div class="container">
+        <div class="row">
+          <div class="banner_section">
+            <div *ngIf="supplierDetail?.supp_image">
+              <ng-container *ngIf="!supplierDetail?.isVideo; else video">
+                <img appImage [url]="supplierDetail?.supp_image" [size]="'1250x250'" [src]="supplierDetail?.supp_image"
+                  onError="src = '/assets/images/placeholder_logo.svg';" @fade>
+              </ng-container>
+            </div>
+
+            <div *ngIf="!supplierDetail?.supp_image" class="supplier-placeholder-image"></div>
+          </div>
+        </div>
+      </div>
+      <div class=" lo-pizza">
+        <div class="container">
+          <div class="row">
+            <div class="fast_food-section" [style.background-color]="style.backgroundColor">
+              <div class="block_1">
+                <h2 class="product-name" [style.color]="style.baseColor" data-toggle="tooltip"
+                  [title]="supplierDetail?.name" @fade>{{supplierDetail?.name | translate}}</h2>
+                <p class="product-name" [style.color]="style.baseColor" data-toggle="tooltip"
+                  [title]="supplierDetail?.address" @fade> <i class="fa fa-map-marker mr-1" aria-hidden="true"></i>
+                  {{supplierDetail?.address | translate}}</p>
+              </div>
+              <div class="block_1 block-design">
+                <div class="food-supplier-rating">
+                  <span [style.color]="style.baseColor" @fade>{{supplierDetail?.rating}}</span>
+                  <img [src]="'./assets/images/small_star_icon_food.svg'" height="24px" width="24px" @fade>
+                </div>
+                
+                <p [style.color]="style.baseColor" @fade>{{supplierDetail?.total_reviews}} {{'Reviews' | translate}}</p>
+              </div>
+              <div class="block_1 block-design">
+                <div class="food-supplier-rating" style="margin-top: -12px;">
+                  <p [style.color]="style.baseColor" *ngIf="supplierDetail?.phone"><b>{{'Phone No' | translate}}:</b>
+                    {{supplierDetail?.phone}}</p>
+                  <p [style.color]="style.baseColor" *ngIf="supplierDetail?.license_number">
+                    <b>{{'License No' | translate}}:</b>
+                    {{supplierDetail?.license_number}}</p>
+                </div>
+              </div>
+              <div class="block_1 block-design">
+                <h2 [style.color]="style.baseColor" @fade>{{supplierDetail?.delivery_max_time}} {{'Mins' | translate}}
+                </h2>
+                <p [style.color]="style.baseColor">{{'Delivery Time' | translate}}</p>
+              </div>
+              <div class="block_1 block-design">
+                <ng-container *ngIf="supplierDetail?.todayTimes?.is_open; then open; else closed"></ng-container>
+                <ng-template #open>
+                  <h2 [style.color]="style.baseColor" @fade>
+                    {{ supplierDetail?.todayTimes?.startTime}} - {{supplierDetail?.todayTimes?.endTime}}
+                    <!-- {{ supplierDetail?.todayTimes?.day | translate}} -->
+                  </h2>
+                  <!-- <span [style.color]="style.baseColor"> </span> -->
+                  <p [style.color]="style.baseColor">{{'Timings' | translate}}</p>
+                </ng-template>
+                <ng-template #closed>
+                  <h2 class="unserviceable" @fade>{{'closed' | localization}}</h2>
+                </ng-template>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" [ngStyle]="{ margin: '20px 0px' }"></div>
+
+    <div class="container" *ngIf="supplierDetail?.user_request_flag && loggedIn">
+      <div class="supp-prescription">
+        <button type="button" class="btn"
+          [ngStyle]=" {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style?.primaryColor, 'width': '30%'}"
+          (click)="prescriptionUpload()">Upload {{'prescription_value' | localization}}</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="recoomond_section"
+        [style.padding-top.px]="supplierDetail?.user_request_flag && loggedIn ? '40' : '90'">
+        <div class="container ">
+          <button type="button" class="btn float-right"
+            *ngIf="settings.branch_flow == 1 && branchId && supplierDetail?.branchCount > 1"
+            [ngStyle]=" {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style?.primaryColor, 'margin': '0px 10px'}"
+            (click)="showBranches = !showBranches">{{!showBranches ? 'View Branches' : 'View All Products'}}</button>
+          <div class="input-group mb-3">
+            <div *ngIf="supplierDetail.is_dine_in && settings?.is_table_booking==='1' && supplierDetail?.is_scheduled && !isTbItem"
+              class="input-group-append">
+              <button class="btn btn-outline-secondary local-search-button" type="button"
+                (click)="openSchedulingModal(supplierDetail)" @fade>{{'Book Dining'}}</button>
+            </div>
+          </div>
+          <div class="input-group mb-3 local-search inner-page-search">
+            <input type="text" class="form-control local-search-input"
+              placeholder="{{'Search' | translate}} {{'products' | localization}}" aria-describedby="basic-addon2"
+              [(ngModel)]="search">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary local-search-button" type="button"
+                (click)="searchProduct(search)">{{'Search' | translate}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="container" *ngIf="!showBranches">
+          <div class="row">
+            <div class="col-lg-3 col-md-4">
+              <div class="left_section-pizza sticky" [ngStyle]="products?.length ? '' : {'border-color': '#ffffff'}">
+                <ul>
+                  <li class="capitalize" [ngClass]="{'single-category':products && products.length == 1}"
+                    *ngFor="let cat of products; let i = index;" [value]="i"
+                    [ngStyle]="categoryIndex==i ? {'backgroundColor': style.primaryColor, color: '#ffffff', opacity: '1', 'font-weight': '600'} : {'backgroundColor': style.backgroundColor, color: style.baseColor}"
+                    (click)="categorySelect(i)" @fade> {{cat?.sub_cat_name}}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+              <div class="reccom-main_section">
+                <div *ngFor="let data of products; let i = index" [id]=i>
+                  <h2 class="pizza-title" [style.color]="style.baseColor" @fade>{{data?.sub_cat_name}}</h2>
+                  <div class="row" *ngIf="!data?.detailed_category_name || !data?.detailed_category_name.length">
+                    <div *ngFor="let product of data?.value" class="col-lg-4 col-md-6 col-sm-6">
+                      <app-product [product]="product" [state]="productstate" [darkTheme]="isDarkTheme"
+                        [settings]="settings" [style]="style" [loggedIn]="loggedIn" (add)="addProduct($event)"
+                        (remove)="removeProduct($event)"></app-product>
+                    </div>
+                  </div>
+
+                  <div class="row" *ngIf="data?.detailed_category_name && data?.detailed_category_name.length">
+                    <ng-container *ngFor="let detail_cat of data?.detailed_category_name">
+                      <div class="col-md-12" *ngIf="detail_cat?.value.length">
+                        <h5>{{detail_cat?.name}}</h5>
+                        <div class="row">
+                          <div class="col-lg-4 col-md-6 col-sm-6"
+                            *ngFor="let product of detail_cat?.value; let j = index">
+                            <app-product [product]="product" [state]="productstate" [darkTheme]="isDarkTheme"
+                              [settings]="settings" [style]="style" [loggedIn]="loggedIn" (add)="addProduct($event)"
+                              (remove)="removeProduct($event)">
+                            </app-product>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                  <hr [style.background-color]="style.primaryColor">
+                </div>
+              </div>
+            </div>
+            <div *ngIf="products && products.length === 0" class="no-food-item">
+              <h1 [style.color]="style.baseColor">No {{'products' | localization}} Found</h1>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="showBranches">
+          <app-supplier-branches [supplierId]="supplierId" [settings]="settings" [style]="style">
+          </app-supplier-branches>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="[1,2].includes(settings?.selected_template)">
+
+    <section *ngIf="!settings?.is_single_vendor" id="detail_banner_section" style="margin-top: 10px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="detail_banner_img" style="height: 230x;">
+              <div *ngIf="supplierDetail?.supp_image">
+                <ng-container *ngIf="!supplierDetail?.isVideo; else video">
+                    <img appImage [url]="supplierDetail?.supp_image" [size]="'1250x250'"
+                    [src]="supplierDetail?.supp_image" onError="src = '/assets/images/placeholder_logo.svg';" @fade>
+                </ng-container>
+              </div>
+              <div *ngIf="!supplierDetail?.supp_image" class="supplier-placeholder-image"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="detail_product_page">
+      <div class="container">
+        <div class="cafe-product-detail-outter" *ngIf="!settings?.is_single_vendor">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="cafe-Restaurants-title">
+                <h3 @fade>{{supplierDetail?.name | translate}}</h3>
+               <!--- <p *ngIf="settings?.hide_supplier_address == 0" @fade>{{supplierDetail?.address}}</p> -->
+                <div *ngIf="category_names">
+                 <!-- <p>{{'cuisines' | localization | translate}}:</p> <span @fade>{{category_names}}</span>-->
+                </div>
+                <div *ngIf="settings.hide_supplier_timing != 1">
+                  <p>{{'timings' | localization | translate}}: </p>
+                  <span *ngIf="supplierDetail?.todayTimes?.is_open" @fade>{{ supplierDetail?.todayTimes?.startTime}} -
+                    {{supplierDetail?.todayTimes?.endTime}}</span>
+                  <span *ngIf="!supplierDetail?.todayTimes?.is_open">Closed</span>
+                </div>
+                <div *ngIf="supplierDetail?.phone && settings?.hide_supplier_phone_email == 0">
+                  <p>{{'Phone:' | translate}}</p>
+                  <span>{{supplierDetail?.phone}}</span>
+                </div>
+                <div *ngIf="supplierDetail?.email && settings?.hide_supplier_phone_email == 0">
+                  <p>{{'Email:' | translate}}</p>
+                  <span>{{supplierDetail?.email}}</span>
+                </div>
+                <div *ngIf="supplierDetail?.license_number">
+                  <p>{{'license_number' | localization}}:</p>
+                  <span>{{supplierDetail?.license_number}}</span>
+                </div>
+                <div *ngIf="supplierDetail?.speciality">
+                  <p>{{'Speciality' | translate}}:</p>
+                  <span>{{supplierDetail?.speciality}}</span>
+                </div>
+                <div *ngIf="supplierDetail?.nationality">
+                  <p>{{'Nationality' | localization | translate}}:</p>
+                  <span>{{supplierDetail?.nationality}}</span>
+                </div>
+                <div *ngIf="supplierDetail?.brand">
+                  <p>{{'Brand' | translate}}:</p>
+                  <span>{{supplierDetail?.brand}}</span>
+                </div>
+                <div *ngIf="supplierDetail?.description">
+                  <p>{{'Description' | translate}}:</p>
+                  <span class="sup-description">
+                    <app-see-more [text]="supplierDetail?.description" [max]="50"></app-see-more>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="cafe-Restaurants-delivery">
+                <ul>
+                  <li>
+                    <div *ngIf="settings.is_supplier_wishlist == 1" style="margin-right: 20px" class="favourite">
+                      <a (click)="wishlist(!supplierDetail?.Favourite, supplierDetail)">
+                        <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <g id="Page-1" stroke="none" stroke-width="2"
+                            [attr.fill]="supplierDetail?.Favourite ? style.primaryColor : 'none'" fill-rule="evenodd">
+                            <g id="Group-4" transform="translate(2.000000, 3.000000)"
+                              [attr.stroke]="supplierDetail?.Favourite ? style.primaryColor : style.baseColor">
+                              <g id="ic_heart_fill">
+                                <path
+                                  d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                  id="Combined-Shape-Copy"></path>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </a>
+                    </div>
+                    <span [style.background-color]="style?.primaryColor" @fade><i class="fa fa-star"
+                        aria-hidden="true"></i>
+                      {{supplierDetail?.rating}}
+                    </span>&nbsp;&nbsp;
+                    <button type="button" class="btn"
+                      *ngIf="settings.branch_flow == 1 && branchId && supplierDetail?.branchCount > 1"
+                      [ngStyle]=" {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style?.primaryColor, 'margin': '0px 10px'}"
+                      (click)="showBranches = !showBranches">{{!showBranches ? 'View Branches' : 'View All Products'}}</button>
+                  </li>
+                  <li>
+                    <p @fade>{{supplierDetail?.total_reviews}} {{'Reviews' | translate}}</p>
+                  </li>
+                  <li *ngIf="settings.hide_supplier_delivery_time != 1">
+                    <p @fade>{{supplierDetail?.delivery_max_time}} {{'Mins' | translate}},
+                      {{'Delivery Time' | translate}}</p>
+
+                    <div class="chat-sup"
+                      *ngIf="supplierDetail?.user_created_id && settings?.supplier_to_user_chat == 1 && loggedIn">
+                      <app-chat [message_id]="supplierDetail?.message_id" [receiverName]="supplierDetail?.name"
+                        [receiverImage]="supplierDetail?.logo" [receiver_created_id]="supplierDetail?.user_created_id"
+                        [btnText]="'Chat With ' + ('supplier' | localization | translate)"></app-chat>
+                    </div>
+
+                    <span *ngIf="supplierDetail.is_dine_in && supplierDetail?.is_scheduled && !isTbItem"
+                      [style.background-color]="style?.primaryColor" (click)="openSchedulingModal(supplierDetail)"
+                      style="cursor: pointer;" @fade>{{'Book Dining'}}</span>
+
+                  </li>
+                  <!-- <li>
+                    <p><a href=""><img src="img/ic_cart.svg"> Order Now</a></p>
+                  </li> -->
+                  <li class="store-social">
+                    <span *ngIf="supplierDetail?.facebook_link">
+                      <a [href]="supplierDetail?.facebook_link" target="_blank" style="color: #fff">
+                        <i class="fa fa-facebook-official" aria-hidden="true"></i>
+                      </a>
+                    </span>
+                    <span *ngIf="supplierDetail?.linkedin_link" class="mr-1">
+                      <a [href]="supplierDetail?.linkedin_link" target="_blank" style="color: #fff">
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                      </a>
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Branch and Product Section -->
+
+        <div *ngIf="!showBranches">
+
+          <div class="container" *ngIf="supplierDetail?.user_request_flag && loggedIn">
+            <div class="supp-prescription" style="margin: 15px -15px 20px">
+              <button type="button" class="btn"
+                [ngStyle]=" {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style?.primaryColor}"
+                (click)="prescriptionUpload()">Upload {{'prescription_value' | localization}}</button>
+            </div>
+          </div>
+
+          <div class="categories-item-section" [ngClass]="cat_nav_fixed ? 'categories-item-fixed' : ''">
+              <div class="row">
+                <div class="col-md-12">
+                  <ul>
+                    <li *ngFor="let cat of products; let i = index" style="cursor: pointer;" [value]="i"
+                      [ngClass]="categoryIndex==i ? 'active' : ''" @fade><a
+                        (click)="categorySelect(i)">{{cat?.sub_cat_name}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          <div class="categories-item-products" *ngFor="let data of products; let i = index" [id]=i>
+            <h4 @fade>{{data?.sub_cat_name}} </h4>
+            <div class="row" *ngIf="!data?.detailed_category_name?.length">
+              <div [ngClass]="!settings?.is_single_vendor ? 'col-md-6' : 'col-md-3'"
+                *ngFor="let product of data?.value; let j = index">
+                <app-product [product]="product" [state]="productstate" [darkTheme]="isDarkTheme" [settings]="settings"
+                  [style]="style" [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)">
+                </app-product>
+              </div>
+            </div>
+
+            <div class="row" *ngIf="data?.detailed_category_name?.length">
+              <ng-container *ngFor="let detail_cat of data?.detailed_category_name">
+                <div class="col-md-12" *ngIf="detail_cat?.value.length">
+                  <h5>{{detail_cat?.name}} hi==</h5>
+                  <div class="row">
+                    <div [ngClass]="!settings?.is_single_vendor ? 'col-md-6' : 'col-md-3'"
+                      *ngFor="let product of detail_cat?.value; let j = index">
+                      <app-product [product]="product" [state]="productstate" [darkTheme]="isDarkTheme"
+                        [settings]="settings" [style]="style" [loggedIn]="loggedIn" (add)="addProduct($event)"
+                        (remove)="removeProduct($event)">
+                      </app-product>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+
+          <div *ngIf="products && products.length === 0" class="no-food-item">
+            <h1 [style.color]="style.baseColor">No {{'products' | localization}} Found</h1>
+          </div>
+
+        </div>
+
+        <div *ngIf="showBranches">
+          <app-supplier-branches [supplierId]="supplierId" [settings]="settings" [style]="style">
+          </app-supplier-branches>
+        </div>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</ng-template>
+
+
+<ng-template #skeleton>
+  <div class="skeleton" *ngIf="settings?.selected_template == 0">
+
+    <div class="main_section ">
+      <div class="container">
+        <div class="row">
+          <div class="banner_section">
+            <img>
+          </div>
+        </div>
+      </div>
+      <div class="lo-pizza">
+        <div class="container">
+          <div class="row">
+            <div class="fast_food-section" [style.background-color]="style.backgroundColor">
+              <div class="block_1">
+                <h2 class="product-name" [ngStyle]="{'height': '22px'}"></h2>
+                <p class="product-name" [ngStyle]="{'height': '14px'}"> </p>
+              </div>
+              <div class="block_1 block-design">
+                <div class="food-supplier-rating">
+                  <span></span>
+                  <img height="24px" width="24px" [ngStyle]="{'border': 'none'}">
+                </div>
+                <p [ngStyle]="{'height': '14px'}"></p>
+              </div>
+              <div class="block_1 block-design">
+                <div>
+                  <h2 [ngStyle]="{'height': '18px'}"> </h2>
+                </div>
+              </div>
+              <div class="block_1 block-design">
+                <h2 [ngStyle]="{'height': '18px'}"></h2>
+                <p [ngStyle]="{'height': '14px'}"></p>
+              </div>
+              <div class="block_1 block-design">
+                <div>
+                  <h2 [ngStyle]="{'height': '18px'}"> </h2>
+                  <p [ngStyle]="{'height': '14px'}"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" [ngStyle]="{ margin: '20px 0px' }"></div>
+
+    <div *ngIf="!showBranches">
+      <div class="recoomond_section" style="padding-top: 90px">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3 col-md-4">
+              <div class="left_section-pizza sticky">
+                <ul>
+                  <li *ngFor="let cat of generateFakeList(4); let i = index;" [value]="i">
+                    <p [ngStyle]="{'width': '100%', 'height': '16px', 'margin': '0px' }"></p>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-lg-9 col-md-8">
+              <div class="reccom-main_section">
+                <div *ngFor="let data of generateFakeList(2); let i = index" [id]=i>
+                  <h2 class="pizza-title" [ngStyle]="{'height': '24px', 'width': '20%'}"></h2>
+                  <div class="row">
+                    <div *ngFor="let product of generateFakeList(4)" class="col-md-4">
+                      <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="skeleton" *ngIf="[1,2].includes(settings?.selected_template)">
+
+    <div class="main_section ">
+      <div class="container">
+        <div class="row">
+          <div class="banner_section">
+            <img>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="detail_product_page">
+      <div class="container">
+        <div class="cafe-product-detail-outter">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="cafe-Restaurants-title">
+                <h3 [ngStyle]="{'height': '20px', 'width': '20%'}"></h3>
+                <p [ngStyle]="{'width': '100%', 'height': '14px', 'margin': '0px' }"></p>
+                <div>
+                </div>
+                <div>
+                  <span [ngStyle]="{'width': '100%', 'height': '14px', 'margin': '0px' }"></span>
+                  <span [ngStyle]="{'width': '100%', 'height': '14px', 'margin': '0px' }"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="categories-item-section"></div>
+        <div *ngIf="!showBranches">
+          <div class="categories-item-products" *ngFor="let product of generateFakeList(2)">
+            <h4 [ngStyle]="{'width': '20%', 'height': '16px', 'margin': '0px' }"></h4>
+            <div class="row" style="margin-top: 15px;">
+              <div class="col-md-6" *ngFor="let product of generateFakeList(4)">
+                <app-product-skeleton [settings]="settings" [style]="style"></app-product-skeleton>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</ng-template>
+
+<ng-template #video>
+  <video class="w-100" style="height: 230px;" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source [src]="supplierDetail['supplier_image'][0]" type="video/mp4">
+  </video>
+</ng-template>
+
+
+
+
+<app-cart-schedule-time [style]="style" [settings]="settings" *ngIf="showScheduleTime" [schedulingData]="schedulingData"
+  (onScheduling)="onSchedulingProcess($event)" (onClose)="this.showScheduleTime = false"></app-cart-schedule-time>

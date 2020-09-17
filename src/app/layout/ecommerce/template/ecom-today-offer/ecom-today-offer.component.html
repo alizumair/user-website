@@ -1,0 +1,95 @@
+<section id="E-commerce-offer-banners">
+    <div class="container-fluid">
+        <div class="row" style="cursor: pointer;">
+            <div *ngFor="let offer of offerData.slice(1, 8);let i=index" [ngClass]="i == 4 ? 'col-md-6':'col-md-3'">
+                <div class="offer-banners-outter-box" (click)="productDetail(offer)" *ngIf="i<4" [ngClass]="'offer-banners-box0' + (i+1)">
+                    <div class="offer-banners-text" [ngClass]="i == 4 ? 'text-left':''">
+                        <h5>{{offer?.name}}</h5>
+                        <p>just at</p>
+                        <h4>{{currency}} {{offer?.fixed_price}}</h4>
+                        <a *ngIf="i > 3" href="javaScript:void(0)">Buy Now <i class="fa fa-angle-right"
+                                aria-hidden="true"></i></a>
+                    </div>
+                    <div class="offer-banners-images">
+                        <img [src]="offer?.image_path" onError="src = './assets/images/placeholder_image.svg'">
+                    </div>
+                </div>
+
+                <div class="offer-banners-outter-box" *ngIf="i>3" [ngClass]="'offer-banners-box0' + (i+1)">
+                    <div class="offer-banners-text text-left">
+                        <h1>{{offer?.name}}</h1>
+                        <a (click)="productDetail(offer)">Buy Now <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                    <div class="offer-banners-images">
+                        <img [src]="offer?.image_path" onError="src = './assets/images/placeholder_image.svg'">
+                    </div>
+                </div>
+            </div>
+            <!--
+            <div class="col-md-3">
+              <div class="offer-banners-outter-box  offer-banners-box02">
+                  <div class="offer-banners-text">
+                      <h5>Bosch</h5>
+                      <p>just at</p>
+                      <h4>$100.00</h4>
+                  </div>
+                  <div class="offer-banners-images">
+                      <img src="images/2.png">
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="offer-banners-outter-box  offer-banners-box04">
+                  <div class="offer-banners-text">
+                      <h5>Kremlin tools</h5>
+                      <p>just at</p>
+                      <h4>$120.00</h4>
+                  </div>
+                  <div class="offer-banners-images">
+                      <img src="images/2.png">
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-6">
+              <div class="offer-banners-outter-box offer-banners-box05">
+                  <div class="offer-banners-text text-left">
+                      <h1>Devialet phantom speakers</h1>
+                      <h5>Kremlin tools</h5>
+                      <a href="">Buy Now <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </a>
+                  </div>
+                  <div class="offer-banners-images">
+                      <img src="images/6.png">
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="offer-banners-outter-box  offer-banners-box06">
+                  <div class="offer-banners-text text-left">
+                      <h1>Index Fixing Syatem</h1>
+
+                      <a href="">Buy Now <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </a>
+                  </div>
+                  <div class="offer-banners-images">
+                      <img src="images/7.png">
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3">
+              <div class="offer-banners-outter-box  offer-banners-box07">
+                  <div class="offer-banners-text text-left">
+                      <h1>Wecaco coffee maker</h1>
+
+                      <a href="">Buy Now <i class="fa fa-angle-right" aria-hidden="true"></i>
+                      </a>
+                  </div>
+                  <div class="offer-banners-images">
+                      <img src="images/5.png">
+                  </div>
+              </div>
+          </div> -->
+        </div>
+    </div>
+</section>

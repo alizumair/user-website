@@ -1,0 +1,151 @@
+<ng-container>
+    <ng-container [ngSwitch]="settings?.app_type">
+
+        <!---------------------------------------- Food --------------------------------------------------->
+        <ng-template [ngSwitchCase]="1">
+
+            <ng-container [ngSwitch]="settings?.selected_template">
+
+                <ng-template [ngSwitchCase]="0">
+                    <div class="food-product" [ngClass]="{'out-of-stock':isOutOfStock}"
+                        [ngStyle]="{'border-color': style.secondaryColor}">
+                        <div class="food-product-image"
+                            [ngStyle]="{'box-shadow': darkTheme ? '0 0px 10px rgba(0, 0, 0, 0.82)' : '0 0px 4px rgba(0, 0, 0, 0.52)'}">
+                            <img>
+                        </div>
+
+                        <div class="star-rating">
+                            <img height="20px" width="35px">
+                            <span class="rating"> </span>
+                        </div>
+
+                        <h3 class="product-name" [ngStyle]="{'width':'70%', 'height': '16px' }"> </h3>
+                        <p class="brand product-name"
+                            [ngStyle]="{'width':'70%', 'height': '13px', 'margin': '0px 0px 10px 0px' }"> </p>
+
+                        <div class="price-div">
+                            <p class="price price_number"> </p>
+                            <h2 class="price price_number"> </h2>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template [ngSwitchCase]="1">
+                    <div class="categories-item-product-outter" style="height: 150px;"
+                        [ngClass]="{'out-of-stock':isOutOfStock}">
+                        <div class="categories-item-product-img">
+                            <img>
+                        </div>
+                        <div class="categories-item-product-detail product-item" style="width: 70%;">
+                            <h2 [ngStyle]="{'width':'50%', 'height': '16px' }"></h2>
+                            <p style="margin-top: 8px;" [ngStyle]="{'width':'70%', 'height': '12px' }"></p>
+
+                            <div class="product-price-tag" style="margin-top: 60px;">
+                                <h6 [ngStyle]="{'width':'40%', 'height': '15px' }"></h6>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+
+            </ng-container>
+
+
+        </ng-template>
+
+        <!---------------------------------------- E-Commerce ---------------------------------------------->
+        <ng-template [ngSwitchCase]="2">
+
+            <ng-container [ngSwitch]="settings?.selected_template">
+
+                <ng-template [ngSwitchCase]="0">
+                    <div class="ecomm-product">
+                        <img>
+                        <h3 class="product-name" [ngStyle]="{'width': '100%', 'margin-top': '-5px', 'height': '20px'}">
+                        </h3>
+                        <p class="brand" [ngStyle]="{'width': '100%', 'margin-top': '15px', 'height': '12px'}">
+                            <span></span>
+                        </p>
+                        <div class="star-rating">
+                            <p [ngStyle]="{'width': '40%','margin-bottom': '5px', 'height': '16px'}"></p>
+                        </div>
+                        <p class="price" [ngStyle]="{'width': '100%', 'margin-top': '5px',  'height': '26px'}">
+                            <span class="ecomm-product-price" [style.color]="style?.baseColor">
+                            </span>
+                            <span class="heart_img-home">
+                                <a></a>
+                            </span>
+                        </p>
+                    </div>
+                </ng-template>
+
+                <ng-template [ngSwitchCase]="1">
+                    <div class="product iproduct clearfix">
+                        <div class="product-image">
+                            <a> <img style="object-fit: cover; height: 245px;"></a>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title mb-1"
+                                [ngStyle]="{'width': '100%', 'margin-top': '-5px', 'height': '20px'}">
+                                <h3 class="ellipsis"><a></a></h3>
+                            </div>
+                            <div class="notopmargin" class="ellipsis"><a></a></div>
+                            <div class="product-price font-primary"
+                                [ngStyle]="{'width': '100%', 'margin-top': '5px', 'height': '20px'}">
+                                <p>
+                                    <del class="mr-1"></del> <ins></ins>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template [ngSwitchCase]="2">
+                    <div class="product iproduct clearfix">
+                        <div class="product-image">
+                            <a> <img style="object-fit: cover; height: 245px;"></a>
+                        </div>
+                        <div class="product-desc">
+                            <div class="product-title mb-1"
+                                [ngStyle]="{'width': '100%', 'margin-top': '-5px', 'height': '20px'}">
+                                <h3 class="ellipsis"><a></a></h3>
+                            </div>
+                            <div class="notopmargin" class="ellipsis"><a></a></div>
+                            <div class="product-price font-primary"
+                                [ngStyle]="{'width': '100%', 'margin-top': '5px', 'height': '20px'}">
+                                <p>
+                                    <del class="mr-1"></del> <ins></ins>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template [ngSwitchCase]="3">
+                    <div class="product iproduct clearfix">
+
+                        <a> <img ></a>
+                        <h5 [ngStyle]="{'width': '100%'}"></h5>
+                        <p [ngStyle]="{'width': '100%'}"></p>
+                        <p [ngStyle]="{'width': '100%'}"><span></span></p>
+                    </div>
+                </ng-template>
+
+            </ng-container>
+        </ng-template>
+
+
+        <!---------------------------------------- Home Service ---------------------------------------------->
+        <ng-template [ngSwitchCase]="8">
+            <div class="recommends-products">
+                <img class="rounded-0">
+                <h3 class="rounded-0 w-100 mt-1"></h3>
+                <h4 class="brand rounded-0 mt-1" [ngStyle]="{'width': '100%', 'margin-top':'3px'}"></h4>
+                <div class="add-btn w-100 rounded-0 mt-1">
+                    <h2 class="btn btn-large rounded-0" [ngStyle]="{'width': '100%', 'height': '40px'}"></h2>
+                </div>
+            </div>
+        </ng-template>
+
+    </ng-container>
+</ng-container>

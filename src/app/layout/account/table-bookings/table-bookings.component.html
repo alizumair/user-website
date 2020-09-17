@@ -1,0 +1,79 @@
+<div class="container">
+    <h2>Table Bookings</h2>
+    <p></p>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Branch Name</th>
+                    <th>Table Name</th>
+                    <th>Table Number</th>
+                    <th>Seating Capacity</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>Booking Date</th>
+                    <th>Order</th>
+                    <th>Status</th>
+                    <th *ngIf="settings?.is_table_invite_allowed==='1' || settings?.table_booking_add_food_allow == '1'">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tb of tableBookings | 
+                    paginate: { itemsPerPage: pagination.perPage, 
+                        currentPage: pagination.currentPage, 
+                        totalItems: pagination.count }; let i = index;">
+                    <td>{{(pagination.currentPage -1)*pagination.perPage + i + 1}}</td>
+                    <td>{{tb?.branch_name || 'N/A'}}</td>
+                    <td>{{tb?.table_name || 'N/A'}}</td>
+                    <td>{{tb?.table_number || 'N/A'}}</td>
+                    <td>{{tb?.seating_capacity || 'N/A'}}</td>
+                    <td>{{tb?.user_name || 'N/A'}}</td>
+                    <td>{{tb?.user_email || 'N/A'}}</td>
+                    <td>{{tb?.schedule_date | tableDateTime : 'DD MMM h:mm a' || 'N/A'}}</td>
+                    <td>
+                        <span class="share-tble" *ngIf="tb.order_id && tb.order_id>0" (click)="viewOrderDetail(tb)">
+                            {{'View Details'}}
+                        </span>
+                        <span *ngIf="!tb.order_id || tb.order_id==0">
+                            {{'N/A'}}
+                        </span>
+                    </td>
+                    <td>{{tableBookingStatus[tb?.status] || 'N/A'}}</td>
+                    <td *ngIf="settings?.is_table_invite_allowed == '1' || settings?.table_booking_add_food_allow == '1'">
+                        <!-- <div class="dropdown">
+                            <button type="button" class="btn btn-default share-tble dropdown-toggle"
+                                data-toggle="dropdown">
+                                Actions
+                            </button>
+                            <div class="dropdown-menu"> -->
+                                <a *ngIf="settings?.is_table_invite_allowed==='1'" class="dropdown-item share-tble"
+                                    (click)="shareTable(tb)">Invite Friends</a>
+                                <a *ngIf="settings?.table_booking_add_food_allow == '1'" class="dropdown-item share-tble"
+                                    (click)="addFoodItemToTable(tb)">Add Item</a>
+                            <!-- </div>
+                        </div> -->
+                    </td>
+                </tr>
+                <tr *ngIf="tableBookings.lenght==0">{{'No Booking Found'}}</tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+<div class="custom-pagination mt-4" *ngIf="pagination.count > pagination.perPage">
+    <pagination-controls [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+        (pageChange)="pageChange($event)"></pagination-controls>
+</div>
+
+
+<p-sidebar position="top" [(visible)]="view_share_buttons" [style]="{height:'7em'}">
+    <div class="sharables">
+        <share-buttons theme="material-dark" [include]="['facebook','twitter','linkedin','pinterest','whatsapp','email']"
+            showText="true" [description]="shareable.description" [url]="shareable.link" [size]="1"
+            [title]="'Restaurants Table'"></share-buttons>
+    </div>
+</p-sidebar>

@@ -1,0 +1,62 @@
+<body>
+    <header id="E-commerce-header"></header>
+
+    <section id="royo_create_post_page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <app-profile-overview [currentUser]="currentUser" (isViewTrendingPost)="viewPostTypes($event)">
+                    </app-profile-overview>
+                </div>
+                <div class="col-md-6">
+                    <div class="royo_create_post_center">
+                        <div class="royo_create_post_user">
+                            <img src="{{currentUser?.user_image || '../../../../assets/images/placeholder-user.png'}}">
+                            <div class="royo_create_post_detail">
+                                <h3>{{'What do you want to share today'| translate}},</h3>
+                                <h3><strong>{{currentUser?.firstname}}?</strong></h3>
+                                <div class="Create_Post_btn">
+                                    <a [ngStyle]="{'backgroundColor': style.primaryColor}" class="cursor"
+                                        data-toggle="modal" (click)="openCreatePostDialog('post')">
+                                        {{'Create Post' | translate}}
+                                    </a>
+                                    <a [ngStyle]="{'backgroundColor': style.primaryColor}"
+                                        (click)="openCreatePostDialog('que')" class="Ask_Ques_btn cursor">
+                                        {{'Ask A Question' | translate}}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngFor="let post of postList;trackBy:trackByFn">
+                            <app-ecommerce-posts [currentUser]="currentUser" [style]="style" [post]="post"
+                                (updatePostEvent)="handleUpdatePostEvent($event)"
+                                (postsEvent)="handlePostsEvent($event)">
+                            </app-ecommerce-posts>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <app-follow-section [style]="style"></app-follow-section>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 text-center">
+            <div class="Create_Post_btn">
+                <a *ngIf="totalPostCount>postList.length" class="load-morep cursor"
+                    [ngStyle]="{'backgroundColor': style.primaryColor}" (click)="loadMore(20)" type="submit">
+                    Load More <app-native-loader [isNativeLoading]="isNativeLoading"></app-native-loader>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</body>
+
+
+
+
+
+
+<app-create-post *ngIf="openCreatePost" [currentUser]="currentUser" (createPostEvent)="handlePostsEvent($event)"
+    (closeCreatePost)="closeCreatePost($event)" [postId]="postId" [actionType]="actionType">
+</app-create-post>

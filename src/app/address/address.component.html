@@ -1,0 +1,21 @@
+<div *ngIf="settings" class="main-location" [style.background-image]="'url(' + settings?.placeholder?.user_location?.web +')'">
+  <div id="subscriptionpage">
+    <div class="location-wrap">
+      <h1 [style.color]="style.primaryColor">{{'order' | localization}} {{'product' | localization}} Online</h1>
+      <p [style.color]="style.baseColor">{{'order' | localization}} {{'product' | localization}} from favorite {{'suppliers' | localization}} near you.</p>
+      <form>
+        <div class="input-icons">
+          <i class="fa fa-map-marker mr-1 icons" aria-hidden="true"></i>
+          <input type="text" alt="" name="place" [(ngModel)]="place.formatted_address" appGoogleplace
+            class="form-control search-location" placeholder="Enter your Delivery Location"
+            (onSelect)="setPlace($event)">
+        </div>
+        <button type="button" class="detect-btn" (click)="detectLocation()"><i class="fa fa-crosshairs"
+            aria-hidden="true"></i>
+          Detect</button>
+        <input [ngStyle]="{'background': style.primaryColor, 'border-color': style.primaryColor}" type="submit" alt="" value="Find {{'product' | localization}}" class="btn btn-primary"
+          (click)="addressSearch()">
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,317 @@
+// .btn-number {
+//   display: inline-block;
+//   font-weight: 400;
+//   text-align: center;
+//   vertical-align: middle;
+//   -webkit-user-select: none;
+//   -moz-user-select: none;
+//   -ms-user-select: none;
+//   user-select: none;
+//   background-color: transparent;
+//   border: 1px solid transparent;
+//   padding: .375rem .75rem;
+//   font-size: 1rem;
+//   line-height: 1;
+//   width: 25px;
+//   height: 25px;;
+//   border-radius: .25rem;
+//   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+// }
+
+.grp-btn {
+  display: inline-flex;
+}
+
+.btn-number:active,
+.btn-number:focus {
+  outline: none !important;
+}
+.border-top {
+  border-top: 1px solid #dcdcdc;
+}
+.border-top p {
+  padding: 15px 0px;
+}
+.share {
+  color: #df284d;
+  float: right;
+  margin-top: 4px;
+  cursor: pointer;
+
+  i {
+    font-size: 20px;
+    margin-right: 5px;
+    vertical-align: bottom;
+  }
+}
+
+.brand {
+  margin-bottom: 10px;
+
+  h6 {
+    margin-top: 0px !important;
+  }
+}
+
+.add-to-cart {
+  border-radius: 4px;
+  width: 180px;
+  height: 35px;
+  text-align: center;
+  display: inline-grid;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.remove-from-cart {
+  margin-top: 20px;
+  border-radius: 4px;
+  width: 180px;
+  height: 35px;
+  text-align: center;
+  display: inline-grid;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border: 1px solid #e70000;
+  color: #e70000;
+}
+
+.quality_outter {
+  input {
+    font-size: 12px;
+  }
+}
+
+.qty {
+  padding: 0px 10px;
+  margin: 3px 0px 0px;
+}
+
+section {
+  margin-top: 0px;
+}
+
+.input-group {
+  width: 100%;
+  float: none;
+  padding: 10px 0px;
+}
+
+.restdet .review a {
+  margin-top: -67px !important;
+}
+
+.price {
+  font-size: 20px !important;
+}
+
+.wishlist {
+  float: right;
+  a {
+    padding: 8px;
+    background-color: #ffffff;
+  }
+
+  .fa-share-alt {
+    padding: 0px 6px;
+  }
+}
+
+.color-variant {
+  height: 20px;
+  width: 20px;
+  margin: -2px -8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.offimg {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+// .carousel-item {
+//   display: block;
+// }
+
+.carousel-indicators li {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50%;
+}
+
+
+.product_section {
+  margin-top: 60px;
+  margin-bottom: 100px;
+}
+
+.images-section-left {
+  position: relative;
+}
+
+.images-section-left img {
+  border: 1px solid;
+  border-radius: 15px;
+}
+
+.images-slides {
+  position: absolute;
+  bottom: -50px;
+  width: 95%;
+  left: 10px;
+  overflow-x: auto;
+  height: 155px;
+  display: flex;
+}
+
+.images-section-left img {
+  border: 1px solid;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.images-slides img {
+  max-width: 160px;
+  display: inline-block;
+  float: left;
+  margin-left: 10px;
+  background: #fff;
+  border-radius: 15px;
+  border: 1px solid rgba(37, 73, 77, 0.5);
+  height: 150px;
+  /* box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3); */
+}
+
+.heart-img {
+  float: right;
+  margin-top: 14px;
+  cursor: pointer;
+}
+
+p.title_shoes {
+  margin-bottom: 0;
+  opacity: 0.8;
+  color: #25494D;
+  font-size: 22px;
+  font-weight: 300;
+  width: 90%;
+}
+
+.star-rating {
+  float: right;
+  width: 100%;
+}
+
+.nike-txt-part h2 {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #25494D;
+  font-size: 28px;
+  font-weight: 300;
+  line-break: 21px;
+}
+
+.detail-discount {
+  position: relative;
+}
+
+.detail-discount:before {
+  content: '';
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  height: 3px;
+  width: 100%;
+  background: #25494d;
+  transform: translateY(-50%);
+}
+
+.description_txt {
+  margin-top: 30px;
+}
+
+.description_txt h2, .feature h2 {
+  display: inline-block !important;
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  margin-bottom: 10px !important;
+}
+
+.description_txt p {
+  opacity: 0.8;
+  color: #484848;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 24px;
+}
+
+.add-to-cart_btn button.btn.btn-large {
+  width: 47%;
+  background: transparent;
+  padding: 16px;
+  border-radius: 4px;
+  height: 76px;
+  color: #25494D;
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 24px;
+  text-align: center;
+  border: 1px solid #25494D;
+  text-transform: uppercase;
+}
+
+.add-to-cart_btn button.btn.btn-large{
+  height:55px;
+}
+
+.tab_margin{
+  margin-top: 100px !important;
+  margin-bottom: 100px !important;
+}
+
+.product_ul li {
+  display: initial;
+  margin-right: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  // opacity: 0.5;
+  color: rgba(0,0,0,.5);
+  padding-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.product_ul li.active{
+  color: #000; 
+}
+
+.product_ul li:after {
+  content: "";
+  width: 100%;
+  position: absolute;
+  background: transparent;
+  height: 2px;
+  bottom: 0px;
+  left: 0px;
+}
+
+.product_ul li.active:after {
+  background: #000;
+}
+
+.product_ul ul {
+  border-bottom: 1px solid #ddd;
+  flex-direction: row;
+  list-style: none;
+  display: flex;
+}
+
+.content_padding{
+  padding-bottom: 30px;
+}
+
+.separate_product {
+  position: unset;
+  margin-top: 25px;
+}

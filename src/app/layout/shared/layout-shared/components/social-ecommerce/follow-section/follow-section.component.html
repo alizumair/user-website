@@ -1,0 +1,83 @@
+<div class="royo_create_post_right">
+    <div class="invite_your_friend">
+        <h3>{{'Invite your Friends' | translate}}</h3>
+        <div class="attachment_link">
+            <i (click)="shareLink()" class="cursor" class="fa fa-paperclip" aria-hidden="true"></i>
+            <span>https://yammfood.royoapps.com/</span>
+        </div>
+        <div (click)="shareLink()" [ngStyle]="{'color': style.primaryColor,'border-color': style.primaryColor}"
+            class="fa_facebook cursor">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+            <span>{{'Share on Social Media' | translate}}</span>
+        </div>
+        <!-- <div (click)="shareLink()" class="fa_twitter cursor">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <span>{{'Share an twitter'| translate}}</span>
+        </div> -->
+    </div>
+    <!-- <div class="people_follows">
+        <h3>People to follow <a href="">View All</a></h3>
+        <ul>
+            <li>
+                <div class="People-to-follow">
+                    <div class="People-to-follow-image">
+                        <img src="../../../../assets/images/food.png">
+                        <span></span>
+                    </div>
+                    <h4>Vijay Verma</h4>
+                    <a href="">Follow</a>
+                </div>
+            </li>
+            <li>
+                <div class="People-to-follow">
+                    <div class="People-to-follow-image">
+                        <img src="../../../../assets/images/food.png">
+                        <span></span>
+                    </div>
+                    <h4>Vijay Verma</h4>
+                    <a href="">Follow</a>
+                </div>
+            </li>
+            <li>
+                <div class="People-to-follow">
+                    <div class="People-to-follow-image">
+                        <img src="../../../../assets/images/food.png">
+                        <span></span>
+                    </div>
+                    <h4>Vijay Verma</h4>
+                    <a href="">Follow</a>
+                </div>
+            </li>
+            <li>
+                <div class="People-to-follow">
+                    <div class="People-to-follow-image">
+                        <img src="../../../../assets/images/food.png">
+                        <span></span>
+                    </div>
+                    <h4>Vijay Verma</h4>
+                    <a href="">Follow</a>
+                </div>
+            </li>
+            <li>
+                <div class="People-to-follow">
+                    <div class="People-to-follow-image">
+                        <img src="../../../../assets/images/food.png">
+                        <span></span>
+                    </div>
+                    <h4>Vijay Verma</h4>
+                    <a href="">Follow</a>
+                </div>
+            </li>
+        </ul>
+    </div> -->
+</div>
+
+
+
+<p-sidebar position="top" [(visible)]="view_share_buttons" [style]="{height:'7em'}">
+    <div class="sharables" style="text-align: center; padding-top: 10px;">
+        <share-buttons theme="material-dark" [include]="['facebook','twitter','linkedin','pinterest','whatsapp','email']"
+            showText="true" [description]="shareable.description" [url]="shareable.link" [size]="1"
+            [title]="'Royo Foods'"></share-buttons>
+    </div>
+</p-sidebar>

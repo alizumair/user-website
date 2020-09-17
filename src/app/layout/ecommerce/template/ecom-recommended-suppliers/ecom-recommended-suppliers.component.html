@@ -1,0 +1,48 @@
+<div class="section notopmargin" style="padding: 40px 0 80px;"
+    [style.background]="settings?.app_type == 2 && settings?.selected_template == 2 ? 'rgba(249, 249, 249, 0.5)' : '#F9F9F9' ">
+    <div class="container clearfix">
+
+        <!-- <div class="heading-block nobottomborder bottommargin center">
+            <h3 class="" style="font-size: 20px;">Recommended Suppliers</h3>
+        </div> -->
+
+        <div class="title-dotted-border topmargin-sm mb-5 title-center">
+            <h4>Recommended {{'suppliers' | localization}}</h4>
+        </div>
+
+        <div class="row grid-item clearfix" *ngIf="!isLoading; else skeleton">
+            <ng-container *ngIf="suppliers && suppliers.length; else noData">
+                <div class="col-md-4 col-sm-6" *ngFor="let supplier of suppliers">
+                    <div class="row">
+                        <div class="col-md-6 grid-image">
+                            <img style="height: 140px; object-fit: cover; border-radius: 4px;" appImage [url]="supplier?.logo"
+                                [size]="'165x140'" [src]="supplier?.logo"
+                                onError="src = './assets/images/placeholder_image.svg'" alt="Image 1">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="grid-info clearfix">
+                                <h3><a>{{supplier.name}}<span>{{supplier?.address}}</span></a></h3>
+                                <a (click)="productList(supplier)" class="more-link clearfix">View Products</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-template #noData>
+                <div class="home-no-data m-n">
+                    <h4 [style.color]="style.baseColor">No {{'suppliers' | localization}} Found</h4>
+                </div>
+            </ng-template>
+        </div>
+
+        <ng-template #skeleton>
+            <div class="row grid-item clearfix">
+                <div class="skeleton col-md-4 col-sm-6" *ngFor="let supplier of util.generateFakeList(3)">
+                    <app-supplier-skeleton [style]="style" [settings]="settings">
+                    </app-supplier-skeleton>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

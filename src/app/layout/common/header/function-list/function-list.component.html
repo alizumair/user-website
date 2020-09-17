@@ -1,0 +1,142 @@
+<ul class="navbar-nav" *ngIf="!showSearchbar">
+
+    <li class="nav-item" *ngIf="settings?.gift_card == 1" style="margin-right: 10px;">
+        <a class="nav-link" (click)="sideNavToggle.emit(0)" [routerLink]="'/gift-card/list'"
+            [style.color]="style?.headerTextColor"
+            [ngStyle]="settings?.header_theme == 1 ? {'fontWeight': '500'} : {'textTransform': 'uppercase'}"
+            data-toggle="tooltip" [title]="'Gift Cards'">
+            <i [style.color]="style?.headerTextColor" class="fa fa-gift gift" aria-hidden="true"></i>
+        </a>
+    </li>
+
+    <li *ngIf="settings?.laundary_service_flow == 1" style="position: relative;">
+        <app-header-cart [style]="style" [settings]="settings"></app-header-cart>
+    </li>
+
+    <li class="nav-item" *ngIf="!loggedIn" (mouseleave)="hoverType = ''" (mouseover)="hoverType = 'LOGIN'"
+        style="margin-right: 10px;" [style.margin-right.]>
+        <a class="nav-link" data-toggle="modal" data-target="#auth" (click)="openAuthModal('LOGIN')"
+            [style.color]="style?.headerTextColor"
+            [ngStyle]="settings?.header_theme == 1 ? {'fontWeight': '500'} : {'textTransform': 'uppercase'}">
+            <span *ngIf="[1,2].includes(settings?.selected_template) && settings?.app_type < 11 && !loggedIn"
+                style="margin-right: 12px;">
+                <!-- <img src="/assets/images/food/ic_profile_active.png"> -->
+                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="ic_profile" [attr.stroke]="style?.headerTextColor">
+                            <g id="ic_profile_active-copy" transform="translate(2.000000, 2.000000)">
+                                <g id="Oval-+-Rectangle-5-Mask-Copy">
+                                    <path
+                                        d="M14.8826436,1.27098978 C13.4386023,0.461519712 11.773198,0 10,0 C4.4771525,0 0,4.4771525 0,10 C0,15.5228475 4.4771525,20 10,20 C15.5228475,20 20,15.5228475 20,10 C20,7.80198295 19.2908503,5.76959667 18.088864,4.11915418"
+                                        id="Path" stroke-linecap="round" stroke-linejoin="round" fill-rule="nonzero">
+                                    </path>
+                                    <g id="Group" transform="translate(2.500000, 5.833333)">
+                                        <circle id="Oval" cx="7.5" cy="4.16666667" r="4.16666667"></circle>
+                                        <path
+                                            d="M0.867657182,11.7088984 C2.01422412,9.69296079 4.18166639,8.33333333 6.66666667,8.33333333 L8.33333333,8.33333333 C10.7927296,8.33333333 12.941078,9.66508747 14.0965777,11.6467949"
+                                            id="Rectangle-5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </span>
+            {{'Login' | translate}}</a>
+    </li>
+
+    <span class="slash-forlogin" [style.color]="style?.headerTextColor"
+        *ngIf="[1,2].includes(settings?.selected_template) && settings?.app_type < 11 && !loggedIn"
+        style="margin-right: 10px; font-weight: 500;">/</span>
+
+    <li class="nav-item" *ngIf="!loggedIn" (mouseleave)="hoverType = ''" (mouseover)="hoverType = 'SIGNUP'">
+        <a class="nav-link" data-toggle="modal" data-target="#auth" (click)="openAuthModal('SIGNUP')"
+            [style.color]="style?.headerTextColor"
+            [ngStyle]="settings?.header_theme == 1 ? {'fontWeight': '500'} : {'textTransform': 'uppercase'}">{{'Sign up' | translate}}</a>
+    </li>
+    <!-- //&& settings?.app_type == 2 -->
+    <li class="nav-item dropdown"
+        *ngIf="loggedIn && (settings.is_supplier_wishlist == 1 || settings?.is_product_wishlist == 1)"
+        (mouseleave)=" hoverType=''" (mouseover)=" hoverType='FAVOURITE'">
+        <!-- <a class=" nav-link"><img src="/assets/images/ic_wishlist_icon.png"></a> -->
+        <a class="nav-link" data-toggle="dropdown">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Page-1" stroke="none" stroke-width="2" fill="none" fill-rule="evenodd">
+                    <g id="Group-4" transform="translate(2.000000, 3.000000)" [attr.stroke]="style.headerTextColor">
+                        <g id="ic_heart_fill">
+                            <path
+                                d="M10,18 L1.71572875,9.84452689 C-0.571909584,7.59245518 -0.571909584,3.9411255 1.71572875,1.68905378 C4.00336709,-0.563017928 7.71236166,-0.563017928 10,1.68905378 C12.2876383,-0.563017928 15.9966329,-0.563017928 18.2842712,1.68905378 C20.5719096,3.9411255 20.5719096,7.59245518 18.2842712,9.84452689 L10,18 Z"
+                                id="Combined-Shape-Copy"></path>
+                        </g>
+                    </g>
+                </g>
+            </svg>
+        </a>
+        <ul class="dropdown-menu">
+            <li *ngIf="settings.is_product_wishlist == 1" class="pl-2"><a [style.color]="style.baseColor"
+                    [class.disabled]="isNavigating" [routerLink]="['/products/wishlist']"
+                    (click)="sideNavToggle.emit(0)">{{'products' | localization}}</a></li>
+            <li *ngIf="settings.is_supplier_wishlist == 1" class="pl-2"><a [style.color]="style.baseColor"
+                    [class.disabled]="isNavigating" [routerLink]="['/supplier/supplier-list']"
+                    [queryParams]="{favourites: 1}" (click)="sideNavToggle.emit(0)">
+                    {{'suppliers' | localization}}</a>
+            </li>
+        </ul>
+    </li>
+
+    <!-- <li class=" nav-item responsiveSearch">
+                    <i class="fa fa-search" aria-hidden="true" (click)="changeSearchBar()"></i>
+            </li> -->
+    <li *ngIf="loggedIn && settings?.show_wallet_on_home == 1" class="">
+        <a [style.color]="style?.headerTextColor" class="nav-link payment_count" routerLink="/account/my-wallet" [style.color]="style?.headerTextColor">
+            <i class="fa fa-money mr-2"></i>{{userWalletBalance.toFixed(2)}}
+        </a>
+    </li>
+
+    <li class="nav-item user-profile dropdown" *ngIf="loggedIn">
+        <ng-container [ngTemplateOutlet]="userProfile"></ng-container>
+    </li>
+
+</ul>
+
+<ng-template #userProfile>
+    <a class="nav-link" data-toggle="dropdown" [ngClass]="settings?.header_theme == 1 ? 'topheader-user' : ''">
+        <img [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+            onError="src = './assets/images/placeholder_image.svg'"></a>
+    <div>
+        <ul class="dropdown-menu">
+            <li>
+                <div class="profile-detail">
+                    <div class="profile-image-home">
+                        <img class="profile-menu-image"
+                            [src]="userData?.user_image ? userData?.user_image : '/assets/images/placeholder-user.png'"
+                            onError="src = './assets/images/placeholder_image.svg'">
+                    </div>
+                    <h3 [style.color]="style?.defaultColor">{{userData?.firstname}}</h3>
+                    <h4 [style.color]="style?.secondaryColor">{{userData?.email}}</h4>
+                </div>
+            </li>
+            <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                    [routerLink]="['/account/profile']">{{'My Account' | translate}}
+                    <span>></span></a></li>
+            <li><a [style.color]="style?.defaultColor" (click)="sideNavToggle.emit(0)"
+                    [routerLink]="['/orders/order-listing']">{{('My ' + ('orders' | localization: settings?.app_type: 1)) | translate}}
+                    <span>></span></a></li>
+            <li *ngIf="settings?.show_prescription_requests == 1"><a [style.color]="style?.defaultColor"
+                    (click)="sideNavToggle.emit(0)" [routerLink]="['/orders/order-request']">
+                    {{'orders' | localization}} Requests
+                    <span>></span></a></li>
+            <li *ngIf="settings?.is_survey_monkey_allow=='1'"><a [style.color]="style?.defaultColor"
+                    (click)="surveyMonkey()">{{'Survey' | translate}}
+                </a></li>
+            <li><a [style.color]="style?.defaultColor" (click)="signOutConfirmation()">{{'Sign Out' | translate}}
+                </a></li>
+        </ul>
+    </div>
+</ng-template>
+
+
+
+<app-sm-feedback *ngIf="showFeedback" (onFeedbackClose)="onFeedbackClose($event)"></app-sm-feedback>

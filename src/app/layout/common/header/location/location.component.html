@@ -1,0 +1,169 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<ng-container *ngIf="isMobile; else webTemplate">
+  <div class="mobile-other" (click)="locationToggle = !locationToggle"
+    [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+    Location <span class="ml-2 fa fa-chevron-down"></span>
+  </div>
+  <ng-container [ngTemplateOutlet]="googleMap"></ng-container>
+
+  <div class="mobile-location-set" [style.color]="style?.topHeaderTextColor || style?.headerTextColor"
+    [title]="selectedLocation" data-toggle="tooltip">{{selectedLocation}}</div>
+</ng-container>
+
+<ng-template #webTemplate>
+
+  <ng-container [ngSwitch]="settings?.app_type">
+
+    <ng-template [ngSwitchCase]="8">
+      <div class="delivery_content" (clickOutside)="onClickedOutside()">
+        <div class="location" (click)="locationToggle = !locationToggle">
+          <div class="map-icon">
+            <i class="fa fa-map-marker" aria-hidden="true"></i>
+          </div>
+          <div class="address">
+            <h2 [style.color]="style.primaryColor"><span [style.color]="style.baseColor" [title]="selectedLocation"
+                data-toggle="tooltip">{{selectedLocation}}
+              </span>
+            </h2>
+          </div>
+          <div class="down-icon">
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+          </div>
+        </div>
+        <div class="select-area">
+          <ng-container [ngTemplateOutlet]="googleMap"></ng-container>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template ngSwitchDefault>
+
+      <ng-container [ngSwitch]="settings?.header_theme"
+        *ngIf="([0].includes(settings?.selected_template) || (settings?.app_type != 1 && settings?.selected_template == 2)) || (settings?.app_type > 10 && settings?.selected_template == 1)">
+
+        <ng-template [ngSwitchCase]="0">
+          <ul (clickOutside)="onClickedOutside()">
+            <li class="welcome_note" [style.color]="setTextColor()"
+              style="width: auto; margin-right: 14px; padding: 10px;">
+              {{'Welcome To' | translate}} {{site_name}}
+            </li> <!-- <span style="margin-left: -15px" [style.color]="style?.headerTextColor">|</span> -->
+            <li class="select-area-outter">
+              <div class="select-area dropdown" [style.backgroundColor]="setBackgroundColor()">
+                <a class="select-area-title cursor" [style.color]="style?.topHeaderTextColor || style?.headerTextColor"
+                  (click)="locationToggle = !locationToggle">
+                  <img src="assets/images/ic_location_white1.svg">
+                  <span [style.color]="setTextColor()">{{selectedLocation}}</span>
+                  <i *ngIf="selectedLocation" class="fa fa-caret-down"
+                    [style.color]="style?.topHeaderTextColor || style?.headerTextColor" aria-hidden="true"
+                    (click)="locationToggle = !locationToggle"></i>
+                </a>
+                <ng-container [ngTemplateOutlet]="googleMap"></ng-container>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="1">
+
+
+          <div (clickOutside)="onClickedOutside()" class="location-down">
+            <div class="loc-left">
+              <!-- <img height="25px" src="/assets/images/marker.svg"> -->
+
+              <i [style.color]="style?.headerTextColor" class="fa fa-map-marker"></i>
+            </div>
+            <div class="loc-right">
+              <p [style.color]="style?.headerTextColor" style="opacity: 1;">Your Location</p>
+              <div class="select-area dropdown" [style.color]="style?.headerTextColor">
+                <a class="select-area-title cursor" (click)="locationToggle = !locationToggle">
+                  {{selectedLocation}}
+                </a>
+                <ng-container [ngTemplateOutlet]="googleMap"></ng-container>
+                <i *ngIf="selectedLocation" class="fa fa-angle-down" [style.color]="style?.headerTextColor"
+                  aria-hidden="true"></i>
+              </div>
+
+            </div>
+
+          </div>
+
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="2">
+          <ul (clickOutside)="onClickedOutside()">
+            <!-- <span style="margin-left: -15px" [style.color]="style?.headerTextColor">|</span> -->
+            <li class="select-area-outter">
+              <div class="select-area dropdown"
+                [style.backgroundColor]="style.footerSecColor || style.topHeaderBackgroundColor || style.headerBackgroundColor">
+                <a class="select-area-title cursor" [style.color]="style?.topHeaderTextColor || style?.headerTextColor"
+                  (click)="locationToggle = !locationToggle">
+                  <img src="assets/images/ic_location_white1.svg">
+                  <span [style.color]="style?.topHeaderTextColor || style?.headerTextColor">{{selectedLocation}}</span>
+                  <i *ngIf="selectedLocation" class="fa fa-caret-down"
+                    [style.color]="style?.topHeaderTextColor || style?.headerTextColor" aria-hidden="true"
+                    (click)="locationToggle = !locationToggle"></i>
+                </a>
+
+                <ng-container [ngTemplateOutlet]="googleMap"></ng-container>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+
+      </ng-container>
+
+      <ng-container *ngIf="settings?.app_type == 1">
+        <div class="select-area" *ngIf="[1,2].includes(settings?.selected_template)">
+          <a (click)="locationToggle = !locationToggle">
+            <svg width="13px" height="20px" viewBox="0 0 13 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="2.0" transform="translate(-330.000000, -400.000000)" fill="#D0021B">
+                  <g id="Group-16" transform="translate(305.000000, 377.000000)">
+                    <g id="Group-10-Copy" transform="translate(19.000000, 20.000000)">
+                      <polygon id="Rectangle"
+                        transform="translate(9.500000, 12.000000) rotate(-20.000000) translate(-9.500000, -12.000000) "
+                        points="9.5 3 16 21 9.5 16.4114089 3 21"></polygon>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <span class="selected-location-text">{{selectedLocation}}</span>
+          </a>
+          <ng-container [ngTemplateOutlet]="googleMap"></ng-container>
+        </div>
+      </ng-container>
+
+    </ng-template>
+
+  </ng-container>
+
+</ng-template>
+
+
+
+<ng-template #googleMap>
+  <ul class="dropdown-menu location-drop" [ngClass]="locationToggle ? 'show' : ''">
+    <li>
+      <div class="fill-address">
+        <div class="fill-address-heading">
+          <h2 [style.color]="style?.defaultColor">{{'Choose your Location' | translate}}</h2>
+          <div class="address-done cursor">
+            <button [ngStyle]="primaryButton" type="button" class="btn" style="float: right;" (click)="onDone()"
+              data-dissmiss="dropdown">{{'Done' | translate}}</button>
+          </div>
+        </div>
+        <form>
+
+          <div class="form-group map">
+            <input class="search-location" [value]="placeSearch" type="text" name="search" placeholder="{{'Search location' | translate}}"
+              [(ngModel)]="placeSearch" appGoogleplace (onSelect)="addressSearch($event)">
+            <div id="mapLocation"></div>
+          </div>
+        </form>
+      </div>
+    </li>
+  </ul>
+</ng-template>

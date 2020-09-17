@@ -1,0 +1,6 @@
+<p class="seemore">
+    {{ seeMore ? text : text.substr(0, max) }}
+    <ng-container *ngIf="text.length > max">...
+        <a (click)="seeMore = !seeMore;">See {{ seeMore ? 'less' : 'more'}}</a>
+    </ng-container>
+</p>

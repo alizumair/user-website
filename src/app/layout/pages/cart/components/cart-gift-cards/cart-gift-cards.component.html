@@ -1,0 +1,14 @@
+<div class="gift-cards container">
+    <p class="d-inline-block"> {{'Gift Cards' | translate}}</p>
+    <a *ngIf="priceObj.gift && priceObj.gift.id" class="d-inline-block float-right text-danger"
+        (click)="removeGiftCard()">{{'Remove' | translate}}</a>
+    <div class="row">
+        <div class="col" *ngIf="!giftList.length">
+            <h5 class="text-center">{{'Gift Card Not Found' | translate}}</h5>
+        </div>
+        <div class="col-3" *ngFor="let gift of giftList">
+            <h6 [class.active]="gift.id == priceObj?.gift?.id" (click)="onGiftCardSelect(gift)">
+                {{gift.gift_name}}</h6>
+        </div>
+    </div>
+</div>

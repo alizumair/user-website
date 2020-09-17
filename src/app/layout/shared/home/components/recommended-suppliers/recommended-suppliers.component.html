@@ -1,0 +1,77 @@
+<ng-container [ngSwitch]="settings?.app_type">
+
+  <ng-template [ngSwitchCase]="2">
+    <div class="royo_recommends Suppliers-screen">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="home-title" [style.color]="style.primaryColor">{{'recommended_supplier' | localization | translate}}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="royo_recommends-produ suppliwr-sections">
+      <div class="container">
+        <div class="row" *ngIf="!isLoading; else skeleton">
+          <ng-container *ngIf="suppliers && suppliers.length; then data else noData"></ng-container>
+          <ng-template #data>
+            <div class="col-6 col-md-4 col-lg-3  Recommends-products" *ngFor="let supplier of suppliers.slice(0, 8); let i = index;">
+              <app-supplier [supplier]="supplier" [settings]="settings" [style]="style"></app-supplier>
+            </div>
+            <div class="see_more-btn" *ngIf="suppliers.length > 8">
+              <button class="btn btn-large"
+                [ngStyle]="{'borderColor': style.primaryColor, 'backgroundColor': 'style.primaryColor !important'}"
+                (click)="onSeeMore()">{{'See More' | translate}}</button>
+            </div>
+          </ng-template>
+          <ng-template #noData>
+            <div class="home-no-data">
+              <h4 [style.color]="style.baseColor">No {{'suppliers' | localization | translate}} Found</h4>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="row">
+        <div class="col col-md-3  skeleton" *ngFor="let item of util.generateFakeList(4)">
+          <app-supplier-skeleton [settings]="settings" [style]="style"></app-supplier-skeleton>
+        </div>
+      </div>
+    </ng-template>
+
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="8">
+    <div class="row" *ngIf="!isLoading; else skeleton">
+      <h2 class="title" [style.color]="style.baseColor">{{'Top' | translate}} {{'suppliers' | localization}}</h2>
+      <ng-container *ngIf="suppliers && suppliers.length; else noData">
+        <div class="col-lg-4 col-md-6 col-sm-6 neapolitan-section top-service-providers" *ngFor="let supplier of suppliers.slice(0, 6); let i = index;">
+          <app-supplier [supplier]="supplier" [settings]="settings" [style]="style"></app-supplier>
+        </div>
+        <div class="see_more-btn" *ngIf="suppliers.length > 6">
+          <button class="btn btn-large"
+            [ngStyle]="{'borderColor': style.primaryColor, 'backgroundColor': 'style.primaryColor !important'}"
+            (click)="onSeeMore()">{{'See More' | translate}}</button>
+        </div>
+      </ng-container>
+      <ng-template #noData>
+        <div class="home-no-data">
+          <h4 [style.color]="style.baseColor">No {{'suppliers' | localization}} Found</h4>
+        </div>
+      </ng-template>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="row">
+        <div class="col col-md-4 skeleton" *ngFor="let item of util.generateFakeList(4)">
+          <app-supplier-skeleton [settings]="settings" [style]="style"></app-supplier-skeleton>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
+
+
+</ng-container>

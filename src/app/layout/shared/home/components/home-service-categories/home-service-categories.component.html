@@ -1,0 +1,52 @@
+<ng-container *ngFor="let category of categories; let i = index">
+    <ng-template [ngIf]="category?.sub_category && category?.sub_category.length" [ngIfElse]="mainCategory">
+        <li class="sub-menu-heading">
+            <a class="pt-3 pb-3" [ngStyle]="(selectedIds.catId == category.id) ? {'color': '#ffffff', 'background-color': style.primaryColor} 
+            : {'color': style.baseColor}" data-toggle="collapse" href="#cat-{{i}}" role="button"><span
+                    data-toggle="tooltip" [title]="category?.name">{{category?.name}}</span></a>
+            <div class="collapse" id="cat-{{i}}" [class.show]="selectedIds.catId == category.id">
+                <ul class="sub-menu">
+                    <ng-container *ngFor="let subCat of category.sub_category; let j = index">
+                        <ng-template [ngIf]="subCat?.sub_category && subCat?.sub_category.length"
+                            [ngIfElse]="subCategory">
+                            <li class="sub-menu-heading">
+                                <a [ngStyle]="{'color': style.baseColor}" data-toggle="collapse" href="#subCat-{{j}}"
+                                    role="button"><span data-toggle="tooltip"
+                                        [title]="subCat?.name">{{subCat?.name}}</span></a>
+                            </li>
+                            <div class="collapse" id="subCat-{{j}}" [class.show]="selectedIds.subCatId == subCat.id">
+                                <ul class="sub-menu">
+                                    <li [ngStyle]="{'color': style.baseColor}"
+                                        *ngFor="let childCat of subCat?.sub_category">
+                                        <a href="javascript:void(0)"
+                                            [ngStyle]="(selectedIds.childCatId == childCat.id) ? {'pointer-events': 'none'} : {}"
+                                            (click)="categoryName = childCat.name; navigateToSupplierList(childCat.is_question,category.id, subCat.id, childCat.id, childCat); ">
+                                            <span data-toggle="tooltip"
+                                                [title]="childCat?.name">{{childCat?.name}}</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </ng-template>
+                        <ng-template #subCategory>
+                            <li>
+                                <a [ngStyle]="(selectedIds.subCatId == subCat.id) ? {'color': style.primaryColor ,  'pointer-events': 'none'} : {'color': style.baseColor}"
+                                    href="javascript:void(0)"
+                                    (click)=" categoryName = subCat.name; navigateToSupplierList(subCat.is_question, category.id, subCat.id)"><span
+                                        data-toggle="tooltip" [title]="subCat?.name">{{subCat?.name}}</span>
+                                </a>
+                            </li>
+                        </ng-template>
+                    </ng-container>
+                </ul>
+            </div>
+        </li>
+    </ng-template>
+    <ng-template #mainCategory>
+        <li><a class="pt-3 pb-3"
+                [ngStyle]="(selectedIds.catId == category.id) ? {'color': '#ffffff', 'background-color': style.primaryColor,  'pointer-events': 'none'}  : {'color': style.baseColor}"
+                href="javascript:void(0)"
+                (click)="categoryName = category.name; navigateToSupplierList(category.is_question, category.id);"
+                data-toggle="tooltip" [title]="category?.name">{{category?.name}}</a>
+        </li>
+    </ng-template>
+</ng-container>

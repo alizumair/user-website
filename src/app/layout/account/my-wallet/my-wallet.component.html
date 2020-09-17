@@ -1,0 +1,209 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<div>
+    <section id="wallet_page">
+        <div class="container">
+            <div class="wallet_outter">
+                <div class="wallet_right">
+                    <div class="wallet_right_heading">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="wallet_balance">
+                                    <p>{{'Current Balance' | translate}}</p>
+                                    <h2>{{currency}} {{walletAmount}}</h2>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="wallet_amount_button">
+                                    <a href="" class="wallet_btn" data-toggle="modal" data-target="#sendMoney"
+                                        (click)="createSendMoneyForm()">{{'Send Money To Someone' | translate}}</a>
+                                    <a href="" class="wallet_btn pricem-color" data-toggle="modal"
+                                        data-target="#addMoneyModel"
+                                        (click)="isPayOnline = false; createAddMoneyForm()">{{'Add Amount' | translate}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wallet_right_heading_status">
+                        <p>{{'History' | translate}}</p>
+                    </div>
+                    <div class="wallet_list">
+                        <div *ngFor="let transaction of transactions | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }"
+                            class="wallet_list_inner">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="wallet_list_detail">
+                                        <div class="wallet_list_img">
+                                            <img
+                                                [src]="transaction.is_add ==  1 ? 'assets/images/ic_down.png' : 'assets/images/ic_up.png'">
+                                        </div>
+                                        <div class="wallet_list_status">
+                                            <p>{{transaction?.comment || '--'}}</p>
+                                            <span>{{transaction.is_add == 1 ? 'Received' : 'Paid' | translate}} -
+                                                {{transaction.created_at | time: 'ago'}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="wallet_list_amount">
+                                        <p [ngStyle]="{'color':transaction.is_add==  1 ? '#189618' : '#ef0c0c' }">
+                                            {{currency}}
+                                            {{transaction?.amount}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-pagination mt-5" *ngIf="pagination.count > pagination.perPage">
+                <pagination-controls responsive="true" [style.color]="style.primaryColor" previousLabel="Prev"
+                    nextLabel="Next" (pageChange)="pageChange($event)"></pagination-controls>
+            </div>
+        </div>
+    </section>
+
+    <app-online-payment [settings]="settings" [order]="paymentOrderModel" *ngIf="isPayOnline"
+        [geofencedGateways]="[selectedGateway]" (onError)="onPaymentError()" (onClose)="isPayOnline = $event"
+        (onSuccess)="onPaymentSuccess($event)">
+    </app-online-payment>
+</div>
+
+
+
+
+
+<!-------------------------- Add Money Model -------------------------------->
+
+<div class="modal fade" id="addMoneyModel" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content choose_walle">
+            <div class="modal-header">
+                <button #addMoneyClose type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">{{'Add Money' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="addMoneyForm" (ngSubmit)="onAddMoney()">
+                    <div class="profile_form phoneno-form">
+                        <div class="form-group enter-wallet-amount">
+                            <label>{{'Enter Amount You Want To Add' }}</label>
+                            <input class="w-100" type="text" numbersOnly
+                                placeholder="{{'Enter Amount Here' | translate }}" formControlName="amount">
+                            <div *ngIf="submitted && addMoney.amount.errors" class="log-error">
+                                <div *ngIf="addMoney.amount.errors.required">{{'Please enter amount' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group send_money_by">
+                            <p>{{'Select Payment Method' | translate}}</p>
+                            <div class="payment_method_opt">
+                                <ng-container *ngFor="let gateway of paymentGateways; let i = index">
+                                    <div class="form-check-inline">
+                                        <label class="form-check-label" [for]="gateway.name + i">{{gateway?.name}}
+                                            <input type="radio" class="form-check-input" [id]="gateway.name + i"
+                                                name="gateway" [value]="gateway.name" (change)="modeChange($event)"
+                                                formControlName="gateway"><span class="check-span"></span>
+                                        </label>
+                                    </div>
+                                    <!-- <div>
+                                            <input [id]="gateway.name" type="radio" name="gateway"
+                                                [value]="gateway.name" (change)="sendMode = 'phone'"
+                                                (change)="modeChange($event)" formControlName="gateway" />
+                                            <label [for]="'gateway.name'">{{gateway?.name}}</label>
+                                        </div> -->
+                                </ng-container>
+                            </div>
+                        </div>
+                        <button type="submit" style="margin: 0px;"
+                            class="btn  wallet_btn">{{'Continue To Add Amount' | translate}} </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-------------------------- Share Money Model -------------------------------->
+
+<div class="modal fade" id="sendMoney" role="dialog" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button #sendMoneyClose type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">{{'Send Money' | translate}}</h4>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="sendMoneyForm" (ngSubmit)="onSendMoney()">
+                    <div class="profile_form phoneno-form">
+                        <div class="form-group enter-wallet-amount">
+                            <label>{{'Enter Amount You Want To Send' }}</label>
+                            <input class="w-100" type="text" numbersOnly placeholder="{{'Enter Amount here' }}"
+                                formControlName="amount">
+                            <div *ngIf="submitted && moneyForm.amount.errors" class="log-error">
+                                <div *ngIf="moneyForm.amount.errors.required">{{'Please enter amount.' | translate}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group send_money_by">
+                            <p>{{'Send by' | translate}}</p>
+                            <div class="payment_method_opt">
+                                <div>
+                                    <input [id]="'phone'" type="radio" name="mode" [value]="'phone'"
+                                        (change)="sendMode = 'phone'" (change)="modeChange($event)"
+                                        [checked]="'phone' == sendMode" />
+                                    <label [for]="'phone'">{{'Phone' | translate}}</label>
+                                </div>
+                                <div>
+                                    <input [id]="'email'" type="radio" name="mode" [value]="'email'"
+                                        [checked]="'email' == sendMode" (change)="modeChange($event)" />
+                                    <label [for]="'email'">{{'Email' | translate}}</label>
+                                </div>
+                            </div>
+                            <div *ngIf="sendMode == 'email'" class="form-group wallet_input">
+                                <label>{{'Enter Email' }}</label>
+                                <input class="w-100" type="text" formControlName="email"
+                                    placeholder="{{'Enter email here' | translate }}">
+                                <div *ngIf="submitted && moneyForm.email.errors" class="log-error">
+                                    <div *ngIf="moneyForm.email.errors.required">
+                                        {{'Please enter email' | translate}}</div>
+                                    <div *ngIf="submitted && moneyForm.email.errors.pattern">
+                                        {{'Please enter a valid email' | translate}}</div>
+                                </div>
+                            </div>
+                            <div *ngIf="sendMode == 'phone'" class="form-group w-100 wallet_input">
+                                <label>{{'Enter phone' | translate }}</label>
+                                <ngx-intl-tel-input [preferredCountries]="['in', 'us' ]" [searchCountryFlag]="true"
+                                    placeholder="Phone Number" [enableAutoCountrySelect]="false"
+                                    [enablePlaceholder]="true" name="phone" [separateDialCode]="true"
+                                    [phoneValidation]="true" formControlName="phoneNumber" style="width:100%">
+                                </ngx-intl-tel-input>
+                                <div *ngIf="submitted && moneyForm.phoneNumber.errors" class="log-error">
+                                    <div *ngIf="moneyForm.phoneNumber.errors.required">
+                                        {{'Please enter phone number' | translate}}</div>
+                                    <div
+                                        *ngIf="!moneyForm.phoneNumber.errors.required && moneyForm.phoneNumber.invalid">
+                                        {{'Please enter a valid phone number' | translate}}</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="comment">{{'Comment' | translate}}</label>
+                                <input class="form-control comment" rows="5" id="comment" name="comment"
+                                    placeholder="{{'Enter comment here' | translate }}" formControlName="comment"
+                                    maxlength="50">
+                            </div>
+                            <button style="margin: 0px;" class="btn wallet_btn"
+                                (submit)="onSendMoney()">{{'Send Money Now' | translate}}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

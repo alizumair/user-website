@@ -1,0 +1,356 @@
+<div class="wrapper">
+  <div id="carousel-example" class="carousel slide" data-ride="carousel">
+    <div id="demo1" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <span *ngIf="supplierData && supplierData?.supplier_image && supplierData?.supplier_image.length">
+          <div [ngClass]="i == selectedIndex ? 'carousel-item item1 active' : 'carousel-item item1'"
+            *ngFor="let banner of supplierData?.images; let i = index;" [style.height.px]="banner_height">
+            <img appImage [url]="banner?.display_image" [size]="'600x500'" [src]="banner?.display_image"
+              class="banner-image" onError="src = './assets/images/placeholder_image.svg';"
+              (load)="onBannerImageLoad(banner)">
+          </div>
+        </span>
+        <div *ngIf="!supplierData?.images && !supplierData?.images?.length" class="banner-placeholder"
+          style="background-image: url('/assets/images/banner-tab-placeholder.png')">
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#demo1" data-slide="prev"
+        *ngIf="supplierData && supplierData.supplier_image && supplierData.supplier_image.length > 1">
+        <img src="/assets/images/arrow.png">
+      </a>
+      <a class="carousel-control-next" href="#demo1" data-slide="next"
+        *ngIf="supplierData && supplierData.supplier_image && supplierData.supplier_image.length > 1">
+        <img src="/assets/images/arrow.png">
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="user-detail-suppler-outter">
+  <div class="container">
+    <div class="user-detail-suppler">
+      <div class="user-detail-suppler-image">
+        <img appImage [url]="supplierData?.logo" [size]="'600x500'" [src]="supplierData?.logo"
+          onError="src = './assets/images/placeholder_logo.svg';">
+      </div>
+      <div class="user-detail-suppler-detail">
+        <div class="shoes-limited">
+
+          <p [style.color]="style.defaultColor">{{supplierData?.name}}</p>
+          <div class="text">
+            <p [style.color]="style.secondaryColor">{{supplierData?.address}}</p>
+          </div>
+          <div class="address-text"
+            [ngClass]="{'bg-green': supplierData?.status == 1, 'bg-red': supplierData?.status == 0, 'bg-yellow': supplierData?.status == 2}">
+            <p>{{supplierData?.status == 1 ? 'Open Now - ' : (supplierData?.status == 2 ? 'Busy' : 'Closed')}}
+            </p>
+            <span class="address"
+              [style.color]="style.secondaryColor">{{supplierData?.open_time}}-{{supplierData?.close_time}}</span>
+          </div>
+          <div class="icons">
+            <!-- <span class="review_no">{{supplierData?.rating}}</span> -->
+            <!-- <rating [ngModel]="supplierData?.rating" [readonly]="true" [max]="5" [float]="true"></rating> -->
+            <p-rating [ngModel]="supplierData?.rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+
+            <span [style.color]="style.defaultColor"> {{supplierData?.total_reviews}} Review (s)</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="view-detail-popup-supplier">
+        <div class="grp-btn" [ngClass]="show_subcat ? 'float-right' : 'float-left'">
+          <div class="share" [style.color]="style.primaryColor" data-toggle="modal" data-target="#myModal">
+            <i class="fa fa-share-alt"></i>
+          </div>
+          <div *ngIf="loggedIn && settings?.app_type != 2" class="favourite"
+            [style.color]="supplierData?.Favourite ? style.primaryColor : ''"
+            (click)="addRemoveFavourites(supplierData?.Favourite)">
+            <i class="fa fa-heart"></i>
+          </div>
+        </div>
+
+        <a class="float-right cancel-btn cursor" *ngIf="!show_subcat" [ngStyle]="btn"
+          (click)="navigateToProducts(categoryId)">View {{'products' | localization}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end slider section -->
+<section class="supplier-page-outter-new">
+  <div class="container">
+
+    <ul>
+
+      <li>
+        <div class="supplier-box">
+          <!-- <img src="assets/images/min delivery time.svg"> -->
+          <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="New-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Seller_profile1" transform="translate(-210.000000, -704.000000)" [attr.fill]="style.primaryColor"
+                fill-rule="nonzero">
+                <g id="Group-2" transform="translate(202.000000, 696.000000)">
+                  <g id="min-delivery-time" transform="translate(8.000000, 8.000000)">
+                    <path
+                      d="M23.0420392,7.32207843 C21.7767059,4.37207843 19.6265098,2.22662745 16.6518824,0.957960784 C15.1651373,0.323882353 13.6075294,3.69482223e-13 11.9802745,3.69482223e-13 C10.3532941,3.69482223e-13 8.80717647,0.320823529 7.32207843,0.957960784 C4.37207843,2.2232549 2.21235294,4.36733333 0.944784314,7.32207843 C0.309607843,8.80239216 0,10.3532549 0,11.9802353 C0,13.6075294 0.309607843,15.1712549 0.944784314,16.6518824 C2.21235294,19.6066275 4.37235294,21.7635686 7.32207843,23.0291765 C8.80745098,23.6663137 10.3532549,23.9868235 11.9802745,23.9868235 C13.6072941,23.9868235 15.1651373,23.6629412 16.6516471,23.0291765 C19.6262745,21.7604706 21.7764706,19.6016078 23.0420784,16.6518824 C23.6791765,15.1665098 24,13.6075294 24,11.9802353 C24,10.3532549 23.679451,8.80741176 23.0420392,7.32207843 Z M21.1264314,17.2817647 C20.1844314,18.8972549 18.8939216,20.1788627 17.2685882,21.1264314 C15.653098,22.0684314 13.8830196,22.5434902 11.980549,22.5434902 C10.5503529,22.5434902 9.18564706,22.2680392 7.88643137,21.7036863 C6.5872549,21.1396078 5.46552941,20.3980392 4.52717647,19.4599608 C3.58882353,18.5216078 2.84196078,17.3889412 2.2834902,16.0875294 C1.72666667,14.7908627 1.45682353,13.4107451 1.45682353,11.9802745 C1.45682353,10.0775294 1.92431373,8.31643137 2.86101961,6.70541176 C3.80105882,5.0885098 5.09184314,3.80552941 6.70568627,2.86070588 C8.3192549,1.91592157 10.0778431,1.44337255 11.9802745,1.44337255 C13.8830196,1.44337255 15.6527843,1.91870588 17.2683137,2.86070588 C18.8936471,3.80831373 20.1813725,5.0912549 21.1261569,6.70537255 C22.0709412,8.31921569 22.5432157,10.0775294 22.5432157,11.9802353 C22.5432157,13.8830196 22.0740392,15.6561176 21.1264314,17.2817647 Z"
+                      id="Shape"></path>
+                    <path
+                      d="M12.7414118,11.8752941 L12.7414118,5.07807843 C12.7414118,4.67133333 12.3870196,4.3432549 11.9802353,4.3432549 C11.5998039,4.3432549 11.258549,4.67133333 11.258549,5.07807843 L11.258549,11.9802353 C11.258549,11.9934118 11.2848627,12.0460392 11.2848627,12.0852549 C11.258549,12.3214902 11.3243529,12.5183137 11.4816863,12.6759216 L15.4053333,16.5992941 C15.6678824,16.8618431 16.1532941,16.8618431 16.4156471,16.5992941 C16.7173725,16.2975294 16.6975294,15.8596863 16.4156471,15.5758039 L12.7414118,11.8752941 Z"
+                      id="Path"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <h4 *ngIf="supplierData?.delivery_min_time">{{supplierData?.delivery_min_time | formatTimeInterval}}</h4>
+          <h4 *ngIf="!supplierData?.delivery_min_time">0 minutes</h4>
+          <span>{{'Minimum delivery time' | translate}}</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="supplier-box">
+          <!-- <img src="assets/images/min order.svg"> -->
+          <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="New-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Seller_profile1" transform="translate(-410.000000, -704.000000)" [attr.fill]="style.primaryColor"
+                fill-rule="nonzero">
+                <g id="Group-10" transform="translate(402.000000, 696.000000)">
+                  <g id="min-order" transform="translate(8.000000, 8.000000)">
+                    <path
+                      d="M20.4853125,3.5146875 C18.2188125,1.2481875 15.2053125,0 12,0 C8.7946875,0 5.7811875,1.2481875 3.5146875,3.5146875 C1.24823438,5.7811875 0,8.7946875 0,12 C0,15.2053125 1.24823438,18.2188125 3.5146875,20.4853125 C5.7811875,22.7518125 8.7946875,24 12,24 C15.2053125,24 18.2188125,22.7518125 20.4853125,20.4853125 C22.7517656,18.2188125 24,15.2053125 24,12 C24,8.7946875 22.7517656,5.7811875 20.4853125,3.5146875 Z M12,22.59375 C6.15857813,22.59375 1.40625,17.8414219 1.40625,12 C1.40625,6.15857812 6.15857813,1.40625 12,1.40625 C17.8414219,1.40625 22.59375,6.15857812 22.59375,12 C22.59375,17.8414219 17.8414219,22.59375 12,22.59375 Z"
+                      id="Shape"></path>
+                    <path
+                      d="M12.7531406,11.296875 L11.2468594,11.296875 C10.3887188,11.296875 9.69060938,10.5987656 9.69060938,9.74067188 C9.69060938,8.88253125 10.3887656,8.18442187 11.2468594,8.18442187 L14.259375,8.18442187 C14.6476875,8.18442187 14.9625,7.86960937 14.9625,7.48129687 C14.9625,7.09298438 14.6476875,6.77817187 14.259375,6.77817187 L12.703125,6.77817187 L12.703125,5.22192187 C12.703125,4.83360937 12.3883125,4.51879687 12,4.51879687 C11.6116875,4.51879687 11.296875,4.83360937 11.296875,5.22192187 L11.296875,6.77817187 L11.2469063,6.77817187 C9.61335938,6.77817187 8.28440625,8.10717188 8.28440625,9.74067188 C8.28440625,11.3741719 9.61340625,12.703125 11.2469062,12.703125 L12.7531875,12.703125 C13.6112812,12.703125 14.3093906,13.4012813 14.3093906,14.259375 C14.3093906,15.1174687 13.6112813,15.815625 12.7531875,15.815625 L9.74067188,15.815625 C9.35235938,15.815625 9.03754688,16.1304375 9.03754688,16.51875 C9.03754688,16.9070625 9.35235938,17.221875 9.74067188,17.221875 L11.296875,17.221875 L11.296875,18.7781719 C11.296875,19.1664844 11.6116875,19.4812969 12,19.4812969 C12.3883125,19.4812969 12.703125,19.1664844 12.703125,18.7781719 L12.703125,17.221875 L12.7531406,17.221875 C14.3866406,17.221875 15.7155938,15.892875 15.7155938,14.259375 C15.7155938,12.625875 14.3866406,11.296875 12.7531406,11.296875 Z"
+                      id="Path"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <h4>{{currency}} {{supplierData?.min_order}}</h4>
+          <span>{{'Minimum Order' | translate}}</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="supplier-box">
+          <!-- <img src="assets/images/delivery_charges.svg" > -->
+          <svg width="31px" height="22px" viewBox="0 0 31 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="New-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Seller_profile1" transform="translate(-607.000000, -705.000000)" [attr.fill]="style.primaryColor"
+                fill-rule="nonzero" stroke="#979797" stroke-width="0.2">
+                <g id="Group-3" transform="translate(602.000000, 696.000000)">
+                  <g id="delivery-truck(8)" transform="translate(6.000000, 10.000000)">
+                    <path
+                      d="M23.7090206,14.6236559 C23.0004072,14.6236559 22.3272246,14.9044205 21.8193851,15.4121864 C21.3115455,15.9259259 21.0281002,16.5949821 21.0281002,17.311828 C21.0281002,18.0286738 21.3056404,18.69773 21.8193851,19.2114695 C22.3331297,19.7192354 23.0004072,20 23.7090206,20 C25.1616779,20 26.3427001,18.7933094 26.3427001,17.311828 C26.3427001,15.8303465 25.1616779,14.6236559 23.7090206,14.6236559 Z M23.7090206,18.8052569 C22.8941153,18.8052569 22.2091224,18.1242533 22.2091224,17.311828 C22.2091224,16.4994026 22.8941153,15.818399 23.7090206,15.818399 C24.5121157,15.818399 25.1616779,16.4874552 25.1616779,17.311828 C25.1616779,18.1362007 24.5121157,18.8052569 23.7090206,18.8052569 Z M24.3940134,5.66905615 C24.2877214,5.56750299 24.1459988,5.51373955 23.998371,5.51373955 L20.9690491,5.51373955 C20.644268,5.51373955 20.378538,5.78255675 20.378538,6.11111111 L20.378538,11.0095579 C20.378538,11.3381123 20.644268,11.6069295 20.9690491,11.6069295 L25.7758094,11.6069295 C26.1005905,11.6069295 26.3663205,11.3381123 26.3663205,11.0095579 L26.3663205,7.72998805 C26.3663205,7.56272401 26.2954592,7.40143369 26.1714518,7.28793309 L24.3940134,5.66905615 Z M25.1852983,10.4121864 L21.5595602,10.4121864 L21.5595602,6.70250896 L23.7680717,6.70250896 L25.1852983,7.99283154 L25.1852983,10.4121864 Z M9.28873956,14.6236559 C8.58012625,14.6236559 7.9069436,14.9044205 7.39910405,15.4121864 C6.89126451,15.9259259 6.60781918,16.5949821 6.60781918,17.311828 C6.60781918,18.0286738 6.8853594,18.69773 7.39910405,19.2114695 C7.91284871,19.7192354 8.58012625,20 9.28873956,20 C10.7413969,20 11.9224191,18.7933094 11.9224191,17.311828 C11.9224191,15.8303465 10.7413969,14.6236559 9.28873956,14.6236559 Z M9.28873956,18.8052569 C8.47383425,18.8052569 7.78884138,18.1242533 7.78884138,17.311828 C7.78884138,16.4994026 8.47383425,15.818399 9.28873956,15.818399 C10.0918347,15.818399 10.7413969,16.4874552 10.7413969,17.311828 C10.7413969,18.1362007 10.0918347,18.8052569 9.28873956,18.8052569 Z M5.35003054,15.3584229 L4.16310324,15.3584229 L4.16310324,13.7694146 C4.16310324,13.4408602 3.89737324,13.172043 3.57259214,13.172043 C3.24781104,13.172043 2.98208104,13.4408602 2.98208104,13.7694146 L2.98208104,15.9557945 C2.98208104,16.2843489 3.24781104,16.5531661 3.57259214,16.5531661 L5.35003054,16.5531661 C5.67481165,16.5531661 5.94054164,16.2843489 5.94054164,15.9557945 C5.94054164,15.6272401 5.67481165,15.3584229 5.35003054,15.3584229 Z M8.34392181,12.1027479 C8.34392181,11.7741935 8.07819181,11.5053763 7.75341071,11.5053763 L0.590511098,11.5053763 C0.265729994,11.5053763 0,11.7741935 0,12.1027479 C0,12.4313023 0.265729994,12.7001195 0.590511098,12.7001195 L7.75341071,12.7001195 C8.07819181,12.7001195 8.34392181,12.437276 8.34392181,12.1027479 Z M1.78924863,9.94623656 L8.95214824,9.98805257 C9.27692934,9.98805257 9.54265934,9.72520908 9.54856445,9.39665472 C9.55446956,9.06212664 9.28873956,8.79330944 8.96395846,8.79330944 L1.80105885,8.75149343 C1.79515374,8.75149343 1.79515374,8.75149343 1.79515374,8.75149343 C1.47037263,8.75149343 1.20464264,9.01433692 1.20464264,9.34289128 C1.19873753,9.67741935 1.46446752,9.94623656 1.78924863,9.94623656 Z M2.99389126,7.23416965 L10.1567909,7.23416965 C10.481572,7.23416965 10.747302,6.96535245 10.747302,6.63679809 C10.747302,6.30824373 10.481572,6.03942652 10.1567909,6.03942652 L2.99389126,6.03942652 C2.66911016,6.03942652 2.40338017,6.30824373 2.40338017,6.63679809 C2.40338017,6.96535245 2.66911016,7.23416965 2.99389126,7.23416965 Z M28.7815109,6.42771804 L28.7815109,6.42771804 L24.5534514,2.88530466 C24.4471594,2.79569892 24.317247,2.7479092 24.1755243,2.7479092 L19.2034209,2.7479092 L19.2034209,0.597371565 C19.2034209,0.268817204 18.9376909,0 18.6129098,0 L3.57259214,0 C3.24781104,0 2.98208104,0.268817204 2.98208104,0.597371565 L2.98208104,4.97013142 C2.98208104,5.29868578 3.24781104,5.56750299 3.57259214,5.56750299 C3.89737324,5.56750299 4.16310324,5.29868578 4.16310324,4.97013142 L4.16310324,1.19474313 L18.0283038,1.19474313 L18.0283038,15.3584229 L13.1861128,15.3584229 C12.8613317,15.3584229 12.5956017,15.6272401 12.5956017,15.9557945 C12.5956017,16.2843489 12.8613317,16.5531661 13.1861128,16.5531661 L20.3962533,16.5531661 C20.7210344,16.5531661 20.9867644,16.2843489 20.9867644,15.9557945 C20.9867644,15.6272401 20.7210344,15.3584229 20.3962533,15.3584229 L19.209326,15.3584229 L19.209326,3.94265233 L23.9688454,3.94265233 L27.8189778,7.16845878 L27.777642,15.3464755 L27.1635105,15.3464755 C26.8387294,15.3464755 26.5729994,15.6152927 26.5729994,15.9438471 C26.5729994,16.2724014 26.8387294,16.5412186 27.1635105,16.5412186 L28.362248,16.5412186 C28.6870291,16.5412186 28.9527591,16.2783751 28.9527591,15.9498208 L29,6.89366786 C28.9940949,6.71445639 28.9173284,6.54121864 28.7815109,6.42771804 Z"
+                      id="Shape"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <h4>{{currency}} {{supplierData?.delivery_charges}}</h4>
+          <span> {{'Delivery Charges' | translate}}</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="supplier-box">
+          <!-- <img src="assets/images/payment_option.svg"> -->
+          <svg width="23px" height="20px" viewBox="0 0 23 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="New-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Seller_profile1" transform="translate(-811.000000, -706.000000)" [attr.fill]="style.primaryColor"
+                fill-rule="nonzero">
+                <g id="Group-11" transform="translate(802.000000, 696.000000)">
+                  <g id="wallet(3)" transform="translate(9.000000, 10.000000)">
+                    <path
+                      d="M21.6944672,8.69285714 L21.1477459,8.69285714 L21.1477459,5.37380952 C21.1477459,4.01666667 20.0543033,2.91666667 18.7157787,2.91666667 L18.2114754,2.91666667 L18.2161885,1.68333333 C18.2161885,0.769047619 17.4809426,0.0261904762 16.5760246,0.0261904762 L1.99364754,0.0261904762 C0.904918033,0.0261904762 0.0141393443,0.911904762 0,2.01190476 C0,2.02142857 0,2.03095238 0,2.04047619 L0,18.297619 C0,19.2119048 0.735245902,19.9547619 1.64016393,19.9547619 L18.7204918,19.9547619 C20.0637295,19.9547619 21.152459,18.85 21.152459,17.497619 L21.152459,14.1738095 L21.6991803,14.1738095 C22.4061475,14.1738095 22.9811475,13.5928571 22.9811475,12.8785714 L22.9811475,9.98809524 C22.9764344,9.27380952 22.4014344,8.69285714 21.6944672,8.69285714 Z M1.99364754,1.16904762 L16.5760246,1.16904762 C16.8540984,1.16904762 17.085041,1.39761905 17.085041,1.67857143 L17.0803279,2.91666667 L1.99364754,2.91666667 C1.51762295,2.91666667 1.13114754,2.52619048 1.13114754,2.0452381 C1.13114754,1.56428571 1.51762295,1.16904762 1.99364754,1.16904762 Z M20.0165984,17.4928571 C20.0165984,18.2166667 19.4321721,18.8071429 18.7157787,18.8071429 L1.63545082,18.8071429 C1.35737705,18.8071429 1.12643443,18.5785714 1.12643443,18.2928571 L1.12643443,3.85952381 C1.39036885,3.98809524 1.68258197,4.05952381 1.99364754,4.05952381 L18.7157787,4.05952381 C19.4321721,4.05952381 20.0165984,4.65 20.0165984,5.37380952 L20.0165984,8.69285714 L16.1565574,8.69285714 C15.4495902,8.69285714 14.8745902,9.27380952 14.8745902,9.98809524 L14.8745902,12.8785714 C14.8745902,13.5928571 15.4495902,14.1738095 16.1565574,14.1738095 L20.0165984,14.1738095 L20.0165984,17.4928571 Z M21.8452869,12.8785714 C21.8452869,12.9642857 21.7793033,13.0309524 21.6944672,13.0309524 L16.1612705,13.0309524 C16.0764344,13.0309524 16.0104508,12.9642857 16.0104508,12.8785714 L16.0104508,9.98809524 C16.0104508,9.90714286 16.0764344,9.83571429 16.1612705,9.83571429 L21.6944672,9.83571429 C21.7745902,9.83571429 21.8452869,9.90238095 21.8452869,9.98809524 L21.8452869,12.8785714 L21.8452869,12.8785714 Z"
+                      id="Shape"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <h4>{{supplierData?.payment_method == 0 ? 'Cash' : (supplierData?.payment_method == 1 ? 'Card'
+                : 'Cash & Card')}}</h4>
+          <span>{{'Payment Option' | translate}}</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="supplier-box">
+          <!-- <img src="assets/images/orders_done.svg"> -->
+          <svg width="23px" height="25px" viewBox="0 0 23 25" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="New-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Seller_profile1" transform="translate(-1011.000000, -704.000000)" [attr.fill]="style.primaryColor"
+                fill-rule="nonzero">
+                <g id="Group-12" transform="translate(1002.000000, 696.000000)">
+                  <g id="orders_done" transform="translate(9.000000, 8.000000)">
+                    <path
+                      d="M22.9894737,5.89135021 C22.9894737,5.7964135 22.9684211,5.70147679 22.9263158,5.61181435 C22.8421053,5.43248945 22.6789474,5.31118143 22.5,5.2742616 L11.7789474,0.0632911392 C11.6052632,-0.0210970464 11.4,-0.0210970464 11.2263158,0.0632911392 L0.4,5.32172996 C0.189473684,5.42194093 0.0526315789,5.63291139 0.0421052632,5.87025316 L0.0421052632,5.87552743 C0.0421052632,5.88080169 0.0421052632,5.88607595 0.0421052632,5.89662447 L0.0421052632,19.092827 C0.0421052632,19.335443 0.178947368,19.556962 0.4,19.6624473 L11.2263158,24.9208861 C11.2315789,24.9208861 11.2315789,24.9208861 11.2368421,24.9261603 C11.2526316,24.9314346 11.2684211,24.9367089 11.2842105,24.9472574 C11.2894737,24.9472574 11.2947368,24.9525316 11.3052632,24.9525316 C11.3210526,24.9578059 11.3368421,24.9630802 11.3526316,24.9683544 C11.3578947,24.9683544 11.3631579,24.9736287 11.3684211,24.9736287 C11.3842105,24.978903 11.4052632,24.978903 11.4210526,24.9841772 C11.4263158,24.9841772 11.4315789,24.9841772 11.4368421,24.9841772 C11.4578947,24.9841772 11.4842105,24.9894515 11.5052632,24.9894515 C11.5263158,24.9894515 11.5526316,24.9894515 11.5736842,24.9841772 C11.5789474,24.9841772 11.5842105,24.9841772 11.5894737,24.9841772 C11.6052632,24.9841772 11.6263158,24.978903 11.6421053,24.9736287 C11.6473684,24.9736287 11.6526316,24.9683544 11.6578947,24.9683544 C11.6736842,24.9630802 11.6894737,24.9578059 11.7052632,24.9525316 C11.7105263,24.9525316 11.7157895,24.9472574 11.7263158,24.9472574 C11.7421053,24.9419831 11.7578947,24.9367089 11.7736842,24.9261603 C11.7789474,24.9261603 11.7789474,24.9261603 11.7842105,24.9208861 L22.6421053,19.6466245 C22.8578947,19.5411392 23,19.3196203 23,19.0770042 L23,5.907173 C22.9894737,5.90189873 22.9894737,5.89662447 22.9894737,5.89135021 Z M11.5,1.33438819 L20.8894737,5.89662447 L17.4315789,7.57911392 L8.04210526,3.01687764 L11.5,1.33438819 Z M11.5,10.4588608 L2.11052632,5.89662447 L6.59473684,3.71835443 L15.9842105,8.28059072 L11.5,10.4588608 Z M1.30526316,6.91455696 L10.8684211,11.5611814 L10.8684211,23.3386076 L1.30526316,18.6919831 L1.30526316,6.91455696 Z M12.1315789,23.3386076 L12.1315789,11.5611814 L16.6210526,9.37763713 L16.6210526,12.4578059 C16.6210526,12.8059072 16.9052632,13.0907173 17.2526316,13.0907173 C17.6,13.0907173 17.8842105,12.8059072 17.8842105,12.4578059 L17.8842105,8.76054852 L21.7263158,6.89345992 L21.7263158,18.6708861 L12.1315789,23.3386076 Z"
+                      id="Shape"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <h4>{{supplierData?.total_order}}</h4>
+          <span>{{'Order Done So Far' | translate}}</span>
+        </div>
+      </li>
+
+      <li>
+        <div class="supplier-box">
+          <!-- <img src="assets/images/bussiness_since.svg"> -->
+          <svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="New-Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Seller_profile1" transform="translate(-1211.000000, -705.000000)" [attr.fill]="style.primaryColor"
+                fill-rule="nonzero">
+                <g id="Group-13" transform="translate(1202.000000, 696.000000)">
+                  <g id="bussiness_since" transform="translate(9.000000, 9.000000)">
+                    <path
+                      d="M20.167125,2.0625 L17.1875,2.0625 L17.1875,0.6875 C17.1875,0.3073125 16.8801875,0 16.5,0 C16.1198125,0 15.8125,0.3073125 15.8125,0.6875 L15.8125,2.0625 L11.6875,2.0625 L11.6875,0.6875 C11.6875,0.3073125 11.3795,0 11,0 C10.6205,0 10.3125,0.3073125 10.3125,0.6875 L10.3125,2.0625 L6.1875,2.0625 L6.1875,0.6875 C6.1875,0.3073125 5.8795,0 5.5,0 C5.1205,0 4.8125,0.3073125 4.8125,0.6875 L4.8125,2.0625 L1.8335625,2.0625 C0.820875,2.0625 0,2.8826875 0,3.895375 L0,20.1664375 C0,21.179125 0.820875,22 1.8335625,22 L20.167125,22 C21.1798125,22 22,21.179125 22,20.1664375 L22,3.895375 C22,2.8826875 21.1798125,2.0625 20.167125,2.0625 Z M20.625,20.1664375 C20.625,20.4194375 20.4194375,20.625 20.167125,20.625 L1.8335625,20.625 C1.5805625,20.625 1.375,20.4194375 1.375,20.1664375 L1.375,3.895375 C1.375,3.6430625 1.5805625,3.4375 1.8335625,3.4375 L4.8125,3.4375 L4.8125,4.8125 C4.8125,5.1926875 5.1205,5.5 5.5,5.5 C5.8795,5.5 6.1875,5.1926875 6.1875,4.8125 L6.1875,3.4375 L10.3125,3.4375 L10.3125,4.8125 C10.3125,5.1926875 10.6205,5.5 11,5.5 C11.3795,5.5 11.6875,5.1926875 11.6875,4.8125 L11.6875,3.4375 L15.8125,3.4375 L15.8125,4.8125 C15.8125,5.1926875 16.1198125,5.5 16.5,5.5 C16.8801875,5.5 17.1875,5.1926875 17.1875,4.8125 L17.1875,3.4375 L20.167125,3.4375 C20.4194375,3.4375 20.625,3.6430625 20.625,3.895375 L20.625,20.1664375 Z"
+                      id="Shape"></path>
+                    <rect id="Rectangle" x="4.8125" y="8.25" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="4.8125" y="11.6875" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="4.8125" y="15.125" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="9.625" y="15.125" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="9.625" y="11.6875" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="9.625" y="8.25" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="14.4375" y="15.125" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="14.4375" y="11.6875" width="2.75" height="2.0625"></rect>
+                    <rect id="Rectangle" x="14.4375" y="8.25" width="2.75" height="2.0625"></rect>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <h4>{{supplierData?.business_start_date ? supplierData?.business_start_date : 'NA'}}</h4>
+          <span>{{'In Business Since' | translate}}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</section>
+
+<section class="supplier-tabs-outter" style="background-color: #F5F7FB;">
+  <div class="container">
+    <div class="row">
+      <!-- <div class="col-md-3">
+        <div class="tab">
+          <button class="tablinks" *ngIf="show_subcat"
+            [ngStyle]="selectedTab == 0 ? {'color': style.primaryColor} : {'color': style.defaultColor}"
+            (click)="selectedTab = 0">Categories <i
+              [ngClass]="selectedTab == 0  ? 'fa fa-caret-up' : 'fa fa-caret-down' "></i></button>
+          <ul *ngIf="selectedTab == 0" class="list-group">
+            <a class="list-group-item" *ngFor="let subCat of subCategories[subCatIndex]">{{subCat?.name}}</a>
+          </ul>
+          <button class="tablinks"
+            [ngStyle]="selectedTab == 1 ? {'color': style.primaryColor} : {'color': style.defaultColor}"
+            (click)="selectedTab = 1">{{'About ' + localization?.supplier | translate}}</button>
+          <button class="tablinks"
+            [ngStyle]="selectedTab == 2 ? {'color': style.primaryColor} : {'color': style.defaultColor}"
+            (click)="selectedTab = 2">{{'Uniqueness' | translate}}</button>
+          <button class="tablinks"
+            [ngStyle]="selectedTab == 3 ? {'color': style.primaryColor} : {'color': style.defaultColor}"
+            (click)="selectedTab = 3">{{'Reviews' | translate}}</button>
+        </div>
+
+      </div> -->
+      <div class="col-md-7" *ngIf="show_subcat">
+
+        <div id="category" class="tabcontent" style="height: 100%" [style.color]="style.defaultColor">
+          <h3>
+            <!-- <span *ngIf="subCatIndex > 0" class="back" [style.color]="style.primaryColor" (click)="back()"><i
+                class="fa fa-arrow-left"></i></span> -->
+            Select {{'category' | localization}}
+          </h3>
+          <div class="supdetbox">
+            <div class="row">
+              <div class="col-md-3 uk-animation-slide-right" *ngFor="let subCat of subCategories; let i = index">
+                <figure (click)="!loading ? onSubCatSelect(subCat, true) : ''">
+                  <img [src]="subCat?.display_image" onError="src = './assets/images/placeholder_image.svg';"
+                    (load)="onImageLoad(subCat)">
+                </figure>
+                <p>{{subCat?.name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- 
+        <div id="about_supplier" class="tabcontent" *ngIf="selectedTab == 1" [style.color]="style.defaultColor">
+          <h3>{{'About ' + localization?.supplier | translate}}</h3>
+          <p [innerHtml]="supplierData?.description | safe: 'html'"></p>
+        </div>
+
+        <div id="uniqueness" class="tabcontent" *ngIf="selectedTab == 2" [style.color]="style.defaultColor">
+          <h3>{{'Uniqueness' | translate}}</h3>
+          <p [innerHtml]="supplierData?.about | safe: 'html'"></p>
+        </div> -->
+      <div [ngClass]="show_subcat ? 'col-md-5' : 'col-md-12'">
+        <div id="reviews" class="tabcontent" style="height: 100%" [style.color]="style.defaultColor">
+          <h3>{{'Reviews' | translate}} <span [style.color]="style.primaryColor" class="rate" (click)="rateSupplier()">
+              Rate {{'supplier' | localization}}</span>
+          </h3>
+          <div class="no-data mt-5" *ngIf="supplierData?.review_list.length === 0">
+            <h1>{{'No Reviews' | translate}}!</h1>
+            <h6 *ngIf="loggedIn" [style.color]="style.secondaryColor">
+              Be the first one to rate this {{'supplier' | localization}}!
+              <!-- <a [style.color]="style.primaryColor" (click)="rateSupplier()">{{'Click Here' | translate}}</a> -->
+            </h6>
+          </div>
+
+          <div class="seller-information user-review-outter" *ngIf="supplierData?.review_list.length > 0">
+            <div class="user-reviews-box" *ngFor="let rate of supplierData?.review_list">
+              <div class="user-reviews">
+                <img [src]="rate?.user_image" onError="src = './assets/images/placeholder_image.svg';">
+                <div class="user-reviews-info">
+                  <h5 style="padding-top: 6px" [style.color]="defaultColor">{{rate?.firstname}}<p
+                      [style.color]="style.secondaryColor">
+                      {{rate?.created_on}}</p>
+                  </h5>
+                  <div class="single-product-ratting">
+                    <!-- <rating [ngModel]="rate?.rating" [readonly]="true" [max]="5" [float]="true"></rating> -->
+                    <p-rating [ngModel]="supplierData?.rating" readonly="true" stars="5" [cancel]="false"></p-rating>
+                  </div>
+                  <p [style.color]="style.defaultColor" class="user-review-dec">{{rate?.comment}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Share Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" [style.color]="style.baseColor">{{'Share' | translate}}</h4>
+        <button type="button" class="close" data-dismiss="modal" #closeModal></button>
+      </div>
+      <div class="modal-body">
+        <!-- <share-buttons theme="material-dark" show="11"></share-buttons> -->
+      </div>
+    </div>
+
+  </div>
+</div>

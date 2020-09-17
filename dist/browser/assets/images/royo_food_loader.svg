@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="41px" height="42px" viewBox="0 0 41 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>royo_food_loader</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-71.3%" y="-75.0%" width="242.6%" height="250.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="0.149253731 0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-56.0%" y="-56.0%" width="211.9%" height="211.9%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="0.149253731 0" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-2-Copy" transform="translate(-1.000000, 0.000000)">
+            <polygon id="Path-4" fill="#FFA7A7" points="29.3886504 18.2150855 31.2242129 15.9138962 29.3886504 14.3976007 27.3207036 16.639759"></polygon>
+            <ellipse id="Oval" stroke="#F76164" stroke-width="0.5" fill="#F42C30" cx="19.5863877" cy="27.5198313" rx="14.0241935" ry="14.0298507"></ellipse>
+            <circle id="Oval-Copy-10" fill="#F76164" cx="19.5863877" cy="27.5198313" r="12"></circle>
+            <g id="Group" transform="translate(22.284961, 33.661138) rotate(-40.000000) translate(-22.284961, -33.661138) translate(17.284961, 29.161138)">
+                <path d="M6.34264287,2.1272006 C7.56143515,1.97842058 7.46769074,1.0050647 8.60466275,1.70352552 C9.74163476,2.40198634 10.5932327,4.79492886 8.68981871,6.61111647 C6.78640472,8.42730409 6.07302706,8.96645404 3.80199698,8.69687907 C1.5309669,8.42730409 -1.65895153e-12,5.49666918 -1.65911729e-12,3.47401876 C-1.65911729e-12,1.45136834 0.745814377,-0.369920722 3.55086166,0.0647953457 C6.35590895,0.499511414 5.12385059,2.27598063 6.34264287,2.1272006 Z" id="Path-3" fill="#FFFFFF"></path>
+                <g id="Group-17" transform="translate(4.026140, 4.214603)">
+                    <ellipse id="Oval" fill="#FFB248" cx="1.5704584" cy="1.49253731" rx="1.5704584" ry="1.49253731"></ellipse>
+                    <ellipse id="Oval-Copy-5" fill="#F9FFFF" filter="url(#filter-1)" cx="1.09932088" cy="0.746268657" rx="1" ry="1"></ellipse>
+                </g>
+            </g>
+            <g id="Group-Copy" transform="translate(11.562194, 18.000000)">
+                <path d="M7.7558893,2.67045701 C9.24624879,2.48368071 9.13161657,1.26174376 10.5219249,2.13858142 C11.9122332,3.01541908 12.9535813,6.01948466 10.626055,8.29950044 C8.29852868,10.5795162 7.4261986,11.2563573 4.6491452,10.9179368 C1.87209181,10.5795162 2.02694227e-16,6.90043935 0,4.36123314 C0,1.82202692 0.911994237,-0.464393149 4.34205276,0.0813431441 C7.77211128,0.627079437 6.26552981,2.85723332 7.7558893,2.67045701 Z" id="Path-3" fill="#FFFFFF"></path>
+                <g id="Group-17" transform="translate(5.000000, 5.000000)">
+                    <circle id="Oval" fill="#FFB248" cx="2" cy="2" r="2"></circle>
+                    <circle id="Oval-Copy-5" fill="#F9FFFF" filter="url(#filter-2)" cx="1.4" cy="1" r="1"></circle>
+                </g>
+            </g>
+            <path d="M35.3715263,1.32420787 L35.3715263,1.32420787 C36.6442961,1.32446203 37.6758739,2.35645192 37.6756198,3.62922179 C37.6756144,3.65638327 37.6751287,3.68354253 37.6741632,3.71068683 L37.1912044,17.2877075 L33.6243369,17.2968407 L33.0796476,3.7093263 C33.0289162,2.44380957 34.0136943,1.37677964 35.279211,1.32604825 C35.3099673,1.3248153 35.3407453,1.32420172 35.3715263,1.32420787 Z" id="Rectangle" fill="#F42C30" transform="translate(35.376696, 9.310524) rotate(41.000000) translate(-35.376696, -9.310524) "></path>
+            <path d="M35.1128579,2.02518112 L35.1128579,2.02518112 C36.3856277,2.02543528 37.4172055,3.05742517 37.4169514,4.33019504 C37.4169459,4.35735652 37.4164603,4.38451578 37.4154947,4.41166008 L36.932536,17.9886808 L34.9526104,17.891524 C35.8591789,13.8431357 36.2589232,10.483363 36.1518432,7.81220582 C36.0447632,5.14104866 35.6984348,3.21204042 35.1128579,2.02518112 Z" id="Rectangle-Copy-11" fill="#FA4D50" transform="translate(36.184781, 10.006931) rotate(41.000000) translate(-36.184781, -10.006931) "></path>
+            <path d="M9.39601718,9.71414601 L9.39601718,9.71414601 C10.5005867,9.71414601 11.3960172,8.81871551 11.3960172,7.71414601" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(10.396017, 8.714146) rotate(-58.000000) translate(-10.396017, -8.714146) "></path>
+            <path d="M12.0322748,10.4700807 C10.9277053,10.4700807 10.0322748,11.3655112 10.0322748,12.4700807" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(11.032275, 11.470081) rotate(-58.000000) translate(-11.032275, -11.470081) "></path>
+            <path d="M3,9 L3,9 C4.1045695,9 5,8.1045695 5,7" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(4.000000, 8.000000) rotate(-58.000000) translate(-4.000000, -8.000000) "></path>
+            <path d="M5.63625766,9.75593472 C4.53168816,9.75593472 3.63625766,10.6513652 3.63625766,11.7559347" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(4.636258, 10.755935) rotate(-58.000000) translate(-4.636258, -10.755935) "></path>
+            <path d="M13,3 L13,3 C14.1045695,3 15,2.1045695 15,1" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(14.000000, 2.000000) rotate(-58.000000) translate(-14.000000, -2.000000) "></path>
+            <path d="M15.6362577,3.75593472 C14.5316882,3.75593472 13.6362577,4.65136522 13.6362577,5.75593472" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(14.636258, 4.755935) rotate(-58.000000) translate(-14.636258, -4.755935) "></path>
+            <path d="M20,6 L20,6 C21.1045695,6 22,5.1045695 22,4" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(21.000000, 5.000000) rotate(-58.000000) translate(-21.000000, -5.000000) "></path>
+            <path d="M22.6362577,6.75593472 C21.5316882,6.75593472 20.6362577,7.65136522 20.6362577,8.75593472" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(21.636258, 7.755935) rotate(-58.000000) translate(-21.636258, -7.755935) "></path>
+            <path d="M1,18 L1,18 C2.1045695,18 3,17.1045695 3,16" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(2.000000, 17.000000) rotate(-58.000000) translate(-2.000000, -17.000000) "></path>
+            <path d="M3.63625766,18.7559347 C2.53168816,18.7559347 1.63625766,19.6513652 1.63625766,20.7559347" id="Path" stroke="#B5DC6D" stroke-linecap="round" stroke-linejoin="round" transform="translate(2.636258, 19.755935) rotate(-58.000000) translate(-2.636258, -19.755935) "></path>
+        </g>
+    </g>
+</svg>

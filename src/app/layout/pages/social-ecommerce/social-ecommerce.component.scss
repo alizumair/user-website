@@ -1,0 +1,506 @@
+section#royo_create_post_page {
+    background-color: #f5f5f5;
+    padding: 60px 0px;
+}
+
+.royo_create_post_profile {
+    border-radius: 9px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 #eeeeee;
+    margin-bottom: 20px;
+}
+
+.edit_post_profile i {
+    height: 40px;
+    width: 40px;
+    border: 1px solid #52b24d;
+    border-radius: 12px;
+    text-align: center;
+    color: #52b24d;
+    line-height: 38px;
+    cursor: pointer;
+}
+
+.edit_post_profile {
+    text-align: right;
+    padding: 10px;
+    position: absolute;
+    right: 16px;
+}
+.userimage_post_profile {
+    padding: 20px 10px;
+    text-align: center;
+}
+.userimage_post_profile img {
+    height: 89px;
+    width: 89px;
+    border-radius: 50%;
+}
+.royo_create_post_profile span {
+    text-align: center;
+    font-size: 14px;
+    display: block;
+    color: #00000070;
+}
+.royo_create_post_profile h5 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.user_folloers {
+    display: flex;
+    padding: 10px 20px;
+    border-top: 1px solid #dddddd63;
+    border-bottom: 1px solid #dddddd63;
+    margin-top: 10px;
+}
+.user_folloers div {
+    width: 50%;
+}
+.user_folloers div h5 {
+    font-size: 14px;
+    text-align: left;
+}
+.user_folloers div span {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: left;
+    color: red;
+}
+.user_joining_date {
+    padding: 10px;
+    text-align: center;
+}
+.tranding_posts {
+    border-radius: 9px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 #eeeeee;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.tranding_posts h4 {
+    font-size: 16px;
+    text-transform: capitalize;
+    margin-bottom: 15px;
+}
+.tranding_posts ul {
+    padding: 0px;
+    list-style: none;
+    margin: 0px;
+}
+.tranding_posts ul li {
+    display: inline-block;
+    margin: 5px 5px;
+}
+.tranding_posts ul li img {
+    height: 55px;
+    width: 58px;
+    border-radius: 9px;
+    box-shadow: 0px 2px 3px 0px rgba(97, 127, 189, 0.1);
+}
+.royo_create_post_user {
+    border-radius: 9px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 #eeeeee;
+    margin-bottom: 20px;
+}
+.royo_create_post_user {
+    border-radius: 9px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 #eeeeee;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.royo_create_post_user img {
+    height: 96px;
+    width: 96px;
+    border: 7px solid #f5f5f5;
+    border-radius: 50%;
+    position: relative;
+    top: -50px;
+}
+.royo_create_post_user h3 {
+    font-size: 24px;
+    font-weight: 200;
+}
+.Create_Post_btn a {
+    padding: 10px 15px;
+    border-radius: 4px;
+    background: red;
+    color: #fff;
+    font-size: 14px;
+    margin: 0px 5px;
+    text-transform: uppercase;
+}
+.royo_create_post_detail {
+    position: relative;
+    top: -38px;
+}
+.Create_Post_btn {
+    margin: 25px 10px;
+}
+.Create_Post_btn a:hover {
+    text-decoration: none;
+}
+a.Ask_Ques_btn {
+    background: #000;
+}
+.User_Post_box_outter {
+    border-radius: 9px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 #eeeeee;
+    margin-bottom: 20px;
+}
+.User_Post_box01 {
+    padding: 20px;
+    display: flex;
+}
+.User_Post_box011 img {
+    height: 53px;
+    width: 53px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+.User_Post_box011 h3 {
+    font-size: 14px;
+    display: grid;
+    margin-top: 10px;
+}
+.User_Post_box011 h3 span {
+    color: #00000038;
+    font-size: 12px;
+}
+.User_Post_box012 {
+    margin: 0 0 0 auto;
+    display: flex;
+}
+.User_Post_box011 {
+    display: flex;
+}
+.User_Post_follow {
+    border: none;
+    padding: 5px 4px 5px 30px;
+    width: 150px;
+    border-radius: 4px;
+    margin-right: 20px;
+    display: table;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.load-morep {
+    width: 160px !important;
+}
+
+.user_comment_paging span {
+    font-size: 14px;
+    cursor: pointer;
+}
+.user_comment_paging span:hover {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.User_Post_follow:hover {
+    color: #fff;
+}
+.user_follow_edit a i {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 7px 14px;
+    color: #565454;
+}
+.User_Post_box02 {
+    padding: 0px 20px 20px;
+}
+.User_Post_box02 h4 {
+    font-size: 18px;
+    font-weight: 300;
+}
+.User_Post_box02 h4 strong {
+    font-weight: 600;
+}
+.User_Post_box02 p {
+    font-size: 14px;
+    color: #00000054;
+}
+.User_Post_box02 ul li a {
+    color: red;
+}
+.User_Post_box02 ul li {
+    display: inline;
+    font-size: 14px;
+}
+.User_Post_Order {
+    background: red;
+    color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.User_Post_Order:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.User_Post_box02 ul {
+    padding: 0px;
+}
+img.User_Post_image {
+    margin: 10px 0px;
+    border-radius: 4px;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+.User_Post_like_sharing li {
+    width: auto;
+    display: inline-block !important;
+    margin-right: 20px;
+    text-align: center;
+}
+.User_Post_like_sharing li:last-child {
+    margin: 0 0 0 auto;
+}
+.User_Post_like_sharing li p {
+    margin: 0px;
+}
+.User_Post_like_sharing li a:hover {
+    text-decoration: none;
+}
+.User_Post_like_sharing li:first-child a p {
+    color: red;
+}
+.User_Post_comments_outter {
+    border-top: 1px solid #dddddd63;
+    padding: 10px;
+    border-bottom: 1px solid #dddddd63;
+    display: flex;
+}
+.User_Post_comments_outter img {
+    height: 43px;
+    width: 43px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.User_Post_comments textarea {
+    border-radius: 23px;
+    background-color: #f0f0f0;
+    border: none;
+    width: 100% !important;
+    padding: 10px 20px;
+    font-size: 14px;
+    min-height: 43px;
+    height: 43px;
+}
+
+.User_Post_comments {
+    width: 100%;
+    position: relative;
+}
+.User_Post_comments img {
+    position: absolute;
+    right: 0px;
+}
+.User_Post_comments_posted_outter {
+    padding: 10px;
+    display: flex;
+}
+.User_Post_comments_posted_outter img {
+    height: 43px;
+    width: 43px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+.User_Post_comments_posted {
+    width: 100%;
+}
+.User_Post_comments_byuser p {
+    margin: 0px;
+}
+.post_heading {
+    font-size: 16px !important;
+    font-weight: 600;
+    color: black !important;
+}
+.post_desc {
+    font-size: 13px !important;
+    font-weight: 500;
+    color: #797474 !important;
+}
+.visit_sup {
+    text-decoration: underline;
+    font-size: 15px;
+}
+.visit_sup:hover {
+    text-decoration: underline;
+    font-weight: 500;
+}
+.view_post_type {
+    font-size: 13px;
+}
+.view_post_type:hover {
+    text-decoration: underline;
+    text-decoration: underline;
+    font-weight: 500;
+}
+.User_Post_comments_byuser h4 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.User_Post_comments_byuser {
+    border-radius: 23px;
+    background-color: #f9f9f9;
+    padding: 4px 15px;
+}
+.user_comment_like li {
+    display: inline-block !important;
+    margin-right: 20px;
+}
+.user_comment_like li img {
+    width: auto;
+    height: auto;
+    margin: 0px;
+}
+.user_comment_like a {
+    display: flex;
+}
+.invite_your_friend {
+    border-radius: 9px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 #eeeeee;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.invite_your_friend h3 {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.invite_your_friend div {
+    display: flex;
+    padding: 10px 10px;
+    border-radius: 4px;
+    border: 2px solid #f5f5f5;
+    margin: 10px 0px;
+    background-color: #f4f4f4;
+    font-size: 14px;
+}
+.invite_your_friend div.fa_facebook {
+    background-color: rgba(97, 127, 189, 0.1);
+    border-color: #4267b2;
+    color: #4267b2;
+}
+.invite_your_friend div.fa_twitter {
+    border-color: #03a9f4;
+    background-color: rgba(3, 169, 244, 0.1);
+    color: #03a9f4;
+}
+.invite_your_friend div i {
+    font-size: 21px;
+    margin-right: 8px;
+}
+.invite_your_friend div span {
+    overflow: hidden;
+}
+.people_follows {
+    border-radius: 9px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px 0 #eeeeee;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.people_follows h3 a {
+    float: right;
+    margin: 0 0 0 auto;
+    color: red;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.people_follows h3 {
+    display: flex;
+    font-size: 16px;
+}
+.people_follows ul {
+    padding: 0px;
+    list-style: none;
+    margin: 0px;
+}
+.people_follows ul .People-to-follow {
+    display: flex;
+    padding: 10px 0px;
+    border-bottom: 1px solid #ddd;
+}
+.People-to-follow-image img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.People-to-follow h4 {
+    font-size: 14px;
+    margin: 0px;
+    line-height: 27px;
+}
+.people_follows ul .People-to-follow a {
+    float: right;
+    margin: 0 0 0 auto;
+    font-size: 14px;
+    border: 1px solid red;
+    border-radius: 4px;
+    padding: 4px 10px;
+    color: red;
+}
+.people_follows ul li:last-child .People-to-follow {
+    border-bottom: none;
+}
+.post_comment {
+    position: absolute;
+    top: 7px;
+    right: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    background: #fff;
+    padding: 2px 10px 2px 10px;
+    border-radius: 14px;
+    z-index: 99999;
+}
+.post_comment:hover {
+    text-decoration: underline;
+}
+.total-likes {
+    padding: 0px 10px 0px 10px;
+    cursor: pointer;
+}
+.total-likes:hover {
+    text-decoration: underline;
+    font-weight: 600;
+}
+._8-yf5 {
+    cursor: pointer;
+}
+.cursor {
+    cursor: pointer !important;
+}
+@media (max-width: 1024px) {
+    .people_follows h3 {
+        display: grid;
+    }
+    .people_follows h3 a {
+        float: none;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .people_follows ul .People-to-follow {
+        display: grid;
+        text-align: center;
+    }
+    .people_follows ul .People-to-follow a {
+        float: none;
+        margin: 10px;
+    }
+}

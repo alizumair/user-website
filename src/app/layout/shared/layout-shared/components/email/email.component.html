@@ -1,0 +1,42 @@
+<div class="p-5">
+    <div>
+        <a href="javascript:void(0)" class="dialog-close-button" (click)="close()">&times;</a>
+    </div>
+    <form [formGroup]="emailForm" (ngSubmit)="onSend()">
+        <div class="form-group">
+            <label [for]="'email'">Email address</label>
+            <input [type]="'email'" class="form-control" formControlName="email" [id]="'email'" aria-describedby="email"
+                placeholder="Enter email" (focus)="isSubmitted = false"
+                [ngClass]="{ 'is-invalid': isSubmitted && controls.email.errors }">
+            <div *ngIf="isSubmitted && controls.email.errors" class="log-error">
+                <div *ngIf="controls.email.errors.required">{{'Please enter email.' | translate}}</div>
+                <div *ngIf="isSubmitted && controls.email.errors.pattern">{{'Please enter a valid email.' | translate}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label [for]="'subject'">Subject</label>
+            <input [type]="'text'" class="form-control" formControlName="subject" [id]="'subject'"
+                placeholder="Enter Subject" (focus)="isSubmitted = false"
+                [ngClass]="{ 'is-invalid': isSubmitted && controls.subject.errors }">
+            <div *ngIf="isSubmitted && controls.subject.errors" class="log-error">
+                <div *ngIf="controls.subject.errors.required">{{'Please enter subject.' }}</div>
+                <div *ngIf="isSubmitted && controls.subject.errors?.maxlength">
+                    {{'Subject can be max 200 characters long.'}}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label [for]="'body'">Message</label>
+            <textarea type="text" class="form-control mb-0" formControlName="body" [id]="'body'"
+                (focus)="isSubmitted = false" [ngClass]="{ 'is-invalid': isSubmitted && controls.body.errors }"
+                placeholder="Enter Message ..."></textarea>
+            <div *ngIf="isSubmitted && controls.body.errors" class="log-error">
+                <div *ngIf="controls.body.errors.required">{{'Please enter message.' }}</div>
+                <div *ngIf="isSubmitted && controls.body.errors.pattern">{{'message can be max 1000 characters long.'}}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn">Send</button>
+    </form>
+</div>

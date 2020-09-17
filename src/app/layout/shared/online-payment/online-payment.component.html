@@ -1,0 +1,146 @@
+<ng-container *ngIf="paymentGateways && paymentGateways.length; else gatewayError">
+    <ng-container *ngIf="selectedGateway && selectedGateway.name; then selectedPaymentGateway  else multipleGateways">
+    </ng-container>
+</ng-container>
+
+<ng-template #selectedPaymentGateway>
+    <div [ngSwitch]="selectedGateway.name.toLowerCase()">
+        <app-stripe-gateway *ngSwitchCase="'stripe'" [settings]="settings" [gateway]="selectedGateway"
+            (onSuccess)="success($event)" (onError)="errorHandler($event)" (onClose)="close($event)">
+        </app-stripe-gateway>
+        <app-conekta-gateway *ngSwitchCase="'conekta'" [settings]="settings" [gateway]="selectedGateway"
+            (onSuccess)="success($event)" (onError)="errorHandler($event)" (onClose)="close($event)">
+        </app-conekta-gateway>
+        <app-razorpay-gateway *ngSwitchCase="'razor pay'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onSuccess)="success($event)" (onError)="errorHandler($event)"
+            (onClose)="close($event)">
+        </app-razorpay-gateway>
+        <app-paystack-gateway *ngSwitchCase="'paystack'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)">
+        </app-paystack-gateway>
+        <app-paypal-gateway *ngSwitchCase="'paypal'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-paypal-gateway>
+        <app-venmo-gateway *ngSwitchCase="'venmo'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-venmo-gateway>
+        <app-zelle-gateway *ngSwitchCase="'zelle'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-zelle-gateway>
+        <app-cybersource-gateway *ngSwitchCase="'cybersource'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)">
+        </app-cybersource-gateway>
+        <app-checkout-gateway *ngSwitchCase="'checkout'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)">
+        </app-checkout-gateway>
+        <app-paytabs-gateway *ngSwitchCase="'paytabs'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-paytabs-gateway>
+        <app-my-fatoorah-gateway *ngSwitchCase="'myfatoorah'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)">
+        </app-my-fatoorah-gateway>
+        <app-sadad-gateway *ngSwitchCase="'sadad'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-sadad-gateway>
+        <app-mumybene-gateway *ngSwitchCase="'mumybene'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)">
+        </app-mumybene-gateway>
+        <app-square-gateway *ngSwitchCase="'square'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-square-gateway>
+        <app-tap-gateway *ngSwitchCase="'tap'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-tap-gateway>
+        <app-elavon-converge-gateway *ngSwitchCase="'elavon-converge'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)">
+        </app-elavon-converge-gateway>
+        <app-windcave-gateway *ngSwitchCase="'windcave'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)"></app-windcave-gateway>
+        <app-mpaisa-gateway *ngSwitchCase="'mpaisa'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-mpaisa-gateway>
+        <app-payhere-gateway *ngSwitchCase="'payhere'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-payhere-gateway>
+        <app-cashapp-gateway *ngSwitchCase="'cashapp'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onClose)="close($event)" (onSuccess)="success($event)" (onError)="errorHandler($event)">
+        </app-cashapp-gateway>
+        <app-peach-gateway *ngSwitchCase="'peach'" [settings]="settings" [order]="order" [gateway]="selectedGateway"
+            (onSuccess)="success($event)" (onError)="errorHandler($event)" (onClose)="close($event)">
+        </app-peach-gateway>
+        <app-braintree-gateway *ngSwitchCase="'braintree'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onSuccess)="success($event)" (onError)="errorHandler($event)"
+            (onClose)="close($event)">
+        </app-braintree-gateway>
+        <app-aamarpay-gateway *ngSwitchCase="'aamarpay'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onSuccess)="success($event)" (onError)="errorHandler($event)"
+            (onClose)="close($event)">
+        </app-aamarpay-gateway>
+        <app-datatrans-gateway *ngSwitchCase="'datatrans'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onSuccess)="success($event)" (onError)="errorHandler($event)"
+            (onClose)="close($event)">
+        </app-datatrans-gateway>
+        <app-authorize-net-gateway *ngSwitchCase="'authorize.net'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onSuccess)="success($event)" (onError)="errorHandler($event)"
+            (onClose)="close($event)">
+        </app-authorize-net-gateway>
+        <app-cred-movil-gateway *ngSwitchCase="'cred movil'" [settings]="settings" [order]="order"
+            [gateway]="selectedGateway" (onClose)="close($event)" (onSuccess)="success($event)"
+            (onError)="errorHandler($event)">
+        </app-cred-movil-gateway>
+    </div>
+</ng-template>
+
+
+<ng-template #multipleGateways>
+    <div class="dialog-model w-5">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <h5>Choose Payment Gateway</h5>
+                <a href="javascript:void(0)" class="dialog-close-button" (click)="close(false)">&times;</a>
+            </div>
+            <div class="container gateway-list">
+                <div class="row">
+                    <div class="col-4" *ngFor="let gateway of paymentGateways">
+                        <div class="card gatewayCard" (click)="selectedGateway = gateway">
+                            <div *ngIf="gateway.name.toLowerCase() == 'cred movil'"
+                                style="text-align: center; padding: 20px; cursor: pointer;">
+                                <h6>Cred Movil</h6>
+                            </div>
+                            <div *ngIf="gateway.name.toLowerCase() != 'cred movil'" style="padding: 10px">
+                                <img style="width: 100%;"
+                                    *ngIf="!(db_key === '665e32e17729a997401fe467433740e1' && gateway.name.toLowerCase() === 'stripe')"
+                                    [src]="'/assets/images/' + gateway.name.toLowerCase() + '.png'">
+                                <img *ngIf="db_key === '665e32e17729a997401fe467433740e1' && gateway.name.toLowerCase() === 'stripe'"
+                                    src="/assets/images/card-icon.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #gatewayError>
+    <div class="dialog-model">
+        <div class="dialog-content">
+            <div class="container">
+                <div class="gateway-error">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                    <h3>We're Sorry</h3>
+                    <p>We are unable to accept online payments at this time, please try again later.</p>
+                    <button class="btn btn-lg btn-block" (click)="onClose.emit()">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

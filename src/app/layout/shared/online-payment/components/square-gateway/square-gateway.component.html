@@ -1,0 +1,31 @@
+<ng-container>
+    <div class="dialog-model">
+        <div class="dialog-content" style="max-width: 500px;">
+            <div class="container">
+                <div class="dialog-header" style="margin-bottom: 25px;">
+                    <h5>Pay With Square</h5>
+                    <a href="javascript:void(0)" class="dialog-close-button" (click)="close()">&times;</a>
+                </div>
+                <div *ngIf="!showAddCard" style="min-height: 200px;">
+                    <div id="form-container" *ngIf="is_loaded">
+                        <div id="sq-card-number"></div>
+                        <div class="third" id="sq-expiration-date"></div>
+                        <div class="third" id="sq-cvv"></div>
+                        <div class="third" id="sq-postal-code"></div>
+                        <button id="sq-creditcard" class="button-credit-card"
+                            (click)="onGetCardNonce($event)">Pay</button>
+                    </div>
+
+                    <div class="skeleton" *ngIf="!is_loaded">
+                        <h3 style="margin-bottom: 15px;" [ngStyle]="{'height': '30px', 'width': '100%'}"></h3>
+                        <h3 style="margin-bottom: 15px;" [ngStyle]="{'height': '30px', 'width': '100%'}"></h3>
+                        <h3 style="margin-bottom: 15px;" [ngStyle]="{'height': '30px', 'width': '100%'}"></h3>
+                        <p [ngStyle]="{'width': '30%', 'height': '30px' }"></p>
+                    </div>
+                </div>
+                <app-add-card *ngIf="showAddCard" [gatewayId]="'stripe'" (onSelect)="onCardSelect($event)">
+                </app-add-card>
+            </div>
+        </div>
+    </div>
+</ng-container>

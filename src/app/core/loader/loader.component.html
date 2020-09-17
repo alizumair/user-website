@@ -1,0 +1,13 @@
+<div id="global_loader" class="glb-ldr-prt" *ngIf="show && !refresh">
+    <div class="gl-ldr-ctr">
+        <div class="gl-loader " [ngStyle]="{'borderBottomColor': style.primaryColor, borderLeftColor: style.primaryColor}"></div>
+    </div>
+</div>
+
+
+<div class="loading-screen-wrapper" *ngIf="refresh && !show">
+    <div class="loading-screen-icon">
+        <img *ngIf="this.loader_image" class="pulse uk-animation-fade" [src]="loader_image">
+        <!-- <div class="pulse-ring" [ngStyle]="{'borderColor': style.primaryColor}"></div> -->
+    </div>
+</div>

@@ -1,0 +1,104 @@
+:host ::ng-deep .ui-multiselect {
+    min-width: 100%;
+}
+
+:host ::ng-deep .ui-multiselected-item-token,
+:host ::ng-deep .ui-multiselected-empty-token {
+    padding: 2px 4px;
+    margin: 0 0.286em 0 0;
+    display: inline-block;
+    vertical-align: middle;
+    height: 1.857em;
+}
+
+:host ::ng-deep .ui-multiselected-item-token {
+    background: #007ad9;
+    color: #ffffff;
+}
+
+:host ::ng-deep .ui-dropdown {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    min-width: 100%;
+}
+
+.country-item-value {
+    img.flag {
+        margin-right: 1em;
+        width: 40px;
+        height: 40px;
+        border-radius: 50px;
+    }
+}
+.country-item {
+    display: flex;
+}
+.country-item img {
+    margin-right: 1em;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+.country-item .p-drop-name {
+    margin-top: 10px;
+}
+.create-post button {
+    padding: 10px 15px;
+    border-radius: 4px;
+    background: red;
+    color: #fff;
+    font-size: 14px;
+    margin: 0px 5px;
+    text-transform: uppercase;
+    border: none;
+    width: 100%;
+}
+.creatpost_model .modal-dialog {
+    max-width: 600px;
+}
+.creatpost_model .modal-dialog label {
+    font-size: 14px;
+    color: #3333337a;
+}
+.creatpost_model .modal-dialog .ui-dropdown .ui-dropdown-label-container label {
+    background: #dddddd00;
+}
+.creatpost_model .modal-dialog .ui-dropdown {
+    border: 1px solid #dddddd4d;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: #dddddd4d;
+}
+.creatpost_model .modal-dialog .ui-dropdown .ui-dropdown-trigger {
+    background: #dddddd08;
+}
+
+.creatpost_model .modal-dialog input.form-control,
+.creatpost_model .modal-dialog textarea.form-control {
+    background: #dddddd4d;
+    border: 1px solid #dddddd4d;
+    padding: 8px 10px;
+    border-radius: 6px;
+    height: auto;
+}
+.creatpost_model .modal-dialog h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+.create-post button {
+    padding: 14px 30px !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 16px !important;
+}
+.creatpost_model .modal-dialog textarea.form-control {
+    height: 120px !important;
+}
+.cart-image-upload p {
+    margin-top: 20px !important;
+    margin-left: 0px !important;
+}

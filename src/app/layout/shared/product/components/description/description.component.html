@@ -1,0 +1,11 @@
+<div class="modal-content" style="border: none;">
+    <div class="modal-header" style="margin-bottom: 12px;">
+        <h5 class="modal-title">Description</h5>
+        <a class="cursor" (click)="close()">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+    <div class="modal-body" style="border-top: 1px solid rgba(0, 0, 0, 0.333); padding: 0px; padding-top: 12px;">
+        <p class="card-text" [innerHtml]="description | safe: 'html'"></p>
+    </div>
+</div>

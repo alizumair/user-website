@@ -1,0 +1,97 @@
+<!--================ Start Page Breadcrumb Page ================-->
+<div class="page_breadcrumb" [style.background-color]="style.backgroundColor">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <li><a class="active" href="javascript:void(0)" [style.color]="style.baseColor">
+                            {{'orders' | localization | translate}} Request</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--================ End Page Breadcrumb Page ================-->
+
+<!--================ Start Product Result Page ================-->
+<section class="product_result_body">
+    <div class="container">
+        <div class="row" style="margin-bottom: 20px;">
+            <div class="col-md-12">
+                <h1 [style.color]="style.baseColor">{{'orders' | localization}} Requests</h1>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!isLoading; else skeleton">
+            <div class="row" *ngIf="pagination.count > 0">
+                <div class="col-md-6"
+                    *ngFor="let order of orders | paginate: { itemsPerPage: pagination.perPageOrder, currentPage: pagination.currentPage, totalItems: pagination.count }">
+
+                    <div class="track_order_outter order-request"
+                        [ngStyle]="{'background-color':style.cardBackgroundColor, 'border-color': style.secondaryColor}">
+                        <div class="head">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-md-12"> <b>Request Id:</b> {{order?.id}}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12"><b>Requested On:</b>
+                                            {{order?.created_at | date: 'medium' : '+000'}}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12"><b>{{'supplier' | localization | translate}}:</b> {{order?.name}}
+                                        </div>
+                                    </div>
+
+                                    <div class="row" *ngIf="order?.prescription">
+                                        <div class="col-md-12"><b>Description:</b> {{order?.prescription}}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img (click)="viewAttachment(order?.prescription_image)" [src]="order?.prescription_image ? order?.prescription_image : '/assets/images/placeholder_image.svg'"
+                                        onError="src = '/assets/images/placeholder_image.svg';">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="foot">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a class="float-left" style="margin-top: 5px;"><b>Status :</b> {{request_status[order?.status]}} </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a *ngIf="[0,1].includes(order?.status)" class="float-right cancel-btn margin-left-10" [ngStyle]="{'borderColor': style?.primarycolor, color: style?.primaryColor}"
+                                        (click)="rejectRequest(order)">Reject
+                                        {{'order' | localization: order?.type | translate}} Request</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="custom-pagination" *ngIf="pagination.count > pagination.perPageOrder">
+                    <pagination-controls [style.color]="style.primaryColor" (pageChange)="pageChange($event)"
+                        previousLabel="Prev" nextLabel="Next">
+                    </pagination-controls>
+                </div>
+            </div>
+
+            <div class="no-data" *ngIf="!pagination.count && noData">
+                <h1 [style.color]="style.baseColor">{{'No' | translate}} {{ 'order' | localization }}
+                    {{'Found' | translate}}</h1>
+            </div>
+
+        </ng-container>
+        <ng-template #skeleton>
+            <div class="row">
+                <div class="col-6" *ngFor="let data of util.generateFakeList(6)">
+                    <app-order-list-item-skeleton [settings]="settings" [style]="style">
+                    </app-order-list-item-skeleton>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</section>
+<!--================ End Product Result Page ================-->

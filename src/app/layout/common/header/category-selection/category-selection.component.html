@@ -1,0 +1,21 @@
+
+<ul class="nav navbar-nav megamenu">
+    <li class="dropdown mega-dropdown">
+      <a class="dropdown-toggle cursor" data-toggle="dropdown" #toggleCatBtn
+        (click)="openCategorySelection()">{{'Shop By' | translate}} {{'categories' | localization}}
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </a>
+      <div class="dropdown-menu megamenu-inner" [style.width]="settings?.category_popup_width+'px'" (click)="$event.stopPropagation()">
+        <div class="category">
+          <h5 class="cat-name" [style.color]="style.baseColor">{{'categories' | localization}}</h5>
+          <a class="dropdown-item" *ngFor="let category of categories; let i = index;"
+            (mouseenter)="flowCheck(category, true); hoverCatIndex = i" (mouseleave)="hoverCatIndex = -1"
+            [style.color]="hoverCatIndex == i ? style.primaryColor : style.defaultColor"
+            (click)="flowCheck(category, false)">
+            {{category.name}}
+          </a>
+        </div>
+      </div>
+    </li>
+  </ul>
+  

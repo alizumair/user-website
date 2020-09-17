@@ -1,0 +1,27 @@
+<!----------------------------page loader------------------------------------>
+<app-processing-indicator *ngIf="isLoading" ></app-processing-indicator>
+
+<div class="profile-left-right" id="manage_address">
+  <h1 [style.color]="style.baseColor">{{'Manage Address' | translate}}</h1>
+  <div class="Address_outter">
+    <div class="default_address" *ngFor="let data of address;let i = index" [ngStyle]="{'background-color':style.cardBackgroundColor, 'border-color': style.secondaryColor}">
+      <h3 [style.color]="style.primaryColor">{{data.is_default === 1 ? 'Default Address' : 'Address' | translate}}</h3>
+      <input class="default-address" style="margin-left: 10px;"type="checkbox" [checked]="data.is_default === 1" [disabled]="data.is_default === 1" (change)="defaultAdress(data.id)">
+      <div class="ddress-inner" [style.color]="style.defaultColor">
+        <h2 [style.color]="style.baseColor">{{data?.name}}</h2>
+        <address [style.color]="style.baseColor">
+          {{data?.address_line_1}} <br>
+          <span *ngIf="data?.collectNumber">{{data?.collectNumber}} <br></span>
+          {{data?.customer_address}}
+        </address>
+        <a href="javascript:void(0)" (click)="setDataInLocal(data)" [style.color]="style.primaryColor">{{'Edit' | translate}}</a>
+        <a href="javascript:void(0)" (click)="confirmDelete(data, i)" [style.color]="style.primaryColor">{{'Delete' | translate}}</a>
+      </div>
+    </div>
+    <div *ngIf="!address?.length" class="no-data">
+      <h1 [style.color]="style.baseColor">{{'No Address Found' | translate}}</h1>
+    </div>
+  </div>
+  <a class="profile-submit-form" href="javascript:void(0)" [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}" [routerLink]="['/account/address/add-edit-address']">
+    {{'Add new address' | translate}}</a>
+</div>

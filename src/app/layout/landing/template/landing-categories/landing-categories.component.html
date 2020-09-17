@@ -1,0 +1,22 @@
+<section class="marketplace-categories">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="marketplace-categories_heading">
+                    <h3>{{'categories' | localization | translate}}</h3>
+                </div>
+            </div>
+            <div class="col-md-3" *ngFor="let category of categories" (click)="onCategorySelect(category)">
+                <div class="Grocery-outter">
+                    <a class="pointer">
+                        <img appImage [url]="category.image" [size]="'255x180'" [src]="category.image"
+                            onError="src = './assets/images/placeholder_image.svg';">
+                        <span>{{category.name}}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>

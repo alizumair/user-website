@@ -1,0 +1,211 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<!--================ Start Header Menu Area =================-->
+<ng-container *ngIf="is_mobile; else webTemplate">
+  <app-mobile-header [style]="style" [settings]="settings"></app-mobile-header>
+</ng-container>
+
+<ng-template #webTemplate>
+  <header
+    *ngIf="settings?.selected_template == 0 || settings?.app_type > 10 || settings?.app_type == 8; else header_template">
+    <ng-container [ngSwitch]="settings?.app_type">
+
+      <ng-template [ngSwitchCase]="8">
+        <div [style.background-color]="style?.headerBackgroundColor || style.backgroundColor"
+          class="royo-product-header home-services-header" [ngClass]="isNavFixed ? 'fix' : ''">
+          <div class="container">
+            <div class="row pt-3 pb-3">
+              <div class="col-5 col-md-2">
+                <div class="logo-royo">
+                  <a [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'" (click)="onLogo()">
+                    <app-logo [width]="'auto'" [height]="'50'" [logoColor]="style.primaryColor" [logoPadding]="'10'">
+                    </app-logo>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-1 col-md-7">
+                <div
+                  *ngIf="(fix_search && ((router.url == '/' && !settings?.isCustomFlow) || (settings?.isCustomFlow && (router.url).startsWith('/home-service/home')))) || ( router.url !== '/' && !settings?.isCustomFlow) || (settings?.isCustomFlow && !(router.url).startsWith('/home-service/home') )"
+                  class="search-form custom-header">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="delivery_content">
+                        <app-location [settings]="settings"></app-location>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <app-search [settings]="settings" [style]="style"></app-search>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 col-md-3">
+                <!-- <ul class="navbar-nav ml-auto">
+                  <li class="nav-item" *ngIf="!loggedIn" (mouseleave)="hoverType = ''" (mouseover)="hoverType = 'LOGIN'">
+                    <a class="nav-link" data-toggle="modal" data-target="#auth" (click)="openAuthModal('LOGIN')"
+                      [style.color]="style?.headerTextColor">LOGIN</a>
+                  </li>
+                  <li class="nav-item" *ngIf="!loggedIn" (mouseleave)="hoverType = ''" (mouseover)="hoverType = 'SIGNUP'">
+                    <a class="nav-link" data-toggle="modal" data-target="#auth" (click)="openAuthModal('SIGNUP')"
+                      [style.color]="style?.headerTextColor">SIGN
+                      UP</a>
+                  </li>
+                  <li class="nav-item user-profile dropdown" *ngIf="loggedIn">
+                    <ng-container [ngTemplateOutlet]="userProfile"></ng-container>
+                    <span>{{userData?.firstname}}</span>
+                  </li>
+                </ul> -->
+
+                <app-function-list *ngIf="settings?.header_theme == 0 || settings?.header_theme == 2" class=" ml-auto" [userWalletBalance]="userWalletBalance"
+                  [showSearchbar]="showSearchbar" [loggedIn]="loggedIn" [style]="style" [settings]="settings"
+                  [openAuth]="openAuth" [userData]="userData" (searchBar)="showSearchbar = $event"
+                  (triggerAuthModal)="openAuth = $event" (authType)="authType = $event"></app-function-list>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template ngSwitchDefault>
+
+        <app-top-header [showSearchbar]="showSearchbar" [loggedIn]="loggedIn" [style]="style" [settings]="settings"
+          [userData]="userData" [openAuth]="openAuth" (searchBar)="showSearchbar = $event"
+          (triggerAuthModal)="openAuth = $event" (authType)="authType = $event"></app-top-header>
+
+        <nav class="navbar navbar-expand-md"
+          [style.background-color]="settings?.app_type == 7 ? '#4A4A4A' : is_dark ?  style.backgroundColor : style?.headerBackgroundColor || style.backgroundColor"
+          [ngClass]="isNavFixed ? 'fix' : ''">
+          <div class="container">
+            <div class="row w-100">
+              <div class="col-md-2 col-6">
+                <a class="navbar-brand" [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'"
+                  (click)="onLogo()">
+                  <app-logo [width]="'auto'" [height]="'50'" [logoColor]="style.primaryColor" [logoPadding]="'10'">
+                  </app-logo>
+                </a>
+                <!-- <button [ngClass]="{'hide': settings?.app_type == 1}" class="navbar-toggler" type="button"
+                  data-toggle="collapse" data-target="#collapsibleNavbar">
+                  <img src="/assets/images/hamburger_white.svg">
+                </button> -->
+
+              </div>
+              <!-- Navbar links -->
+
+              <div class="col-md-10 col-6">
+                <div class="row" [style.paddingTop.px]="((settings?.logoHeight-45)/2)"
+                  [style.paddingBottom.px]="((settings?.logoHeight-45)/2)">
+
+                  <div
+                    [ngClass]="settings.web_custom_domain_theme == 1 && settings?.app_type > 10 ? 'col-md-6' : 'col-md-8'">
+                    <div class="menu_div_left">
+                      <div class="header-middel ecom-header" *ngIf="settings?.app_type <= 10">
+                        <app-categories *ngIf="settings?.app_type == 2"></app-categories>
+                        <div class="w-100">
+                          <app-search [settings]="settings" [style]="style" [searchBy]="searchBy"></app-search>
+                        </div>
+                      </div>
+
+                      <div *ngIf="settings?.app_type > 10 && settings?.web_custom_domain_theme == 0">
+                        <ul class="header-links">
+                          <li *ngFor="let category of categories" (click)="onCategorySelect(category)">
+                            <a>
+                              <img [src]="category.icon" class="header-icon">
+                              <h3>{{category?.name}}
+                                <span></span>
+                              </h3>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    [ngClass]="settings.web_custom_domain_theme == 1 && settings?.app_type > 10 ? 'col-md-6' : 'col-md-4'">
+                    <div class="menu_div_right">
+                      <div class="cart_div">
+                        <app-header-cart [style]="style" [settings]="settings"></app-header-cart>
+                      </div>
+                      <div class="menu_div_inner">
+                        <span class="open_menu" (click)="sidenav = 1">&#9776;
+                        </span>
+                        <div id="mySidenav" class="home_sidenav"
+                          [style.background-color]="is_dark ?  style.backgroundColor : style?.headerBackgroundColor || style.backgroundColor"
+                          [style.width]="sidenav != 0  ? sidenav == 1 ? '250px' : '0px' : ''">
+                          <a href="javascript:void(0)" class="closebtn" (click)="sidenav = 2">&times;</a>
+                          <app-function-list *ngIf="settings?.header_theme == 0 || settings?.header_theme == 2" [userWalletBalance]="userWalletBalance"
+                            class=" ml-auto" [showSearchbar]="showSearchbar" [userData]="userData" [loggedIn]="loggedIn"
+                            [style]="style" [sidenav]="sidenav" [settings]="settings" [openAuth]="openAuth"
+                            (searchBar)="showSearchbar = $event" (triggerAuthModal)="openAuth = $event"
+                            (authType)="authType = $event" (sideNavToggle)="sidenav = $event;"></app-function-list>
+                          <div *ngIf="showSearchbar">
+                            <form autocomplete="off" class="dropdown_resp">
+                              <input class="dropdown-toggle" type="text"
+                                placeholder="{{'What are you looking for?' | translate}}" name="search"
+                                [(ngModel)]="search" (keydown.enter)="searchProduct($event.target.value)"
+                                data-toggle="dropdown">
+                              <div style="width: 100%" class="dropdown-menu" id="recentSearch">
+                                <h6 class="dropdown-header list-header" [style.color]="style?.secondaryColor">
+                                  {{'Recently Searched' | translate}}</h6>
+                                <a class="dropdown-item search-results" *ngFor="let item of localSearchedData"
+                                  (click)="searchProduct(item); search = item"
+                                  [style.color]="style?.defaultColor">{{item}}</a>
+                              </div>
+                              <button class="cancel-btn" (click)="showSearchbar = !showSearchbar">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </nav>
+      </ng-template>
+
+    </ng-container>
+  </header>
+</ng-template>
+
+
+
+<!--================ End Header Menu Area =================-->
+
+
+<ng-template #header_template>
+
+  <ng-container [ngSwitch]="settings?.app_type">
+
+    <ng-template [ngSwitchCase]="1">
+
+      <app-food-header [fix_search]="fix_search" [showSearchbar]="showSearchbar" [loggedIn]="loggedIn" [style]="style"
+        [userWalletBalance]="userWalletBalance" [settings]="settings" [userData]="userData" [openAuth]="openAuth"
+        [langInput]="langData" (searchBar)="showSearchbar = $event" (triggerAuthModal)="openAuth = $event"
+        (authType)="authType = $event">
+      </app-food-header>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="2">
+
+      <app-ecom-header [showSearchbar]="showSearchbar" [loggedIn]="loggedIn" [style]="style" [settings]="settings"
+        [userWalletBalance]="userWalletBalance" [userData]="userData" [openAuth]="openAuth"
+        (searchBar)="showSearchbar = $event" [isNavFixed]="isNavFixed" [sidenav]="sidenav"
+        (triggerAuthModal)="openAuth = $event" (authType)="authType = $event"></app-ecom-header>
+
+    </ng-template>
+
+  </ng-container>
+
+</ng-template>
+
+
+<app-auth *ngIf="openAuth" (closeAuth)="closeAuth($event)" [authType]="authType"></app-auth>

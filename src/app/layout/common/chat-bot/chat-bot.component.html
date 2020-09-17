@@ -1,0 +1,101 @@
+<div id="chatBotWindow" class="sidenav-chatbot">
+  <div class="chatbot">
+    <div class="top">
+      <a class="closebtn" (click)="closeChat()" style="display: block; cursor: pointer;"><img
+          src="/assets/images/ic_backwd_dark.png"></a>
+      <figure style="margin-bottom: 0;">
+        <img [src]="dialogFlowData?.agent?.avatarUri" onError="src = '/assets/images/chat-bot.png';" class="user">
+        <span style="background-color: #7ED321;"></span>
+      </figure>
+
+      <div class="text">
+        <h1>Hey! My name is {{dialogFlowData?.agent?.displayName}}</h1>
+        <h6>Is there something I can help you with?</h6>
+      </div>
+    </div>
+
+    <div class="btm" style="background-color: #F5F6F9;" id="chatWindow">
+      <app-bot-message *ngFor="let msg of messages" [messageData]="msg" (closeChatBot)="closeChatBot($event)">
+      </app-bot-message>
+    </div>
+
+    <div class="send">
+      <input type="text" name="message" [(ngModel)]="message" (keydown.enter)="sendMessage()">
+      <button type="button" (click)="sendMessage()">
+        <svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="chat" transform="translate(-1352.000000, -944.000000)" [attr.fill]="style?.primaryColor">
+              <path
+                d="M1372,944 C1383.04569,944 1392,952.954305 1392,964 C1392,975.045695 1383.04569,984 1372,984 C1360.95431,984 1352,975.045695 1352,964 C1352,952.954305 1360.95431,944 1372,944 Z M1369,969 L1369,973.304009 C1369,973.604677 1369.20457,973.87101 1369.5075,973.965664 C1369.58323,973.988864 1369.66093,974 1369.73764,974 C1369.96779,974 1370.19007,973.897921 1370.33169,973.716036 L1373,970.289903 L1369,969 Z M1381.72435,954.118225 C1381.5231,953.979675 1381.25885,953.960975 1381.0401,954.072325 L1361.35266,964.059781 C1361.11991,964.17793 1360.98254,964.419329 1361.00179,964.673478 C1361.02191,964.928477 1361.19604,965.146076 1361.44366,965.228526 L1366.91677,967.045818 L1378.57261,957.36436 L1369.55314,967.920464 L1378.72573,970.966 C1378.79398,970.9881 1378.86573,971 1378.93748,971 C1379.05648,971 1379.17461,970.96855 1379.27873,970.90735 C1379.44498,970.808751 1379.55785,970.643002 1379.58673,970.456852 L1381.99297,954.731922 C1382.02885,954.493923 1381.9256,954.257624 1381.72435,954.118225 Z"
+                id="Combined-Shape"></path>
+            </g>
+          </g>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="newAddress" role="dialog" [ngStyle]="{'display':display}">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content" role="document">
+      <div class="modal-header">
+        <button type="button" class="close" (click)="display = 'none';" #closeNewAddress></button>
+        <p [style.color]="style.defaultColor">{{ "Add New Address" | translate }}</p>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onAdd(form.value)">
+          <div class="profile_form">
+
+            <div class="form-group">
+              <label [style.color]="style.baseColor">{{'Full Name' | translate}}</label>
+              <input class="w-100" type="text" formControlName="name" placeholder="{{'Enter Full Name' | translate}}"
+                (keydown.space)="!form.controls.name.value ? $event.preventDefault() : ''">
+              <div class="text-error"
+                *ngIf="(form.controls['name'].errors?.required || form.controls['name'].errors?.whitespace) && showError">
+                {{'Please enter name' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+              <label [style.color]="style.baseColor">{{'House No/Plot No' | translate}}</label>
+              <input class="w-100" type="text" formControlName="houseNo"
+                placeholder="{{'Enter House/Plot no' | translate}}"
+                (keydown.space)="!form.controls.houseNo.value ? $event.preventDefault() : ''">
+              <div class="text-error"
+                *ngIf="(form.controls['houseNo'].errors?.required || form.controls['houseNo'].errors?.whitespace) && showError">
+                {{'Please enter house/plot no' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+              <label [style.color]="style.baseColor">{{'complete_address' | localization | translate}}</label>
+              <input class="w-100" type="text" formControlName="addressLineFirst"
+                placeholder="{{'Enter a location' | translate}}" appGoogleplace (onSelect)="onAddressSearch($event)">
+              <div class="text-error" *ngIf="form.controls['addressLineFirst'].errors?.required && showError">
+                {{'Please enter address' | translate}}</div>
+              <div class="text-error"
+                *ngIf="!form.controls['addressLineFirst'].errors?.required && form.controls['latitude'].errors?.required && showError">
+                {{'Please enter valid address' | translate}}</div>
+            </div>
+
+            <div class="form-group">
+              <label [style.color]="style.baseColor">{{'Contact Number' | translate}}</label>
+              <input class="w-100" type="text" formControlName="phone_number"
+                placeholder="{{'Enter Contact Number' | translate}}" numbersOnly>
+              <div class="text-error" *ngIf="form.controls['phone_number'].errors?.required && showError">
+                {{'Please Enter Contact Number' | translate}}</div>
+              <div class="text-error"
+                *ngIf="!form.controls['phone_number'].errors?.required && form.controls['phone_number'].errors?.pattern && showError">
+                {{'Please Enter Valid Contact Number' | translate}}</div>
+            </div>
+
+            <button class="btn profile-submit-form ml-3 float-right text-capitalize"
+              type="submit">{{'ADD' | translate}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

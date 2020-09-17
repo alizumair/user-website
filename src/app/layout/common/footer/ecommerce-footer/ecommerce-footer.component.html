@@ -1,0 +1,504 @@
+<ng-container [ngSwitch]="settings?.selected_template">
+
+    <ng-template [ngSwitchCase]="1">
+
+        <footer id="footer" class="noborder nobg">
+            <div class="container clearfix">
+                <!-- <div class="footer-widgets-wrap clearfix" style="padding: 60px 0 100px;"> -->
+                <div style="padding: 60px 0 0;">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4"
+                            *ngIf="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs">
+                            <div class="useful-links">
+                                <h4>Useful Links</h4>
+                                <ul>
+                                    <li *ngIf="settings?.aboutUs">
+                                        <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                            [routerLink]="['/about']">{{'About Us' | translate}}</a>
+                                    </li>
+                                    <li *ngIf="settings?.termsAndConditions">
+                                        <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                            [routerLink]="['/terms-and-conditions']">{{'Terms & Conditions' | translate}}</a>
+                                    </li>
+                                    <li *ngIf="settings?.privacyPolicy">
+                                        <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                            [routerLink]="['/privacy-policy']">{{'Privacy Policy' | translate}}</a>
+                                    </li>
+                                    <li *ngIf="settings?.faqs">
+                                        <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                            [routerLink]="['/faq']">{{"FAQ's" | translate}}</a>
+                                    </li>
+                                    <li *ngIf="settings?.is_vendor_registration == 1"><a [style.color]="style.baseColor"
+                                            target="_blank" [href]="registrationUrl">{{'Register As' | translate}}
+                                            {{'supplier' | localization}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div
+                            [ngClass]="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs ? 'col-lg-4 col-md-4' : 'col-lg-6 col-md-6'">
+                            <div class="useful-links">
+                                <h4>Contact Us</h4>
+                                <ul>
+                                    <li><a style="padding-left: 0px;"
+                                            [style.color]="style.baseColor">{{contact?.phoneNumber}}</a></li>
+                                    <li><a style="padding-left: 0px;"
+                                            [style.color]="style.baseColor">{{contact?.email}}</a></li>
+                                    <li><a style="padding-left: 0px;"
+                                            [style.color]="style.baseColor">{{contact?.country}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div
+                            [ngClass]="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs ? 'col-lg-4 col-md-4' : 'col-lg-6 col-md-6'">
+                            <div class="useful-links">
+                                <h2 [style.color]="style.baseColor" style="font-size: 20px;">Use Mobile Apps</h2>
+                                <div class="app-images">
+                                    <a target="_blank" [href]="appLink?.android">
+                                        <img src="/assets/images/google_play.png">
+                                    </a>
+                                    <!-- <a><img src="/assets/images/google_play.png"></a> -->
+                                    <!-- <br> -->
+                                    <a target="_blank" [href]="appLink?.ios">
+                                        <img src="/assets/images/app_store.png">
+                                    </a>
+                                    <!-- <a><img src="/assets/images/app_store.png"></a> -->
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- <div class="copy-link"><a href="mailto:noreply@canvas.com"><i class="icon-envelope2"></i>
+                                    info@canvas.com</a> <span class="middot"> |
+                                </span> <a href="tel:+91-11-6541-6369"><i class="icon-headphones"></i>
+                                    +91-11-6541-6369</a> <span class="middot"> | </span> <a
+                                    href="skype:CanvasOnSkype?call"><i class="icon-skype2"></i>
+                                    CanvasOnSkype</a></div> -->
+
+
+
+                        <!--div class="col-lg-5 offset-lg-1">
+
+                            <div class="use-mobile-section text-left">
+                                <h2 [style.color]="style.baseColor" style="font-size: 20px;">
+                                    {{'Download Our Apps' | translate}}</h2>
+                                <div class="app-images">
+                                  <a target="_blank" [href]="appLink?.android">
+                                    <img src="/assets/images/google_play.png">
+                                  </a>
+                                  <a><img src="/assets/images/google_play.png"></a> -->
+                        <!-- <br> -->
+                        <!--a target="_blank" [href]="appLink?.ios">
+                                      <img src="/assets/images/app_store.png">
+                                  </a>
+                                 <a><img src="/assets/images/app_store.png"></a> -->
+                        <!--/div>
+                              </div>
+
+                            <div class="widget widget_links clearfix">
+                                <h4>Connect Socially</h4>
+
+                                <div class="bottommargin-sm clearfix">
+                                    <a href="#" class="social-icon si-dark si-mini si-rounded si-facebook"
+                                        title="Facebook">
+                                        <i class="icon-facebook"></i>
+                                        <i class="icon-facebook"></i>
+                                    </a>
+
+                                    <a href="#" class="social-icon si-dark si-mini si-rounded si-twitter"
+                                        title="Twitter">
+                                        <i class="icon-twitter"></i>
+                                        <i class="icon-twitter"></i>
+                                    </a>
+
+                                    <a href="#" class="social-icon si-dark si-mini si-rounded si-instagram"
+                                        title="Instagram">
+                                        <i class="icon-instagram"></i>
+                                        <i class="icon-instagram"></i>
+                                    </a>
+
+                                    <a href="#" class="social-icon si-dark si-mini si-rounded si-pinterest"
+                                        title="Pinterest">
+                                        <i class="icon-pinterest"></i>
+                                        <i class="icon-pinterest"></i>
+                                    </a>
+
+                                    <a href="#" class="social-icon si-dark si-mini si-rounded si-vimeo" title="Vimeo">
+                                        <i class="icon-vimeo"></i>
+                                        <i class="icon-vimeo"></i>
+                                    </a>
+                                </div>
+                            </div> -->
+
+                        <!-- <div class="widget subscribe-widget notopmargin clearfix">
+                                <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing
+                                    Offers &amp; Inside Scoops:</h5>
+                                <div class="widget-subscribe-form-result"></div>
+                                <form id="widget-subscribe-form" action="include/subscribe.php" method="post"
+                                    class="nobottommargin">
+                                    <div class="input-group divcenter">
+                                        <input type="email" id="widget-subscribe-form-email"
+                                            name="widget-subscribe-form-email" class="form-control required email"
+                                            placeholder="Enter your Email">
+                                        <div class="input-group-append">
+                                            <button class="button button-black t300 button-dark ls2 uppercase" style="height: 38px; line-height: 34px;"
+                                                type="submit">Subscribe</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div> -->
+
+
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="3">
+        <ng-container *ngIf="settings.footer_type == 1; else defaultFooter">
+
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4>Picnic</h4>
+                            <ul>
+                                <li><a href="javascript:void(0)">Picnic</a></li>
+                                <li><a href="javascript:void(0)">Blog</a></li>
+                                <li><a href="javascript:void(0)">Join Picnic</a></li>
+                                <li><a href="javascript:void(0)">Over Picnic</a></li>
+                                <li><a href="javascript:void(0)">Word Runner</a></li>
+                                <li><a href="javascript:void(0)">Word Shopper</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>Online Supermarket</h4>
+                            <ul>
+                                <li><a href="javascript:void(0)">App downloaden</a></li>
+                                <li><a href="javascript:void(0)">Assortiment Us</a></li>
+                                <li><a href="javascript:void(0)">Hoe werkt het ?</a></li>
+                                <li><a href="javascript:void(0)">Zakelijk</a></li>
+                                <li><a href="javascript:void(0)">Maaltijdbox</a></li>
+                                <li><a href="javascript:void(0)">Thuisbezorgingen</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>Locaties</h4>
+                            <ul>
+                                <li><a href="javascript:void(0)">Alle locaties</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-3">
+                            <h4>Vragen</h4>
+                            <ul>
+                                <li><a href="javascript:void(0)">Veelgestelde vragen</a></li>
+                                <li><a href="javascript:void(0)">Algemene voorwaarden</a></li>
+                                <li><a href="javascript:void(0)">Privacybeleid</a></li>
+                                <li><a href="javascript:void(0)">Belangrijke mededelingen</a></li>
+                                <li><a href="javascript:void(0)">Feestdagen</a></li>
+                                <li><a href="javascript:void(0)">Acties en prijzen</a></li>
+                                <li><a href="javascript:void(0)">Cookies</a></li>
+                                <li><a href="javascript:void(0)">Contact</a></li>
+                                <li><a href="javascript:void(0)">Thuiswinkel Waarborg</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <ul class="social">
+                                <li><a href="javascript:void(0)"><i class="fa fa-facebook-square"
+                                            aria-hidden="true"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-twitter-square"
+                                            aria-hidden="true"></i></a></li>
+                                <li><a href="javascript:void(0)"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 mt-4 text-right">
+                            <p>&copy; 2020 ZMarket. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </ng-container>
+        <ng-template #defaultFooter>
+
+            <footer id="footer" class="noborder nobg">
+                <div class="container clearfix no-padding-top">
+                    <!-- <div class="footer-widgets-wrap clearfix" style="padding: 60px 0 100px;"> -->
+                    <div style="padding: 60px 0 0;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6"
+                                *ngIf="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs">
+                                <div class="useful-links">
+                                    <h4>Useful Links</h4>
+                                    <ul>
+                                        <li *ngIf="settings?.aboutUs">
+                                            <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                                [routerLink]="['/about']">{{'About Us' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.termsAndConditions">
+                                            <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                                [routerLink]="['/terms-and-conditions']">{{'Terms & Conditions' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.privacyPolicy">
+                                            <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                                [routerLink]="['/privacy-policy']">{{'Privacy Policy' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.faqs">
+                                            <a [style.color]="style.baseColor" style="padding-left: 0px"
+                                                [routerLink]="['/faq']">{{"FAQ's" | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.is_vendor_registration == 1"><a
+                                                [style.color]="style.baseColor" target="_blank"
+                                                [href]="registrationUrl">{{'Register As' | translate}}
+                                                {{'supplier' | localization}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div
+                                [ngClass]="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs ? 'col-lg-4 col-md-4' : 'col-lg-6 col-md-6'">
+                                <div class="useful-links">
+                                    <h4>Contact Us</h4>
+                                    <ul>
+                                        <li><a style="padding-left: 0px;"
+                                                [style.color]="style.baseColor">{{contact?.phoneNumber}}</a></li>
+                                        <li><a style="padding-left: 0px;"
+                                                [style.color]="style.baseColor">{{contact?.phoneNumber}}</a></li>
+                                        <li><a style="padding-left: 0px;"
+                                                [style.color]="style.baseColor">{{contact?.country}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- <div [ngClass]="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs ? 'col-lg-4 col-md-4' : 'col-lg-6 col-md-6'">
+                                        <div class="useful-links">
+                                            <h2 [style.color]="style.baseColor" style="font-size: 20px;">Use Mobile Apps</h2>
+                                            <div class="app-images">
+                                                <a target="_blank" [href]="appLink?.android">
+                                                    <img src="/assets/images/google_play.png">
+                                                </a>
+                                                <a target="_blank" [href]="appLink?.ios">
+                                                    <img src="/assets/images/app_store.png">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div> -->
+
+
+
+                            <!-- <div class="copy-link"><a href="mailto:noreply@canvas.com"><i class="icon-envelope2"></i>
+                                                info@canvas.com</a> <span class="middot"> |
+                                            </span> <a href="tel:+91-11-6541-6369"><i class="icon-headphones"></i>
+                                                +91-11-6541-6369</a> <span class="middot"> | </span> <a
+                                                href="skype:CanvasOnSkype?call"><i class="icon-skype2"></i>
+                                                CanvasOnSkype</a></div> -->
+
+
+
+                            <!--div class="col-lg-5 offset-lg-1">
+
+                                        <div class="use-mobile-section text-left">
+                                            <h2 [style.color]="style.baseColor" style="font-size: 20px;">
+                                                {{'Download Our Apps' | translate}}</h2>
+                                            <div class="app-images">
+                                              <a target="_blank" [href]="appLink?.android">
+                                                <img src="/assets/images/google_play.png">
+                                              </a>
+                                              <a><img src="/assets/images/google_play.png"></a> -->
+                            <!-- <br> -->
+                            <!--a target="_blank" [href]="appLink?.ios">
+                                                  <img src="/assets/images/app_store.png">
+                                              </a>
+                                             <a><img src="/assets/images/app_store.png"></a> -->
+                            <!--/div>
+                                          </div>
+
+                                        <div class="widget widget_links clearfix">
+                                            <h4>Connect Socially</h4>
+
+                                            <div class="bottommargin-sm clearfix">
+                                                <a href="#" class="social-icon si-dark si-mini si-rounded si-facebook"
+                                                    title="Facebook">
+                                                    <i class="icon-facebook"></i>
+                                                    <i class="icon-facebook"></i>
+                                                </a>
+
+                                                <a href="#" class="social-icon si-dark si-mini si-rounded si-twitter"
+                                                    title="Twitter">
+                                                    <i class="icon-twitter"></i>
+                                                    <i class="icon-twitter"></i>
+                                                </a>
+
+                                                <a href="#" class="social-icon si-dark si-mini si-rounded si-instagram"
+                                                    title="Instagram">
+                                                    <i class="icon-instagram"></i>
+                                                    <i class="icon-instagram"></i>
+                                                </a>
+
+                                                <a href="#" class="social-icon si-dark si-mini si-rounded si-pinterest"
+                                                    title="Pinterest">
+                                                    <i class="icon-pinterest"></i>
+                                                    <i class="icon-pinterest"></i>
+                                                </a>
+
+                                                <a href="#" class="social-icon si-dark si-mini si-rounded si-vimeo" title="Vimeo">
+                                                    <i class="icon-vimeo"></i>
+                                                    <i class="icon-vimeo"></i>
+                                                </a>
+                                            </div>
+                                        </div> -->
+
+                            <!-- <div class="widget subscribe-widget notopmargin clearfix">
+                                            <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing
+                                                Offers &amp; Inside Scoops:</h5>
+                                            <div class="widget-subscribe-form-result"></div>
+                                            <form id="widget-subscribe-form" action="include/subscribe.php" method="post"
+                                                class="nobottommargin">
+                                                <div class="input-group divcenter">
+                                                    <input type="email" id="widget-subscribe-form-email"
+                                                        name="widget-subscribe-form-email" class="form-control required email"
+                                                        placeholder="Enter your Email">
+                                                    <div class="input-group-append">
+                                                        <button class="button button-black t300 button-dark ls2 uppercase" style="height: 38px; line-height: 34px;"
+                                                            type="submit">Subscribe</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div> -->
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </footer>
+
+        </ng-template>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="4">
+        <footer id="E-commerce-footer">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="container">
+                        <div class="row">
+                            <!-- <div class="col-md-3">
+                                <div class="E-commerce-footer-items">
+                                    <h3>About</h3>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Contact Us</a></li>
+                                        <li><a [routerLink]="['/about']">{{'About Us' | translate}}</a></li>
+                                        <li><a href="javascript:void(0)">Careers</a></li>
+                                        <li><a href="javascript:void(0)">Al-Khalili</a></li>
+                                        <li><a href="javascript:void(0)">Press</a></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                            <!-- <div class="col-md-3">
+                                <div class="E-commerce-footer-items">
+                                    <h3>Help</h3>
+                                    <ul>
+                                        <li><a href="javascript:void(0)">Payments</a></li>
+                                        <li><a href="javascript:void(0)">Shipping</a></li>
+                                        <li><a href="javascript:void(0)">Cancellation & Returns</a></li>
+                                        <li><a [routerLink]="['/faq']">{{"FAQ's" | translate}}</a></li>
+                                        <li><a href="javascript:void(0)">Report Infringemrnt</a></li>
+                                    </ul>
+                                </div>
+                            </div> -->
+                            <div class="col-md-6">
+                                <div class="E-commerce-footer-items" *ngIf="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy || settings?.faqs">
+                                    <h3>Policy</h3>
+                                    <ul>
+                                        <li *ngIf="settings?.aboutUs">
+                                            <a [routerLink]="['/about']">{{'About Us' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.termsAndConditions"><a
+                                                [routerLink]="['/terms-and-conditions']">{{'Terms & Conditions' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.privacyPolicy"><a
+                                                [routerLink]="['/privacy-policy']">{{'Privacy Policy' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.faqs">
+                                            <a [routerLink]="['/faq']">{{"FAQ's" | translate}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="E-commerce-footer-items" *ngIf="settings?.fackbook_link || settings?.instagram_link || settings?.google_link || settings?.twitter_link">
+                                    <h3>Social</h3>
+                                    <ul>
+                                        <li><a *ngIf="settings?.fackbook_link" 
+                                                target="_blank" [href]="settings?.fackbook_link">Facebook</a></li>
+                                        <li><a *ngIf="settings?.instagram_link" 
+                                                target="_blank" [href]="settings?.instagram_link">Instagram</a></li>
+                                        <li><a *ngIf="settings?.google_link" 
+                                                target="_blank" [href]="settings?.google_link">Google</a></li>
+                                        <li><a *ngIf="settings?.twitter_link" 
+                                                target="_blank" [href]="settings?.twitter_link">Twitter</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                    <div class="E-commerce-footer-items E-commerce-footer-contact">
+                        <h3>Contact Details</h3>
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span>
+                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                    </span>
+                                    {{contact?.country}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span>
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    </span>
+                                    {{contact?.email}}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)">
+                                    <span>
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                    </span>
+                                    {{contact?.phoneNumber}}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+        <section id="E-commerce-footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <!-- <div class="col-md-8">
+                        <ul>
+                            <li><a href="javascript:void(0)">Home</a></li>
+                            <li><a href="javascript:void(0)">About</a></li>
+                            <li><a href="javascript:void(0)">Sale</a></li>
+                            <li><a href="javascript:void(0)">Trending</a></li>
+                            <li><a href="javascript:void(0)">Discount</a></li>
+                        </ul>
+                    </div> -->
+                    <div class="col-md-12" style="text-align: center">
+                        <p>© 2020 {{siteName}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </ng-template>
+</ng-container>

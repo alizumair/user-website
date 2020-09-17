@@ -1,0 +1,7 @@
+<div *ngIf="!isLoading" id="resultpage">
+    <img src="/assets/images/success.png" alt="payment success">
+    <h2>Your {{'payment' | localization}} is Successful!</h2>
+    <p>Thank you very much for your {{'order' | localization}}!</p>
+    <button class="home-btn" [disabled]="!orderId" (click)="onViewOrder()"><a style="color: #fff;">View
+            {{'order' | localization}}</a></button>
+</div>

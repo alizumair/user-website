@@ -1,0 +1,15 @@
+<p-sidebar [(visible)]="display" [position]="position" [fullScreen]="false" (onHide)=close()>
+  <div id="category" class="tabcontent" style="padding: 20px 0px 10px">
+    <div class="supdetbox">
+      <ul>
+        <li *ngFor="let subCat of subCategories" (click)="getSubCategories(subCat)">
+          <figure>
+            <img height="100px" width="150px" [src]="subCat?.display_image"
+              onError="src = './assets/images/placeholder_image.svg';" (load)="onImageLoad(subCat)">
+          </figure>
+          <p>{{subCat?.name}}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</p-sidebar>

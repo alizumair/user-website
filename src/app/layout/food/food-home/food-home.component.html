@@ -1,0 +1,149 @@
+<ng-container *ngIf="!settings?.is_single_vendor else singleVendor">
+
+    <ng-container [ngSwitch]="settings?.selected_template">
+
+        <ng-template [ngSwitchCase]="0">
+
+            <div class="w-100" *ngIf="settings?.is_custom_category_template=='0'">
+                <app-banner></app-banner>
+            </div>
+
+            <section class="recoomond_section recomand-2">
+                <div class="container food-home-container">
+                    <div class="row" *ngIf="settings?.is_custom_category_template=='0'">
+                        <div class="col-lg-3 col-md-4">
+                            <div class="left_section-pizza sticky">
+                                <ul>
+                                    <li *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length && settings?.hide_offers_category_home == 0"
+                                        [ngStyle]="selectedTab == 1 ? {'backgroundColor': style.primaryColor,  color: '#ffffff', opacity: '1'} : {'backgroundColor': style.backgroundColor, color: style.baseColor}"
+                                        (click)="scrollTo(1)">
+                                        {{'Offers Only For You' | translate}}</li>
+                                    <li [ngStyle]="selectedTab == 2 ? {'backgroundColor': style.primaryColor,  color: '#ffffff', opacity: '1'} : {'backgroundColor': style.backgroundColor, color: style.baseColor}"
+                                        (click)="scrollTo(2)">
+                                        {{'top_suppliers_near_you' | localization | translate}}</li>
+                                    <li *ngFor="let category of homeCategoryList" class="category"
+                                        (click)="onCategorySelect(category)">
+                                        {{category?.name}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-md-8">
+                            <app-special-offers id="1"
+                                *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length && settings?.hide_offers_category_home == 0"
+                                [offerData]="homeData?.offerEnglish" [isLoading]="isLoading">
+                            </app-special-offers>
+
+                            <div class="home-self-pickup" *ngIf="settings.is_pickup_order == 2">
+                                <label [ngStyle]="{'border-color': style.primaryColor, 'color': style.primaryColor}"
+                                    class="custom-checkbox cursor">{{'Self Pickup' | translate}}
+                                    <input class="cursor" type="checkbox" name="selfPickup" [checked]="selfPickup"
+                                        [(ngModel)]="selfPickup">
+                                    <span class="checkmark cursor"
+                                        [ngStyle]="{'border-color': style.primaryColor, '--background-color': style.primaryColor}"></span>
+                                </label>
+                            </div>
+                            <app-suppliers id="2"></app-suppliers>
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="settings?.is_custom_category_template=='1'">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="marketplace-categories_heading">
+                                    <h3>{{'categories' | localization | translate}}</h3>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4" *ngFor="let category of homeCategoryList">
+                                <div class="Grocery-outter" (click)="onCategorySelect(category)">
+                                    <a class="pointer">
+                                        <img appImage [url]="category.image" [size]="'255x180'" [src]="category.image"
+                                            onError="src = './assets/images/placeholder_image.svg';">
+                                        <span>{{category.name}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 mt-5">
+                            <app-special-offers id="1"
+                                *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length && settings?.hide_offers_category_home == 0"
+                                [offerData]="homeData?.offerEnglish" [isLoading]="isLoading">
+                            </app-special-offers>
+
+                            <div class="home-self-pickup" *ngIf="settings.is_pickup_order == 2">
+                                <label [ngStyle]="{'border-color': style.primaryColor, 'color': style.primaryColor}"
+                                    class="custom-checkbox cursor">{{'Self Pickup' | translate}}
+                                    <input class="cursor" type="checkbox" name="selfPickup" [checked]="selfPickup"
+                                        [(ngModel)]="selfPickup">
+                                    <span class="checkmark cursor"
+                                        [ngStyle]="{'border-color': style.primaryColor, '--background-color': style.primaryColor}"></span>
+                                </label>
+                            </div>
+                            <app-suppliers id="2"></app-suppliers>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="1">
+
+            <div class="w-100">
+                <app-food-banner [style]="style" [settings]="settings"></app-food-banner>
+            </div>
+
+            <app-food-recommended-suppliers
+                *ngIf="!settings?.is_single_vendor && homeData?.SupplierInArabic && homeData?.SupplierInArabic?.length"
+                [style]="style" [settings]="settings" [recommendedData]="homeData?.SupplierInArabic"
+                [isLoading]="isLoading">
+            </app-food-recommended-suppliers>
+
+            <app-food-special-offers *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                [offerData]="homeData?.offerEnglish" [isLoading]="isLoading" [style]="style" [settings]="settings">
+            </app-food-special-offers>
+
+            <app-food-suppliers *ngIf="!settings?.is_single_vendor" [style]="style" [settings]="settings">
+            </app-food-suppliers>
+
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="2">
+
+            <div class="w-100">
+                <app-food-banner [style]="style" [settings]="settings"></app-food-banner>
+            </div>
+
+            <app-food-recommended-suppliers
+                *ngIf="!settings?.is_single_vendor && homeData?.SupplierInArabic && homeData?.SupplierInArabic?.length"
+                [style]="style" [settings]="settings" [recommendedData]="homeData?.SupplierInArabic"
+                [isLoading]="isLoading">
+            </app-food-recommended-suppliers>
+
+            <app-food-home-options [style]="style" [settings]="settings"></app-food-home-options>
+
+            <app-food-special-offers *ngIf="homeData?.offerEnglish && homeData?.offerEnglish?.length"
+                [offerData]="homeData?.offerEnglish" [isLoading]="isLoading" [style]="style" [settings]="settings">
+            </app-food-special-offers>
+
+            <app-food-suppliers *ngIf="!settings?.is_single_vendor" [style]="style" [settings]="settings">
+            </app-food-suppliers>
+
+        </ng-template>
+
+    </ng-container>
+
+</ng-container>
+
+
+<ng-template #singleVendor>
+
+    <app-single-vendor *ngIf="homeData" [offerData]="homeData?.offerEnglish">
+    </app-single-vendor>
+
+</ng-template>

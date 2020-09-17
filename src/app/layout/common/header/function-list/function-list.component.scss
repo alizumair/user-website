@@ -1,0 +1,28 @@
+.navbar-nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+}
+
+a {
+    cursor: pointer;
+}
+
+.topheader-user {
+    img {
+        height: 35px;
+        width: 35px;
+    }
+}
+
+.gift {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    padding: 0px !important;
+}
+// .payment_count {
+//     background-color: #ffffff63;
+//     padding: 2px 10px 2px 11px !important;
+//     border-radius: 5px;
+//     box-shadow: 1px 0px 5px #7777778a;
+// }

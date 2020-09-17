@@ -1,0 +1,71 @@
+<!--================ Start Page Breadcrumb Page ================-->
+<div class="page_breadcrumb" [style.background-color]="style.backgroundColor">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<ul>
+					<!-- <li><a href="javascript:void(0)" [style.color]="style.baseColor">My Account</a></li> -->
+					<li><a class="active" href="javascript:void(0)" [style.color]="style.baseColor">{{('My ' + ('orders' | localization: settings?.app_type: 1)) | translate}} </a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!--================ End Page Breadcrumb Page ================-->
+
+<!--================ Start Product Result Page ================-->
+<section class="product_result_body">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 [style.color]="style.baseColor">{{('My ' + ('orders' | localization: settings?.app_type: 1)) | translate}}</h1>
+				<ul class="order-tabs">
+					<li class="cursor" (click)="orderTypeSelect('pending_orders')" [ngStyle]="orderType === 'pending_orders'
+						 ? {color: style.primaryColor, 'border-color' : style.primaryColor, opacity: 1} 
+						 : {color: style.baseColor, 'border-color' : style.baseColor, opacity: 0.5}">
+						<a>{{('Active ' + ('orders' | localization: settings?.app_type: 1)) | translate}}</a></li>
+
+					<!-- <li class="cursor" (click)="orderTypeSelect('schedule_orders')" *ngIf="settings?.app_type == 8"
+						[ngStyle]="orderType === 'schedule_orders'
+					? {color: style.primaryColor, 'border-color' : style.primaryColor, opacity: 1} 
+					: {color: style.baseColor, 'border-color' : style.baseColor, opacity: 0.5}">
+						<a>{{'Schedule' | translate}} {{'orders' | localization | translate}}</a></li> -->
+					<li class="cursor" (click)="orderTypeSelect('orders')" [ngStyle]="orderType === 'orders'
+					? {color: style.primaryColor, 'border-color' : style.primaryColor, opacity: 1} 
+					: {color: style.baseColor, 'border-color' : style.baseColor, opacity: 0.5}">
+						<a>{{('Past ' + ('orders' | localization: settings?.app_type: 1)) | translate}}</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<ng-container *ngIf="!isLoading; else skeleton">
+			<div class="row" *ngIf="pagination.count > 0">
+				<div class="col-md-6"
+					*ngFor="let order of orders | paginate: { itemsPerPage: pagination.perPageOrder, currentPage: pagination.currentPage, totalItems: pagination.count }">
+					<app-order-list-item [order]="order" [settings]="settings" [style]="style"
+						(cancel)="cancelOrder(order)"></app-order-list-item>
+				</div>
+				<div class="custom-pagination" *ngIf="pagination.count > pagination.perPageOrder">
+					<pagination-controls [style.color]="style.primaryColor" (pageChange)="pageChange($event)"
+						previousLabel="Prev" nextLabel="Next">
+					</pagination-controls>
+				</div>
+			</div>
+
+			<div class="no-data" *ngIf="!pagination.count && noData">
+				<h1 [style.color]="style.baseColor">{{'No' | translate}} {{ 'order' | localization }}
+					{{'Found' | translate}}</h1>
+			</div>
+
+		</ng-container>
+		<ng-template #skeleton>
+			<div class="row">
+				<div class="col-6" *ngFor="let data of util.generateFakeList(6)">
+					<app-order-list-item-skeleton [settings]="settings" [style]="style"></app-order-list-item-skeleton>
+				</div>
+			</div>
+		</ng-template>
+
+	</div>
+</section>
+<!--================ End Product Result Page ================-->

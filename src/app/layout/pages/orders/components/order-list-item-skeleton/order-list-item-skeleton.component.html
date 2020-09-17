@@ -1,0 +1,55 @@
+<ng-container>
+    <div class="skeleton track_order_outter"
+        [ngStyle]="{'background-color':style.cardBackgroundColor, 'border-color': style.secondaryColor}">
+        <div class="head">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="float-left"> </h5>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="float-right"> </h5>
+                </div>
+            </div>
+            <div class="row order">
+                <div class="col-md-6">
+                    <div class="float-left date">
+                        <p></p>
+                        <!-- <p *ngIf="order.created_on && order.created_on  !='Invalid date'"></p> -->
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p class="float-right"></p>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="row item-row mt-2">
+                <div class="col-md-6" *ngFor="let product of util.generateFakeList(2)">
+                    <div class="item-column">
+                        <p class="ellipsis"></p>
+                        <p> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="float-left date" [style.color]="style.defaultColor">
+
+                        <span>
+                            <p></p>
+                            <!-- <p></p> -->
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="margin-top: -6px">
+                        <a class="float-right cancel-btn margin-left-10"></a>
+                        <a class="float-right cancel-btn"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

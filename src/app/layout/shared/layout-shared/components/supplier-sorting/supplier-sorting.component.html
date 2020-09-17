@@ -1,0 +1,27 @@
+<div class="dropdown show">
+    <button class="btn btn-large dropdown-toggle " id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false" [style.color]="style.primaryColor">
+        <span [style.color]="style.primaryColor">{{labelText | translate}}:</span>
+        {{selectedSorting | translate}}</button>
+
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item cursor"
+            [ngStyle]="sortValue == 0 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onSortBy(0)">{{'New' | translate}}</a>
+        <a class="dropdown-item cursor"
+            [ngStyle]="sortValue == 1 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onSortBy(1)">{{'Distance' | translate}}</a>
+        <a class="dropdown-item cursor"
+            [ngStyle]="sortValue == 2 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onSortBy(2)">{{'Rating' | translate}}</a>
+        <a class="dropdown-item cursor"
+            [ngStyle]="sortValue == 3 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onSortBy(3)">{{'Alphabetically' | translate}}</a>
+        <a class="dropdown-item cursor"
+            [ngStyle]="sortValue == 5 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onSortBy(5)">{{'Open' | translate}}</a>
+        <a class="dropdown-item cursor"
+            [ngStyle]="sortValue == 6 ? {'background-color': style.primaryColor, color: '#ffffff'} : {'background-color': '#ffffff', color: style.primaryColor}"
+            (click)="onSortBy(6)">{{'Closed' | translate}}</a>
+    </div>
+</div>

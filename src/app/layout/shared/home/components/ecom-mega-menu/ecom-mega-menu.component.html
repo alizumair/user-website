@@ -1,0 +1,39 @@
+<section id="E-commerce-categories-list">
+  <div class="E-commerce-categories-list-inner">
+      <ul>
+          <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+            <li ngxSlickItem *ngFor="let cat of categories" [ngClass]="cat?.id == selectedCategoryId ? 'active':''" style="text-align: center;">
+              <a href="javascript:void(0)"  (mouseover)="showSubCat(cat)" (click)="viewProducts(cat)">{{cat?.name}}</a>
+            </li>
+          </ngx-slick-carousel>
+
+      </ul>
+      <div class="dropdown-mega-menu" *ngIf="subCategories?.length">
+        <div class="row" >
+            <div class="col-md-3" *ngFor="let subcat of subCategories">
+                <div class="dropdown-mega-menu-items">
+                    <h3 [ngStyle]="{'cursor': !subcat?.sub_category?.length ? 'pointer':'' }" (click)="viewProducts(subcat)">{{subcat?.name}}</h3>
+                    <ul *ngIf="subcat?.sub_category?.length">
+                        <li *ngFor="let superSubCat of subcat?.sub_category">
+                          <a href="javaScript:void(0)" (click)="viewProducts(superSubCat)">{{superSubCat?.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- <div class="col-md-3">
+                <div class="dropdown-mega-menu-buynow">
+                    <h4>Devialet Phantom Speakers</h4>
+                    <p>The new standard for professional audio</p>
+                    <a href="" class="mega-menu-buy-btn">Buy Now</a>
+                    <img src="images/6.png">
+                </div>
+            </div> -->
+        </div>
+        <div class="row" *ngIf="!subCategories?.length">
+          No Sub-category.
+       </div>
+    </div>
+  </div>
+</section>
+

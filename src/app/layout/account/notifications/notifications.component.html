@@ -1,0 +1,30 @@
+<div class="profile-left-right" id="notification">
+  <h1>Notifications</h1>
+  <ng-container *ngIf="notificationList.length; else noNotification">
+    <div class="notification_inner_box"
+      *ngFor="let notification of notificationList | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: pagination.count }">
+      <ul>
+        <li class="active">
+          <div class="user_notification cursor" [routerLink]="['/orders/order-detail']" [queryParams]="{'orderId': notification.order_id}">
+            <img class="notification_img" [src]="notification?.logo"
+              onError="src = './assets/images/placeholder_image.svg';">
+            <h5>{{notification?.notification_message}}</h5><br>
+            <span>{{notification?.created_on | date: 'medium'}}</span>
+            <!-- <img class="close-notification" src="assets/images/cross_icon.png"> -->
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="custom-pagination mt-5" *ngIf="pagination.count > pagination.perPage">
+      <pagination-controls responsive="true" [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+        (pageChange)="pageChange($event)"></pagination-controls>
+    </div>
+  </ng-container>
+
+  <ng-template #noNotification>
+    <div class="no-data">
+      <h4>No Notification Found</h4>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,24 @@
+<h2 class="title ml-0" [style.color]="style.baseColor">Recently Viewed {{'products' | localization | translate}}</h2>
+<ng-container *ngIf="!isLoading; else skeleton">
+  <ng-container *ngIf="recentlyViewed && recentlyViewed.length; then data else noData"> </ng-container>
+
+  <ng-template #data>
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-6" *ngFor="let offer of recentlyViewed.slice(0,6)">
+        <app-product [product]="offer" [settings]="settings" [style]="style" [loggedIn]="loggedIn" (add)="addProduct($event)" (remove)="removeProduct($event)"></app-product>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #noData>
+    <div class="row">
+      <div class="home-no-data">
+        <h4 [style.color]="style.baseColor">{{'No' | translate}} {{'products' | localization | translate}}
+          {{'Found' | translate}}</h4>
+      </div>
+    </div>
+  </ng-template>
+</ng-container>
+
+<ng-template #skeleton>
+</ng-template>

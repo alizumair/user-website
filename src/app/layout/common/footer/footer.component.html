@@ -1,0 +1,125 @@
+<ng-container *ngIf="is_mobile; else webTemplate">
+    <app-mobile-footer [style]="style" [settings]="settings"></app-mobile-footer>
+</ng-container>
+
+<ng-template #webTemplate>
+
+    <div *ngIf="([0].includes(settings?.selected_template) || (settings?.selected_template == 2 && settings?.app_type != 1)) || settings?.app_type > 10 || settings?.app_type == 8; else template_selection">
+        <ng-container *ngIf="settings.footer_type == 0; else landingFooter">
+            <footer>
+                <div class="footer-part">
+                    <div class="container">
+                        <div class="row">
+                            <div [ngClass]="!appLink?.android && !appLink?.ios ? 'col-md-6' : 'col-md-4'"
+                                *ngIf="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs">
+                                <div class="useful-links">
+                                    <h2 [style.color]="style.baseColor">{{'Useful Links' | translate}}</h2>
+                                    <ul>
+                                        <li *ngIf="settings?.aboutUs">
+                                            <a [style.color]="style.baseColor"
+                                                [routerLink]="['/about']">{{'About Us' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.termsAndConditions">
+                                            <a [style.color]="style.baseColor"
+                                                [routerLink]="['/terms-and-conditions']">{{'Terms & Conditions' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.privacyPolicy">
+                                            <a [style.color]="style.baseColor"
+                                                [routerLink]="['/privacy-policy']">{{'Privacy Policy' | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.faqs">
+                                            <a [style.color]="style.baseColor"
+                                                [routerLink]="['/faq']">{{"FAQ's" | translate}}</a>
+                                        </li>
+                                        <li *ngIf="settings?.is_vendor_registration == 1"><a
+                                                [style.color]="style.baseColor" target="_blank"
+                                                [href]="registrationUrl">{{'Register As' | translate}}
+                                                {{'supplier' | localization}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div
+                                [ngClass]="(!appLink?.android && !appLink?.ios) || (!settings?.aboutUs && !settings?.termsAndConditions && !settings?.privacyPolicy && !settings?.faqs) ? 'col-md-6' : 'col-md-4'">
+                                <div class="useful-links">
+                                    <h2 [style.color]="style.baseColor">{{'Contact Us' | translate}}</h2>
+                                    <ul>
+                                        <li class="help"><a [style.color]="style.baseColor"
+                                                href="tel:{{contact?.phoneNumber}}">{{contact?.phoneNumber}}</a></li>
+                                        <li [style.color]="style.baseColor" class="help" (click)="mailTo()">
+                                            {{contact?.email}}</li>
+                                        <li [style.color]="style.baseColor">{{contact?.country}}</li>
+                                        <li *ngIf="contact?.email && settings.email" class="help" (click)="onHelp()">
+                                            {{'Help & Support' | translate}}</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                            <div
+                                [ngClass]="settings?.aboutUs || settings?.termsAndConditions || settings?.privacyPolicy ||settings?.faqs ? 'col-md-4' : 'col-md-6'">
+                                <div class="use-mobile-sectiont" *ngIf=" (appLink?.android || appLink?.ios)">
+                                    <h2 [style.color]="style.baseColor">{{'Download Our Apps' | translate}}</h2>
+                                    <div class="app-images">
+                                        <a *ngIf="appLink?.android" target="_blank" [href]="appLink?.android">
+                                            <img src="/assets/images/google_play.png">
+                                        </a>
+                                        <!-- <a><img src="/assets/images/google_play.png"></a> -->
+                                        <!-- <br> -->
+                                        <a *ngIf="appLink?.ios" target="_blank" [href]="appLink?.ios">
+                                            <img src="/assets/images/app_store.png">
+                                        </a>
+                                        <!-- <a><img src="/assets/images/app_store.png"></a> -->
+                                    </div>
+                                </div>
+
+                                <div class="useful-links social" *ngIf="settings?.social_media_icons == 1"
+                                    style="margin-top: 20px;">
+                                    <h2 [style.color]="style.baseColor">Follow Us on</h2>
+                                    <ul>
+                                        <li><a *ngIf="settings?.fackbook_link" [style.color]="style.primaryColor"
+                                                target="_blank" [href]="settings?.fackbook_link"><i
+                                                    class="fa fa-facebook" aria-hidden="true"></i>
+                                            </a></li>
+                                        <li><a *ngIf="settings?.twitter_link" [style.color]="style.primaryColor"
+                                                target="_blank" [href]="settings?.twitter_link"><i class="fa fa-twitter"
+                                                    aria-hidden="true"></i>
+                                            </a></li>
+                                        <li><a *ngIf="settings?.instagram_link" [style.color]="style.primaryColor"
+                                                target="_blank" [href]="settings?.instagram_link"><i
+                                                    class="fa fa-instagram" aria-hidden="true"></i>
+                                            </a></li>
+                                        <li><a *ngIf="settings?.linkedin_link" [style.color]="style.primaryColor"
+                                                target="_blank" [href]="settings?.linkedin_link"><i
+                                                    class="fa fa-linkedin" aria-hidden="true"></i>
+                                            </a></li>
+                                        <li><a *ngIf="settings?.google_link" [style.color]="style.primaryColor"
+                                                target="_blank" [href]="settings?.google_link"><i
+                                                    class="fa fa-google-plus" aria-hidden="true"></i>
+                                            </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </ng-container>
+        <ng-template #landingFooter>
+            <app-landing-footer [style]="style" [settings]="settings" (onHelp)="onHelp()"></app-landing-footer>
+        </ng-template>
+    </div>
+
+</ng-template>
+
+<ng-template #template_selection>
+    <ng-container [ngSwitch]="settings?.app_type">
+
+        <ng-template [ngSwitchCase]="1">
+            <app-food-footer [settings]="settings" [style]="style"></app-food-footer>
+        </ng-template>
+
+        <ng-template [ngSwitchCase]="2">
+            <app-ecommerce-footer [settings]="settings" [style]="style"></app-ecommerce-footer>
+        </ng-template>
+
+    </ng-container>
+</ng-template>

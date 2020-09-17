@@ -1,0 +1,149 @@
+.location-radio-btn {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 2px 0px;
+
+  input.sort-check {
+    position: absolute;
+    right: 0;
+    top: 0;
+    min-width: 1em;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    margin-top: 0px !important;
+  }
+  span.check-box-text {
+    color: #515151;
+    font-size: 15px;
+    position: initial;
+    display: inline-block;
+    margin: 0;
+    font-weight: 300;
+    /* text-indent: 1.5em; */
+    min-width: calc(1em + 2px);
+    width: 90%;
+    margin-right: 30px;
+    line-height: 25px;
+    margin-left: 30px;
+  }
+  .check-box-text:after,
+  .check-box-text:before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    display: block;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 1.4px solid transparent;
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    top: 11%;
+    background-color: transparent;
+    margin-top: 2px;
+  }
+  .check-box-text:before {
+    border-color: #ccc !important;
+  }
+  .check-box-text:after,
+  .check-box-text:before {
+    border-radius: 50% !important;
+  }
+
+  .check-box-text:after {
+    -webkit-transform: scale(0.6);
+    -ms-transform: scale(0.6);
+    transform: scale(0.6);
+  }
+  .sort-check:checked ~ .check-box-text:after {
+    background-color: #df284d !important;
+  }
+  .sort-check:checked ~ .check-box-text:before {
+    border-color: #df284d !important;
+  }
+}
+
+.change-pin {
+  font-size: 12px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+#mapLocation {
+  height: 300px;
+}
+
+.search-location {
+  width: 100%;
+}
+
+.fill-address .uk-radio {
+  width: 16px;
+  border-radius: 40px;
+  padding: 0;
+  margin-bottom: 0;
+}
+
+.radio-txt {
+  margin-left: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+// .select-area {
+//   max-width: 350px;
+// }
+
+.select-area i {
+  cursor: pointer;
+}
+
+.location-down {
+  padding-top: 4px;
+
+  .loc-right {
+    display: inline-block;
+    margin-left: 8px;
+
+    p {
+      margin-bottom: 0px;
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    .dropdown {
+      margin-top: -4px;
+
+      .select-area-title {
+        font-size: 16px;
+        font-weight: 500;
+        text-overflow: ellipsis;
+        display: inline-block;
+        max-width: 150px;
+        overflow: hidden;
+      }
+
+      .fa-angle-down {
+        vertical-align: super;
+      }
+    }
+  }
+
+  .loc-left {
+    margin-top: 8px;
+    vertical-align: top;
+    display: inline-block;
+
+    i {
+      font-size: 30px;
+      margin-top: -2px;
+    }
+  }
+
+}

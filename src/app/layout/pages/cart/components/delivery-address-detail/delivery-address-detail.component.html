@@ -1,0 +1,198 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<ng-container *ngIf="isAddressHide===0 && settings?.app_type == 2 && settings?.selected_template == 2; else default">
+
+    <div class="price_details theme1_custom_div"
+        [ngStyle]="{'background-color': style.cardBackgroundColor,'border-color': style.secondaryColor  }">
+        <h5 class="p-b-n" [style.color]="style.baseColor">
+            {{ "Address" | translate }}
+            <a style="font-weight: 600" href="javascript:void(0)" (click)="openNewAddressDialog()"
+                [style.color]="style.primaryColor">{{'Add Address' | translate}}</a>
+        </h5>
+        <div class="address-detail">
+            <div *ngIf="!addressList?.length">
+                <h5 class="logo-outter" [style.color]="style.baseColor">
+                    {{ "No Address Found" | translate }}
+                </h5>
+            </div>
+            <div *ngIf="addressList.length">
+                <!-- <h4 [style.color]="style.baseColor">
+                    {{settings?.app_type == 8 ? 'Service At' : 'Deliver To' | translate }}
+                </h4> -->
+                <img class="pin_location" src="/assets/images/pin-outline.png">
+                <address class="address_block" [style.color]="style.baseColor">
+                    {{ addressList[selectedAreaIndex]?.name }}
+                    <br *ngIf="addressList[selectedAreaIndex]?.name" />
+                    {{ addressList[selectedAreaIndex]?.address_line_1 }}<br />
+                    <span
+                        *ngIf="addressList[selectedAreaIndex]?.collectNumber">{{ addressList[selectedAreaIndex]?.collectNumber}}
+                        <br></span>
+                    {{ addressList[selectedAreaIndex]?.customer_address }}
+                    {{ addressList[selectedAreaIndex]?.phone_number }}
+                </address>
+            </div>
+            <a *ngIf="addressList.length > 0" href="javascript:void(0)" data-toggle="modal" data-target="#addressModel"
+                [style.color]="style.primaryColor">{{ "Change" | translate }}</a>
+        </div>
+    </div>
+</ng-container>
+<ng-template #default>
+    <div *ngIf="isAddressHide===0" class="price_details"
+        [ngStyle]="{'background-color': style.cardBackgroundColor,'border-color': style.secondaryColor  }">
+        <h5 [style.color]="style.baseColor">
+            {{ "Address Details" | translate }}
+            <a style="font-weight: 600" href="javascript:void(0)" (click)="openNewAddressDialog()"
+                [style.color]="style.primaryColor">{{'Add New Address' | translate}}</a>
+        </h5>
+        <div class="address-detail">
+            <div *ngIf="!addressList?.length">
+                <h5 class="logo-outter" [style.color]="style.baseColor">
+                    {{ "No Address Found" | translate }}
+                </h5>
+            </div>
+            <div *ngIf="addressList.length">
+                <h4 [style.color]="style.baseColor">
+                    {{settings?.app_type == 8 ? 'Service At' : 'Deliver To' | translate }}
+                </h4>
+                <address [style.color]="style.baseColor">
+                    {{ addressList[selectedAreaIndex]?.name }}
+                    <br *ngIf="addressList[selectedAreaIndex]?.name" />
+                    {{ addressList[selectedAreaIndex]?.address_line_1 }}<br />
+                    <span
+                        *ngIf="addressList[selectedAreaIndex]?.collectNumber">{{ addressList[selectedAreaIndex]?.collectNumber}}
+                        <br></span>
+                    {{ addressList[selectedAreaIndex]?.customer_address }}
+                    {{ addressList[selectedAreaIndex]?.phone_number }}
+                </address>
+            </div>
+            <a *ngIf="addressList.length > 0" href="javascript:void(0)" data-toggle="modal" data-target="#addressModel"
+                [style.color]="style.primaryColor">{{ "Change" | translate }}</a>
+        </div>
+    </div>
+</ng-template>
+
+<!--popup-->
+<div class="modal fade" id="addressModel" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" #closeAddressModal
+                    (click)="this.localAreaIndex = this.selectedAreaIndex"></button>
+                <!-- <h4 class="modal-title" [style.color]="style.defaultColor">
+                    {{ "Address" | translate }}
+                </h4> -->
+                <p [style.color]="style.primaryColor" routerLink="/account/address">
+                    {{ "Manage Address" | translate }}
+                </p>
+            </div>
+            <div class="modal-body">
+                <div class="Address_outter">
+                    <div class="default_address cursor" (click)="this.localAreaIndex = i"
+                        *ngFor="let data of addressList; let i = index"
+                        [style.borderColor]="i == localAreaIndex ? style.primaryColor : style.secondaryColor "
+                        [ngClass]="i == localAreaIndex ? 'active' : ''">
+                        <div class="ddress-inner" [style.color]="style.baseColor">
+                            <h2>{{ data?.name }}</h2>
+                            <address>
+                                {{ data?.name }} <br *ngIf="data.name" />
+                                {{ data?.address_line_1 }} <br />
+                                <span *ngIf="data?.collectNumber">{{data?.collectNumber}} <br></span>
+                                {{ data?.customer_address }}, {{ data?.pincode }}
+                            </address>
+                        </div>
+                    </div>
+                    <div *ngIf="!addressList?.length" class="no-data">
+                        <h1>{{ "No Address Found" | translate }}</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="model-footer">
+                <button class="btn" (click)="onAddressSelect()">{{'Proceed' | translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-------------------- Add New Address Popup ------------------------->
+
+<div class="backdrop" [ngStyle]="{'display': display}"></div>
+
+<div class="modal" tabindex="-1" id="newAddress" role="dialog" [ngStyle]="{'display': display}">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="display = 'none';" #closeNewAddress></button>
+                <p [style.color]="style.defaultColor">{{ "Add New Address" | translate }}</p>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" (ngSubmit)="onAdd(form.value)">
+                    <div class="profile_form">
+
+                        <div class="form-group">
+                            <label [style.color]="style.baseColor">{{'Full Name' | translate}}</label>
+                            <input class="w-100" type="text" formControlName="name"
+                                placeholder="{{'Enter Full Name' | translate}}"
+                                (keydown.space)="!form.controls.name.value ? $event.preventDefault() : ''">
+                            <div class="text-error"
+                                *ngIf="(form.controls['name'].errors?.required || form.controls['name'].errors?.whitespace) && showError">
+                                {{'Please enter name' | translate}}</div>
+                        </div>
+
+                      <div class="form-group">
+                        <label
+                          [style.color]="style.baseColor">{{'Your Current Location' | translate}}</label>
+                        <input class="w-100" type="text" formControlName="addressLineFirst"
+                               placeholder="{{'Enter Current Location' | translate}}" appGoogleplace
+                               (onSelect)="onAddressSearch($event)">
+                        <div class="text-error"
+                             *ngIf="form.controls['addressLineFirst'].errors?.required && showError">
+                          {{'Please enter address' | translate}}</div>
+                        <div class="text-error"
+                             *ngIf="!form.controls['addressLineFirst'].errors?.required && form.controls['latitude'].errors?.required && showError">
+                          {{'Please enter valid address' | translate}}</div>
+                      </div>
+
+                        <div class="form-group">
+                            <label [style.color]="style.baseColor">{{'Enter Full Address' | translate}}</label>
+                            <input class="w-100" type="text" formControlName="houseNo"
+                                placeholder="{{'Enter Full Address' | translate}}"
+                                (keydown.space)="!form.controls.houseNo.value ? $event.preventDefault() : ''">
+                            <div class="text-error"
+                                *ngIf="(form.controls['houseNo'].errors?.required || form.controls['houseNo'].errors?.whitespace) && showError">
+                                {{'Please enter full address' | translate}}</div>
+                        </div>
+
+
+                        <div class="form-group" *ngIf="settings?.addCollectFieldInAddress == 1">
+                            <label [style.color]="style.baseColor">{{'Click/Collect Number' | translate}}</label>
+                            <input class="w-100" type="text" formControlName="collectNo"
+                                placeholder="{{'Enter Click/Collect Number' | translate}}"
+                                (keydown.space)="!form.controls.collectNo.value ? $event.preventDefault() : ''">
+                            <div class="text-error"
+                                *ngIf="(form.controls['collectNo'].errors?.required || form.controls['collectNo'].errors?.whitespace) && showError">
+                                {{'Please enter click/collect number' | translate}}</div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label [style.color]="style.baseColor">{{'Contact Number' | translate}}</label>
+                            <input class="w-100" type="text" formControlName="phone_number"
+                                placeholder="{{'Enter Contact Number' | translate}}" numbersOnly>
+                            <div class="text-error" *ngIf="form.controls['phone_number'].errors?.required && showError">
+                                {{'Please Enter Contact Number' | translate}}</div>
+                            <div class="text-error"
+                                *ngIf="!form.controls['phone_number'].errors?.required && form.controls['phone_number'].errors?.pattern && showError">
+                                {{'Please Enter Valid Contact Number' | translate}}</div>
+                        </div>
+
+                        <button class="btn profile-submit-form ml-3 float-right text-capitalize" [ngStyle]="saveBtn"
+                            type="submit">{{'ADD' | translate}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

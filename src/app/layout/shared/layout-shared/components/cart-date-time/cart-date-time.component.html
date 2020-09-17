@@ -1,0 +1,101 @@
+<app-processing-indicator *ngIf="isLoading"></app-processing-indicator>
+
+<div class="modal fade" id="cartDateModal" tabindex="-1" role="dialog" aria-labelledby="cartDateModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered datetimemod" role="document">
+    <div class="modal-content" style="text-align: center">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cartDateModalLabel" [style.color]="style.defaultColor" style="margin-top: -10px">
+          {{is_slot_selection ? 'Select Slot' : 'Select Date'}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+          (click)="is_slot_selection = false"></button>
+      </div>
+      <div class="modal-body">
+        <p-calendar *ngIf="!is_slot_selection" [(ngModel)]="date" [minDate]="min" [inline]="true"
+          [readonlyInput]="true"></p-calendar>
+
+        <div *ngIf="is_slot_selection">
+          <div class="tab-content pt-3 pb-3 px-sm-0" id="nav-tabContent">
+            <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="nav-home-tab">
+
+              <div class="tab-content" *ngIf="slotData.Morning.length">
+                <div class="tabsleft-content">
+                  <img src="/assets/images/ic_morning.png" height="25px" width="32px">
+                  <span>{{'Morning' | translate}}</span>
+                </div>
+                <div class="tabsright-content" [style.color]="style.defaultColor">
+                  <div class="tabsright-content-data" *ngFor="let slot of slotData.Morning; let i = index">
+                    <span (mouseover)="hover.index = i; hover.tab = 'Morning'" (click)="selectSlot(slot)"
+                      [ngStyle]="(hover.index === i && hover.tab === 'Morning') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                      (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content bt" *ngIf="slotData.Afternoon.length">
+                <div class="tabsleft-content">
+                  <img src="/assets/images/ic_afternoon.png" height="25px" width="25px">
+                  <span>{{'Afternoon' | translate}}</span>
+                </div>
+                <div class="tabsright-content" [style.color]="style.defaultColor">
+                  <div class="tabsright-content-data" *ngFor="let slot of slotData.Afternoon; let i = index">
+                    <span (mouseover)="hover.index = i; hover.tab = 'Afternoon'" (click)="selectSlot(slot)"
+                      [ngStyle]="(hover?.index === i && hover?.tab === 'Afternoon') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                      (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content bt" *ngIf="slotData.Evening.length">
+                <div class="tabsleft-content">
+                  <img src="/assets/images/ic_evening.png" height="22px" width="20px">
+                  <span>{{'Evening' | translate}}</span>
+                </div>
+                <div class="tabsright-content" [style.color]="style.defaultColor">
+                  <div class="tabsright-content-data" *ngFor="let slot of slotData.Evening; let i = index">
+                    <span (mouseover)="hover.index = i; hover.tab = 'Evening'" (click)="selectSlot(slot)"
+                      [ngStyle]="(hover.index === i && hover.tab === 'Evening') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                      (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="tab-content bt" *ngIf="slotData.Night.length">
+                <div class="tabsleft-content">
+                  <img src="/assets/images/ic_night.png" height="25px" width="25px">
+                  <span>{{'Night' | translate}}</span>
+                </div>
+                <div class="tabsright-content" [style.color]="style.defaultColor">
+                  <div class="tabsright-content-data" *ngFor="let slot of slotData.Night; let i = index">
+                    <span (mouseover)="hover.index = i; hover.tab = 'Night'" (click)="selectSlot(slot)"
+                      [ngStyle]="(hover.index === i && hover.tab === 'Night') || slotTime === slot ? {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style.primaryColor} : ''"
+                      (mouseleave)="hover.index = -1; hover.tab = null">{{slot}}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="no-data"
+            *ngIf="!slotData.Morning.length && !slotData.Afternoon.length && !slotData.Evening.length && !slotData.Night.length && noData">
+            <h1 [style.color]="style.defaultColor">{{'No Slots Found' | translate}}</h1>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button *ngIf="is_slot_selection" type="button" class="btn"
+          [ngStyle]="{'backgroundColor': '#ffffff', 'borderColor': style.primaryColor, 'color': style.primaryColor}"
+          (click)="is_slot_selection = false">Back</button>
+        <button *ngIf="is_slot_selection" type="button" (click)="submit()"
+          [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+          class="btn" data-dismiss="modal" aria-label="Close">{{'Proceed' | translate}}</button>
+
+        <button *ngIf="!is_slot_selection" type="button" (click)="getSlots(); is_slot_selection = true;"
+          [ngStyle]="{'backgroundColor': style.primaryColor, 'borderColor': style.primaryColor, 'color': '#ffffff'}"
+          class="btn">{{ 'Select Slot' | translate}}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+<div class="new-top-header" [style.background-color]="setBackgroundColor()"
+  [style.border-bottom]="settings?.header_theme == 2 ? '0px' : ''">
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-6 new-top-header-left col-8">
+        <!------- App Location ------->
+        <app-location
+          *ngIf="(settings?.header_theme == 0 || settings?.header_theme == 2) && (settings?.selected_template != 2)"
+          [settings]="settings">
+        </app-location>
+        <!---------------------------->
+
+        <a *ngIf="settings?.header_theme == 1" class="navbar-brand"
+          [ngClass]="router.url === '/' ? 'default-pointer' : 'pointer'" routerLink="/">
+          <app-logo [width]="'auto'" [height]="'50'" [logoColor]="style.primaryColor" [logoPadding]="'10'">
+          </app-logo>
+        </a>
+      </div>
+
+      <!-- <div class="col-md-6">
+         <div class="func-list ml-auto">
+          <app-function-list *ngIf="settings?.header_theme == 1" [showSearchbar]="showSearchbar" [loggedIn]="loggedIn"
+            [userData]="userData" [style]="style" [settings]="settings" [openAuth]="openAuth"
+            (searchBar)="searchBar.emit($event)" (triggerAuthModal)="triggerAuthModal.emit($event)"
+            (authType)="authType.emit($event)">
+          </app-function-list>
+        </div>
+        <div class="">
+        </div>
+      </div> -->
+
+      <div class="col-md-6 headerrit col-4" *ngIf="settings?.show_barcode">
+        <img class="bar_code_img" width="150"
+          src="https://internationalbarcodes.com/wp-content/uploads/sites/95/2013/09/07-EAN-13-Standard-1.jpg">
+      </div>
+
+      <div class="col-md-6 headerrit col-4" *ngIf="settings?.secondary_language != 0">
+        <ul class="new-top-header-right">
+          <h3 [style.color]="style?.topHeaderTextColor || style?.headerTextColor">{{'Language' | translate}}</h3>
+          <li class="nav-item dropdown language-dropdown">
+            <a class="nav-link dropdown-toggle" style="cursor: pointer;"
+              [style.backgroundColor]="style.footerSecColor || style.topHeaderBackgroundColor || style.headerBackgroundColor"
+              data-toggle="dropdown" id="navbarDropdown"
+              [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+              <!-- <img *ngIf="!!selectedLang?.country_code"
+                [src]="'https://www.countryflags.io/' + selectedLang?.country_code + '/flat/16.png'"> -->
+              {{selectedLang?.language_name | translate}}
+              <i class="fa fa-caret-down" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu drop-menu">
+              <span *ngFor="let lang of langData">
+                <a class="dropdown-item pd" (click)="languageSelect(lang)"
+                  [style.backgroundColor]="style.footerSecColor || style.topHeaderBackgroundColor || style.headerBackgroundColor"
+                  [style.color]="style?.topHeaderTextColor || style?.headerTextColor">
+                  <!-- <img *ngIf="!!selectedLang?.country_code"
+                    [src]="'https://www.countryflags.io/' + lang?.country_code + '/flat/16.png'"> -->
+                  {{lang?.language_name | translate}}
+                </a>
+              </span>
+            </div>
+          </li>
+        </ul>
+
+
+        <!-- <label class='toggle-label' *ngIf="settings?.app_type !== 2">
+          <input type='checkbox' [(ngModel)]="is_dark" (change)="themeChange(is_dark)" />
+          <span class='back'>
+            <span class='toggle'></span>
+            <span class='label on'>{{'Light' | translate}}</span>
+            <span class='label off' style="padding: 0;">{{'Dark' | translate}}</span>
+          </span>
+        </label> -->
+      </div>
+      <div class="col-md-6 headerrit" *ngIf="settings?.secondary_language == 0">
+        <ul class="new-top-header-right" *ngIf="settings?.header_theme == 2">
+          <li class="welcome_note" [style.color]="style?.topHeaderTextColor || style?.headerTextColor"><b>Order Now :
+              13300022</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

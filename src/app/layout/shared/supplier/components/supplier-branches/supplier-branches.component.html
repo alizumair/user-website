@@ -1,0 +1,52 @@
+<!-- <ng-container [ngSwitch]="settings?.app_type">
+
+  <ng-template [ngSwitchCase]="1">
+
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="8">
+
+  </ng-template>
+
+</ng-container> -->
+
+
+<section [style.margin-top.px]="settings?.selected_template == 1 ? '10' : '30'">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="spechil-offer" style="background-color: transparent; padding-top: 0px;">
+          <div class="row" *ngIf="showData">
+            <div class="col-md-12">
+              <h2 [style.color]="style?.baseColor">
+                {{'Choose' | translate}}
+                {{'Branch' | translate}}</h2>
+            </div>
+          </div>
+          <hr>
+
+          <div class="row">
+            <div [ngClass]="settings?.selected_template == 1 ? 'col-md-6' : 'col-md-3'"
+              *ngFor="let branch of branches | paginate: { itemsPerPage: pagination.perPage, currentPage: pagination.currentPage, totalItems: branches.length }; let i = index;">
+              <app-supplier [supplier]="branch" [settings]="settings" [style]="style" [isBranch]="isBranch">
+              </app-supplier>
+            </div>
+          </div>
+
+          <ng-template #skeleton2>
+            <div [ngClass]="settings?.selected_template == 1 ? 'col-md-6' : 'col-md-3'"
+              *ngFor="let offer of util.generateFakeList(6)">
+              <app-supplier-skeleton [settings]="settings" [style]="style"></app-supplier-skeleton>
+            </div>
+          </ng-template>
+        </div>
+
+        <div class="custom-pagination mt-4" *ngIf="branches.length > pagination.perPage">
+          <pagination-controls [style.color]="style.primaryColor" previousLabel="Prev" nextLabel="Next"
+            (pageChange)="pagination.currentPage = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

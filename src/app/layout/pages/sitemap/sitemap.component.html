@@ -1,0 +1,52 @@
+<section>
+    <div class="container pt-5">
+        <h5 class="mb-3">{{siteName}} Sitemap</h5>
+
+        <div class="row">
+            <div class="col-md-3">
+                <a [href]="domain + '/terms-and-conditions'">Terms and Conditions</a>
+            </div>
+            <div class="col-md-3">
+                <a [href]="domain + '/privacy-policy'">Privacy Policy</a>
+            </div>
+            <div class="col-md-3">
+                <a [href]="domain + '/about'">About</a>
+            </div>
+            <div class="col-md-3">
+                <a [href]="domain + '/faq'">FAQ</a>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <h6 *ngIf="categories.length">{{'categories' | localization}}</h6>
+                <ul>
+                    <li *ngFor="let category of categories">
+                        <span>{{category?.name}}</span>
+                        <a class="view" [href]="category?.link">
+                            <small>View {{'suppliers' | localization}}</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-1"></div>
+
+            <div class="col-md-4">
+                <h6 *ngIf="suppliers.length">{{'suppliers' | localization}}</h6>
+                <ul>
+                    <li *ngFor="let supplier of suppliers">
+                        <span>{{supplier?.name}}</span>
+                        <a class="view" [href]="supplier?.link">
+                            <small>View {{'products' | localization}}</small>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <div [innerHTML]="sitemap"></div> -->

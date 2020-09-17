@@ -1,0 +1,33 @@
+<div class="container">
+    <section
+        *ngIf="settings.dynamic_home_section == 1 && settings.descriptionSections && settings.descriptionSections.length"
+        class="">
+        <div class="white-area-div">
+            <!-- <h2 class="heading">Our Service Process</h2> -->
+            <div class="row">
+                <div [ngClass]="settings.descriptionSections.length > 3 ? 'col-md-3' : 'col-md-4'" *ngFor="let service of settings.descriptionSections">
+                    <img appImage [url]="service.image" [size]="'500x500'" [src]="service.image"
+                        onError="src = './assets/images/placeholder_image.svg';">
+
+                    <h4>{{service?.title}}</h4>
+                    <p>{{service?.description}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="download-app-div">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>{{'download_app_text' | localization | translate}}</h2>
+                <a target="_blank" [href]="appLink?.ios"><span class="download-img"><img
+                            src="assets/images/app_store.png"></span></a>
+                <a target="_blank" [href]="appLink?.android"><span class="download-img"><img
+                            src="assets/images/google_play.png"></span></a>
+            </div>
+            <div class="col-md-6">
+                <img src="assets/images/phone2.png">
+            </div>
+        </div>
+    </div>
+</div>

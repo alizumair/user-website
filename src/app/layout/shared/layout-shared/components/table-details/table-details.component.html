@@ -1,0 +1,21 @@
+<ng-container>
+    <div class="price_details"
+        [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor }">
+
+        <p> <span (click)="removeTableBooking()">
+                Remove table booking
+            </span>
+        </p>
+        <ul [style.color]="style.baseColor" class="b-n">
+            <li>Table Id <span>:
+                    {{ tableDetails?.table_id || 'N/A' }}</span>
+            </li>
+            <!-- <li>Table Booking Id <span>:
+                    {{ tableDetails?.table_request_id || 'N/A' }}</span>
+            </li> -->
+            <li>Table Name <span>:
+                    {{ tableDetails?.table_name || 'N/A' }}</span>
+            </li>
+        </ul>
+    </div>
+</ng-container>

@@ -1,0 +1,82 @@
+<div class="modal-content">
+    <div class="modal-header" style="margin-bottom: 12px;">
+        <h5 class="modal-title">{{'prescription_value' | localization}} {{'Upload' | translate}}</h5>
+        <button type="button" class="close" (click)="close()" aria-label="Close">
+            <!-- <span aria-hidden="true">&times;</span> -->
+        </button>
+    </div>
+
+    <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()" autocomplete="off" style="position: relative;">
+
+        <div class="modal-body" style="border-top: 1px solid rgba(0, 0, 0, 0.333); padding: 0px; padding-top: 12px;">
+
+            <div class="presription-image-upload">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="add-image" (click)="fileInput.click()">
+                                <div *ngIf="!image" class="dummy">
+                                    <img src="/assets/images/add.png">
+                                    <p>{{'Please Select Image' | translate}}</p>
+                                </div>
+                                <div class="image" *ngIf="image">
+                                    <img [src]="image">
+                                </div>
+                                <input #fileInput type="file" accept="image/*" formControlName="file"
+                                    (change)="onImageSelect($event)">
+                            </div>
+                            <!-- <div class="spinner-imaeg" *ngIf="loading">
+                            <img src="/assets/images/spinner.svg">
+                        </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3" placeholder="Prescription Text"
+                                formControlName="prescription"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <h5>{{'Select Address' | translate}}</h5>
+                    </div>
+                    <div class="col-3 Address_outter" *ngFor="let data of addressList; let i = index">
+                        <div class="default_address cursor" (click)="onAddressSelect(i)"
+                            [ngClass]="i == selectedAreaIndex ? 'active' : 'in-active'">
+                            <div class="ddress-inner" [style.color]="style.baseColor">
+                                <h2>{{ data?.name }}</h2>
+                                <address>
+                                    {{ data?.name }} <br *ngIf="data.name" />
+                                    {{ data?.address_line_1 }} <br />
+                                    {{ data?.customer_address }}, {{ data?.pincode }}
+                                </address>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div *ngIf="!addressList?.length" class="no-data">
+                            <h1>{{ "No Address Found" | translate }}</h1>
+                            <a [routerLink]="['/account/address/add-edit-address']">
+                                {{'click here to add address' | translate}} </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button type="submit" class="btn" (click)="onSubmit()"
+            [ngStyle]=" {'backgroundColor': style.primaryColor, color: '#ffffff', 'borderColor': style?.primaryColor}">Submit</button>
+    </div>
+
+    <div class="loader-pres" *ngIf="isLoading">
+        <div class="spinner-pres">
+            <img src="/assets/images/spinner.svg">
+        </div>
+    </div>
+</div>

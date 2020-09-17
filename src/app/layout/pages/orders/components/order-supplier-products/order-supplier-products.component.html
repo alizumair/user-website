@@ -1,0 +1,88 @@
+<ng-container [ngSwitch]="orderType">
+    <ng-template [ngSwitchCase]="1">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-12 ">
+                    <button class="btn cancel-order" (click)="onSubmit()" style="width: 140px;"
+                    [ngStyle]="{'border-color': style.primaryColor, 'color': style.baseColor}">{{'Submit' | translate}}
+                </button>
+                    <button class=" btn cancel-order" (click)="back()"
+                        [ngStyle]="{'border-color': style.primaryColor, 'color': style.baseColor}">{{'Back' | translate}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="categories-item-products" *ngFor="let data of products; let i = index" [id]=i>
+                <h4>{{data?.sub_cat_name}}</h4>
+                <div class="row" *ngIf="!data?.detailed_category_name?.length">
+                    <div class="col-md-6" *ngFor="let product of data?.value; let j = index">
+                        <app-product [product]="product" [settings]="settings" [style]="style" [loggedIn]="loggedIn"
+                            (add)="addProduct($event)" (remove)="removeProduct($event)">
+                        </app-product>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="data?.detailed_category_name && data?.detailed_category_name?.length">
+                    <ng-container *ngFor="let detail_cat of data?.detailed_category_name">
+                        <div class="col-md-12" *ngIf="detail_cat?.value.length">
+                            <h5>{{detail_cat?.name}}</h5>
+                            <div class="row">
+                                <div class="col-md-6" *ngFor="let product of detail_cat?.value; let j = index">
+                                    <app-product [product]="product" [settings]="settings" [style]="style"
+                                        [loggedIn]="loggedIn" (add)="addProduct($event)"
+                                        (remove)="removeProduct($event)">
+                                    </app-product>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+
+    <ng-template [ngSwitchCase]="8">
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-12 ">
+                    <button class=" btn cancel-order" (click)="onBack.emit(false)"
+                        [ngStyle]="{'border-color': style.primaryColor, 'color': style.baseColor}">{{'Back' | translate}}
+                    </button>
+                </div>
+            </div>
+
+            <div class="categories-item-products" *ngFor="let data of products; let i = index" [id]=i>
+                <h4>{{data?.sub_cat_name}}</h4>
+                <div class="row" *ngIf="!data?.detailed_category_name?.length">
+                    <div class="col-md-4" *ngFor="let product of data?.value; let j = index">
+                        <app-product [product]="product" [settings]="settings" [style]="style" [loggedIn]="true"
+                            (add)="onBookNow($event)" (remove)="removeProduct($event)" [state]="state">
+                        </app-product>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="data?.detailed_category_name && data?.detailed_category_name?.length">
+                    <ng-container *ngFor="let detail_cat of data?.detailed_category_name">
+                        <div class="col-md-12" *ngIf="detail_cat?.value.length">
+                            <h5>{{detail_cat?.name}}</h5>
+                            <div class="row">
+                                <div class="col-md-4" *ngFor="let product of detail_cat?.value; let j = index">
+                                    <app-product [product]="product" [settings]="settings" [style]="style"
+                                        [loggedIn]="true" (add)="onBookNow($event)" [state]="state"
+                                        (remove)="removeProduct($event)">
+                                    </app-product>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+        </div>
+    </ng-template>
+</ng-container>
+
+
+
+<app-processing-indicator *ngIf="isLoading"> </app-processing-indicator>

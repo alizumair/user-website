@@ -1,0 +1,13 @@
+<ng-container *ngIf="settings?.site_logo; then default else custom"></ng-container>
+
+<ng-template #default>
+    <img appImage [url]="settings?.site_logo" [size]="'600x400'" [src]="settings?.site_logo" [noCrop]="true"
+        style="object-fit: contain; width: 100%;" [style.height.px]="settings?.setlogoHeight ? settings?.logoHeight : height">
+</ng-template>
+
+<ng-template #custom>
+    <div class="custom-logo" [style.width.px]="width" [style.backgroundColor]="settings?.logo?.background"
+        [style.border-radius.px]=logoRadius>
+        <p [style.color]="logoColor" [style.padding.px]="logoPadding">{{logoText}}</p>
+    </div>
+</ng-template>

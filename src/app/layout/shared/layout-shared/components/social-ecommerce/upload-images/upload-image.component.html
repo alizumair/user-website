@@ -1,0 +1,30 @@
+<div class="price_details"
+    [ngStyle]="{'background-color': style.cardBackgroundColor, 'border-color': style.secondaryColor }">
+
+    <div class="cart-image-upload">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="add-image image" *ngIf="!loading" (click)="fileInput.click()">
+                    <img src="/assets/images/add.png">
+                    <input #fileInput type="file" accept="image/*" (change)="onImageSelect($event)">
+                </div>
+                <div class="spinner-imaeg" *ngIf="loading">
+                    <img src="/assets/images/spinner.svg">
+                </div>
+            </div>
+
+            <div class="col-md-3" *ngFor="let image of images; let i = index;">
+                <div class="image">
+                    <img [src]="image" onError="src = './assets/images/placeholder_image.svg';">
+                    <i class="remove fa fa-times-circle" (click)="removeImage(i)"></i>
+                </div>
+            </div>
+
+            <div *ngIf="!images.length" class="col-md-9 count">
+                <p [style.color]="style?.baseColor">{{'Upload Images' |translate}}</p>
+            </div>
+
+        </div>
+    </div>
+
+</div>

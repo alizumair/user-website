@@ -1,0 +1,112 @@
+<div class="cust">
+  <ng-container *ngIf="view === 'customize'; then customize else quantity"></ng-container>
+  <ng-template #customize>
+    <div class="addon-header">
+        <a style="margin-left: 15px; position:relative; bottom: 5px; float: none; transform: scale(1.2); opacity: 0.5;" href="javascript:void(0)" class="" (click)="close(false)">&times;</a>
+
+      <h4 style="margin-left: 25px; display: inline; padding: 0px; position: relative; bottom:5px;">{{product?.name}}</h4>
+      <span></span>
+    </div>
+    <form>
+      <div class="addonnscroll" [style.height]="'100%'">
+        <div *ngFor="let item of addOnItems; let i = index">
+          <div *ngIf="item.value && item.value.length && item.value[0]['is_multiple'] == 0" class="form-group rad">
+            <h3>Choice of {{item.name}}</h3>
+            <div *ngFor="let type of item.value">
+              <label>
+                <input type="radio" [checked]="type.isSelected" [value]="type.name"
+                  (click)="singleSelection(type, item)" name="{{'name' + i}}">
+                <span></span><p style="position: relative; top: 5px; width:80%;">{{type?.type_name}}</p>
+                <strong style=" position: absolute; right:10px; margin-top:5px;" *ngIf="type.price != 0">+{{currency}}{{type.price | number : '1.2-2'}}</strong>
+              </label>
+            </div>
+          </div>
+
+
+          <div *ngIf="item.value && item.value.length && item.value[0]['is_multiple'] == 1" class="form-group check">
+            <h3>Choice of {{item.name}}</h3><br>
+            <p *ngIf="item.addon_limit != 0 && siteName != 'ZipEats'" class="max-option">You can select maximum
+              {{item.addon_limit}} option's
+            </p>
+            <p *ngIf="item.addon_limit != 0 && siteName == 'ZipEats'" class="max-option">Please Select Multiple option
+              (Min-{{item.value[0].min_adds_on}} Max- {{item.value[0].max_adds_on}})
+            </p>
+            <div *ngFor="let type of item.value" class="row">
+              <div class="col-md-8">
+                <label [style.color]="type.is_default == '1' ? '#9d9595' : ''">
+                  <input type="checkbox" [checked]="type.isSelected" name="{{'name' + i}}"
+                    [disabled]="(item.addon_limit != 0 && !type.isSelected && item.addon_limit == item.selectedCount) || (siteName == 'ZipEats' && type.is_default == '1')"
+                    (change)=" multiSelection($event.target.checked, type, item)">
+                  <span></span><p style="position: relative; top: 5px; width:80%;">{{type?.type_name}}</p>
+                  <strong style=" position: absolute; right:10px; margin-top:5px;" *ngIf="type.price != 0" [style.color]="type.is_default == '1' ? '#9d9595' : ''"> 
+                    +{{currency}}{{(type?.price * 1).toFixed(settings?.price_decimal_length)}}</strong>
+                </label>
+              </div>
+              <div class="col-md-4">
+                <p class="selector"
+                  *ngIf="type.isSelected && type.is_default == '0' && settings?.addon_type_quantity == 1">
+                  <button (click)="selectCounter(false, type, item)" [disabled]="type.adds_on_type_quantity == 1">
+                    <i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i>
+                  </button>&nbsp;&nbsp;
+                  <strong>{{type.adds_on_type_quantity}}</strong>&nbsp;&nbsp;
+                  <button (click)="selectCounter(true, type, item)"
+                    [disabled]="type.adds_on_type_quantity == type.quantity || type.adds_on_type_quantity == type.max_adds_on || item.selectedCount == type.max_adds_on">
+                    <i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i>
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btm">
+        <h4>{{currency}} {{customizePrice.toFixed(settings?.price_decimal_length)}}</h4>
+        <div class="btns">
+      <a  href="javascript:void(0)" class="" (click)="close(false)">
+          <button  type="button"
+            [style.backgroundColor]="style.primaryColor">Back</button>
+      </a>
+
+          
+          <button type="button" [style.backgroundColor]="style.primaryColor"
+            (click)="addToCart()">{{'Proceed' | translate}}</button>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+
+  <ng-template #quantity>
+    <div class="addon-header">
+      <h4>{{product?.name}}</h4>
+    </div>
+    <form>
+      <div class="addonnscroll">
+        <div class="form-group cstold" *ngFor="let item of product.customization">
+
+          <div class="customize-item">
+            <h3>{{product.name}}</h3>
+            <div class="price-div">
+              <span>{{currency}} {{getCustomePrice(item)  }} </span>
+              <app-quantity-buttons [style]="style" [selectedQuantity]="item?.quantity" [settings]="settings"
+                (onAdd)="updateQuantity(item.id, 1)" (onRemove)="updateQuantity(item.id, -1)"></app-quantity-buttons>
+            </div>
+          </div>
+          <p class="capitalize">{{getCustomDetail(item)}}</p>
+        </div>
+        <div class=" customizeButton">
+        </div>
+      </div>
+      <div class="btm">
+        <h4>{{currency}} {{totalPrice.toFixed(settings?.price_decimal_length)}}</h4>
+        <div class="btns">
+          <button type="button" [style.backgroundColor]="style.primaryColor" (click)="view = 'customize'">
+            {{'Customization' | translate}} </button>
+          <button type="button" [style.backgroundColor]="style.primaryColor"
+            (click)="close()">{{'Proceed' | translate}}</button>
+        </div>
+
+      </div>
+    </form>
+
+  </ng-template>
+</div>

@@ -1,0 +1,29 @@
+
+.dialog-close-button {
+    display: block;
+    margin-top: -35px;
+}
+
+label {
+    color: var(--baseColor);
+}
+
+.log-error {
+    font-size: 11px;
+    color: #e32a2a;
+    text-align: left; 
+    margin-bottom: 0px;
+    margin-top: 0px; 
+}
+
+
+button {
+    background-color: var(--primaryColor) !important;
+    border-color: var(--primaryColor) !important;
+    color: #ffffff;
+    float: right;
+}
+
+button:hover {
+    color: #ffffff;
+}
